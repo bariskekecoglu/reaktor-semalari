@@ -27,7 +27,9 @@ Bağımlılıklar yalnızca `react`, `react-dom` ve geliştirme araçlarıdır (
 - **Adım adım anlatım**: her reaktör için ayrı ders akışı, önceki/sonraki.
 - **Karşılaştırma görünümü**: üç farklı mini şema + karşılaştırma tablosu.
 - **Kontroller**: oynat/duraklat, sıfırla, 0.5×/1×/2× hız, %20–100 “Eğitim senaryosu: göreli güç”, etiketleri/akış işaretlerini göster-gizle, çekirdek yakın planı, yakınlaştırma/sığdırma/sürükleyerek kaydırma.
-- **Grafikler**: enerji dönüşümü (nükleer → ısı → buhar → mekanik → elektrik + atılan ısı) ve son 60 simülasyon saniyesinin zaman grafiği.
+- **Grafikler**: enerji dönüşümü (nükleer → ısı → buhar → mekanik → elektrik; buhar ayrıca kondenserde atılan ısıya ayrılır; güç değişirken ayrı, işaretli “depolama hızı” göstergesi) ve son 60 simülasyon saniyesinin zaman grafiği.
+- **Yakın plan penceresi**: yerel `<dialog>` + `showModal()`; arka plan fare ve klavyeye kapalı, Tab/Shift+Tab pencere içinde döner, Esc ve Kapat ile kapanır, odak açan kontrole döner, sayfa kaydırması konumu korunarak kilitlenir.
+- **VVER boruları**: yatay buhar üretecindeki her U borusu sıcak kolektörden çıkıp soğuk kolektörde biter; boru çizimi ve parçacık yolu aynı tanımdan (`src/reactors/vver/hsgGeometry.ts`) üretilir. Yan görünüşte borunun öteki kolektörün arkasından geçtiği kısım kesikli çizilir (temsili sadeleştirme).
 - **Arayüzde “Kaynaklar ve varsayımlar”** bölümü (sayfa altı).
 - Mobilde yan panel alta iner, şema kendi alanında kaydırılır; sayfada yatay taşma yoktur. `prefers-reduced-motion` açıksa animasyon duraklatılmış başlar.
 
@@ -58,7 +60,12 @@ src/
 
 - Değerler **nominal ısıl güce göre normalize** edilmiş temsili oranlardır; MW, sıcaklık veya basınç hesabı yapılmaz.
 - Isıl güç hedefe birinci dereceden gecikmeyle (τ ≈ 5 s), buhar/elektrik ek gecikmeyle (τ ≈ 2 s) yaklaşır. Doğrulanmış bir nötron kinetiği veya termal-hidrolik model **değildir**.
-- Çevrim verimi sabit **%33** (ders notları: LWR ısı çevrimi ≈ %33). Her an `ısıl = elektrik + atılan ısı`.
+- Çevrim verimi sabit **%33** (ders notları: LWR ısı çevrimi ≈ %33): `elektrik = buhar × 0,33`.
+- Enerji hesabı (temsili, doğrulanmış bir termodinamik model değildir):
+  - `atılan ısı (kondenser) = buhar − elektrik`
+  - `depolama hızı = ısıl − buhar`
+  - Her adımda `buhar = elektrik + atılan ısı` ve `ısıl = elektrik + atılan ısı + depolama hızı`.
+  - Depolama hızı bir enerji miktarı değil, nominal güce göre değişim hızıdır. **Pozitif**: sistemde enerji birikiyor (güç artışı). **Negatif**: depolanmış enerji geri veriliyor (güç düşüşü). Kararlı durumda ≈ 0. Bu nedenle `ısıl = elektrik + atılan ısı` yalnız kararlı durumda geçerlidir.
 - Kontrol çubuğu konumu güçle doğrusal eşlenmez: dengedeki konum güce zayıf/doğrusal olmayan biçimde bağlıdır, güç değişirken geçici sapma eklenir.
 - Türbin mili şebekeye senkron kabul edilir; elektrik gücü devirle eşlenmez, mil animasyonu sabit hızdadır.
 - PWR/VVER birincil debisi sabit; buhar ve besleme suyu debisi güçle artar. BWR’de çekirdek akışı güçle değişir (devridaim ile güç ayarı).
@@ -74,15 +81,17 @@ Bu sürümde yapılan kontroller:
 | --- | --- |
 | `npm run typecheck` (strict) | Geçti |
 | `npm run build` | Geçti |
-| `npm test` — 30 birim testi (saat, model, reducer, yapılandırmalar, akış yardımcıları) | Geçti |
+| `npm test` — 39 birim testi (saat, model ve enerji dengesi, reducer, yapılandırmalar, akış yardımcıları, VVER boru geometrisi) | Geçti |
 | Saat: duraklatma, devamda sıçrama olmaması, hız, tek döngü | Birim testinde sahte rAF kareleriyle doğrulandı |
 | Tarayıcıda animasyonun ilerlemesi (güç değişiminde model ve grafik güncelleniyor) | Doğrulandı |
 | 20 kez reaktör değişimi sonrası saat abone sayısı aynı (25 → 25), tek döngü | Doğrulandı |
 | Sıfırla: zaman 0, grafik geçmişi tek nokta, güç %100 | Doğrulandı |
-| Güç %50: ısıl/elektrik gecikmeli düşüş, ısıl = elektrik + atılan ısı | Doğrulandı |
+| Güç %100 → %20 → %100 (tarayıcıda, gerçek zamanlı): buhar = elektrik + atılan ısı; düşüşte depolama hızı negatif (sola çubuk), artışta pozitif (sağa çubuk); negatif boyutlu SVG öğesi yok | Doğrulandı |
+| VVER ana sahne, yatay buhar üreteci yakın planı ve karşılaştırma çizimi: tüm akış parçacıkları boru çizgisinin ya da kolektörün içinde (`isPointInStroke` ile ölçüldü; 122 / 262 / 46 parçacık, dışarıda 0) | Doğrulandı |
+| Yakın plan modalı (PWR ve VVER gerçek tuşlarla, BWR betikle): açılınca odak Kapat'ta, Tab/Shift+Tab içeride kalıyor, arka plan tıklanamıyor, Esc ve Kapat kapatıyor, odak açan düğmeye dönüyor, sayfa kaydırması korunuyor; mobilde pencere ekrana sığıyor | Doğrulandı |
 | Ekipman seçimi (fare ve Tab + Enter), vurgulama/soluklaştırma, Esc ile yakın planı kapatma | Doğrulandı |
 | Üç sahne, tüm yakın planlar, ders akışı, karşılaştırma görünümü | Ekran görüntüleriyle incelendi |
 | Mobil (375 px): sayfada yatay taşma yok, yan panel altta | Doğrulandı |
 | Konsol hatası | Görülmedi |
 
-Doğrulanamayanlar: tarayıcı paneli test sırasında arka plana alındığı için `requestAnimationFrame` durdu; bu yüzden duraklat/devam/hız davranışı tarayıcıda gerçek zamanlı ölçülemedi. Bu davranış birim testinde sahte kare zamanlarıyla doğrulandı. Ekran okuyucu ile manuel test yapılmadı.
+Doğrulanamayanlar: ilk sürümde tarayıcı paneli arka plana alındığı için duraklat/devam/hız davranışı tarayıcıda gerçek zamanlı ölçülemedi; bu davranış birim testinde sahte kare zamanlarıyla doğrulandı. Yakın plan açıkken açan kontrolün sayfadan kaldırılması durumu (yedek odak noktası) tarayıcıda denenmedi; arayüzde bu durumu oluşturan bir akış yok. Ekran okuyucu ile manuel test yapılmadı.

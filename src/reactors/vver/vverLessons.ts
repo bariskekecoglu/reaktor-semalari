@@ -1,4 +1,5 @@
 import type { LessonStep } from '../shared/types';
+import { HSG_FLOW_IDS } from './hsgGeometry';
 
 export const vverLessons: LessonStep[] = [
   {
@@ -14,7 +15,7 @@ export const vverLessons: LessonStep[] = [
   {
     title: '3. Yatay buhar üreteci',
     text: 'Sıcak kolektörden yatay U borularına dağılan birincil su ısısını boru duvarından verir ve soğuk kolektörde toplanır. Gövde tarafındaki ikincil su kaynar; akışkanlar karışmaz.',
-    highlight: ['hsg', 'collector-hot', 'collector-cold', 'f-sg-left', 'f-sg-right'],
+    highlight: ['hsg', 'collector-hot', 'collector-cold', ...HSG_FLOW_IDS],
   },
   {
     title: '4. İkincil çevrim',

@@ -4,24 +4,17 @@ import { Flow } from '../shared/flow/Flow';
 import { TurbineGenerator } from '../shared/equipment/TurbineGenerator';
 import { Condenser, CoolingSource } from '../shared/equipment/Condenser';
 import { GridLink, Pump } from '../shared/equipment/Pump';
-import { Bubbles, HeatPulse, RodGroup } from '../shared/equipment/animated';
+import { Bubbles, RodGroup } from '../shared/equipment/animated';
+import { HSG_FLOW_IDS, MAIN_LOOP_COUNT, type HsgLayout } from './hsgGeometry';
+import { HsgHiddenSegments, HsgTubes, type HsgTubeLoop } from './HsgTubes';
 
 const SHELL = 'M430 250 H630 A50 50 0 0 1 630 350 H430 A50 50 0 0 1 430 250 Z';
-const TUBE_ROWS = [304, 310, 316, 322, 328, 334, 340];
-
-/** Yatay boru demeti: her satır çifti iki uçta U dönüşüyle bağlanır. */
-function TubeBundle() {
-  const parts = [];
-  for (let i = 0; i < TUBE_ROWS.length - 1; i += 2) {
-    const a = TUBE_ROWS[i];
-    const b = TUBE_ROWS[i + 1];
-    const r = (b - a) / 2;
-    parts.push(<path key={`l${i}`} className="h-tube" d={`M500 ${a} H${414} A${r} ${r} 0 0 0 414 ${b} H500`} />);
-    parts.push(<path key={`r${i}`} className="h-tube" d={`M560 ${a} H${646} A${r} ${r} 0 0 1 646 ${b} H560`} />);
-  }
-  parts.push(<path key="mid" className="h-tube" d="M500 340 H560 M500 304 H560" />);
-  return <>{parts}</>;
-}
+/** Yatay buhar üreteci: kolektör konumları ve temsili U boru döngüleri (sıcak → soğuk kolektör). */
+const HSG: HsgLayout = { hotX: 490, coldX: 570, colW: 22, bottom: 368 };
+const HSG_LOOPS: HsgTubeLoop[] = Array.from({ length: MAIN_LOOP_COUNT }, (_, k) => k).flatMap((k) => [
+  { id: k === 0 ? 'f-sg-left' : `f-sg-left-${k + 1}`, side: 'left' as const, yOut: 302 + 8 * k, yRet: 342 - 8 * k, bendX: 420 + 8 * k },
+  { id: k === 0 ? 'f-sg-right' : `f-sg-right-${k + 1}`, side: 'right' as const, yOut: 302 + 8 * k, yRet: 342 - 8 * k, bendX: 640 - 8 * k },
+]);
 
 /**
  * VVER sahnesi — PWR ailesinden, yatay buhar üreteçli temsili tek çevrim.
@@ -97,7 +90,7 @@ export function VverScene({ showLabels, showFlow }: SceneProps) {
       </Hotspot>
 
       {/* ---------- Yatay buhar üreteci ---------- */}
-      <Hotspot id="hsg" contains={['f-sg-left', 'f-sg-right']}>
+      <Hotspot id="hsg" contains={HSG_FLOW_IDS}>
         <path className="sg-shell" d={SHELL} />
         <g clipPath="url(#vver-shell-clip)">
           <rect className="secondary-water" x="380" y="290" width="300" height="62" />
@@ -105,10 +98,6 @@ export function VverScene({ showLabels, showFlow }: SceneProps) {
         <line className="level" x1="386" x2="674" y1="290" y2="290" />
         {/* Panjur tipi nem ayırıcı */}
         <path className="dryer" d="M420 266 l10 7 l10 -7 l10 7 l10 -7 l10 7 l10 -7 l10 7 l10 -7 l10 7 l10 -7 l10 7 l10 -7 l10 7 l10 -7 l10 7 l10 -7 l10 7 l10 -7 l10 7 l10 -7 l10 7 l10 -7" />
-        <HeatPulse>
-          <path className="u-tube-glow" d="M414 304 H646 M414 340 H646" />
-        </HeatPulse>
-        <TubeBundle />
         {/* Besleme suyu dağıtıcısı */}
         <line className="pipe-wall" x1="520" y1="296" x2="678" y2="296" strokeWidth={4} />
         {[470, 530, 590].map((x) => (
@@ -117,8 +106,8 @@ export function VverScene({ showLabels, showFlow }: SceneProps) {
         <rect className="nozzle feed" x="676" y="292" width="10" height="12" />
       </Hotspot>
       <Bubbles x={404} y={292} w={252} h={54} count={26} showFlow={showFlow} speed={18} />
-      <Flow id="f-sg-left" d="M490 366 V304 H414 A18 18 0 0 0 414 340 H570 V366" kind="grad" pipe={0} speed={50} spacing={18} scale="constant" showFlow={showFlow} r={2.6} />
-      <Flow id="f-sg-right" d="M490 366 V316 H646 A12 12 0 0 1 646 340 H570 V366" kind="grad" pipe={0} speed={50} spacing={18} scale="constant" showFlow={showFlow} r={2.6} />
+      {/* U boruları: çizim ve parçacık yolu aynı tanımdan; kolektörlerden önce çizilir. */}
+      <HsgTubes layout={HSG} loops={HSG_LOOPS} showFlow={showFlow} />
       <Flow id="f-feed-int" d="M684 296 H524" kind="feed" pipe={0} speed={30} spacing={16} showFlow={showFlow} r={2.2} />
       {[470, 530, 590].map((x, i) => (
         <Flow key={x} id={`f-sg-steam-${i + 1}`} d={`M${x} 288 V212`} kind="steam" pipe={0} speed={30} spacing={20} showFlow={showFlow} r={2.8} />
@@ -131,6 +120,7 @@ export function VverScene({ showLabels, showFlow }: SceneProps) {
       <Hotspot id="collector-cold" pad={2}>
         <rect className="collector cold" x="559" y="262" width="22" height="110" rx="4" />
       </Hotspot>
+      <HsgHiddenSegments layout={HSG} loops={HSG_LOOPS} />
 
       {/* Soğuk kol (alt kot) + ana sirkülasyon pompası */}
       <Hotspot id="coldleg" pad={2} contains={['f-crossleg', 'f-coldleg']}>

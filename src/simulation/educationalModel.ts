@@ -28,8 +28,14 @@ export interface ModelSnapshot {
   steam: number;
   /** Göreli elektrik çıkışı. */
   electric: number;
-  /** Kondenserden soğutma suyuna aktarılan göreli ısı (= ısıl − elektrik). */
+  /** Kondenserden soğutma suyuna atılan göreli ısı akışı (= buhar − elektrik). */
   rejected: number;
+  /**
+   * Depolama/boşalma hızı (= ısıl − buhar). Bir enerji miktarı değil, normalize güç
+   * (enerji değişim hızı) değeridir. Pozitif: sistemde enerji birikiyor (güç artışı);
+   * negatif: depolanmış enerji sisteme geri veriliyor (güç düşüşü). Kararlı durumda ≈ 0.
+   */
+  storageRate: number;
   /** Kontrol çubuğu sokulma oranı 0–1 (temsili, güçle doğrusal değil). */
   rodInsertion: number;
 }
@@ -70,6 +76,7 @@ export class EducationalModel {
       steam: p,
       electric,
       rejected: p - electric,
+      storageRate: 0,
       rodInsertion: equilibriumRod(p),
     };
   }
@@ -103,8 +110,10 @@ export class EducationalModel {
       thermal,
       steam,
       electric,
-      // Enerji dengesi: ısıl = elektrik + soğutmaya aktarılan (geçişteki depolanan enerji dahil).
-      rejected: thermal - electric,
+      // Enerji dengesi (temsili): buhar = elektrik + atılan ısı;
+      // ısıl = elektrik + atılan ısı + depolama hızı.
+      rejected: steam - electric,
+      storageRate: thermal - steam,
       rodInsertion,
     };
     this.time += dt;

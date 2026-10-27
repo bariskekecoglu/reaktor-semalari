@@ -540,15 +540,21 @@ input[type='range'] {
 }
 
 /* ---------- Yakın plan ---------- */
-.detail-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 5;
-  background: rgba(246, 243, 236, 0.86);
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 18px;
+.detail-dialog {
+  padding: 0;
+  border: none;
+  background: transparent;
+  width: min(880px, calc(100vw - 24px));
+  max-width: none;
+  max-height: calc(100vh - 24px);
+  overflow: visible;
+}
+.detail-dialog::backdrop {
+  background: rgba(38, 38, 42, 0.45);
+}
+.detail-dialog .detail-box {
+  width: 100%;
+  max-height: calc(100vh - 24px);
 }
 .detail-box {
   background: var(--paper);
@@ -1381,4 +1387,48 @@ table.compare-table {
 .detail-svg,
 .scene-svg {
   overflow: hidden;
+}
+
+/* VVER yatay buhar üreteci boruları */
+.hsg-tubes {
+  pointer-events: none;
+}
+.h-tube-wall {
+  fill: none;
+  stroke: #6b5a62;
+}
+.h-tube-bore {
+  fill: none;
+  stroke: #f6e4ec;
+}
+.h-tube-hidden {
+  fill: none;
+  stroke: #4a3c43;
+  stroke-dasharray: 3 3;
+  pointer-events: none;
+}
+.collector {
+  fill-opacity: 0.8;
+}
+.ef-split {
+  stroke: var(--line);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 3;
+}
+.ef-store-axis {
+  stroke: #b9b3a5;
+  stroke-width: 2;
+}
+.ef-store-zero {
+  stroke: var(--line);
+  stroke-width: 1.5;
+}
+.ef-store-pos {
+  fill: #f08c5a;
+  stroke: var(--line);
+}
+.ef-store-neg {
+  fill: #9ec5ea;
+  stroke: var(--line);
+  stroke-dasharray: 3 2;
 }

@@ -1,4 +1,5 @@
 import type { ReactorConfig } from '../shared/types';
+import { HSG_FLOW_IDS } from './hsgGeometry';
 
 export const vverConfig: ReactorConfig = {
   id: 'vver',
@@ -37,7 +38,7 @@ export const vverConfig: ReactorConfig = {
       name: 'Yatay buhar üreteci',
       role: 'Birincil ısıyı ikincil devreye aktararak buhar üretir.',
       how: 'Birincil su boruların içinde, ikincil su gövde (kabuk) tarafındadır. Sıcak su sıcak kolektörden yatay U borularına dağılır, ısısını boru duvarından verip soğuk kolektörde toplanır. Gövde geniş bir buhar tamburu gibi çalışır; üstteki ayırıcılar nemi alır. Yatay düzen tortu temizliğini kolaylaştırır; doğal dolaşım itici yüksekliği dikey üreteçlere göre daha azdır (ders notları).',
-      related: ['f-sg-left', 'f-sg-right', 'collector-hot', 'collector-cold', 'f-sg-steam-1', 'f-sg-steam-2', 'f-sg-steam-3', 'f-feed-int'],
+      related: [...HSG_FLOW_IDS, 'collector-hot', 'collector-cold', 'f-sg-steam-1', 'f-sg-steam-2', 'f-sg-steam-3', 'f-feed-int'],
       detail: 'hsg',
     },
     {
@@ -45,7 +46,7 @@ export const vverConfig: ReactorConfig = {
       name: 'Sıcak kolektör',
       role: 'Sıcak kol suyunu yatay borulara dağıtır.',
       how: 'Dikey, kalın cidarlı bir silindirdir; boruların uçları kolektör duvarına bağlanır. Birincil su buradan borulara girer.',
-      related: ['f-hotleg', 'f-sg-left', 'f-sg-right', 'hsg'],
+      related: ['f-hotleg', ...HSG_FLOW_IDS, 'hsg'],
       detail: 'hsg',
     },
     {
@@ -53,7 +54,7 @@ export const vverConfig: ReactorConfig = {
       name: 'Soğuk kolektör',
       role: 'Borularda soğuyan birincil suyu toplar.',
       how: 'Borulardan dönen su bu kolektörde birleşir ve soğuk kol üzerinden pompaya gider.',
-      related: ['f-sg-left', 'f-sg-right', 'f-crossleg', 'hsg'],
+      related: [...HSG_FLOW_IDS, 'f-crossleg', 'hsg'],
       detail: 'hsg',
     },
     {
@@ -160,7 +161,7 @@ export const vverConfig: ReactorConfig = {
       id: 'collectors',
       label: 'Kolektör ve boru demeti',
       text: 'Sıcak kolektör → yatay U boruları → soğuk kolektör. Birincil su boruların içinde kalır; ikincil su boruların dışında kaynar. İki akışkan karışmaz.',
-      highlight: ['collector-hot', 'collector-cold', 'f-sg-left', 'f-sg-right', 'f-hotleg', 'f-crossleg'],
+      highlight: ['collector-hot', 'collector-cold', ...HSG_FLOW_IDS, 'f-hotleg', 'f-crossleg'],
       detail: 'hsg',
     },
     {

@@ -74,8 +74,9 @@ function MiniVver() {
       <rect x="40" y="70" width="3" height="40" className="control-rod" />
       <rect x="48" y="70" width="3" height="40" className="control-rod" />
       <path d="M95 110 H165 A18 18 0 0 1 165 146 H95 A18 18 0 0 1 95 110 Z" className="sg-shell" />
-      <line x1="85" x2="175" y1="134" y2="134" className="h-tube" />
-      <line x1="85" x2="175" y1="140" y2="140" className="h-tube" />
+      {/* Temsili U boruları: sıcak kolektörden çıkar, soğuk kolektöre döner */}
+      <path d="M112 128 H92 A7 7 0 0 0 92 142 H140" className="h-tube-wall" strokeWidth={2.5} />
+      <path d="M120 131 H164 A5.5 5.5 0 0 1 164 142 H148" className="h-tube-wall" strokeWidth={2.5} />
       <rect x="112" y="116" width="8" height="40" className="collector" />
       <rect x="140" y="116" width="8" height="40" className="collector cold" />
       <Arrow d="M60 120 H90 V160 H112" cls="hot" />

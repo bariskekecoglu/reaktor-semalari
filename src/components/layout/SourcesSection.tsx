@@ -43,6 +43,11 @@ export function SourcesSection() {
             <ul>
               <li>Tüm göstergeler nominal ısıl güce göre normalize edilmiş temsili değerlerdir; MW, sıcaklık veya basınç hesabı yapılmaz.</li>
               <li>Isıl güç hedefe birinci dereceden gecikmeyle (τ ≈ 5 s), buhar/elektrik ek gecikmeyle (τ ≈ 2 s) yaklaşır. Bu, doğrulanmış bir nötron kinetiği veya termal-hidrolik model değildir.</li>
+              <li>
+                Enerji hesabı (temsili): elektrik = buhar × %33; kondenserde atılan ısı = buhar − elektrik; depolama hızı = ısıl − buhar. Böylece her an buhar = elektrik + atılan ısı ve ısıl
+                = elektrik + atılan ısı + depolama hızı. Depolama hızı bir enerji miktarı değil, nominal güce göre değişim hızıdır: pozitifse sistemde enerji birikir (güç artışı), negatifse
+                depolanmış enerji geri verilir (güç düşüşü); kararlı durumda sıfırdır.
+              </li>
               <li>Kontrol çubuğu konumu güçle doğrusal eşlenmez: dengedeki konum güce zayıf ve doğrusal olmayan biçimde bağlıdır; güç değişirken geçici bir sapma eklenir.</li>
               <li>Akış işaretlerinin hızı, nötronların hareketi ve çizim boyutları ölçekli değildir. PWR/VVER birincil debisi sabit gösterilir; buhar ve besleme suyu debisi güçle artar.</li>
               <li>Kapsam normal çalışmadır; kaza senaryoları, güvenlik sistemleri ve işletme prosedürleri içermez.</li>
