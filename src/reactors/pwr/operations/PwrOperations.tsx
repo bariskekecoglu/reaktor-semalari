@@ -1,4 +1,5 @@
-import { useRef, useState, type KeyboardEvent } from 'react';
+import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
+import { useViewLayout } from '../../../hooks/useViewLayout';
 import type { OpsSectionId } from './types';
 import { ModesSection } from './components/ModesSection';
 import { HeatupSection } from './components/HeatupSection';
@@ -17,6 +18,16 @@ const SECTIONS: { id: OpsSectionId; label: string; ref: string }[] = [
   { id: 'controls', label: '6. Otomatik kontrol ilişkileri', ref: 's. 2-96' },
 ];
 
+function IntroText() {
+  return (
+    <p>
+          PWR’nin farklı işletme durumlarında neden farklı davrandığını, kaynak ders notlarının “2.5 PWR Reactor Operations” bölümüne (s. 2-88 – 2-101) dayanarak anlatır. Gerçek bir santralin
+          işletme prosedürü veya doğrulanmış kontrol simülatörü değildir. Rozetler bilginin türünü gösterir: <span className="src-badge pdf">PDF</span> doğrudan kaynakta,{' '}
+          <span className="src-badge figure">Şekilden yaklaşık okunmuş</span>, <span className="src-badge model">Temsili eğitim modeli</span>.
+    </p>
+  );
+}
+
 /**
  * PWR “İşletme ve Reaktör Davranışı” modülü. Yalnız PWR seçiliyken açılır; durumu santral sahnesinin
  * basit güç modelinden bağımsızdır. Bölüm değişince bölümün kendi durumu sıfırlanır (bileşen yeniden bağlanır).
@@ -24,6 +35,19 @@ const SECTIONS: { id: OpsSectionId; label: string; ref: string }[] = [
 export function PwrOperations() {
   const [active, setActive] = useState<OpsSectionId>('modes');
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
+  const narrow = useViewLayout().layout === 'narrow';
+
+  // Seçili sekme yatay kaydırılan sekme satırında her zaman görünür kalsın (sayfa dikeyde kaymaz).
+  useEffect(() => {
+    const i = SECTIONS.findIndex((s) => s.id === active);
+    const el = tabs.current[i];
+    const row = el?.parentElement;
+    if (!el || !row || row.scrollWidth <= row.clientWidth) return;
+    const left = el.offsetLeft - row.offsetLeft;
+    if (left < row.scrollLeft || left + el.offsetWidth > row.scrollLeft + row.clientWidth) {
+      row.scrollTo({ left: Math.max(0, left - 12), behavior: 'auto' });
+    }
+  }, [active, narrow]);
 
   const onKey = (e: KeyboardEvent<HTMLDivElement>) => {
     const i = SECTIONS.findIndex((s) => s.id === active);
@@ -41,12 +65,16 @@ export function PwrOperations() {
   return (
     <section className="ops" aria-label="PWR işletme ve reaktör davranışı">
       <div className="ops-intro">
-        <p>
-          PWR’nin farklı işletme durumlarında neden farklı davrandığını, kaynak ders notlarının “2.5 PWR Reactor Operations” bölümüne (s. 2-88 – 2-101) dayanarak anlatır. Gerçek bir santralin
-          işletme prosedürü veya doğrulanmış kontrol simülatörü değildir. Rozetler bilginin türünü gösterir: <span className="src-badge pdf">PDF</span> doğrudan kaynakta,{' '}
-          <span className="src-badge figure">Şekilden yaklaşık okunmuş</span>, <span className="src-badge model">Temsili eğitim modeli</span>.
-        </p>
+        {narrow ? (
+          <details className="ops-more">
+            <summary>Bu modül hakkında ve rozetlerin anlamı</summary>
+            <IntroText />
+          </details>
+        ) : (
+          <IntroText />
+        )}
       </div>
+
       <div className="ops-tabs" role="tablist" aria-label="Bölümler" onKeyDown={onKey}>
         {SECTIONS.map((s, i) => (
           <button

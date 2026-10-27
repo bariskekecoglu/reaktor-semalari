@@ -68,6 +68,32 @@ Kapsam dışı bırakılanlar: kaynaktaki vana/pompa işlem sıraları, güvenli
 
 Zamanlar: **senaryo saati** (fiziksel, saat), **gösterim hızı** (senaryo saati / simülasyon saniyesi) ve uygulamanın **ortak simülasyon saati** ayrıdır. Laboratuvar ortak saate abone olur; ayrı bir rAF döngüsü açmaz. Sayfadaki 60 saniyelik grafik kullanılmaz.
 
+## Görünüm: Otomatik / Mobil / Masaüstü
+
+Başlıktaki **Görünüm** seçicisi yalnız yerleşimi değiştirir; reaktörü, içerik görünümünü (Şema / Karşılaştırma / Öğrenme), PWR alt görünümünü, ders bölümünü, senaryoyu, senaryo saatini, gücü veya oynatma durumunu değiştirmez. İlk ziyarette zorunlu bir seçim ekranı yoktur; site **Otomatik** açılır.
+
+- **Tercih ve etkili yerleşim ayrıdır** (`src/app/viewPreference.ts`, `src/hooks/useViewLayout.ts`): `viewPreference` = `auto | mobile | desktop` (yalnız bu saklanır), `effectiveLayout` = `narrow | medium | wide` (her an hesaplanır). Kök öğede `data-view-preference` ve `data-layout` öznitelikleri vardır; CSS yerleşim kuralları bu özniteliklere bağlıdır, böylece medya sorguları elle seçilen tercihi ezmez.
+- **Otomatik eşikler** (kaydırma çubuğu dahil pencere genişliği; cihaz türü/user-agent tahmini yok):
+  - `< 768 px` → **dar**: santral sahnesi (viewBox 1400) ile 340 px yan panel yan yana sığmaz; bölüm sekmeleri ve kontroller tek satırda okunmaz. Tek sütun, kompakt gezinme, ≥ 44 px dokunma alanları.
+  - `768–1199 px` → **orta**: sahne ≥ 640 px ve yan panel ≥ 300 px sığıyorsa iki sütun (ör. 1280 px), sığmıyorsa esnek kutu paneli alta indirir (ör. 768 ve 1024 px).
+  - `≥ 1200 px` → **geniş**: büyük şema, yan panel ve yan yana grafikler.
+  Pencere boyutu veya ekran yönü değişince yerleşim yenilemesiz güncellenir; yalnız eşik geçilince yeniden çizim olur.
+- **Mobil**: her genişlikte kompakt, tek sütun; geniş ekranda içerik en fazla 640 px genişlikte ortalanır. Fare ve klavye de çalışır.
+- **Masaüstü**: her genişlikte yoğun düzen. Dar telefonda seçildiğinde ana alan ve PWR bölümleri esnek kutularla sarılır/alta iner; büyük görseller kendi alanlarında kayar, sayfa taşmaz.
+- **Dokunma alanı** yerleşimden bağımsızdır: `@media (pointer: coarse)` düğme, seçim kutusu ve kaydırıcılara 44 px yükseklik verir.
+- **Saklama**: `localStorage` anahtarı `reaktor-semalari:view-preference:v1`. Geçersiz/eski değerler `auto`ya düşer; depolama engellenirse tercih o oturumda bellekte tutulur. `index.html`’deki küçük betik kaydedilmiş tercihi ilk çizimden önce uygular (sıçrama olmaz).
+
+### Mobil ve tablet düzenlemeleri
+
+- PWR işletme modülü: 520 px’lik toplu en küçük genişlik kaldırıldı. Grafikler dar ekranda kendi daraltılmış çizim alanını (420 birim), seyreltilmiş eksen işaretlerini ve daha büyük yazıları kullanır; başlıklar SVG dışında HTML başlığıdır. Sayılar, birimler, işaretler ve çizgi desenleri değişmedi.
+- Bölüm sekmeleri dar ekranda tek satırda yatay kayar; seçili sekme otomatik görünür kalır, ok tuşları çalışır. Giriş metni, model varsayımları ve kaynak listeleri dar ekranda açılır bölümlerdedir; “Ne değişti, neden?” her zaman görünür.
+- Küçük PWR şeması: genel görünüm + “Büyüt” (kendi alanında kayan büyük görünüm); kısa ekranlarda yükseklik görünür alanla sınırlı.
+- Eksenel bölüm: çekirdek profili ve güç–ΔI grafiği dar ekranda alt alta; çakışan etiketler ayrıldı.
+- Bor eğrisi: dokunmatikte yalnız kısa dokunuş değer seçer, sürükleme sayfayı kaydırır; kaydırıcı ve klavye alternatif girişlerdir.
+- Ksenon zaman kontrolleri dar ekranda düzenli satırlarda; dört grafik bağımsız ve aynı senaryo saatine bağlı.
+- Santral şeması: “Görünümü sıfırla” düğmesi; alan dışında bırakılan veya iptal edilen sürükleme takılı kalmaz. Dar ekranda seçili ekipman şemanın hemen altında özetlenir (“Ayrıntılar ↓”).
+- Yakın plan penceresi: dar ekranda tam ekran, yükseklik `100dvh`; içerik kendi içinde kayar, çizim okunaklı boyutta yana kaydırılır. Odak tuzağı, Esc, odak dönüşü ve kaydırma kilidi korunur.
+
 ## Mimari
 
 ```
@@ -116,8 +142,9 @@ Bu sürümde yapılan kontroller:
 | --- | --- |
 | `npm run typecheck` (strict) | Geçti |
 | `npm run build` | Geçti |
-| `npm test` — 70 birim testi (saat, enerji dengesi, reducer, yapılandırmalar, akış yardımcıları, VVER boru geometrisi, PWR işletme modülü modelleri ve verileri) | Geçti |
+| `npm test` — 77 birim testi (görünüm tercihi dahil) (saat, enerji dengesi, reducer, yapılandırmalar, akış yardımcıları, VVER boru geometrisi, PWR işletme modülü modelleri ve verileri) | Geçti |
 | PWR işletme modülü (tarayıcı): altı bölüm açıldı; 6 mod; 6 ısınma aşaması; bor eğrisinde klavye gezinmesi; ksenon laboratuvarında duraklatma, sıfırlama, senaryo değişiminde sıfırlanma, aynı saatte aynı değer; 0/3/9/12/18/24 sa durakları; aynı güçte üst pay %40 → ΔI −20, %60 → +20; sıfır güçte AO “—”; BWR/VVER’de modül görünmüyor; mobilde sayfa taşması yok; konsol hatası yok | Doğrulandı |
+| Görünüm/yerleşim (tarayıcı emülasyonu): 320×568, 360×800, 390×844, 430×932, 844×390, 768×1024, 1024×768, 1024×1366, 1280×800, 1440×900. Santral şeması ve PWR’nin altı bölümünde sayfa taşması yok, izin verilen kaydırma alanları dışında ekrandan taşan öğe yok, dar yerleşimde 44 px’ten küçük dokunma hedefi yok (ölçümle); 390 px’te ekran görüntüleriyle incelendi. Mobil/Masaüstü elle seçimi yeniden boyutlandırmada korunuyor; yenilemede tercih geri geliyor; bozuk değer Otomatik’e düşüyor; tercih değişiminde reaktör, bölüm, senaryo ve saat korunuyor; yakın plan açıkken dar→geniş geçişte pencere ve odak korunuyor, Esc ile kapanıp odak açan düğmeye dönüyor | Doğrulandı |
 | Saat: duraklatma, devamda sıçrama olmaması, hız, tek döngü | Birim testinde sahte rAF kareleriyle doğrulandı |
 | Tarayıcıda animasyonun ilerlemesi (güç değişiminde model ve grafik güncelleniyor) | Doğrulandı |
 | 20 kez reaktör değişimi sonrası saat abone sayısı aynı (25 → 25), tek döngü | Doğrulandı |
@@ -130,4 +157,4 @@ Bu sürümde yapılan kontroller:
 | Mobil (375 px): sayfada yatay taşma yok, yan panel altta | Doğrulandı |
 | Konsol hatası | Görülmedi |
 
-Doğrulanamayanlar: ilk sürümde tarayıcı paneli arka plana alındığı için duraklat/devam/hız davranışı tarayıcıda gerçek zamanlı ölçülemedi; bu davranış birim testinde sahte kare zamanlarıyla doğrulandı. Yakın plan açıkken açan kontrolün sayfadan kaldırılması durumu (yedek odak noktası) tarayıcıda denenmedi; arayüzde bu durumu oluşturan bir akış yok. Ekran okuyucu ile manuel test yapılmadı. PWR işletme modülünde tarayıcı paneli gizliyken kare hızı kısıldığından ksenon laboratuvarının gerçek zamanlı oynatma hızı ölçülemedi (oynatmanın ilerlediği ve duraklatmanın durdurduğu görüldü; hız birim testleriyle doğrulandı). Şekillerden okunan değerler gözle ve piksel ölçümüyle elde edildi; ±birkaç piksel belirsizlik içerir. Modelin fiziksel doğruluğu testlerle kanıtlanmış sayılmamalıdır; testler yalnız tutarlılık ve beklenen eğilimleri kontrol eder.
+Doğrulanamayanlar: ilk sürümde tarayıcı paneli arka plana alındığı için duraklat/devam/hız davranışı tarayıcıda gerçek zamanlı ölçülemedi; bu davranış birim testinde sahte kare zamanlarıyla doğrulandı. Yakın plan açıkken açan kontrolün sayfadan kaldırılması durumu (yedek odak noktası) tarayıcıda denenmedi; arayüzde bu durumu oluşturan bir akış yok. Ekran okuyucu ile manuel test yapılmadı. PWR işletme modülünde tarayıcı paneli gizliyken kare hızı kısıldığından ksenon laboratuvarının gerçek zamanlı oynatma hızı ölçülemedi (oynatmanın ilerlediği ve duraklatmanın durdurduğu görüldü; hız birim testleriyle doğrulandı). Şekillerden okunan değerler gözle ve piksel ölçümüyle elde edildi; ±birkaç piksel belirsizlik içerir. Modelin fiziksel doğruluğu testlerle kanıtlanmış sayılmamalıdır; testler yalnız tutarlılık ve beklenen eğilimleri kontrol eder. Mobil/tablet davranışları yalnız masaüstü tarayıcıda viewport emülasyonuyla kontrol edildi; gerçek dokunmatik cihazda (dokunarak sürükleme, kıstırarak yakınlaştırma, ekran yönü döndürme, `pointer: coarse`) denenmedi. Depolama erişiminin tamamen engellendiği durum birim testinde doğrulandı, tarayıcıda denenmedi.

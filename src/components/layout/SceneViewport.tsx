@@ -40,6 +40,11 @@ export function SceneViewport({ children, notes, showLabels, showFlow, coreOpen,
     const d = drag.current;
     const el = scroller.current;
     if (!d || !el) return;
+    // Düğme alan dışında bırakıldıysa sürükleme takılı kalmasın.
+    if (e.buttons === 0) {
+      drag.current = null;
+      return;
+    }
     const dx = e.clientX - d.x;
     const dy = e.clientY - d.y;
     if (!d.moved && Math.hypot(dx, dy) < 6) return;
@@ -78,6 +83,16 @@ export function SceneViewport({ children, notes, showLabels, showFlow, coreOpen,
         >
           Sığdır
         </button>
+        <button
+          type="button"
+          onClick={() => {
+            setFit(false);
+            setZoomIdx(0);
+            scroller.current?.scrollTo({ left: 0, top: 0 });
+          }}
+        >
+          Görünümü sıfırla
+        </button>
         <span className="tb-sep" aria-hidden="true" />
         <button type="button" aria-pressed={showLabels} onClick={onToggleLabels}>
           Etiketler
@@ -96,6 +111,7 @@ export function SceneViewport({ children, notes, showLabels, showFlow, coreOpen,
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
+        onLostPointerCapture={onPointerUp}
         onClickCapture={(e) => {
           if (suppressClick.current) {
             suppressClick.current = false;

@@ -1,6 +1,6 @@
 import { useRef, useState, type KeyboardEvent, type PointerEvent } from 'react';
 import { FIG_2_39 } from '../data/figures';
-import { ChartFrame, LegendItem, ModelNote, SourceTags, WhyBox, linePath } from './common';
+import { ChartFrame, LegendItem, ModelNote, SourceTags, WhyBox, linePath, type ChartScales } from './common';
 
 const W = 720;
 const H = 360;
@@ -61,20 +61,36 @@ const ZONES: Zone[] = [
 export function BoronSection() {
   const [b, setB] = useState(5000);
   const svgWrap = useRef<HTMLDivElement>(null);
+  const scales = useRef<ChartScales | null>(null);
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
   const ppm = boronAt(b);
   const zone = ZONES.find((z) => b >= z.from && b < z.to) ?? ZONES[ZONES.length - 1];
 
   const x = { min: 0, max: 24000, ticks: [0, 5000, 10000, 15000, 20000], label: 'Yakıt yanması, burn-up (MWD/MTU)', format: (v: number) => v.toLocaleString('tr-TR') };
   const y = { min: 0, max: 2500, ticks: [0, 500, 1000, 1500, 2000, 2500], label: 'Bor konsantrasyonu (ppm)' };
 
-  const onPointer = (e: PointerEvent<HTMLDivElement>) => {
-    if (e.type === 'pointermove' && e.buttons === 0 && e.pointerType !== 'mouse') return;
+  /** Ekran koordinatını yanma değerine çevirir (çizimin gerçek ölçeğiyle). */
+  const pick = (clientX: number, clientY: number) => {
     const svg = svgWrap.current?.querySelector('svg');
-    if (!svg) return;
-    const r = svg.getBoundingClientRect();
-    const vx = ((e.clientX - r.left) / r.width) * W;
-    const v = ((vx - 62) / (W - 16 - 62)) * 24000;
+    const s = scales.current;
+    const ctm = svg?.getScreenCTM();
+    if (!svg || !s || !ctm) return;
+    const p = new DOMPoint(clientX, clientY).matrixTransform(ctm.inverse());
+    const v = ((p.x - s.left) / (s.right - s.left)) * 24000;
     setB(Math.round(Math.min(END, Math.max(0, v)) / 50) * 50);
+  };
+  // Fare: imleçle gezinme ve tıklama. Dokunma: yalnız kısa dokunuş seçer; sürükleme sayfayı kaydırır.
+  const onPointerDown = (e: PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType === 'mouse') pick(e.clientX, e.clientY);
+    else touchStart.current = { x: e.clientX, y: e.clientY };
+  };
+  const onPointerMove = (e: PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType === 'mouse') pick(e.clientX, e.clientY);
+  };
+  const onPointerUp = (e: PointerEvent<HTMLDivElement>) => {
+    const t = touchStart.current;
+    touchStart.current = null;
+    if (e.pointerType !== 'mouse' && t && Math.hypot(e.clientX - t.x, e.clientY - t.y) < 10) pick(e.clientX, e.clientY);
   };
   const onKey = (e: KeyboardEvent<HTMLDivElement>) => {
     const step = e.shiftKey ? 2000 : 250;
@@ -100,10 +116,12 @@ export function BoronSection() {
           aria-valuenow={b}
           aria-valuetext={`${b.toLocaleString('tr-TR')} MWD/MTU, yaklaşık ${Math.round(ppm)} ppm bor`}
           onKeyDown={onKey}
-          onPointerDown={onPointer}
-          onPointerMove={onPointer}
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={onPointerUp}
+          onPointerCancel={() => (touchStart.current = null)}
         >
-          <ChartFrame width={W} height={H} x={x} y={y} title="Şekil 2-39’a göre bor seyreltme eğrisi (%100 güç)" desc="Şekilden yaklaşık okunmuş noktalar">
+          <ChartFrame width={W} height={H} x={x} y={y} scalesRef={scales} title="Şekil 2-39’a göre bor seyreltme eğrisi (%100 güç)" desc="Şekilden yaklaşık okunmuş noktalar">
             {(s) => (
               <>
                 {ZONES.map((z, i) => (
@@ -122,8 +140,8 @@ export function BoronSection() {
                 ))}
                 <line className="ops-cursor" x1={s.x(b)} x2={s.x(b)} y1={s.top} y2={s.bottom} />
                 <circle className="ops-cursor-dot" cx={s.x(b)} cy={s.y(ppm)} r={6} />
-                <text className="ops-cursor-label" x={Math.min(s.x(b) + 8, W - 190)} y={s.y(ppm) - 10}>
-                  {b.toLocaleString('tr-TR')} MWD/MTU · ≈{Math.round(ppm)} ppm
+                <text className="ops-cursor-label" x={Math.max(s.left + 4, Math.min(s.x(b) + 8, s.right - 150))} y={Math.max(s.top + 14, s.y(ppm) - 10)}>
+                  ≈{Math.round(ppm)} ppm
                 </text>
               </>
             )}
@@ -132,7 +150,10 @@ export function BoronSection() {
         <ul className="ops-legend">
           <LegendItem cls="ops-line boron" label="Şekil 2-39’dan okunan eğri (noktalar: okunan değerler)" />
         </ul>
-        <p className="ops-small">Eğri üzerinde gezinmek için tıklayın/sürükleyin ya da odaklanıp ←/→ (Shift ile büyük adım), Home/End tuşlarını kullanın.</p>
+        <p className="ops-small">
+          Eğri üzerinde gezinmek için fareyle üzerinde gezinin veya tıklayın, dokunmatik ekranda eğriye kısaca dokunun ya da aşağıdaki kaydırıcıyı kullanın. Klavye: grafiğe odaklanıp ←/→
+          (Shift ile büyük adım), Home/End.
+        </p>
         <label className="ops-range">
           Yanma: {b.toLocaleString('tr-TR')} MWD/MTU
           <input type="range" min={0} max={END} step={50} value={b} onChange={(e) => setB(Number(e.target.value))} />

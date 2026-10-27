@@ -1,5 +1,22 @@
-import type { ReactNode } from 'react';
+import type { MutableRefObject, ReactNode } from 'react';
 import type { SourceRef } from '../types';
+import { useViewLayout } from '../../../../hooks/useViewLayout';
+
+/** Dar yerleşimde grafiklerin çizim genişliği (viewBox birimi). Yazılar okunaklı kalsın diye küçük tutulur. */
+export const NARROW_CHART_WIDTH = 420;
+
+/** Dar yerleşimde mi? (Bileşenler yalnız düzen için kullanır; durum değişmez.) */
+export function useNarrow(): boolean {
+  return useViewLayout().layout === 'narrow';
+}
+
+/** Dar yerleşimde eksen işaretlerini seyreltir (ilk ve son korunur). */
+export function thinTicks(ticks: number[], narrow: boolean): number[] {
+  if (!narrow || ticks.length <= 5) return ticks;
+  const out = ticks.filter((_, i) => i % 2 === 0);
+  if (out[out.length - 1] !== ticks[ticks.length - 1]) out.push(ticks[ticks.length - 1]);
+  return out;
+}
 
 const KIND_LABEL: Record<SourceRef['kind'], string> = {
   pdf: 'PDF',
@@ -9,7 +26,8 @@ const KIND_LABEL: Record<SourceRef['kind'], string> = {
 
 /** Bilginin kaynağını kategoriyle birlikte gösteren rozetler. */
 export function SourceTags({ sources }: { sources: SourceRef[] }) {
-  return (
+  const narrow = useNarrow();
+  const list = (
     <ul className="ops-sources" aria-label="Kaynaklar">
       {sources.map((s, i) => (
         <li key={i} className={`src-${s.kind}`}>
@@ -17,6 +35,14 @@ export function SourceTags({ sources }: { sources: SourceRef[] }) {
         </li>
       ))}
     </ul>
+  );
+  return narrow ? (
+    <details className="ops-more">
+      <summary>Kaynaklar ({sources.length})</summary>
+      {list}
+    </details>
+  ) : (
+    list
   );
 }
 
@@ -31,7 +57,17 @@ export function WhyBox({ children }: { children: ReactNode }) {
 }
 
 export function ModelNote({ children }: { children: ReactNode }) {
-  return <p className="ops-model-note">{children}</p>;
+  const narrow = useNarrow();
+  const note = <p className="ops-model-note">{children}</p>;
+  // Dar ekranda uzun varsayım metinleri açılır bölümde; rozet başlığı her zaman görünür.
+  return narrow ? (
+    <details className="ops-more">
+      <summary>Temsili eğitim modeli: varsayımlar</summary>
+      {note}
+    </details>
+  ) : (
+    note
+  );
 }
 
 export interface AxisDef {
@@ -61,10 +97,20 @@ interface FrameProps {
   /** Erişilebilir açıklama. */
   desc: string;
   children: (s: ChartScales) => ReactNode;
+  /** Ölçekleri dışarı verir (ör. işaretçi konumunu veri değerine çevirmek için). */
+  scalesRef?: MutableRefObject<ChartScales | null>;
+  /** Dar yerleşimde bu grafik okunabilirlik için kendi alanında kaydırılacaksa en küçük genişlik (px). */
+  narrowMinWidth?: number;
 }
 
 /** Eksenli, ızgaralı SVG grafik çerçevesi. Ölçek fonksiyonlarını çocuklara verir. */
-export function ChartFrame({ width, height, x, y, margin = { l: 62, r: 16, t: 26, b: 46 }, title, desc, children }: FrameProps) {
+export function ChartFrame({ width: wideWidth, height: heightIn, x: xIn, y, margin: marginIn = { l: 62, r: 16, t: 26, b: 46 }, title, desc, children, scalesRef, narrowMinWidth }: FrameProps) {
+  const narrow = useNarrow();
+  // Başlık artık SVG dışında (figcaption); çizim yüksekliği başlık payı kadar azaltılır.
+  const height = heightIn - 16;
+  const width = narrow ? Math.min(wideWidth, NARROW_CHART_WIDTH) : wideWidth;
+  const margin = narrow ? { ...marginIn, l: Math.min(marginIn.l, 50), t: 10 } : { ...marginIn, t: 10 };
+  const x = { ...xIn, ticks: thinTicks(xIn.ticks, narrow) };
   const left = margin.l;
   const right = width - margin.r;
   const top = margin.t;
@@ -73,11 +119,11 @@ export function ChartFrame({ width, height, x, y, margin = { l: 62, r: 16, t: 26
   const sy = (v: number) => bottom - ((v - y.min) / (y.max - y.min)) * (bottom - top);
   const fx = x.format ?? String;
   const fy = y.format ?? String;
-  return (
+  const scales: ChartScales = { x: sx, y: sy, left, right, top, bottom };
+  if (scalesRef) scalesRef.current = scales;
+  const scroll = narrow && narrowMinWidth;
+  const svg = (
     <svg viewBox={`0 0 ${width} ${height}`} className="ops-chart" role="img" aria-label={`${title}. ${desc}`}>
-      <text className="ops-chart-title" x={left} y={16}>
-        {title}
-      </text>
       {y.ticks.map((v) => (
         <g key={`y${v}`}>
           <line className="ops-grid" x1={left} x2={right} y1={sy(v)} y2={sy(v)} />
@@ -102,8 +148,23 @@ export function ChartFrame({ width, height, x, y, margin = { l: 62, r: 16, t: 26
       <text className="ops-axis-label" x={14} y={(top + bottom) / 2} transform={`rotate(-90 14 ${(top + bottom) / 2})`} textAnchor="middle">
         {y.label}
       </text>
-      {children({ x: sx, y: sy, left, right, top, bottom })}
+      {children(scales)}
     </svg>
+  );
+  return (
+    <figure className="ops-figure">
+      <figcaption>{title}</figcaption>
+      {scroll ? (
+        <>
+          <div className="ops-scroll wide" tabIndex={0} role="region" aria-label={`${title} — yatay kaydırılabilir`} style={{ ['--ops-min' as string]: `${narrowMinWidth}px` }}>
+            {svg}
+          </div>
+          <p className="scroll-hint">↔ Grafik kendi alanında yana kaydırılabilir.</p>
+        </>
+      ) : (
+        svg
+      )}
+    </figure>
   );
 }
 

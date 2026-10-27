@@ -1,4 +1,5 @@
 import { useId, useLayoutEffect, useRef, type KeyboardEvent, type ReactNode } from 'react';
+import { useViewLayout } from '../../hooks/useViewLayout';
 
 interface Props {
   title: string;
@@ -25,6 +26,7 @@ export function DetailDialog({ title, onClose, children }: Props) {
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
   const titleId = useId();
+  const narrow = useViewLayout().layout === 'narrow';
 
   useLayoutEffect(() => {
     const dialog = dialogRef.current;
@@ -95,6 +97,7 @@ export function DetailDialog({ title, onClose, children }: Props) {
             Kapat ✕
           </button>
         </div>
+        {narrow && <p className="scroll-hint detail-hint">↔ Yakın plan, yazılar okunaklı kalsın diye kendi alanında yana kaydırılabilir.</p>}
         <div className="detail-body">{children}</div>
       </div>
     </dialog>

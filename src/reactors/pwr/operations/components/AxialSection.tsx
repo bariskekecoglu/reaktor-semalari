@@ -111,7 +111,7 @@ export function AxialSection() {
             {[115, 155, 175].map((x) => (
               <rect key={x} className="rod-unknown" x={x - 2.5} y={top - 26} width="5" height="26" />
             ))}
-            <text className="ops-tick" x="206" y={top - 12}>
+            <text className="ops-tick" x="90" y="10">
               çubuklar üstten girer · konum kaynakta yok
             </text>
             {/* Soğuk su alttan */}
@@ -121,7 +121,7 @@ export function AxialSection() {
                 <path d="M0 0 L10 5 L0 10 z" className="core-inlet-head" />
               </marker>
             </defs>
-            <text className="ops-tick" x="150" y={bot + 28}>
+            <text className="ops-tick" x="150" y={bot + 36}>
               daha soğuk su alttan girer
             </text>
             {/* Dedektörler */}
@@ -137,8 +137,8 @@ export function AxialSection() {
             </text>
             {/* Profiller: aynı yükseklik ekseni */}
             <line className="ops-axis" x1="250" x2="250" y1={top} y2={bot} />
-            <text className="ops-tick" x="250" y={top - 8}>
-              göreli genlik (eksen 0,2’den başlar) →
+            <text className="ops-tick" x="250" y={top - 12}>
+              göreli genlik (0,2’den) →
             </text>
             <path className="ops-line power" d={path(powerProfile)} />
             <path className="ops-line xenon" d={path(xenonProfile)} />

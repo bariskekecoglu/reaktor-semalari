@@ -169,10 +169,18 @@ button.link {
 
 /* ---------- Ana alan ---------- */
 .main {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 340px;
+  display: flex;
+  flex-wrap: wrap;
   gap: 16px;
-  align-items: start;
+  align-items: flex-start;
+}
+.main > .stage {
+  flex: 1 1 640px;
+  min-width: 0;
+}
+.main > .side {
+  flex: 0 1 340px;
+  min-width: min(100%, 300px);
 }
 .compare-main {
   display: block;
@@ -270,6 +278,18 @@ button.link {
 .side {
   position: sticky;
   top: 10px;
+}
+/* Yan panel sahnenin altına indiyse yapışkan olmasın. */
+:root[data-layout='narrow'] .main > .side {
+  position: static;
+  flex-basis: 100%;
+}
+:root[data-layout='narrow'] .side-panel {
+  max-height: none;
+}
+/* Orta yerleşim: sahne ≥ 640 px ve yan panel ≥ 300 px sığıyorsa iki sütun, sığmıyorsa esnek kutu paneli alta indirir. */
+:root[data-layout='medium'] .main > .stage {
+  flex-basis: 640px;
 }
 .side-panel {
   background: var(--paper);
@@ -555,6 +575,32 @@ input[type='range'] {
 .detail-dialog .detail-box {
   width: 100%;
   max-height: calc(100vh - 24px);
+  max-height: calc(100dvh - 24px);
+  display: flex;
+  flex-direction: column;
+}
+.detail-dialog .detail-head {
+  flex: 0 0 auto;
+}
+.detail-dialog .detail-body {
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+:root[data-layout='narrow'] .detail-dialog {
+  width: 100vw;
+  max-height: 100dvh;
+  margin: 0;
+  inset: 0;
+  height: 100dvh;
+}
+:root[data-layout='narrow'] .detail-dialog .detail-box {
+  height: 100dvh;
+  max-height: 100dvh;
+  border-radius: 0;
+}
+:root[data-layout='narrow'] .detail-dialog .detail-body .detail-svg {
+  /* Yazılar okunaklı kalsın: dar ekranda yakın plan kendi alanında yatay kayar. */
+  min-width: 600px;
 }
 .detail-box {
   background: var(--paper);
@@ -1275,51 +1321,81 @@ table.compare-table {
 }
 
 /* ---------- Mobil ---------- */
-@media (max-width: 1100px) {
-  .main {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .side {
-    position: static;
-  }
-  .side-panel {
-    max-height: none;
-  }
+/* ====== Dar yerleşim (Otomatik < 768 px ya da “Mobil” tercihi) ====== */
+:root[data-layout='narrow'] .app {
+  padding: 10px 12px 24px;
+  /* Geniş ekranda Mobil seçilirse içerik okunaklı genişlikte kalır. */
+  max-width: 640px;
 }
-@media (max-width: 720px) {
-  .app {
-    padding: 10px 10px 24px;
+:root[data-layout='narrow'] .header h1 {
+  font-size: 1.3rem;
+}
+:root[data-layout='narrow'] .subtitle {
+  font-size: 0.85rem;
+}
+:root[data-layout='narrow'] .title-row {
+  align-items: stretch;
+}
+:root[data-layout='narrow'] .header-controls {
+  width: 100%;
+}
+:root[data-layout='narrow'] .header-controls .seg {
+  width: 100%;
+}
+:root[data-layout='narrow'] .header-controls .seg button {
+  flex: 1 1 0;
+  min-width: 0;
+  padding-inline: 6px;
+}
+:root[data-layout='narrow'] .reactor-row {
+  grid-template-columns: 1fr;
+  gap: 8px;
+  padding: 8px 0;
+}
+:root[data-layout='narrow'] .reactor-seg {
+  width: 100%;
+}
+:root[data-layout='narrow'] .reactor-seg button {
+  flex: 1 1 0;
+  min-width: 0;
+  align-items: center;
+}
+:root[data-layout='narrow'] .reactor-seg span {
+  display: none;
+}
+:root[data-layout='narrow'] .scene-scroll {
+  max-height: 70vh;
+  max-height: 70dvh;
+}
+:root[data-layout='narrow'] .scene-canvas {
+  min-width: 980px;
+}
+:root[data-layout='narrow'] .controls {
+  gap: 12px;
+}
+:root[data-layout='narrow'] .ctrl-group.power {
+  min-width: 100%;
+}
+:root[data-layout='narrow'] button {
+  min-height: 44px;
+}
+:root[data-layout='narrow'] .panels {
+  grid-template-columns: minmax(0, 1fr);
+}
+:root[data-layout='narrow'] .energy svg,
+:root[data-layout='narrow'] .timechart svg {
+  min-width: 520px;
+}
+
+/* Dokunmatik işaretçi: yerleşimden bağımsız olarak büyük dokunma alanları. */
+@media (pointer: coarse) {
+  button,
+  select,
+  summary {
+    min-height: 44px;
   }
-  .header h1 {
-    font-size: 1.35rem;
-  }
-  .reactor-row {
-    grid-template-columns: 1fr;
-  }
-  .reactor-seg {
-    width: 100%;
-  }
-  .reactor-seg button {
-    flex: 1 1 0;
-    min-width: 0;
-  }
-  .reactor-seg span {
-    display: none;
-  }
-  .scene-scroll {
-    max-height: 70vh;
-  }
-  .scene-canvas {
-    min-width: 980px;
-  }
-  .controls {
-    gap: 12px;
-  }
-  .ctrl-group.power {
-    min-width: 100%;
-  }
-  button {
-    min-height: 42px;
+  input[type='range'] {
+    min-height: 44px;
   }
 }
 
@@ -1374,15 +1450,19 @@ table.compare-table {
 .ef-link.reject {
   fill: #cdeee5;
 }
-.energy,
-.timechart {
-  overflow-x: auto;
+.energy svg,
+.timechart svg {
+  display: block;
 }
-@media (max-width: 720px) {
-  .energy svg,
-  .timechart svg {
-    min-width: 520px;
-  }
+/* Dar yerleşimde bu iki grafik okunabilirlik için kendi alanında yatay kayar. */
+:root[data-layout='narrow'] .energy > svg,
+:root[data-layout='narrow'] .timechart > svg {
+  overflow: hidden;
+}
+:root[data-layout='narrow'] .energy,
+:root[data-layout='narrow'] .timechart {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
 }
 .detail-svg,
 .scene-svg {
@@ -1431,4 +1511,87 @@ table.compare-table {
   fill: #9ec5ea;
   stroke: var(--line);
   stroke-dasharray: 3 2;
+}
+
+/* Başlık denetimleri: içerik seçimi ve görünüm tercihi ayrı gruplar */
+.header-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  align-items: center;
+  justify-content: flex-end;
+}
+.layout-pref {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.layout-pref-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+}
+.layout-now {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  min-width: 70px;
+}
+:root[data-layout='narrow'] .layout-pref {
+  width: 100%;
+}
+:root[data-layout='narrow'] .layout-pref .seg {
+  flex: 1 1 auto;
+}
+.reactor-summary.compact summary {
+  cursor: pointer;
+  display: list-item;
+  padding: 6px 0;
+}
+.reactor-summary.compact p {
+  margin: 4px 0;
+}
+.selection-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 8px 10px;
+  border-top: 1px solid var(--rule);
+  font-size: 0.9rem;
+}
+.selection-bar strong {
+  font-family: var(--font-tech);
+}
+.selection-bar .role {
+  flex: 1 1 200px;
+  font-weight: 400;
+  color: var(--ink-soft);
+}
+.scroll-hint {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  margin: 2px 0 6px;
+}
+:root[data-layout='narrow'] .viewport-toolbar button {
+  min-width: 44px;
+}
+:root[data-layout='narrow'] summary {
+  min-height: 44px;
+  padding: 10px 0;
+  box-sizing: border-box;
+}
+:root[data-layout='narrow'] .lesson .steps button {
+  width: 44px;
+  height: 44px;
+}
+:root[data-layout='narrow'] select {
+  min-height: 44px;
+}
+:root[data-layout='narrow'] input[type='range'] {
+  min-height: 44px;
+}
+.detail-hint {
+  margin: 4px 12px;
 }

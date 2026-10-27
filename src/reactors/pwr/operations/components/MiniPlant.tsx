@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import type { PlantPart, PlantView } from '../types';
+import { useNarrow } from './common';
 
 interface Props {
   view: PlantView;
@@ -11,7 +13,27 @@ interface Props {
  * İşletme modülü için sade, temsili PWR şeması (santral sahnesinden bağımsız çizim).
  * Durum bilgisi yalnız `view` alanlarından gelir; metin ile şema aynı veriyi kullanır.
  */
-export function MiniPlant({ view, highlight = [], label }: Props) {
+/** Dar ekranda genel görünüm (sığdır) ile büyütülmüş görünüm arasında geçiş sunar. */
+export function MiniPlant(props: Props) {
+  const narrow = useNarrow();
+  const [zoomed, setZoomed] = useState(false);
+  if (!narrow) return <PlantSvg {...props} />;
+  return (
+    <div className="plant-frame">
+      <div className="plant-tools">
+        <button type="button" aria-pressed={zoomed} onClick={() => setZoomed((z) => !z)}>
+          {zoomed ? 'Sığdır' : 'Büyüt'}
+        </button>
+      </div>
+      <div className={`ops-scroll${zoomed ? ' zoomed' : ''}`} tabIndex={zoomed ? 0 : -1} role="region" aria-label={`${props.label}${zoomed ? ' — yatay kaydırılabilir' : ''}`}>
+        <PlantSvg {...props} />
+      </div>
+      {zoomed && <p className="scroll-hint">↔ Şema kendi alanında yana kaydırılabilir.</p>}
+    </div>
+  );
+}
+
+function PlantSvg({ view, highlight = [], label }: Props) {
   const hl = (p: PlantPart) => (highlight.includes(p) ? ' mp-hl' : '');
   const primaryOn = view.rcpRunning;
   // Çubuk alt ucu: çekilmişken çekirdeğin üstünde (y=104), tamamen içeride çekirdek tabanında (y=212).

@@ -2,6 +2,7 @@ import { Suspense, lazy, useCallback, useEffect, useMemo, useReducer, useState }
 import { SimClock } from '../simulation/clock';
 import { EducationalModel, INITIAL_POWER } from '../simulation/educationalModel';
 import { SimulationContext, usePrefersReducedMotion } from '../hooks/useSimulation';
+import { ViewLayoutContext, useViewLayoutState } from '../hooks/useViewLayout';
 import { appReducer, initialAppState } from './appState';
 import { reactors } from '../reactors/registry';
 import type { ReactorId } from '../reactors/shared/types';
@@ -27,6 +28,8 @@ export function App() {
   const reducedMotion = usePrefersReducedMotion();
   const [state, dispatch] = useReducer(appReducer, initialAppState);
   const [power, setPower] = useState(INITIAL_POWER);
+  // Yerleşim tercihi: yalnız düzeni değiştirir; reaktör/senaryo/oynatma durumuna dokunmaz.
+  const viewLayout = useViewLayoutState();
 
   // Tek animasyon döngüsü: uygulama ömrü boyunca bir kez başlatılır.
   useEffect(() => {
@@ -89,11 +92,13 @@ export function App() {
 
   const { Scene, Details, CoreDetail } = mod;
   const isPwr = state.reactor === 'pwr';
+  const selectedComp = state.view !== 'learn' && state.selected ? config.components.find((c) => c.id === state.selected) : undefined;
   const showOps = isPwr && state.view === 'scheme' && state.pwrView === 'ops';
   const detailTitle = config.details.find((d) => d.key === state.detail)?.title ?? '';
 
   return (
     <SimulationContext.Provider value={{ clock, model, reducedMotion }}>
+      <ViewLayoutContext.Provider value={viewLayout}>
       <div className={`app reactor-${state.reactor}`}>
         <Header
           reactor={state.reactor}
@@ -147,6 +152,23 @@ export function App() {
                   <Scene showLabels={state.showLabels} showFlow={state.showFlow} />
                 </SceneViewport>
               </SceneContext.Provider>
+              {/* Dar ekranda yan panel aşağıda kalır; seçim şemanın hemen altında özetlenir. */}
+              {viewLayout.layout === 'narrow' && selectedComp && (
+                <div className="selection-bar" role="status">
+                  <strong>{selectedComp.name}</strong>
+                  <span className="role">{selectedComp.role}</span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const el = document.getElementById('side-info-title');
+                      el?.scrollIntoView({ block: 'start' });
+                      el?.focus({ preventScroll: true });
+                    }}
+                  >
+                    Ayrıntılar ↓
+                  </button>
+                </div>
+              )}
               {state.detail && (
                 <DetailDialog title={detailTitle} onClose={() => dispatch({ type: 'closeDetail' })}>
                   <SceneContext.Provider value={{ ...sceneCtx, highlight: null, selected: null }}>
@@ -216,6 +238,7 @@ export function App() {
 
         <SourcesSection />
       </div>
+      </ViewLayoutContext.Provider>
     </SimulationContext.Provider>
   );
 }

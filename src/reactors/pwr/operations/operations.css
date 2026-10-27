@@ -65,10 +65,19 @@
 }
 
 .ops-section {
-  display: grid;
-  grid-template-columns: minmax(0, 1.6fr) minmax(280px, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   gap: 18px;
-  align-items: start;
+  align-items: flex-start;
+}
+.ops-section > .ops-vis {
+  flex: 1.6 1 560px;
+  min-width: 0;
+}
+.ops-section > .ops-text {
+  flex: 1 1 300px;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 .ops-vis {
   min-width: 0;
@@ -718,35 +727,128 @@
   margin: 0 0 10px;
 }
 
-@media (max-width: 1100px) {
-  .ops-section {
-    grid-template-columns: minmax(0, 1fr);
+/* ====== Dar yerleşim ====== */
+:root[data-layout='narrow'] .ops {
+  padding: 8px;
+}
+:root[data-layout='narrow'] .ops-section > .ops-vis,
+:root[data-layout='narrow'] .ops-section > .ops-text {
+  flex-basis: 100%;
+}
+/* Bölüm sekmeleri: tek satır, yatay kaydırılır; seçili sekme görünür tutulur. */
+:root[data-layout='narrow'] .ops-tabs {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+  padding-bottom: 6px;
+}
+:root[data-layout='narrow'] .ops-tabs button {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  max-width: 72vw;
+}
+:root[data-layout='narrow'] .ops-axial-grid {
+  grid-template-columns: minmax(0, 1fr);
+}
+:root[data-layout='narrow'] .ops-match button {
+  grid-template-columns: 1fr;
+}
+:root[data-layout='narrow'] .ops-match .arrow {
+  display: none;
+}
+:root[data-layout='narrow'] .ops-bar-row {
+  grid-template-columns: 84px minmax(0, 1fr) 64px;
+}
+:root[data-layout='narrow'] .ops-pick button,
+:root[data-layout='narrow'] .ops-pick.small button,
+:root[data-layout='narrow'] .ops-events button,
+:root[data-layout='narrow'] .ops-stepper ol button {
+  min-height: 44px;
+  min-width: 44px;
+}
+:root[data-layout='narrow'] .ops-stepper ol button {
+  width: 44px;
+  height: 44px;
+}
+:root[data-layout='narrow'] .ops-pick {
+  gap: 8px;
+}
+:root[data-layout='narrow'] .ops-tick,
+:root[data-layout='narrow'] .ops-axis-label {
+  font-size: 13px;
+}
+:root[data-layout='narrow'] .ops-core text {
+  font-size: 15px;
+}
+/* Zaman kontrolleri: düzenli satırlar */
+:root[data-layout='narrow'] .ops-transport {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+:root[data-layout='narrow'] .ops-transport > button {
+  min-width: 0;
+  padding-inline: 4px;
+}
+:root[data-layout='narrow'] .ops-transport > .ops-range,
+:root[data-layout='narrow'] .ops-transport > .ops-select {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+:root[data-layout='narrow'] .ops-sliders .ops-range {
+  flex: 1 1 100%;
+  min-width: 0;
+}
+.ops-select select {
+  max-width: 100%;
+}
+@media (pointer: coarse) {
+  .ops-pick.small button,
+  .ops-events button {
+    min-height: 44px;
   }
 }
-@media (max-width: 720px) {
-  .ops {
-    padding: 8px;
-  }
-  .ops-chart,
-  .mini-plant,
-  .ops-core {
-    min-width: 520px;
-  }
-  .ops-vis {
-    overflow-x: auto;
-  }
-  .ops-axial-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .ops-match button {
-    grid-template-columns: 1fr;
-  }
-  .ops-match .arrow {
-    display: none;
-  }
-  .ops-bar-row {
-    grid-template-columns: 90px 1fr 60px;
-  }
+
+/* Grafik çerçevesi: başlık HTML’de; yatay kayma yalnız gerektiren grafiğin kendi alanında. */
+.ops-figure {
+  margin: 0 0 4px;
+}
+.ops-figure figcaption {
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin: 6px 0 2px;
+}
+.ops-scroll {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+.ops-scroll:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+.ops-scroll.wide > svg {
+  min-width: var(--ops-min, 0);
+}
+.plant-frame .ops-scroll.zoomed > svg {
+  min-width: 660px;
+}
+.plant-tools {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+}
+details.ops-more {
+  margin: 8px 0;
+}
+details.ops-more > summary {
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  display: list-item;
 }
 .rod-unknown {
   fill: none;
@@ -760,4 +862,12 @@
 }
 .mp-joint {
   fill: var(--line);
+}
+/* Kısa ekranlarda (ör. yatay telefon) şema görünür alana sığsın; oran korunur. */
+.mini-plant {
+  max-height: 75vh;
+  max-height: 75dvh;
+}
+.plant-frame .ops-scroll.zoomed > .mini-plant {
+  max-height: none;
 }

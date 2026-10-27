@@ -18,7 +18,9 @@ export function SidePanel({ config, selected, focus, onFocus, onSelect, onDetail
       {comp ? (
         <div className="info">
           <p className="eyebrow">Seçili ekipman · {config.shortName}</p>
-          <h3>{comp.name}</h3>
+          <h3 id="side-info-title" tabIndex={-1}>
+            {comp.name}
+          </h3>
           <p className="role">{comp.role}</p>
           <h4>Bu reaktörde nasıl çalışır?</h4>
           <p>{comp.how}</p>

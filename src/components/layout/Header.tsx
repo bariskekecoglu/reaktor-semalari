@@ -1,5 +1,9 @@
 import type { ReactorConfig, ReactorId } from '../../reactors/shared/types';
 import type { ViewMode } from '../../app/appState';
+import { VIEW_PREFERENCES } from '../../app/viewPreference';
+import { useViewLayout } from '../../hooks/useViewLayout';
+
+const LAYOUT_NAME = { narrow: 'dar', medium: 'orta', wide: 'geniş' } as const;
 
 const REACTORS: { id: ReactorId; label: string; hint: string }[] = [
   { id: 'pwr', label: 'PWR', hint: 'Basınçlı su reaktörü' },
@@ -22,6 +26,8 @@ interface Props {
 }
 
 export function Header({ reactor, config, view, onReactor, onView }: Props) {
+  const { preference, layout, setPreference } = useViewLayout();
+  const narrow = layout === 'narrow';
   return (
     <header className="header">
       <div className="title-row">
@@ -29,13 +35,31 @@ export function Header({ reactor, config, view, onReactor, onView }: Props) {
           <h1>Nükleer Santral Şemaları</h1>
           <p className="subtitle">PWR · BWR · VVER — normal çalışma prensipleri, temsili ve ölçeksiz</p>
         </div>
-        <nav className="seg" aria-label="Görünüm">
-          {VIEWS.map((v) => (
-            <button key={v.id} type="button" className={view === v.id ? 'on' : ''} aria-pressed={view === v.id} onClick={() => onView(v.id)}>
-              {v.label}
-            </button>
-          ))}
-        </nav>
+        <div className="header-controls">
+          <nav className="seg content-seg" aria-label="İçerik">
+            {VIEWS.map((v) => (
+              <button key={v.id} type="button" className={view === v.id ? 'on' : ''} aria-pressed={view === v.id} onClick={() => onView(v.id)}>
+                {v.label}
+              </button>
+            ))}
+          </nav>
+          {/* Yerleşim tercihi: içerik seçiminden ayrıdır; reaktörü veya dersi değiştirmez. */}
+          <div className="layout-pref" role="group" aria-labelledby="layout-pref-label">
+            <span id="layout-pref-label" className="layout-pref-label">
+              Görünüm
+            </span>
+            <div className="seg small">
+              {VIEW_PREFERENCES.map((p) => (
+                <button key={p.id} type="button" className={preference === p.id ? 'on' : ''} aria-pressed={preference === p.id} onClick={() => setPreference(p.id)}>
+                  {p.label}
+                </button>
+              ))}
+            </div>
+            <span className="layout-now" aria-live="polite">
+              {preference === 'auto' ? `şu an: ${LAYOUT_NAME[layout]}` : ''}
+            </span>
+          </div>
+        </div>
       </div>
       {view !== 'compare' && (
         <div className="reactor-row">
@@ -47,11 +71,21 @@ export function Header({ reactor, config, view, onReactor, onView }: Props) {
               </button>
             ))}
           </div>
-          <div className="reactor-summary">
-            <h2>{config.fullName}</h2>
-            <p className="family">{config.family}</p>
-            <p>{config.summary}</p>
-          </div>
+          {narrow ? (
+            <details className="reactor-summary compact">
+              <summary>
+                <strong>{config.fullName}</strong>
+              </summary>
+              <p className="family">{config.family}</p>
+              <p>{config.summary}</p>
+            </details>
+          ) : (
+            <div className="reactor-summary">
+              <h2>{config.fullName}</h2>
+              <p className="family">{config.family}</p>
+              <p>{config.summary}</p>
+            </div>
+          )}
         </div>
       )}
     </header>
