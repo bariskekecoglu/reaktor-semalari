@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useReducer, useState } from 'react';
+import { Suspense, lazy, useCallback, useEffect, useMemo, useReducer, useState } from 'react';
 import { SimClock } from '../simulation/clock';
 import { EducationalModel, INITIAL_POWER } from '../simulation/educationalModel';
 import { SimulationContext, usePrefersReducedMotion } from '../hooks/useSimulation';
@@ -17,6 +17,9 @@ import { TimeChart } from '../components/charts/TimeChart';
 import { LessonPanel } from '../components/educational/LessonPanel';
 import { DetailDialog } from '../components/educational/DetailDialog';
 import { CompareView } from '../components/educational/CompareView';
+
+// PWR işletme modülü ayrı bir parçada yüklenir; yalnız PWR seçiliyken açılır.
+const PwrOperations = lazy(() => import('../reactors/pwr/operations/PwrOperations').then((m) => ({ default: m.PwrOperations })));
 
 export function App() {
   const [clock] = useState(() => new SimClock());
@@ -85,6 +88,8 @@ export function App() {
   );
 
   const { Scene, Details, CoreDetail } = mod;
+  const isPwr = state.reactor === 'pwr';
+  const showOps = isPwr && state.view === 'scheme' && state.pwrView === 'ops';
   const detailTitle = config.details.find((d) => d.key === state.detail)?.title ?? '';
 
   return (
@@ -103,9 +108,26 @@ export function App() {
           </p>
         )}
 
+        {isPwr && state.view !== 'compare' && (
+          <nav className="seg subview" aria-label="PWR görünümü">
+            <button type="button" aria-pressed={!showOps} className={!showOps ? 'on' : ''} onClick={() => dispatch({ type: 'setPwrView', view: 'plant' })}>
+              Santral şeması
+            </button>
+            <button type="button" aria-pressed={showOps} className={showOps ? 'on' : ''} onClick={() => dispatch({ type: 'setPwrView', view: 'ops' })}>
+              İşletme ve davranış
+            </button>
+          </nav>
+        )}
+
         {state.view === 'compare' ? (
           <main className="main compare-main">
             <CompareView />
+          </main>
+        ) : showOps ? (
+          <main className="main compare-main">
+            <Suspense fallback={<p className="notice">İşletme modülü yükleniyor…</p>}>
+              <PwrOperations />
+            </Suspense>
           </main>
         ) : (
           <main className="main">
@@ -157,34 +179,40 @@ export function App() {
           </main>
         )}
 
-        <ControlBar
-          power={power}
-          onPower={onPower}
-          onReset={() => {
-            resetSimulation();
-            dispatch({ type: 'reset' });
-          }}
-          learning={state.view === 'learn'}
-          disabledScene={state.view === 'compare'}
-          onToggleLearn={() => dispatch({ type: 'setView', view: state.view === 'learn' ? 'scheme' : 'learn' })}
-        />
+        {/* Santral sahnesinin kontrolleri ve göstergeleri işletme modülünde gizlenir; modülün kendi kontrolleri vardır. */}
+        {!showOps && (
+          <>
+            <ControlBar
+              power={power}
+              onPower={onPower}
+              onReset={() => {
+                resetSimulation();
+                dispatch({ type: 'reset' });
+              }}
+              learning={state.view === 'learn'}
+              disabledScene={state.view === 'compare'}
+              onToggleLearn={() => dispatch({ type: 'setView', view: state.view === 'learn' ? 'scheme' : 'learn' })}
+            />
 
-        <section className="panels" aria-label="Göstergeler">
-          <div className="panel">
-            <h2>Enerji dönüşümü</h2>
-            <EnergyFlow reactor={state.reactor} />
-          </div>
-          <div className="panel">
-            <h2>Zaman grafiği · son 60 simülasyon saniyesi</h2>
-            <TimeChart key={state.sceneEpoch} />
-          </div>
-          {state.coreOpen && state.view !== 'compare' && (
-            <div className="panel core-panel">
-              <h2>{config.details.find((d) => d.key === 'core')?.title ?? 'Çekirdek yakın planı'}</h2>
-              <CoreDetail key={state.reactor} showFlow={state.showFlow} />
-            </div>
-          )}
-        </section>
+            <section className="panels" aria-label="Göstergeler">
+              <div className="panel">
+                <h2>Enerji dönüşümü</h2>
+                <EnergyFlow reactor={state.reactor} />
+              </div>
+              <div className="panel">
+                <h2>Zaman grafiği · son 60 simülasyon saniyesi</h2>
+                <TimeChart key={state.sceneEpoch} />
+              </div>
+              {state.coreOpen && state.view !== 'compare' && (
+                <div className="panel core-panel">
+                  <h2>{config.details.find((d) => d.key === 'core')?.title ?? 'Çekirdek yakın planı'}</h2>
+                  <CoreDetail key={state.reactor} showFlow={state.showFlow} />
+                </div>
+              )}
+            </section>
+
+          </>
+        )}
 
         <SourcesSection />
       </div>

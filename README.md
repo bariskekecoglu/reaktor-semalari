@@ -33,6 +33,41 @@ Bağımlılıklar yalnızca `react`, `react-dom` ve geliştirme araçlarıdır (
 - **Arayüzde “Kaynaklar ve varsayımlar”** bölümü (sayfa altı).
 - Mobilde yan panel alta iner, şema kendi alanında kaydırılır; sayfada yatay taşma yoktur. `prefers-reduced-motion` açıksa animasyon duraklatılmış başlar.
 
+## PWR · İşletme ve Reaktör Davranışı modülü
+
+PWR seçiliyken başlığın altındaki **Santral şeması / İşletme ve davranış** düğmeleriyle açılır. BWR ve VVER’de görünmez; reaktör veya görünüm değişince santral şemasına döner. Ayrı bir JS parçası olarak yüklenir (`PwrOperations-*.js`); yeni rota veya yönlendirme yoktur, GitHub Pages yapılandırması aynıdır.
+
+Ana kaynak: Nuc E 430 ders notları, Bölüm 2, **“2.5 PWR Reactor Operations”, s. 2-88 – 2-101** (BWR bölümü 2-102’de başlar ve dahil edilmedi). Bu aralıkta PDF sayfa sırası basılı numarayla aynıdır (PDF s. 88 = 2-88). PDF ve sayfa görüntüleri depoya ya da yayımlanan siteye eklenmedi; şekiller özgün SVG olarak yeniden çizildi.
+
+| Bölüm | İçerik | Kaynak |
+| --- | --- | --- |
+| 1. İşletme modları | Altı mod; temsili PWR görünümü, fisyon gücü ve artık ısı ayrı, türbin durumu, soğutma yolu (RCP + buhar üreteci ya da RHR), çubuk ve kap kapağı | Tablo 2-14 (s. 2-88), s. 2-88 – 2-89 |
+| 2. Isınma ve ısı uzaklaştırma | Altı kavramsal aşama; ısı kaynakları/alıcıları, basınçlandırıcıda buhar hacmi (çekirdekte kaynama değil), pompa ısısı, steam dump | s. 2-89 – 2-93 |
+| 3. Bor ve yakıt çevrimi | Yanma ekseninde bor eğrisi; imleç/klavye ile gezinme, bölgeye göre açıklama | Şekil 2-39 (s. 2-94), s. 2-93 |
+| 4. Yük takibi ve ksenon | Sabit yük + beş profil (24 sa) ve %25/50/75/100’den kapatma (100 sa); güç, I-135/Xe-135, ksenon etkisi; oynat/duraklat/sıfırla, zaman çizgisi, olay işaretleri | Şekil 2-40 (s. 2-95), Şekil 2-41 (s. 2-96), s. 2-94 |
+| 5. Eksenel güç dağılımı | Çekirdek kesiti, güç/ksenon profilleri, üst/alt dedektör, ΔI ve AO, güç–ΔI düzlemi; 0/3/9/12/18/24 sa durakları ve aynı güçte farklı dağılım | Şekil 2-42 (s. 2-100), Şekil 2-43 (s. 2-101), s. 2-96 – 2-98 |
+| 6. Otomatik kontrol ilişkileri | Beş eşleşme + eksenel dağılımın tek bir otomatik değişkene indirgenemeyişi | s. 2-96 – 2-98 |
+
+### Bilgi kategorileri (arayüzde rozet olarak)
+
+1. **PDF’de doğrudan verilen**: Tablo 2-14 hücreleri, soğutma yolları, ısınma anlatımı, ΔI tanımı, kontrol listesi.
+2. **Şekilden yaklaşık okunmuş** (`src/reactors/pwr/operations/data/figures.ts`):
+   - Şekil 2-39: PDF’teki **vektör çizimin** koordinatlarından eksen ölçeğine çevrilen 32 nokta.
+   - Şekil 2-40: raster görüntüden piksel ölçümüyle dönüm noktaları (±~0,1 sa). **12-3-6-3 dışındaki profillerde çizim isimdeki sürelerle tam örtüşmüyor** (ör. “18-6” çiziminde %50 güç yalnız ~11–13. saatler arasında ve dikey çizgiyle). Talimat gereği isim değil çizim esas alındı; fark arayüzde belirtiliyor. Dikey geçişler idealize gösterimdir.
+   - Şekil 2-41: renklerden sayısallaştırılan dört eğri. Y ekseni “Worth”, **birimi kaynakta yok** (pcm varsayılmadı); alt sınır etiketsiz, ölçekten ~0 okundu.
+   - Şekil 2-42: altı panelde 10 yükseklikte güç ve ksenon eğrilerinin yatay mesafesi (birimsiz, yalnız biçim). “D” ve “C” etiketli çubukların anlamı kaynakta açıklanmıyor; yalnız göreli uzunlukları gösteriliyor.
+   - Şekil 2-43: hedef ΔI ≈ −0,02 × güç(%) (100%’de ~−2, 0%’da 0), bant hedef ±6; dış kesik-noktalı çizgi (−35,50)→(−10,90)→(15,90)→(35,50) kaynakta adlandırılmamış.
+3. **Temsili eğitim modeli** (`models/`):
+   - **İyot/ksenon**: `dI/dt = a·P − λI·I`, `dX/dt = b·P + λI·I − λX·X − κ·P·X` (saat, %100 denge X = 1). λI, λX: I-135 (6,57 sa) ve Xe-135 (9,14 sa) yarı ömürleri (genel nükleer veri, kaynakta yok). **κ = 3·λX**, Şekil 2-41’in tepe zamanlarına (~4–8 sa) yaklaşık uyacak şekilde seçilmiş temsili katsayıdır; %100 kapatmada model tepe/denge oranı ~1,66, kaynakta ~1,51. Ksenon etkisi −X ile orantılı. Sabit adımlı RK4 (0,02 sa); yörüngeler önceden hesaplanır, aynı zaman aynı sonucu verir.
+   - **Gerçekleşen güç**: istenen güce τ = 0,25 sa ile yaklaşır (temsili).
+   - **Artık ısı**: Way–Wigner yaklaşık bağıntısı `0,0622·[t^−0,2 − (t+T)^−0,2]` (t, T saniye; T = 1 yıl). Genel yaklaşık bağıntıdır, kaynakta yoktur; fisyon gücünden ayrı tutulur.
+   - **ΔI ve AO**: `ΔI = üst − alt` (tam gücün %’si; pozitif = üst yarı fazla). `AO = (üst − alt)/(üst + alt)` ayrı bir büyüklüktür; sıfır güçte NaN yerine “—”. Dedektör sinyallerinin yarı çekirdek gücüyle orantılı olduğu, Şekil 2-42 duraklarında toplam gücün 12-3-6-3 profilinden alındığı (iki şeklin zaman ekseni aynı) varsayılmıştır. Bant içinde olmak güvenlik onayı değildir.
+   - Şema durumları (çubuk konumu, basınçlandırıcı seviyesi) temsilidir.
+
+Kapsam dışı bırakılanlar: kaynaktaki vana/pompa işlem sıraları, güvenlik sistemi devre dışı bırakma adımları, kritiklik için sayısal bor reçeteleri, tarihsel ülke oranları ve mevzuat ayrıntıları.
+
+Zamanlar: **senaryo saati** (fiziksel, saat), **gösterim hızı** (senaryo saati / simülasyon saniyesi) ve uygulamanın **ortak simülasyon saati** ayrıdır. Laboratuvar ortak saate abone olur; ayrı bir rAF döngüsü açmaz. Sayfadaki 60 saniyelik grafik kullanılmaz.
+
 ## Mimari
 
 ```
@@ -81,7 +116,8 @@ Bu sürümde yapılan kontroller:
 | --- | --- |
 | `npm run typecheck` (strict) | Geçti |
 | `npm run build` | Geçti |
-| `npm test` — 39 birim testi (saat, model ve enerji dengesi, reducer, yapılandırmalar, akış yardımcıları, VVER boru geometrisi) | Geçti |
+| `npm test` — 68 birim testi (saat, enerji dengesi, reducer, yapılandırmalar, akış yardımcıları, VVER boru geometrisi, PWR işletme modülü modelleri ve verileri) | Geçti |
+| PWR işletme modülü (tarayıcı): altı bölüm açıldı; 6 mod; 6 ısınma aşaması; bor eğrisinde klavye gezinmesi; ksenon laboratuvarında duraklatma, sıfırlama, senaryo değişiminde sıfırlanma, aynı saatte aynı değer; 0/3/9/12/18/24 sa durakları; aynı güçte üst pay %40 → ΔI −20, %60 → +20; sıfır güçte AO “—”; BWR/VVER’de modül görünmüyor; mobilde sayfa taşması yok; konsol hatası yok | Doğrulandı |
 | Saat: duraklatma, devamda sıçrama olmaması, hız, tek döngü | Birim testinde sahte rAF kareleriyle doğrulandı |
 | Tarayıcıda animasyonun ilerlemesi (güç değişiminde model ve grafik güncelleniyor) | Doğrulandı |
 | 20 kez reaktör değişimi sonrası saat abone sayısı aynı (25 → 25), tek döngü | Doğrulandı |
@@ -94,4 +130,4 @@ Bu sürümde yapılan kontroller:
 | Mobil (375 px): sayfada yatay taşma yok, yan panel altta | Doğrulandı |
 | Konsol hatası | Görülmedi |
 
-Doğrulanamayanlar: ilk sürümde tarayıcı paneli arka plana alındığı için duraklat/devam/hız davranışı tarayıcıda gerçek zamanlı ölçülemedi; bu davranış birim testinde sahte kare zamanlarıyla doğrulandı. Yakın plan açıkken açan kontrolün sayfadan kaldırılması durumu (yedek odak noktası) tarayıcıda denenmedi; arayüzde bu durumu oluşturan bir akış yok. Ekran okuyucu ile manuel test yapılmadı.
+Doğrulanamayanlar: ilk sürümde tarayıcı paneli arka plana alındığı için duraklat/devam/hız davranışı tarayıcıda gerçek zamanlı ölçülemedi; bu davranış birim testinde sahte kare zamanlarıyla doğrulandı. Yakın plan açıkken açan kontrolün sayfadan kaldırılması durumu (yedek odak noktası) tarayıcıda denenmedi; arayüzde bu durumu oluşturan bir akış yok. Ekran okuyucu ile manuel test yapılmadı. PWR işletme modülünde tarayıcı paneli gizliyken kare hızı kısıldığından ksenon laboratuvarının gerçek zamanlı oynatma hızı ölçülemedi (oynatmanın ilerlediği ve duraklatmanın durdurduğu görüldü; hız birim testleriyle doğrulandı). Şekillerden okunan değerler gözle ve piksel ölçümüyle elde edildi; ±birkaç piksel belirsizlik içerir. Modelin fiziksel doğruluğu testlerle kanıtlanmış sayılmamalıdır; testler yalnız tutarlılık ve beklenen eğilimleri kontrol eder.

@@ -1,6 +1,8 @@
 import type { ReactorId } from '../reactors/shared/types';
 
 export type ViewMode = 'scheme' | 'compare' | 'learn';
+/** Yalnız PWR’de: santral şeması ya da “İşletme ve davranış” modülü. */
+export type PwrSubView = 'plant' | 'ops';
 
 export interface AppState {
   reactor: ReactorId;
@@ -15,6 +17,7 @@ export interface AppState {
   showFlow: boolean;
   /** Sahne değişiminde bileşenleri yeniden bağlamak için artan sayaç. */
   sceneEpoch: number;
+  pwrView: PwrSubView;
 }
 
 export const initialAppState: AppState = {
@@ -28,6 +31,7 @@ export const initialAppState: AppState = {
   showLabels: true,
   showFlow: true,
   sceneEpoch: 0,
+  pwrView: 'plant',
 };
 
 export type AppAction =
@@ -41,7 +45,8 @@ export type AppAction =
   | { type: 'toggleCore' }
   | { type: 'toggleLabels' }
   | { type: 'toggleFlow' }
-  | { type: 'reset' };
+  | { type: 'reset' }
+  | { type: 'setPwrView'; view: PwrSubView };
 
 export function appReducer(state: AppState, action: AppAction): AppState {
   switch (action.type) {
@@ -57,9 +62,21 @@ export function appReducer(state: AppState, action: AppAction): AppState {
         detail: null,
         coreOpen: false,
         sceneEpoch: state.sceneEpoch + 1,
+        // PWR işletme modülü yalnız PWR’ye aittir; başka reaktöre taşınmaz.
+        pwrView: 'plant',
       };
     case 'setView':
-      return { ...state, view: action.view, detail: null, focus: null, selected: action.view === 'learn' ? null : state.selected };
+      return {
+        ...state,
+        view: action.view,
+        detail: null,
+        focus: null,
+        selected: action.view === 'learn' ? null : state.selected,
+        pwrView: action.view === 'scheme' ? state.pwrView : 'plant',
+      };
+    case 'setPwrView':
+      if (state.reactor !== 'pwr') return state;
+      return { ...state, pwrView: action.view, view: 'scheme', detail: null, focus: null, selected: null };
     case 'select':
       return { ...state, selected: action.id, focus: null };
     case 'focus':

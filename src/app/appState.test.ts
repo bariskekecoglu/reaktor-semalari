@@ -47,6 +47,31 @@ describe('appReducer', () => {
   });
 });
 
+describe('PWR işletme alt görünümü', () => {
+  it('yalnız PWR’de açılabilir; BWR/VVER’de istek yok sayılır', () => {
+    let s = appReducer(initialAppState, { type: 'setPwrView', view: 'ops' });
+    expect(s.pwrView).toBe('ops');
+    for (const r of ['bwr', 'vver'] as const) {
+      let t = appReducer(initialAppState, { type: 'setReactor', reactor: r });
+      t = appReducer(t, { type: 'setPwrView', view: 'ops' });
+      expect(t.pwrView).toBe('plant');
+    }
+    // PWR’de açıkken başka reaktöre geçince modül durumu taşınmaz; geri dönünce santral şeması açılır.
+    s = appReducer(s, { type: 'setReactor', reactor: 'bwr' });
+    expect(s.pwrView).toBe('plant');
+    s = appReducer(s, { type: 'setReactor', reactor: 'pwr' });
+    expect(s.pwrView).toBe('plant');
+  });
+
+  it('karşılaştırma veya öğrenme görünümüne geçince işletme modülü kapanır', () => {
+    for (const v of ['compare', 'learn'] as const) {
+      let s = appReducer(initialAppState, { type: 'setPwrView', view: 'ops' });
+      s = appReducer(s, { type: 'setView', view: v });
+      expect(s.pwrView).toBe('plant');
+    }
+  });
+});
+
 describe('reaktör yapılandırmaları', () => {
   const ids = ['pwr', 'bwr', 'vver'] as const;
 
