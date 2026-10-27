@@ -1,0 +1,1384 @@
+:root {
+  --bg: #f6f3ec;
+  --paper: #fbfaf6;
+  --ink: #26262a;
+  --ink-soft: #55555c;
+  --line: #3b3b40;
+  --rule: #d9d4c7;
+  --metal: #d4d0c7;
+  --metal-light: #e8e5de;
+  --metal-dark: #8d8980;
+  --concrete: #e2ded3;
+  --hot: #d9480f;
+  --warm: #b0568a;
+  --cold: #1c6fc2;
+  --steam: #c3c8cf;
+  --feed: #5aa9e6;
+  --cool: #0b8f72;
+  --fuel: #e9c46a;
+  --rod: #2b2b30;
+  --accent: #1d3557;
+  --focus: #0b5cd5;
+  --font-ui: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-tech: Cambria, 'Times New Roman', Georgia, serif;
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 15px;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  min-height: 36px;
+  padding: 6px 12px;
+  border: 1px solid #b9b3a5;
+  background: var(--paper);
+  border-radius: 6px;
+}
+button:hover:not(:disabled) {
+  border-color: var(--line);
+}
+button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+button[aria-pressed='true'],
+button.on {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+button.primary {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
+}
+button.link {
+  border: none;
+  background: none;
+  text-decoration: underline;
+  padding: 4px 0;
+  color: var(--accent);
+}
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.app {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 16px 20px 32px;
+}
+
+/* ---------- Üst alan ---------- */
+.header h1 {
+  font-family: var(--font-tech);
+  font-size: 1.7rem;
+  margin: 0;
+  font-weight: 600;
+}
+.subtitle {
+  margin: 0;
+  color: var(--ink-soft);
+}
+.title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 10px;
+}
+.seg {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0;
+  border: 1px solid #b9b3a5;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--paper);
+}
+.seg button {
+  border: none;
+  border-radius: 0;
+  border-right: 1px solid #d5cfc2;
+}
+.seg button:last-child {
+  border-right: none;
+}
+.seg.small button {
+  min-width: 52px;
+}
+.reactor-row {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 20px;
+  align-items: start;
+  padding: 12px 0;
+}
+.reactor-seg button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 150px;
+  padding: 8px 14px;
+  text-align: left;
+}
+.reactor-seg strong {
+  font-size: 1.15rem;
+  letter-spacing: 0.03em;
+}
+.reactor-seg span {
+  font-size: 0.8rem;
+  opacity: 0.85;
+}
+.reactor-summary h2 {
+  font-size: 1.05rem;
+  margin: 0;
+}
+.reactor-summary p {
+  margin: 2px 0;
+  max-width: 900px;
+}
+.reactor-summary .family {
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.notice {
+  background: #fff6d6;
+  border: 1px solid #e7cf7a;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+/* ---------- Ana alan ---------- */
+.main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 16px;
+  align-items: start;
+}
+.compare-main {
+  display: block;
+}
+.stage {
+  position: relative;
+  min-width: 0;
+}
+.viewport {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+}
+.viewport-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  padding: 8px;
+  border-bottom: 1px solid var(--rule);
+}
+.viewport-toolbar button {
+  min-width: 36px;
+}
+.zoom-readout {
+  min-width: 72px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.9rem;
+}
+.tb-sep {
+  width: 1px;
+  height: 24px;
+  background: var(--rule);
+  margin: 0 4px;
+}
+.scene-scroll {
+  overflow: auto;
+  max-height: 78vh;
+  cursor: grab;
+  touch-action: pan-x pan-y;
+  overscroll-behavior: contain;
+}
+.scene-canvas {
+  min-width: 1040px;
+}
+.scene-scroll.fit .scene-canvas {
+  min-width: 0;
+  width: 100%;
+}
+.scene-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+}
+.scene-notes {
+  padding: 6px 10px;
+  border-top: 1px solid var(--rule);
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+}
+.scene-notes p {
+  margin: 0;
+}
+
+.legend {
+  margin-top: 10px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+.legend ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+}
+.legend li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.88rem;
+}
+.legend-note {
+  margin: 6px 0 0;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+/* ---------- Yan panel ---------- */
+.side {
+  position: sticky;
+  top: 10px;
+}
+.side-panel {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 14px;
+  max-height: calc(100vh - 20px);
+  overflow: auto;
+}
+.side-panel h3 {
+  font-family: var(--font-tech);
+  font-size: 1.3rem;
+  margin: 2px 0 6px;
+}
+.side-panel h4 {
+  margin: 12px 0 4px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+}
+.eyebrow {
+  margin: 0;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+.role {
+  font-weight: 600;
+}
+.btn-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+.focus-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 6px;
+}
+.focus-list button {
+  width: 100%;
+  text-align: left;
+}
+ul.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+ul.chips button {
+  width: auto;
+  font-size: 0.84rem;
+  min-height: 32px;
+  padding: 4px 9px;
+}
+.focus-list {
+  border-top: 1px solid var(--rule);
+  margin-top: 12px;
+}
+.lesson .steps {
+  list-style: none;
+  display: flex;
+  gap: 6px;
+  padding: 0;
+  margin: 8px 0;
+  flex-wrap: wrap;
+}
+.lesson .steps button {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  padding: 0;
+}
+.lesson .steps button.done {
+  background: var(--metal-light);
+}
+.lesson .steps button.on {
+  border-width: 3px;
+}
+.hint {
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+}
+
+/* ---------- Kontroller ---------- */
+.controls {
+  margin-top: 14px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 22px;
+  align-items: center;
+}
+.ctrl-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.ctrl-label {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+.ctrl-group.power {
+  flex-direction: column;
+  align-items: stretch;
+  min-width: 240px;
+}
+.ctrl-group.power output {
+  font-weight: 700;
+  color: var(--ink);
+  margin-left: 6px;
+}
+input[type='range'] {
+  width: 100%;
+  min-height: 32px;
+  accent-color: var(--accent);
+}
+.play {
+  min-width: 120px;
+}
+.readouts {
+  display: flex;
+  gap: 18px;
+  margin: 0;
+  flex-wrap: wrap;
+}
+.readouts div {
+  min-width: 90px;
+}
+.readouts dt {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+}
+.readouts dd {
+  margin: 0;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.ctrl-note {
+  flex-basis: 100%;
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+/* ---------- Paneller ---------- */
+.panels {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 540px), 1fr));
+  gap: 14px;
+}
+.panel {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 12px;
+  min-width: 0;
+}
+.panel h2 {
+  font-size: 0.95rem;
+  margin: 0 0 6px;
+}
+.panel svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.chart-note {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  margin: 6px 0 0;
+}
+.core-panel {
+  grid-column: 1 / -1;
+}
+.core-panel .detail-svg {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Enerji akışı */
+.ef-bar {
+  stroke: var(--line);
+  stroke-width: 1;
+}
+.ef-nuc {
+  fill: #f2c94c;
+}
+.ef-heat {
+  fill: #f08c5a;
+}
+.ef-steam {
+  fill: #d7dce2;
+}
+.ef-mech {
+  fill: #a3a9b5;
+}
+.ef-elec {
+  fill: #ffd43b;
+}
+.ef-reject {
+  fill: #7fd1bd;
+}
+.ef-link {
+  fill: #e9e4d8;
+}
+.ef-reject-link {
+  stroke: var(--cool);
+  stroke-width: 3;
+  stroke-dasharray: 5 3;
+}
+.ef-label {
+  font-size: 13px;
+  fill: var(--ink);
+}
+.ef-val {
+  font-size: 14px;
+  font-weight: 700;
+  fill: var(--ink);
+}
+
+/* Zaman grafiği */
+.timechart .grid {
+  stroke: #e4dfd3;
+}
+.timechart .axis {
+  stroke: var(--line);
+}
+.timechart .tick,
+.timechart .axis-title {
+  font-size: 12px;
+  fill: var(--ink-soft);
+}
+.line-thermal {
+  fill: none;
+  stroke: var(--hot);
+  stroke-width: 2.5;
+}
+.line-electric {
+  fill: none;
+  stroke: #7a5d00;
+  stroke-width: 2.5;
+  stroke-dasharray: 7 4;
+}
+.line-label {
+  font-size: 12.5px;
+  font-weight: 600;
+}
+.line-label.thermal {
+  fill: var(--hot);
+}
+.line-label.electric {
+  fill: #7a5d00;
+}
+
+/* ---------- Yakın plan ---------- */
+.detail-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  background: rgba(246, 243, 236, 0.86);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 18px;
+}
+.detail-box {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  width: min(860px, 100%);
+  max-height: 100%;
+  overflow: auto;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+.detail-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--rule);
+}
+.detail-head h3 {
+  margin: 0;
+  font-family: var(--font-tech);
+}
+.detail-body {
+  padding: 10px;
+}
+.detail-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ---------- Karşılaştırma ---------- */
+.compare h2 {
+  font-family: var(--font-tech);
+  margin: 6px 0;
+}
+.compare-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 14px;
+}
+.compare-card {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 10px;
+}
+.compare-card h3 {
+  margin: 0 0 4px;
+  font-size: 1rem;
+}
+.compare-card svg {
+  width: 100%;
+  height: auto;
+}
+.table-wrap {
+  overflow-x: auto;
+  margin-top: 14px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+}
+table.compare-table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 720px;
+  font-size: 0.92rem;
+}
+.compare-table th,
+.compare-table td {
+  border-bottom: 1px solid var(--rule);
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+.compare-table thead th {
+  background: var(--metal-light);
+}
+.compare-table tbody th {
+  width: 20%;
+  font-weight: 600;
+}
+
+/* ---------- Kaynaklar ---------- */
+.sources {
+  margin-top: 18px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+.sources summary {
+  font-weight: 700;
+  cursor: pointer;
+  min-height: 32px;
+  display: list-item;
+}
+.sources-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 16px;
+  font-size: 0.88rem;
+}
+.sources h3 {
+  font-size: 0.95rem;
+}
+.sources a {
+  color: var(--accent);
+  word-break: break-all;
+}
+
+/* =================== SVG TEKNİK ÇİZİM =================== */
+.scene-svg,
+.detail-svg {
+  font-family: var(--font-tech);
+}
+.ground {
+  stroke: none;
+}
+.hatch {
+  stroke: #b3ad9f;
+  stroke-width: 2;
+}
+.containment {
+  fill: none;
+  stroke: var(--concrete);
+  stroke-width: 16;
+}
+.containment-line {
+  fill: none;
+  stroke: #9e998c;
+  stroke-width: 1.2;
+}
+.vessel-wall {
+  fill: var(--metal-light);
+  stroke: var(--line);
+  stroke-width: 2;
+}
+.vessel-wall.thick {
+  stroke-width: 4;
+}
+.vessel-head,
+.flange {
+  fill: var(--metal);
+  stroke: var(--line);
+  stroke-width: 2;
+}
+.barrel {
+  stroke: var(--metal-dark);
+  stroke-width: 2;
+  fill: none;
+}
+.core-zone {
+  fill: #fbe7b3;
+  stroke: #b08a2e;
+  stroke-width: 1.2;
+}
+.fuel-rod {
+  stroke: #c9962a;
+  stroke-width: 3.5;
+}
+.nozzle {
+  fill: var(--metal);
+  stroke: var(--line);
+  stroke-width: 1.2;
+}
+.crdm {
+  fill: var(--metal);
+  stroke: var(--line);
+  stroke-width: 1.2;
+}
+.drive-line {
+  stroke: var(--metal-dark);
+  stroke-width: 1.2;
+}
+.control-rod {
+  fill: var(--rod);
+}
+.pzr-steam {
+  fill: #eef0f3;
+}
+.pzr-water {
+  fill: #f6b9a0;
+}
+.level {
+  stroke: var(--cold);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 3;
+}
+.heater {
+  fill: none;
+  stroke: #c92a2a;
+  stroke-width: 2;
+}
+.spray {
+  fill: none;
+  stroke: var(--cold);
+  stroke-width: 2;
+}
+.valve {
+  fill: #fab005;
+  stroke: var(--line);
+}
+.pipe-wall {
+  fill: none;
+  stroke: #55555c;
+  stroke-linecap: butt;
+  stroke-linejoin: round;
+}
+.pipe-fluid {
+  fill: none;
+  stroke-linejoin: round;
+}
+.fluid-hot {
+  stroke: #f7c3a8;
+}
+.fluid-cold {
+  stroke: #b9d5f2;
+}
+.fluid-grad {
+  stroke: #e8cfe0;
+}
+.fluid-steam {
+  stroke: #f1f2f4;
+}
+.fluid-feed {
+  stroke: #d3e8f8;
+}
+.fluid-cool {
+  stroke: #bfe9dc;
+}
+.fluid-mix {
+  stroke: #f7d6c2;
+}
+.flow-guide {
+  fill: none;
+  pointer-events: none;
+}
+.flow-guide.in-pipe {
+  stroke: rgba(40, 40, 45, 0.45);
+  stroke-width: 1.4;
+}
+.flow-guide.in-vessel {
+  stroke: transparent;
+  stroke-width: 1.5;
+}
+.flow-cool .flow-guide.in-pipe {
+  stroke: var(--cool);
+}
+.flow-steam .flow-guide.in-pipe {
+  stroke: #6c727b;
+}
+.flow-feed .flow-guide.in-pipe {
+  stroke: #2f80c0;
+}
+
+.p {
+  stroke: #26262a;
+  stroke-width: 0.7;
+  pointer-events: none;
+}
+.p-hot {
+  fill: var(--hot);
+}
+.p-warm {
+  fill: var(--warm);
+}
+.p-cold {
+  fill: var(--cold);
+}
+.p-feed {
+  fill: var(--feed);
+}
+.p-cool {
+  fill: var(--cool);
+}
+.p-steam {
+  fill: #fff;
+  stroke: #6b7079;
+  stroke-width: 1.4;
+}
+.p-bubble {
+  fill: rgba(255, 255, 255, 0.85);
+  stroke: #6b7079;
+  stroke-width: 1.1;
+}
+.p-grad {
+  fill: var(--hot);
+}
+
+.sg-shell {
+  fill: #f1f2f4;
+  stroke: var(--line);
+  stroke-width: 2.5;
+}
+.secondary-water {
+  fill: #cfe4f7;
+}
+.separator {
+  fill: var(--metal);
+  stroke: var(--line);
+  stroke-width: 1.2;
+}
+.dryer {
+  fill: none;
+  stroke: var(--metal-dark);
+  stroke-width: 1.8;
+}
+.tubesheet {
+  fill: var(--metal-dark);
+  stroke: var(--line);
+}
+.channel-head {
+  fill: #e9d6dc;
+  stroke: var(--line);
+  stroke-width: 2;
+}
+.divider {
+  stroke: var(--line);
+  stroke-width: 2;
+}
+.u-tube {
+  fill: none;
+  stroke: #7d6c72;
+  stroke-width: 1.4;
+}
+.u-tube-glow {
+  fill: none;
+  stroke: #ff922b;
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+.heat-pulse {
+  pointer-events: none;
+}
+
+.shaft {
+  fill: #7d7a74;
+  stroke: var(--line);
+}
+.casing {
+  fill: #e4e7eb;
+  stroke: var(--line);
+  stroke-width: 2;
+}
+.casing-outline {
+  fill: #e4e7eb;
+  stroke: var(--line);
+  stroke-width: 2;
+}
+.blades line {
+  stroke: #6c727b;
+  stroke-width: 2.4;
+  stroke-dasharray: 6 4;
+}
+.rotor {
+  stroke: #5c5a55;
+  stroke-width: 5;
+}
+.exhaust {
+  fill: var(--metal);
+  stroke: var(--line);
+}
+.generator {
+  fill: #d8d4cb;
+  stroke: var(--line);
+  stroke-width: 2;
+}
+.stator {
+  fill: #c98a50;
+  stroke: #7a4f26;
+  stroke-width: 0.8;
+}
+.gen-rotor {
+  fill: #b02a2a;
+  stroke: var(--line);
+}
+.shaft-end {
+  fill: var(--metal);
+  stroke: var(--line);
+}
+.shaft-mark {
+  stroke: #b02a2a;
+  stroke-width: 3;
+}
+.coupling {
+  fill: var(--metal-dark);
+}
+
+.condenser .shell {
+  fill: #eef0f2;
+  stroke: var(--line);
+  stroke-width: 2.2;
+}
+.tube-line {
+  stroke: #8fc7b8;
+  stroke-width: 1;
+}
+.hotwell {
+  fill: #b9d5f2;
+  stroke: #3e78b2;
+}
+.drop-steam {
+  fill: #fff;
+  stroke: #6b7079;
+  stroke-width: 1.1;
+}
+.drop-water {
+  fill: var(--feed);
+  stroke: #1e5a8c;
+  stroke-width: 0.6;
+}
+.cool-source {
+  fill: #dff3ec;
+  stroke: var(--cool);
+  stroke-width: 1.6;
+}
+.wave {
+  fill: none;
+  stroke: var(--cool);
+  stroke-width: 1.5;
+}
+.eq-text {
+  font-size: 14px;
+  fill: var(--ink);
+}
+.eq-text.small {
+  font-size: 12px;
+  fill: var(--ink-soft);
+}
+.motor {
+  fill: #cfd4da;
+  stroke: var(--line);
+  stroke-width: 1.5;
+}
+.fin {
+  stroke: #8a9099;
+  stroke-width: 1;
+}
+.pump-shaft {
+  fill: var(--metal-dark);
+}
+.pump-casing {
+  fill: var(--metal-light);
+  stroke: var(--line);
+  stroke-width: 2;
+}
+.impeller {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 2;
+}
+.hub {
+  fill: var(--line);
+}
+.cable {
+  fill: none;
+  stroke: #444;
+  stroke-width: 2;
+}
+.transformer {
+  fill: #c7ccd2;
+  stroke: var(--line);
+  stroke-width: 1.5;
+}
+.tower {
+  fill: none;
+  stroke: #666;
+  stroke-width: 1.5;
+}
+.heater-box {
+  fill: #f3ece0;
+  stroke: var(--line);
+  stroke-width: 1.5;
+}
+.heater-coil {
+  fill: none;
+  stroke: #c92a2a;
+  stroke-width: 1.5;
+}
+.scene-note rect {
+  fill: #fffdf6;
+  stroke: #b9b3a5;
+}
+.scene-note text {
+  font-size: 14px;
+  fill: var(--ink);
+}
+.circuit-tags text {
+  font-family: var(--font-ui);
+  font-size: 12.5px;
+  letter-spacing: 0.04em;
+  fill: var(--ink-soft);
+}
+
+/* Etiketler */
+.label .leader {
+  fill: none;
+  stroke: #5c5c63;
+  stroke-width: 1;
+}
+.leader-dot {
+  fill: #5c5c63;
+}
+.label-text {
+  font-size: 15.5px;
+  fill: var(--ink);
+  paint-order: stroke;
+  stroke: var(--paper);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+.label-sub {
+  font-size: 13px;
+  fill: var(--ink-soft);
+  font-style: italic;
+  paint-order: stroke;
+  stroke: var(--paper);
+  stroke-width: 4px;
+}
+.label {
+  pointer-events: none;
+}
+
+/* Etkileşim: seçim, odak, vurgu (renk + çerçeve deseni) */
+.hotspot {
+  cursor: pointer;
+  outline: none;
+}
+.hs-hit {
+  fill: transparent;
+}
+.hs-frame {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 2.5;
+  pointer-events: none;
+}
+.hotspot:hover .hs-frame {
+  stroke: rgba(29, 53, 87, 0.45);
+  stroke-dasharray: 3 3;
+}
+.hotspot:focus-visible .hs-frame {
+  stroke: var(--focus);
+  stroke-width: 3.5;
+  stroke-dasharray: none;
+}
+.hotspot.is-selected .hs-frame {
+  stroke: #111;
+  stroke-width: 3;
+  stroke-dasharray: 9 4;
+}
+.hotspot.is-hl .hs-frame {
+  stroke: #111;
+  stroke-width: 2.4;
+  stroke-dasharray: 5 4;
+}
+.is-dim {
+  opacity: 0.26;
+  transition: opacity 0.25s;
+}
+.hotspot.is-hl .is-dim,
+.hotspot.is-selected .is-dim {
+  opacity: 1;
+}
+.flow.is-hl .pipe-wall,
+.flow.is-selected .pipe-wall {
+  stroke: #111;
+}
+.flow.is-hl .flow-guide {
+  stroke: #111;
+  stroke-width: 2.6;
+}
+.flow.is-hl .flow-guide.in-vessel {
+  stroke-dasharray: 6 4;
+}
+
+/* Çekirdek yakın planı */
+.coolant-bg {
+  fill: #dcebf8;
+  stroke: var(--line);
+}
+.fuel-tube {
+  fill: var(--fuel);
+  stroke: #8a6a1e;
+  stroke-width: 1.2;
+}
+.pellet-line {
+  stroke: #b08a2e;
+  stroke-width: 0.8;
+}
+.guide-tube-side {
+  fill: rgba(255, 255, 255, 0.4);
+  stroke: #8d8980;
+  stroke-dasharray: 3 2;
+}
+.detail-mask {
+  fill: var(--paper);
+}
+.detail-edge {
+  stroke: var(--line);
+}
+.detail-caption {
+  font-size: 14px;
+  fill: var(--ink);
+}
+.detail-caption.small {
+  font-size: 12px;
+  fill: var(--ink-soft);
+}
+.detail-note {
+  font-size: 13px;
+  fill: var(--ink-soft);
+  font-style: italic;
+}
+.assembly-can {
+  fill: #dcebf8;
+  stroke: var(--line);
+  stroke-width: 1.5;
+}
+.assembly-can.open {
+  stroke-dasharray: 5 3;
+}
+.fuel-pin {
+  fill: var(--fuel);
+  stroke: #8a6a1e;
+}
+.guide-tube {
+  fill: #fff;
+  stroke: var(--rod);
+  stroke-width: 3;
+}
+.guide-tube.rodded {
+  fill: var(--rod);
+}
+.neutron {
+  fill: #fff;
+  stroke: #111;
+  stroke-width: 1.4;
+}
+.flash-fission {
+  fill: rgba(255, 196, 0, 0.55);
+  stroke: #e67700;
+  stroke-width: 1.5;
+}
+.flash-absorb {
+  fill: none;
+  stroke: #111;
+  stroke-width: 1.6;
+  stroke-dasharray: 2 2;
+}
+.core-legend text {
+  font-size: 13px;
+  fill: var(--ink);
+}
+.cruciform {
+  fill: var(--rod);
+}
+.channel-box {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 2.2;
+}
+.hex {
+  fill: #dcebf8;
+  stroke: var(--line);
+  stroke-width: 1.5;
+}
+.water-zone {
+  fill: #cfe4f7;
+}
+.mix-zone {
+  fill: #f9dccb;
+}
+.steam-zone {
+  fill: #eef0f3;
+}
+.zone-text {
+  font-size: 13px;
+  fill: var(--ink);
+  font-style: italic;
+}
+.jet-pump {
+  fill: var(--metal);
+  stroke: var(--line);
+  stroke-width: 1.2;
+}
+.shroud {
+  fill: none;
+  stroke: var(--metal-dark);
+  stroke-width: 3;
+}
+.collector {
+  fill: #e9d6dc;
+  stroke: var(--line);
+  stroke-width: 2;
+}
+.collector.cold {
+  fill: #d5e3f3;
+}
+.h-tube {
+  fill: none;
+  stroke: #7d6c72;
+  stroke-width: 1.3;
+}
+.perforated {
+  stroke: var(--metal-dark);
+  stroke-width: 2;
+  stroke-dasharray: 6 3;
+}
+.suppression {
+  fill: #cfe4f7;
+  stroke: var(--line);
+  stroke-width: 1.4;
+}
+.mini text {
+  font-size: 12px;
+  fill: var(--ink);
+}
+
+/* ---------- Mobil ---------- */
+@media (max-width: 1100px) {
+  .main {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .side {
+    position: static;
+  }
+  .side-panel {
+    max-height: none;
+  }
+}
+@media (max-width: 720px) {
+  .app {
+    padding: 10px 10px 24px;
+  }
+  .header h1 {
+    font-size: 1.35rem;
+  }
+  .reactor-row {
+    grid-template-columns: 1fr;
+  }
+  .reactor-seg {
+    width: 100%;
+  }
+  .reactor-seg button {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+  .reactor-seg span {
+    display: none;
+  }
+  .scene-scroll {
+    max-height: 70vh;
+  }
+  .scene-canvas {
+    min-width: 980px;
+  }
+  .controls {
+    gap: 12px;
+  }
+  .ctrl-group.power {
+    min-width: 100%;
+  }
+  button {
+    min-height: 42px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .is-dim {
+    transition: none;
+  }
+}
+
+/* Mini şemalar */
+.mini-flow {
+  fill: none;
+  stroke-width: 3;
+}
+.mini-flow.hot {
+  stroke: var(--hot);
+}
+.mini-flow.cold {
+  stroke: var(--cold);
+}
+.mini-flow.steam {
+  stroke: #7d838c;
+  stroke-dasharray: 7 4;
+}
+.mini-flow.feed {
+  stroke: #2f80c0;
+  stroke-dasharray: 2 4;
+}
+.mini text {
+  font-family: var(--font-ui);
+  font-size: 10.5px;
+  fill: var(--ink);
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.lp-profile {
+  fill: none;
+  stroke: #8a9099;
+  stroke-width: 1.4;
+  stroke-dasharray: 4 3;
+}
+.ef-sub {
+  font-size: 11.5px;
+  fill: var(--ink-soft);
+}
+.ef-link.reject {
+  fill: #cdeee5;
+}
+.energy,
+.timechart {
+  overflow-x: auto;
+}
+@media (max-width: 720px) {
+  .energy svg,
+  .timechart svg {
+    min-width: 520px;
+  }
+}
+.detail-svg,
+.scene-svg {
+  overflow: hidden;
+}
