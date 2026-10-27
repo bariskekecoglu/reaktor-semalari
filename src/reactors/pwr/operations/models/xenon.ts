@@ -148,3 +148,15 @@ export function decayHeatFraction(hoursAfterShutdown: number, operatingDays = 36
   const v = 0.0622 * (Math.pow(t, -0.2) - Math.pow(t + T, -0.2));
   return Number.isFinite(v) ? Math.max(0, v) : 0;
 }
+
+/**
+ * Kapatma sonrası artık ısıyı iki ayrı referansla verir (yüzde):
+ *  - ofPrior: kapatmadan önceki işletme gücüne oranla,
+ *  - ofNominal: nominal (tam) güce oranla = ofPrior × önceki güç / 100.
+ * Örnek: %25 güçten 1 saat sonra ofPrior ≈ %1,01, ofNominal ≈ %0,25.
+ */
+export function decayHeatPercents(hoursAfterShutdown: number, priorPowerPct: number): { ofPrior: number; ofNominal: number } {
+  const f = decayHeatFraction(hoursAfterShutdown);
+  const prior = Number.isFinite(priorPowerPct) ? Math.max(0, priorPowerPct) : 0;
+  return { ofPrior: f * 100, ofNominal: f * prior };
+}

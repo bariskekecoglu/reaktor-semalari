@@ -145,7 +145,10 @@ export interface AxialStop {
   power: number[];
   /** Aynı yüksekliklerde göreli ksenon profili. */
   xenon: number[];
-  /** Şekildeki “D” ve “C” etiketli koyu çubukların göreli uzunluğu (0–1); anlamları kaynakta açıklanmamış. */
+  /**
+   * Şekildeki “D” ve “C” etiketli koyu çubukların göreli uzunluğu (0–1). Anlamları kaynakta açıklanmamış;
+   * yalnız şeklin içeriği olarak gösterilir, kontrol çubuğu konumuna çevrilmez.
+   */
   barD: number | null;
   barC: number | null;
   /** Kısa açıklama (ne değişti, neden). */
@@ -173,7 +176,7 @@ export const FIG_2_42: AxialStop[] = [
     xenon: [0.98, 1.0, 1.01, 1.0, 1.0, 1.02, 1.01, 1.0, 0.98, 0.93],
     barD: 0.9,
     barC: 0.05,
-    why: 'Şekilde güç eğrisi orta bölgede içe çekilmiş, ksenon eğrisi dışarıda kalmış: ksenon dağılımı güç dağılımındaki değişimi hemen izlemiyor. Şekilde “D” göstergesi uzun.',
+    why: 'Şekilde güç eğrisi orta bölgede içe çekilmiş, ksenon eğrisi dışarıda kalmış: ksenon dağılımı güç dağılımındaki değişimi hemen izlemiyor.',
   },
   {
     hour: 9,
@@ -191,7 +194,7 @@ export const FIG_2_42: AxialStop[] = [
     xenon: [0.75, 0.74, 0.73, 0.73, 0.75, 0.77, 0.78, 0.78, 0.78, 0.55],
     barD: 0.18,
     barC: null,
-    why: 'Güç alt bölgede belirgin biçimde yükselmiş (alt tepe); ksenon dağılımı daha düz ve içeride. Şekilde “D” göstergesi kısa.',
+    why: 'Güç alt bölgede belirgin biçimde yükselmiş (alt tepe); ksenon dağılımı daha düz ve içeride.',
   },
   {
     hour: 18,

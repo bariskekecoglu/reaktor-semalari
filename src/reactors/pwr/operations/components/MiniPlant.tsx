@@ -22,17 +22,21 @@ export function MiniPlant({ view, highlight = [], label }: Props) {
   return (
     <svg viewBox="0 0 660 360" className="mini-plant" role="img" aria-label={label}>
       {/* Birincil döngü */}
-      <path className={`mp-pipe ${primaryOn ? 'hot' : 'idle'}`} d="M150 112 H250 V96" />
-      <path className={`mp-pipe ${primaryOn ? 'cold' : 'idle'}`} d="M290 222 V262 H222" />
-      <path className={`mp-pipe ${primaryOn ? 'cold' : 'idle'}`} d="M178 262 H162 V212 H150" />
+      {/* Birincil döngü: sıcak kol → kanal başlığı giriş tarafı → U boruları → çıkış tarafı → soğuk kol → pompa → kap */}
+      <path className={`mp-pipe ${primaryOn ? 'hot' : 'idle'}`} d="M150 112 H236 V254 H262 V246" />
+      <path className={`mp-pipe ${primaryOn ? 'cold' : 'idle'}`} d="M278 246 V272 H216" />
+      {/* Pompa → kap bölümü: RHR dönüşü de bu bölüme bağlanır. */}
+      <path className={`mp-pipe ${primaryOn || view.rhrRunning ? 'cold' : 'idle'}`} d="M184 272 H162 V212 H150" />
       {/* RHR döngüsü */}
       <g className={`mp-rhr${view.rhrRunning ? ' on' : ''}${hl('rhr')}`}>
-        <path className={`mp-pipe ${view.rhrRunning ? 'hot' : 'idle'} thin`} d="M70 190 H44 V322 H96" />
-        <path className={`mp-pipe ${view.rhrRunning ? 'cold' : 'idle'} thin`} d="M182 322 H300 V270" />
-        <circle className="mp-pump" cx="110" cy="322" r="12" />
-        <rect className={`mp-hx${view.rhrRunning && !view.rhrHxBypassed ? ' active' : ''}`} x="136" y="310" width="42" height="24" rx="3" />
-        {view.rhrHxBypassed && <path className="mp-bypass" d="M124 322 Q157 292 182 322" />}
-        <text className="mp-label" x="44" y="352">
+        {/* RHR: kaptan alınır, pompa + ısı değiştirici, dönüş pompa ile kap arasındaki soğuk kola bağlanır */}
+        <path className={`mp-pipe ${view.rhrRunning ? 'hot' : 'idle'} thin`} d="M70 190 H44 V336 H98" />
+        <path className={`mp-pipe ${view.rhrRunning ? 'cold' : 'idle'} thin`} d="M178 336 H162 V275" />
+        <circle className="mp-pump" cx="110" cy="336" r="12" />
+        <rect className={`mp-hx${view.rhrRunning && !view.rhrHxBypassed ? ' active' : ''}`} x="136" y="324" width="42" height="24" rx="3" />
+        {view.rhrHxBypassed && <path className="mp-bypass" d="M122 336 Q157 306 178 336" />}
+        <circle className="mp-joint" cx="162" cy="272" r="3.5" />
+        <text className="mp-label" x="44" y="356">
           RHR {view.rhrRunning ? (view.rhrHxBypassed ? '· ısı değiştirici atlatıldı (ısı atılmıyor)' : '· çalışıyor, ısı değiştiriciden ısı atılıyor') : '· durdu'}
         </text>
       </g>
@@ -84,7 +88,9 @@ export function MiniPlant({ view, highlight = [], label }: Props) {
       <g className={`mp-sg${view.sgActive ? ' active' : ''}${hl('sg')}`}>
         <rect className="mp-wall" x="250" y="40" width="40" height="190" rx="18" />
         <rect className={`mp-sec${hl('sg-level')}`} x="254" y="96" width="32" height="124" />
-        <path className="mp-utube" d="M262 222 V120 A8 8 0 0 1 278 120 V222" />
+        <path className="mp-wall" d="M252 230 A18 16 0 0 0 288 230 Z" />
+        <line className="mp-divider" x1="270" x2="270" y1="230" y2="246" />
+        <path className="mp-utube" d="M262 240 V120 A8 8 0 0 1 278 120 V240" />
         <text className="mp-label" x="298" y="150">
           buhar
         </text>
@@ -94,11 +100,11 @@ export function MiniPlant({ view, highlight = [], label }: Props) {
       </g>
       {/* Pompa */}
       <g className={`mp-rcp${view.rcpRunning ? ' on' : ''}${hl('rcp')}`}>
-        <circle className="mp-pump" cx="200" cy="262" r="16" />
-        <text className="mp-label" x="200" y="294" textAnchor="middle">
+        <circle className="mp-pump" cx="200" cy="272" r="16" />
+        <text className="mp-label" x="222" y="298">
           birincil pompa
         </text>
-        <text className="mp-label small" x="200" y="307" textAnchor="middle">
+        <text className="mp-label small" x="222" y="311">
           {view.rcpRunning ? 'çalışıyor' : 'durdu'}
         </text>
       </g>
@@ -108,6 +114,8 @@ export function MiniPlant({ view, highlight = [], label }: Props) {
       <text className={`mp-label${view.steamDump ? '' : ' muted'}`} x="374" y="176" textAnchor="end">
         steam dump{view.steamDump ? ' · açık' : ''}
       </text>
+      {/* Türbin çıkışı → kondenser */}
+      <path className={`mp-pipe ${view.turbine === 'generating' ? 'steam' : 'idle'}`} d="M455 112 V160" />
       <g className={`mp-turbine${hl('turbine')}`}>
         <path className="mp-casing" d="M420 58 L490 44 V120 L420 106 Z" />
         <text className="mp-label" x="455" y="138" textAnchor="middle">

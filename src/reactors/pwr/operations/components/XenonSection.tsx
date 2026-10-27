@@ -2,7 +2,7 @@ import { useMemo, useRef, useState } from 'react';
 import { useSimulation, useTick } from '../../../../hooks/useSimulation';
 import { FIG_2_40, FIG_2_41 } from '../data/figures';
 import { demandAt, profileEvents } from '../models/profile';
-import { decayHeatFraction, indexAt, peakXenon, simulate, type Trajectory } from '../models/xenon';
+import { decayHeatPercents, indexAt, peakXenon, simulate, type Trajectory } from '../models/xenon';
 import { advance, createPlayback, resetPlayback, seek, togglePlay, type Playback } from '../models/playback';
 import { ChartFrame, LegendItem, ModelNote, SourceTags, WhyBox, fmt, type AxisDef, type ChartScales } from './common';
 
@@ -101,7 +101,8 @@ export function XenonSection() {
     lab === 'load'
       ? { min: 0, max: 24, ticks: [0, 3, 6, 9, 12, 15, 18, 21, 24], label: 'Senaryo saati (sa)' }
       : { min: 0, max: 100, ticks: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100], label: 'Kapatmadan sonra geçen süre (sa)' };
-  const decayNow = lab === 'shutdown' ? decayHeatFraction(Math.max(pb.t, 1 / 3600)) * (sc.priorPower ?? 100) : 0;
+  // Artık ısı iki referansla: nominal güce göre (grafikteki eksen) ve kapatma öncesi güce göre.
+  const decayNow = decayHeatPercents(Math.max(pb.t, 1 / 3600), sc.priorPower ?? 100);
 
   const cursor = (s: ChartScales) => <line className="ops-cursor" x1={s.x(pb.t)} x2={s.x(pb.t)} y1={s.top} y2={s.bottom} />;
   const eventMarks = (s: ChartScales) =>
@@ -111,7 +112,7 @@ export function XenonSection() {
   const decaySeries = useMemo(() => {
     if (lab !== 'shutdown') return null;
     const arr = new Float64Array(tr.t.length);
-    for (let k = 0; k < arr.length; k++) arr[k] = decayHeatFraction(Math.max(tr.t[k], 1 / 3600)) * (sc.priorPower ?? 100);
+    for (let k = 0; k < arr.length; k++) arr[k] = decayHeatPercents(Math.max(tr.t[k], 1 / 3600), sc.priorPower ?? 100).ofNominal;
     return arr;
   }, [lab, tr, sc.priorPower]);
 
@@ -208,7 +209,7 @@ export function XenonSection() {
         <ul className="ops-legend">
           {lab === 'load' && <LegendItem cls="ops-line demand" label="İstenen güç (Şekil 2-40’tan okunan profil)" />}
           <LegendItem cls="ops-line power" label={lab === 'load' ? 'Temsili gerçekleşen fisyon gücü (τ = 0,25 sa gecikmeli izleme)' : 'Fisyon gücü'} />
-          {lab === 'shutdown' && <LegendItem cls="ops-line decay" label="Artık ısı (genel yaklaşık bağıntı; fisyondan ayrı)" />}
+          {lab === 'shutdown' && <LegendItem cls="ops-line decay" label="Artık ısı, % nominal güç (genel yaklaşık bağıntı; fisyondan ayrı)" />}
         </ul>
 
         <ChartFrame width={W} height={H} x={xAxis} y={yX} title="B. Normalize iyot-135 ve ksenon-135 (temsili model)" desc="İyot ve ksenon zaman grafiği">
@@ -277,7 +278,11 @@ export function XenonSection() {
           <dt>Senaryo saati</dt>
           <dd>{fmt(pb.t)} sa</dd>
           <dt>{lab === 'load' ? 'İstenen / gerçekleşen güç' : 'Fisyon gücü / artık ısı'}</dt>
-          <dd>{lab === 'load' ? `%${fmt(tr.demand[i], 0)} / %${fmt(tr.power[i], 0)}` : `%0 / ~%${fmt(decayNow, decayNow < 1 ? 2 : 1)} (önceki güce göre)`}</dd>
+          <dd>
+            {lab === 'load'
+              ? `%${fmt(tr.demand[i], 0)} / %${fmt(tr.power[i], 0)}`
+              : `%0 / ~%${fmt(decayNow.ofNominal, decayNow.ofNominal < 1 ? 2 : 1)} nominal güç (kapatma öncesi gücün ~%${fmt(decayNow.ofPrior, decayNow.ofPrior < 1 ? 2 : 1)}’i)`}
+          </dd>
           <dt>Ksenon (normalize)</dt>
           <dd>{fmt(tr.xenon[i], 2)}</dd>
           <dt>Ksenon etkisi (göreli)</dt>

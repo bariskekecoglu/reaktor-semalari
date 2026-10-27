@@ -55,14 +55,14 @@ Ana kaynak: Nuc E 430 ders notları, Bölüm 2, **“2.5 PWR Reactor Operations�
    - Şekil 2-39: PDF’teki **vektör çizimin** koordinatlarından eksen ölçeğine çevrilen 32 nokta.
    - Şekil 2-40: raster görüntüden piksel ölçümüyle dönüm noktaları (±~0,1 sa). **12-3-6-3 dışındaki profillerde çizim isimdeki sürelerle tam örtüşmüyor** (ör. “18-6” çiziminde %50 güç yalnız ~11–13. saatler arasında ve dikey çizgiyle). Talimat gereği isim değil çizim esas alındı; fark arayüzde belirtiliyor. Dikey geçişler idealize gösterimdir.
    - Şekil 2-41: renklerden sayısallaştırılan dört eğri. Y ekseni “Worth”, **birimi kaynakta yok** (pcm varsayılmadı); alt sınır etiketsiz, ölçekten ~0 okundu.
-   - Şekil 2-42: altı panelde 10 yükseklikte güç ve ksenon eğrilerinin yatay mesafesi (birimsiz, yalnız biçim). “D” ve “C” etiketli çubukların anlamı kaynakta açıklanmıyor; yalnız göreli uzunlukları gösteriliyor.
+   - Şekil 2-42: altı panelde 10 yükseklikte güç ve ksenon eğrilerinin yatay mesafesi (birimsiz, yalnız biçim). “D” ve “C” etiketli çubukların anlamı kaynakta açıklanmıyor; yalnız göreli uzunlukları metin olarak gösteriliyor, kontrol çubuğu konumuna çevrilmiyor. Çekirdek görünümünde çubuklar yalnız üstten giriş yönüyle (konumu belirsiz) çizilir.
    - Şekil 2-43: hedef ΔI ≈ −0,02 × güç(%) (100%’de ~−2, 0%’da 0), bant hedef ±6; dış kesik-noktalı çizgi (−35,50)→(−10,90)→(15,90)→(35,50) kaynakta adlandırılmamış.
 3. **Temsili eğitim modeli** (`models/`):
    - **İyot/ksenon**: `dI/dt = a·P − λI·I`, `dX/dt = b·P + λI·I − λX·X − κ·P·X` (saat, %100 denge X = 1). λI, λX: I-135 (6,57 sa) ve Xe-135 (9,14 sa) yarı ömürleri (genel nükleer veri, kaynakta yok). **κ = 3·λX**, Şekil 2-41’in tepe zamanlarına (~4–8 sa) yaklaşık uyacak şekilde seçilmiş temsili katsayıdır; %100 kapatmada model tepe/denge oranı ~1,66, kaynakta ~1,51. Ksenon etkisi −X ile orantılı. Sabit adımlı RK4 (0,02 sa); yörüngeler önceden hesaplanır, aynı zaman aynı sonucu verir.
    - **Gerçekleşen güç**: istenen güce τ = 0,25 sa ile yaklaşır (temsili).
-   - **Artık ısı**: Way–Wigner yaklaşık bağıntısı `0,0622·[t^−0,2 − (t+T)^−0,2]` (t, T saniye; T = 1 yıl). Genel yaklaşık bağıntıdır, kaynakta yoktur; fisyon gücünden ayrı tutulur.
-   - **ΔI ve AO**: `ΔI = üst − alt` (tam gücün %’si; pozitif = üst yarı fazla). `AO = (üst − alt)/(üst + alt)` ayrı bir büyüklüktür; sıfır güçte NaN yerine “—”. Dedektör sinyallerinin yarı çekirdek gücüyle orantılı olduğu, Şekil 2-42 duraklarında toplam gücün 12-3-6-3 profilinden alındığı (iki şeklin zaman ekseni aynı) varsayılmıştır. Bant içinde olmak güvenlik onayı değildir.
-   - Şema durumları (çubuk konumu, basınçlandırıcı seviyesi) temsilidir.
+   - **Artık ısı**: Way–Wigner yaklaşık bağıntısı `0,0622·[t^−0,2 − (t+T)^−0,2]` (t, T saniye; T = 1 yıl). Genel yaklaşık bağıntıdır, kaynakta yoktur; fisyon gücünden ayrı tutulur. Bağıntı kapatma öncesi güce oranı verir; arayüz hem bu oranı hem nominal güce göre değeri ayrı etiketle gösterir (ör. %25’ten 1 sa sonra: önceki gücün ~%1,01’i = nominalin ~%0,25’i).
+   - **ΔI ve AO**: `ΔI = üst − alt` (tam gücün %’si; pozitif = üst yarı fazla). `AO = (üst − alt)/(üst + alt)` ayrı bir büyüklüktür; sıfır güçte NaN yerine “—”. Dedektör sinyallerinin yarı çekirdek gücüyle orantılı olduğu varsayılmıştır. Toplam güç Şekil 2-42 duraklarından **bağımsız** bir kaydırıcıyla seçilir: kaynak, Şekil 2-42’nin saatlerinin Şekil 2-40’taki 12-3-6-3 profiliyle aynı başlangıçtan sayıldığını belirtmez; şekil yalnız dağılım biçimini verir. Bant içinde olmak güvenlik onayı değildir.
+   - Şema durumları (çubuk konumu, basınçlandırıcı seviyesi) temsilidir. Küçük PWR şemasında sıcak kol buhar üreteci kanal başlığının giriş tarafına, soğuk kol çıkış tarafından pompaya bağlanır; RHR dönüşü pompa ile kap arasındaki soğuk kola, türbin çıkışı kondensere bağlıdır.
 
 Kapsam dışı bırakılanlar: kaynaktaki vana/pompa işlem sıraları, güvenlik sistemi devre dışı bırakma adımları, kritiklik için sayısal bor reçeteleri, tarihsel ülke oranları ve mevzuat ayrıntıları.
 
@@ -116,7 +116,7 @@ Bu sürümde yapılan kontroller:
 | --- | --- |
 | `npm run typecheck` (strict) | Geçti |
 | `npm run build` | Geçti |
-| `npm test` — 68 birim testi (saat, enerji dengesi, reducer, yapılandırmalar, akış yardımcıları, VVER boru geometrisi, PWR işletme modülü modelleri ve verileri) | Geçti |
+| `npm test` — 70 birim testi (saat, enerji dengesi, reducer, yapılandırmalar, akış yardımcıları, VVER boru geometrisi, PWR işletme modülü modelleri ve verileri) | Geçti |
 | PWR işletme modülü (tarayıcı): altı bölüm açıldı; 6 mod; 6 ısınma aşaması; bor eğrisinde klavye gezinmesi; ksenon laboratuvarında duraklatma, sıfırlama, senaryo değişiminde sıfırlanma, aynı saatte aynı değer; 0/3/9/12/18/24 sa durakları; aynı güçte üst pay %40 → ΔI −20, %60 → +20; sıfır güçte AO “—”; BWR/VVER’de modül görünmüyor; mobilde sayfa taşması yok; konsol hatası yok | Doğrulandı |
 | Saat: duraklatma, devamda sıçrama olmaması, hız, tek döngü | Birim testinde sahte rAF kareleriyle doğrulandı |
 | Tarayıcıda animasyonun ilerlemesi (güç değişiminde model ve grafik güncelleniyor) | Doğrulandı |

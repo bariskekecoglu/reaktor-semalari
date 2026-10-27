@@ -3,7 +3,7 @@ import { FIG_2_39, FIG_2_40, FIG_2_42, FIG_2_43 } from '../data/figures';
 import { MODES, fToC } from '../data/modes';
 import { HEATUP } from '../data/heatup';
 import { demandAt, profileDuration, profileEvents, ramps } from './profile';
-import { decayHeatFraction, equilibrium, indexAt, peakXenon, simulate, type Trajectory } from './xenon';
+import { decayHeatFraction, decayHeatPercents, equilibrium, indexAt, peakXenon, simulate, type Trajectory } from './xenon';
 import { axialOffset, deltaI, splitPower, topShareOfProfile } from './axial';
 import { advance, createPlayback, resetPlayback, seek, togglePlay } from './playback';
 
@@ -138,6 +138,22 @@ describe('İyot/ksenon eğitim modeli', () => {
     expect(decayHeatFraction(1)).toBeGreaterThan(0);
     expect(decayHeatFraction(1)).toBeGreaterThan(decayHeatFraction(24));
     expect(decayHeatFraction(24)).toBeGreaterThan(decayHeatFraction(24 * 30));
+  });
+});
+
+describe('Artık ısı yüzdeleri', () => {
+  it('önceki güce ve nominal güce göre değerler ayrı: %25 güçten 1 sa sonra ≈ %1,01 ve ≈ %0,253', () => {
+    const d = decayHeatPercents(1, 25);
+    expect(d.ofPrior).toBeCloseTo(1.01, 2);
+    expect(d.ofNominal).toBeCloseTo(0.253, 3);
+    expect(d.ofNominal).toBeCloseTo((d.ofPrior * 25) / 100, 12);
+  });
+
+  it('%100 güçten kapatmada iki referans aynı; geçersiz girdide NaN yok', () => {
+    const d = decayHeatPercents(5, 100);
+    expect(d.ofNominal).toBeCloseTo(d.ofPrior, 12);
+    const bad = decayHeatPercents(Number.NaN, Number.NaN);
+    expect(Number.isFinite(bad.ofPrior) && Number.isFinite(bad.ofNominal)).toBe(true);
   });
 });
 

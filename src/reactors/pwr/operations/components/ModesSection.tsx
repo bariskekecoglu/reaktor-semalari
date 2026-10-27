@@ -51,7 +51,7 @@ export function ModesSection() {
             </div>
             <output>%{fmt(decayPct, decayPct < 1 ? 2 : 1)}</output>
           </div>
-          <p className="ops-small">Artık ısı çubuğu okunabilirlik için 10 kat büyütüldü. Yüzdeler önceki tam güce göredir.</p>
+          <p className="ops-small">Yüzdeler nominal (tam) güce göredir. Kapatılmış modlarda kapatmadan önce %100 güçte işletme varsayıldığı için nominal güce ve önceki güce göre değer aynıdır. Artık ısı çubuğu okunabilirlik için 10 kat büyütüldü.</p>
           {m.decayHeat === 'after-shutdown' && (
             <div className="ops-pick small" role="group" aria-label="Kapatmadan sonra geçen süre">
               <span className="ops-small">Kapatmadan sonra geçen süre:</span>

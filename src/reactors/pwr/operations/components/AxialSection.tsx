@@ -1,12 +1,10 @@
 import { useState } from 'react';
-import { FIG_2_40, FIG_2_42, FIG_2_43 } from '../data/figures';
-import { demandAt } from '../models/profile';
+import { FIG_2_42, FIG_2_43 } from '../data/figures';
 import { KAPPA, LAMBDA_X } from '../models/xenon';
 import { axialOffset, deltaI, splitPower, topShareOfProfile } from '../models/axial';
 import { ChartFrame, LegendItem, ModelNote, SourceTags, WhyBox, fmt } from './common';
 
 const HEIGHTS = [0.05, 0.15, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 0.85, 0.95];
-const PROFILE_12_3_6_3 = FIG_2_40.find((p) => p.id === '12-3-6-3')!;
 /** Serbest örnek için temel biçim: Şekil 2-42a (0 sa) güç profili. */
 const BASE = FIG_2_42[0].power;
 
@@ -42,14 +40,15 @@ export function AxialSection() {
   const isStops = mode === 'stops';
   const powerProfile = isStops ? st.power : tiltedProfile(share);
   const xenonProfile = isStops ? st.xenon : eqXenon(powerProfile);
-  const P = isStops ? demandAt(PROFILE_12_3_6_3, st.hour) : total;
+  // Toplam güç duraklardan bağımsız seçilir: Şekil 2-42 yalnız dağılımın biçimini verir; Şekil 2-40 ile
+  // zaman başlangıçlarının eşleştiği kaynakta belirtilmediği için toplam güç o profilden türetilmez.
+  const P = total;
   const topShare = topShareOfProfile(powerProfile);
   const halves = splitPower(P, topShare);
   const dI = deltaI(halves);
   const ao = axialOffset(halves);
   const target = FIG_2_43.targetAt(P);
   const inBand = Math.abs(dI - target) <= FIG_2_43.bandHalfWidth;
-  const rodDepth = isStops ? Math.min(0.6, (st.barD ?? 0) * 0.6) : 0;
 
   // Çekirdek kesiti ölçüleri
   const top = 40;
@@ -72,7 +71,7 @@ export function AxialSection() {
             Aynı toplam güçte farklı dağılım
           </button>
         </div>
-        {isStops ? (
+        {isStops && (
           <div className="ops-pick small" role="group" aria-label="Zaman durağı">
             {FIG_2_42.map((s, i) => (
               <button key={s.hour} type="button" aria-pressed={i === stop} onClick={() => setStop(i)}>
@@ -80,18 +79,22 @@ export function AxialSection() {
               </button>
             ))}
           </div>
-        ) : (
-          <div className="ops-sliders">
-            <label className="ops-range">
+        )}
+        <div className="ops-sliders">
+          <label className="ops-range">
+            <span>
               Toplam güç: <strong>%{total}</strong>
-              <input type="range" min={0} max={100} step={5} value={total} onChange={(e) => setTotal(Number(e.target.value))} />
-            </label>
+              {isStops && <span className="ops-small"> (duraktan bağımsız seçim)</span>}
+            </span>
+            <input type="range" min={0} max={100} step={5} value={total} onChange={(e) => setTotal(Number(e.target.value))} />
+          </label>
+          {!isStops && (
             <label className="ops-range">
               Üst yarının payı: <strong>%{Math.round(share * 100)}</strong>
               <input type="range" min={35} max={65} step={1} value={Math.round(share * 100)} onChange={(e) => setShare(Number(e.target.value) / 100)} />
             </label>
-          </div>
-        )}
+          )}
+        </div>
         <div className="ops-axial-grid">
           <svg viewBox="0 0 500 380" className="ops-core" role="img" aria-label={`Dikey çekirdek kesiti: güç ve ksenon profilleri, ΔI ${fmt(dI)}`}>
             {/* Çekirdek */}
@@ -104,10 +107,13 @@ export function AxialSection() {
             {[105, 125, 145, 165, 185].map((x) => (
               <line key={x} className="core-fuel" x1={x} x2={x} y1={top + 4} y2={bot - 4} />
             ))}
-            {/* Çubuklar üstten */}
+            {/* Çubuklar üstten girer; sokulma derinlikleri kaynakta verilmediği için yalnız giriş yönü gösterilir. */}
             {[115, 155, 175].map((x) => (
-              <rect key={x} className="control-rod" x={x - 2.5} y={top - 26} width="5" height={26 + rodDepth * (bot - top)} />
+              <rect key={x} className="rod-unknown" x={x - 2.5} y={top - 26} width="5" height="26" />
             ))}
+            <text className="ops-tick" x="206" y={top - 12}>
+              çubuklar üstten girer · konum kaynakta yok
+            </text>
             {/* Soğuk su alttan */}
             <path className="core-inlet" d={`M145 ${bot + 30} V${bot + 4}`} markerEnd="url(#ax-arrow)" />
             <defs>
@@ -230,14 +236,14 @@ export function AxialSection() {
           <strong>AO</strong> ise farkı o anki toplam güce böler; ΔI ile aynı şey değildir.
         </p>
         <ModelNote>
-          Temsili eğitim modeli. Profiller Şekil 2-42’den yaklaşık okunmuştur (genlik birimsiz, yalnız biçim). Dedektör sinyallerinin yarı çekirdek gücüyle orantılı olduğu varsayıldı. Duraklarda
-          toplam güç 12-3-6-3 profilinden (Şekil 2-40) alındı; iki şeklin zaman eksenlerinin aynı olduğu varsayımdır. Şekildeki “D” ve “C” etiketli koyu çubukların anlamı kaynakta açıklanmaz;
-          çekirdekteki çubuk derinliği bu göstergelerin göreli uzunluğundan türetilmiş bir yorumdur. Bant, Şekil 2-43’ten yaklaşık okunmuştur; bandın içinde olmak gerçek bir santral için
-          güvenlik onayı anlamına gelmez.
+          Temsili eğitim modeli. Profiller Şekil 2-42’den yaklaşık okunmuştur (genlik birimsiz, yalnız biçim). Dedektör sinyallerinin yarı çekirdek gücüyle orantılı olduğu varsayıldı. Toplam güç duraklardan
+          bağımsız seçilir: kaynak, Şekil 2-42’nin saatlerinin Şekil 2-40’taki 12-3-6-3 profiliyle aynı başlangıçtan sayıldığını belirtmez. Kontrol çubuklarının bu saatlerdeki konumu
+          kaynakta verilmez; şema yalnız üstten giriş yönünü gösterir. Bant, Şekil 2-43’ten yaklaşık okunmuştur; bandın içinde olmak gerçek bir santral için güvenlik onayı anlamına gelmez.
         </ModelNote>
         {isStops && (
           <p className="ops-small">
-            Şekildeki göstergeler: D {st.barD === null ? 'yok' : `≈${Math.round(st.barD * 100)}%`} · C {st.barC === null ? 'yok' : `≈${Math.round(st.barC * 100)}%`} (en uzun D’ye göre)
+            Şekil 2-42’de bu panelin yanında “D” ve “C” etiketli koyu çubuklar var (göreli uzunluk: D {st.barD === null ? 'yok' : `≈%${Math.round(st.barD * 100)}`} · C{' '}
+            {st.barC === null ? 'yok' : `≈%${Math.round(st.barC * 100)}`}). Anlamları kaynakta açıklanmadığı için çubuk konumuna çevrilmedi.
           </p>
         )}
         <SourceTags

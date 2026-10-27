@@ -748,3 +748,16 @@
     grid-template-columns: 90px 1fr 60px;
   }
 }
+.rod-unknown {
+  fill: none;
+  stroke: var(--rod);
+  stroke-width: 1.5;
+  stroke-dasharray: 3 2;
+}
+.mp-divider {
+  stroke: var(--line);
+  stroke-width: 2;
+}
+.mp-joint {
+  fill: var(--line);
+}
