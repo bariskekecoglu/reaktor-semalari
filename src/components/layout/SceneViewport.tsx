@@ -21,7 +21,7 @@ interface Props {
  */
 export function SceneViewport({ children, notes, showLabels, showFlow, coreOpen, onToggleLabels, onToggleFlow, onToggleCore, onBackgroundClick }: Props) {
   const [zoomIdx, setZoomIdx] = useState(0);
-  const [fit, setFit] = useState(false);
+  const [fit, setFit] = useState(true);
   const scroller = useRef<HTMLDivElement>(null);
   const drag = useRef<{ x: number; y: number; sl: number; st: number; moved: boolean; id: number } | null>(null);
   const suppressClick = useRef(false);
@@ -63,7 +63,7 @@ export function SceneViewport({ children, notes, showLabels, showFlow, coreOpen,
   return (
     <div className="viewport">
       <div className="viewport-toolbar" role="toolbar" aria-label="Şema görünümü">
-        <button type="button" onClick={() => setZoom(zoomIdx - 1)} disabled={!fit && zoomIdx === 0} aria-label="Uzaklaştır">
+        <button type="button" onClick={() => setZoom(zoomIdx - 1)} disabled={fit || zoomIdx === 0} aria-label="Uzaklaştır">
           −
         </button>
         <span className="zoom-readout" aria-live="polite">
@@ -121,7 +121,7 @@ export function SceneViewport({ children, notes, showLabels, showFlow, coreOpen,
         }}
         onClick={onBackgroundClick}
       >
-        <div className="scene-canvas" style={fit ? undefined : { width: `${zoom * 100}%` }}>
+        <div className="scene-canvas" style={fit ? undefined : { width: `max(${1040 * zoom}px, ${zoom * 100}%)` }}>
           {children}
         </div>
       </div>
@@ -129,7 +129,7 @@ export function SceneViewport({ children, notes, showLabels, showFlow, coreOpen,
         {notes.map((n) => (
           <p key={n}>{n}</p>
         ))}
-        <p>Fareyle sürükleyerek veya kaydırarak gezinin · Ekipmanlara Tab ile odaklanıp Enter ile seçin.</p>
+        <p>+ ile ayrıntıları büyütün · Kaydırarak veya fareyle sürükleyerek gezinin · Ekipman seçmek için dokunun ya da Tab ve Enter kullanın.</p>
       </div>
     </div>
   );

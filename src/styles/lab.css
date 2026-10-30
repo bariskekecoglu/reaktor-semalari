@@ -1,0 +1,99 @@
+/* Interface surfaces; reactor equipment and physical flow colours stay in global.css. */
+:root {
+  --bg: #edf2f4;
+  --paper: #ffffff;
+  --ink: #162d40;
+  --ink-soft: #526675;
+  --rule: #d8e2e7;
+  --accent: #146b70;
+  --focus: #176cbd;
+}
+body { background: var(--bg); }
+.app { padding: 16px 24px 32px; }
+button, select { transition: background-color 140ms ease, border-color 140ms ease; }
+button { border-color: #c7d5de; border-radius: 8px; }
+button:hover:not(:disabled) { border-color: var(--accent); }
+button:focus-visible, select:focus-visible { outline-offset: 3px; }
+.title-row { align-items: center; padding-bottom: 12px; gap: 16px; }
+.brand { min-width: 0; }
+.brand-kicker { margin: 0 0 8px; color: var(--accent); font-size: .69rem; font-weight: 750; letter-spacing: .15em; }
+.brand-kicker span { font-size: 1.15rem; vertical-align: middle; margin-right: 6px; }
+.header h1 { font-family: var(--font-ui); font-size: clamp(1.5rem, 2.5vw, 2.25rem); font-weight: 750; letter-spacing: -.045em; line-height: 1.18; }
+.subtitle { margin-top: 5px; font-size: .84rem; }
+.header-controls { flex-direction: column; align-items: flex-end; gap: 6px; }
+.seg { border-color: var(--rule); border-radius: 10px; }
+.content-seg { padding: 4px; gap: 4px; background: #e1e9ed; border: 0; }
+.content-seg button { border: 0; border-radius: 7px; background: transparent; font-weight: 600; padding: 8px 18px; }
+.content-seg button.on { background: #fff; color: var(--ink); box-shadow: 0 2px 5px #16344712; }
+.layout-pref { gap: 8px; }
+.layout-pref-label { text-transform: none; letter-spacing: 0; }
+.layout-pref select { font: inherit; font-size: .82rem; color: var(--ink); background: var(--paper); border: 1px solid var(--rule); border-radius: 7px; padding: 6px 10px; min-height: 36px; }
+.layout-now { min-width: 0; }
+.reactor-row { grid-template-columns: minmax(0, 1fr); gap: 10px; padding: 12px 0 10px; }
+.reactor-seg { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; background: transparent; border: none; overflow: visible; }
+.reactor-seg button { min-width: 0; border: 1px solid var(--rule); border-radius: 12px; padding: 8px 14px; gap: 2px; position: relative; }
+.reactor-seg button:last-child { border-right: 1px solid var(--rule); }
+.reactor-seg button.on { background: #e3f1f0; color: #11595d; border-color: #62a3a3; box-shadow: inset 0 3px 0 var(--accent); }
+.reactor-seg strong { font-size: 1.3rem; letter-spacing: .04em; }
+.reactor-seg span { opacity: 1; color: var(--ink-soft); }
+.reactor-summary { padding-left: 14px; border-left: 3px solid #a8c9ca; }
+.reactor-summary h2 { font-size: 1rem; }
+.reactor-summary .family { margin: 2px 0; font-size: .7rem; }
+.reactor-summary p { font-size: .88rem; line-height: 1.4; max-width: 1180px; }
+.subview { margin-bottom: 8px; }
+.subview button { font-size: .87rem; padding: 6px 14px; }
+.viewport, .side-panel, .controls, .panel, .legend, .compare-card, .sources, .ops { border-color: var(--rule); border-radius: 12px; box-shadow: 0 3px 14px #223f5010; }
+.viewport-toolbar { padding: 10px 12px; gap: 6px; background: #f7fafb; border-radius: 12px 12px 0 0; }
+.viewport-toolbar button { font-size: .8rem; }
+.viewport-toolbar .zoom-readout { min-width: 64px; font-size: .8rem; }
+.viewport-toolbar button[aria-pressed='true'] { background: #e3f1f0; border-color: #a7ccca; color: #11595d; }
+.scene-scroll { background-color: #fff; background-image: radial-gradient(#c8d8df 0.65px, transparent .65px); background-size: 16px 16px; }
+.scene-notes { padding: 10px 14px; background: #f7fafb; border-radius: 0 0 12px 12px; }
+.scene-notes p + p { margin-top: 4px; }
+.side-panel { padding: 14px; line-height: 1.4; }
+.side-panel p { margin-block: 6px; }
+.side-panel .focus-list ul { gap: 4px; }
+.side-panel h3, .compare h2, .detail-head h3 { font-family: var(--font-ui); font-weight: 700; letter-spacing: -.025em; }
+.side-panel h3 { line-height: 1.3; }
+.eyebrow { color: var(--accent); font-weight: 700; }
+.focus-list { padding-top: 4px; }
+.focus-list button { background: #f6f9fa; padding: 7px 10px; }
+.focus-list button[aria-pressed='true'] { background: var(--accent); }
+ul.chips button { background: #f6f9fa; border-color: #dce6eb; }
+ul.chips button[aria-pressed='true'] { background: var(--accent); }
+.legend { padding: 12px 14px; box-shadow: none; }
+.controls { padding: 18px; border-top: 3px solid var(--accent); }
+.panel { padding: 18px; }
+.panel h2 { font-size: .9rem; padding-bottom: 10px; margin-bottom: 12px; border-bottom: 1px solid var(--rule); }
+.readouts dd { font-size: 1.1rem; }
+.chart-note { line-height: 1.45; }
+.sources { box-shadow: none; background: #f7fafb; }
+.header, .main, .panel, .controls { min-width: 0; }
+@media (max-width: 1000px) {
+  .title-row { align-items: flex-start; }
+  .header-controls { align-items: flex-start; }
+  .main > .side { flex-basis: 100%; position: static; }
+  .side-panel { max-height: none; }
+}
+:root[data-layout='narrow'] .app { padding: 16px 12px 28px; }
+:root[data-layout='narrow'] .title-row { gap: 10px; padding-bottom: 10px; }
+:root[data-layout='narrow'] .header h1 { font-size: 1.55rem; }
+:root[data-layout='narrow'] .brand-kicker { font-size: .6rem; letter-spacing: .09em; }
+:root[data-layout='narrow'] .subtitle { font-size: .77rem; line-height: 1.5; }
+:root[data-layout='narrow'] .header-controls { gap: 10px; }
+:root[data-layout='narrow'] .content-seg button { padding: 8px 4px; font-size: .87rem; }
+:root[data-layout='narrow'] .layout-pref { justify-content: flex-end; gap: 8px; }
+:root[data-layout='narrow'] .layout-pref select { min-height: 44px; }
+:root[data-layout='narrow'] .reactor-row { padding: 10px 0 8px; gap: 8px; }
+:root[data-layout='narrow'] .reactor-seg { gap: 8px; }
+:root[data-layout='narrow'] .reactor-seg button { padding: 10px 8px; align-items: center; }
+:root[data-layout='narrow'] .reactor-summary { padding-left: 10px; font-size: .84rem; }
+:root[data-layout='narrow'] .reactor-summary summary { padding-block: 4px; }
+:root[data-layout='narrow'] .viewport-toolbar { padding: 8px; gap: 5px; }
+:root[data-layout='narrow'] .viewport-toolbar button { padding-inline: 8px; }
+:root[data-layout='narrow'] .side-panel, :root[data-layout='narrow'] .panel { padding: 14px; }
+:root[data-layout='narrow'] .tb-sep { display: none; }
+@media (pointer: coarse) {
+  ul.chips button, .lesson .steps button { min-height: 44px; min-width: 44px; }
+}
+@media (prefers-reduced-motion: reduce) { button, select { transition: none; } }

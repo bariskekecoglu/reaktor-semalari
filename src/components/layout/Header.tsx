@@ -31,7 +31,8 @@ export function Header({ reactor, config, view, onReactor, onView }: Props) {
   return (
     <header className="header">
       <div className="title-row">
-        <div>
+        <div className="brand">
+          <p className="brand-kicker"><span aria-hidden="true">◈</span> ETKİLEŞİMLİ ÖĞRENME LABORATUVARI</p>
           <h1>Nükleer Santral Şemaları</h1>
           <p className="subtitle">PWR · BWR · VVER — normal çalışma prensipleri, temsili ve ölçeksiz</p>
         </div>
@@ -45,16 +46,16 @@ export function Header({ reactor, config, view, onReactor, onView }: Props) {
           </nav>
           {/* Yerleşim tercihi: içerik seçiminden ayrıdır; reaktörü veya dersi değiştirmez. */}
           <div className="layout-pref" role="group" aria-labelledby="layout-pref-label">
-            <span id="layout-pref-label" className="layout-pref-label">
+            <label id="layout-pref-label" htmlFor="layout-choice" className="layout-pref-label">
               Görünüm
-            </span>
-            <div className="seg small">
+            </label>
+            <select id="layout-choice" value={preference} onChange={(e) => setPreference(e.target.value as typeof preference)}>
               {VIEW_PREFERENCES.map((p) => (
-                <button key={p.id} type="button" className={preference === p.id ? 'on' : ''} aria-pressed={preference === p.id} onClick={() => setPreference(p.id)}>
+                <option key={p.id} value={p.id}>
                   {p.label}
-                </button>
+                </option>
               ))}
-            </div>
+            </select>
             <span className="layout-now" aria-live="polite">
               {preference === 'auto' ? `şu an: ${LAYOUT_NAME[layout]}` : ''}
             </span>

@@ -376,6 +376,7 @@
 }
 .ops-stepper ol {
   display: flex;
+  flex-wrap: wrap;
   gap: 6px;
   list-style: none;
   padding: 0;
@@ -437,7 +438,7 @@
 }
 .ops-chart-wrap.interactive {
   cursor: crosshair;
-  touch-action: pan-y;
+  touch-action: pan-y pinch-zoom;
 }
 .ops-chart-title {
   font-size: 13px;

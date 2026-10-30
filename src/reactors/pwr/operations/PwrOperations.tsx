@@ -42,11 +42,19 @@ export function PwrOperations() {
     const i = SECTIONS.findIndex((s) => s.id === active);
     const el = tabs.current[i];
     const row = el?.parentElement;
-    if (!el || !row || row.scrollWidth <= row.clientWidth) return;
-    const left = el.offsetLeft - row.offsetLeft;
-    if (left < row.scrollLeft || left + el.offsetWidth > row.scrollLeft + row.clientWidth) {
-      row.scrollTo({ left: Math.max(0, left - 12), behavior: 'auto' });
-    }
+    if (!el || !row) return;
+    const reveal = () => {
+      if (row.scrollWidth <= row.clientWidth) return;
+      const box = el.getBoundingClientRect();
+      const frame = row.getBoundingClientRect();
+      if (box.left < frame.left || box.right > frame.right) {
+        row.scrollTo({ left: Math.max(0, row.scrollLeft + box.left - frame.left - 8), behavior: 'auto' });
+      }
+    };
+    reveal();
+    const observer = new ResizeObserver(reveal);
+    observer.observe(row);
+    return () => observer.disconnect();
   }, [active, narrow]);
 
   const onKey = (e: KeyboardEvent<HTMLDivElement>) => {
