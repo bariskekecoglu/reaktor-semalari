@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
+import { useEffect, useRef, type KeyboardEvent } from 'react';
 import { useViewLayout } from '../../../hooks/useViewLayout';
 import type { OpsSectionId } from './types';
 import { ModesSection } from './components/ModesSection';
@@ -7,16 +7,10 @@ import { BoronSection } from './components/BoronSection';
 import { XenonSection } from './components/XenonSection';
 import { AxialSection } from './components/AxialSection';
 import { ControlsSection } from './components/ControlsSection';
+import { OPS_SECTIONS } from './sections';
 import './operations.css';
 
-const SECTIONS: { id: OpsSectionId; label: string; ref: string }[] = [
-  { id: 'modes', label: '1. İşletme modları', ref: 'Tablo 2-14' },
-  { id: 'heatup', label: '2. Isınma ve ısı uzaklaştırma', ref: 's. 2-89 – 2-93' },
-  { id: 'boron', label: '3. Bor ve yakıt çevrimi', ref: 'Şekil 2-39' },
-  { id: 'xenon', label: '4. Yük takibi ve ksenon', ref: 'Şekil 2-40, 2-41' },
-  { id: 'axial', label: '5. Eksenel güç dağılımı', ref: 'Şekil 2-42, 2-43' },
-  { id: 'controls', label: '6. Otomatik kontrol ilişkileri', ref: 's. 2-96' },
-];
+const SECTIONS = OPS_SECTIONS;
 
 function IntroText() {
   return (
@@ -32,8 +26,19 @@ function IntroText() {
  * PWR “İşletme ve Reaktör Davranışı” modülü. Yalnız PWR seçiliyken açılır; durumu santral sahnesinin
  * basit güç modelinden bağımsızdır. Bölüm değişince bölümün kendi durumu sıfırlanır (bileşen yeniden bağlanır).
  */
-export function PwrOperations() {
-  const [active, setActive] = useState<OpsSectionId>('modes');
+interface Props {
+  /** Açık bölüm uygulama durumunda tutulur (asistan da aynı durumu değiştirir). */
+  section: OpsSectionId;
+  onSection: (s: OpsSectionId) => void;
+  /** Ksenon grafiğinde seçilecek olay (asistan ya da gezinme). */
+  focusEvent: { eventId: string; nonce: number } | null;
+  /** Ksenon bölümünde açık senaryo değişince (asistan bağlamı için). */
+  onXenonScenario?: (id: string | null) => void;
+}
+
+export function PwrOperations({ section, onSection, focusEvent, onXenonScenario }: Props) {
+  const active = section;
+  const setActive = onSection;
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
   const narrow = useViewLayout().layout === 'narrow';
 
@@ -105,7 +110,7 @@ export function PwrOperations() {
         {active === 'modes' && <ModesSection />}
         {active === 'heatup' && <HeatupSection />}
         {active === 'boron' && <BoronSection />}
-        {active === 'xenon' && <XenonSection />}
+        {active === 'xenon' && <XenonSection focusEvent={focusEvent} onScenario={onXenonScenario} />}
         {active === 'axial' && <AxialSection />}
         {active === 'controls' && <ControlsSection />}
       </div>

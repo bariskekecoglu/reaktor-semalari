@@ -2,3 +2,7 @@ node_modules
 dist
 .claude
 *.pdf
+design
+pdfs
+.env
+server/.env

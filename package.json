@@ -8,7 +8,9 @@
     "build": "tsc --noEmit && vite build",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "kb:export": "vite-node scripts/export-knowledge.ts",
+    "guide:export": "vite-node scripts/export-guide.ts"
   },
   "dependencies": {
     "react": "18.3.1",

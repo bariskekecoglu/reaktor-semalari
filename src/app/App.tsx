@@ -3,7 +3,40 @@ import { SimClock } from '../simulation/clock';
 import { EducationalModel, INITIAL_POWER } from '../simulation/educationalModel';
 import { SimulationContext, usePrefersReducedMotion } from '../hooks/useSimulation';
 import { ViewLayoutContext, useViewLayoutState } from '../hooks/useViewLayout';
-import { appReducer, initialAppState } from './appState';
+import { appReducer, initialAppState, navSnapshot, type NavSnapshot } from './appState';
+import { AssistantPanel } from '../assistant/AssistantPanel';
+import { actionLabel, planAction, REACTOR_NAME } from '../assistant/execute';
+import type { AssistantAction } from '../assistant/actions';
+import type { AssistantContext } from '../assistant/types';
+import { OPS_SECTIONS } from '../reactors/pwr/operations/sections';
+import { findChartEvent } from '../reactors/pwr/operations/models/xenonScenarios';
+import { PWR_XENON_SHUTDOWN, getPredictLesson } from '../lessons/predict/pwrXenonShutdown';
+import { PredictLessonView } from '../lessons/predict/PredictLessonView';
+import { emptyPredictState, restorePredictState, type PredictState } from '../lessons/predict/predictState';
+import type { PredictStepId } from '../lessons/predict/types';
+import { useProgress, buildCatalog } from '../progress/useProgress';
+import { ProgressPanel } from '../progress/ProgressPanel';
+import { lessonHash, parseLessonHash } from '../progress/deepLink';
+import type { AppState } from './appState';
+import type { PredictRecord } from '../progress/progressStore';
+
+const CATALOG = buildCatalog();
+
+/** Açılışta `#ders=…` bağlantısı varsa ilgili dersle başlar (bilinmeyen kimlikler yok sayılır). */
+function initFromHash(base: AppState): AppState {
+  if (typeof window === 'undefined') return base;
+  const link = parseLessonHash(window.location.hash, CATALOG);
+  if (!link) return base;
+  let s = appReducer(base, { type: 'setReactor', reactor: link.kind === 'tour' ? link.reactor : 'pwr' });
+  if (link.kind === 'tour') {
+    s = appReducer(s, { type: 'setLearnMode', mode: 'tour' });
+    s = appReducer(s, { type: 'lessonStep', step: link.step, count: CATALOG.tours[link.reactor].length });
+  } else s = appReducer(s, { type: 'setLearnMode', mode: 'predict' });
+  return { ...s, sceneEpoch: 0 };
+}
+
+const toPredictState = (r: PredictRecord | undefined): PredictState =>
+  r ? restorePredictState({ ...r, step: r.step as PredictStepId }) : emptyPredictState();
 import { reactors } from '../reactors/registry';
 import type { ReactorId } from '../reactors/shared/types';
 import { SceneContext, type SceneContextValue } from '../reactors/shared/SceneContext';
@@ -26,7 +59,9 @@ export function App() {
   const [clock] = useState(() => new SimClock());
   const [model] = useState(() => new EducationalModel(INITIAL_POWER));
   const reducedMotion = usePrefersReducedMotion();
-  const [state, dispatch] = useReducer(appReducer, initialAppState);
+  const [state, dispatch] = useReducer(appReducer, initialAppState, initFromHash);
+  // Öğrenme ilerlemesi: yalnız bu cihazda (localStorage; engelliyse bellekte).
+  const progressApi = useProgress();
   const [power, setPower] = useState(INITIAL_POWER);
   // Yerleşim tercihi: yalnız düzeni değiştirir; reaktör/senaryo/oynatma durumuna dokunmaz.
   const viewLayout = useViewLayoutState();
@@ -67,8 +102,124 @@ export function App() {
     model.setTarget(p);
   };
 
+  // ---------- Asistan ----------
+  const [assistantOpen, setAssistantOpen] = useState(false);
+  const [navBefore, setNavBefore] = useState<NavSnapshot | null>(null);
+  const [xenonScenario, setXenonScenario] = useState<string | null>(null);
+  const PREDICT_ID = PWR_XENON_SHUTDOWN.id;
+  const [predictState, setPredictState] = useState<PredictState>(() => {
+    const saved = toPredictState(progressApi.progress.predictions[PREDICT_ID]);
+    const link = typeof window !== 'undefined' ? parseLessonHash(window.location.hash, CATALOG) : null;
+    return link?.kind === 'predict' && link.stepId ? restorePredictState(saved, link.stepId) : saved;
+  });
+  /** Ders bileşenini yeniden bağlamak için (devam et / sıfırla). */
+  const [predictEpoch, setPredictEpoch] = useState(0);
+  const onPredictChange = useCallback(
+    (ps: PredictState) => {
+      setPredictState(ps);
+      progressApi.recordPredict(PREDICT_ID, ps);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [progressApi.recordPredict],
+  );
+  /** Başka bir bölümden asistana gönderilen hazır soru. */
+  const [assistantSeed, setAssistantSeed] = useState<{ q: string; n: number } | null>(null);
+
+  const lessonIndex = useCallback((id: string) => {
+    for (const r of Object.keys(reactors) as ReactorId[]) {
+      const i = reactors[r].lessons.findIndex((l) => l.id === id);
+      if (i >= 0) return { reactor: r, step: i, count: reactors[r].lessons.length };
+    }
+    return null;
+  }, []);
+
+  const runAssistantAction = (a: AssistantAction) => {
+    // İlk asistan gezinmesinden önceki konum saklanır (“Önceki konuma dön”).
+    if (!navBefore) setNavBefore(navSnapshot(state));
+    const plan = planAction(a, state, lessonIndex);
+    // Reaktör değişimi yalnız kullanıcının tıklamasıyla gelir; mevcut kural gereği simülasyon başa döner.
+    if (plan.needsReactorChange) resetSimulation();
+    plan.dispatches.forEach(dispatch);
+  };
+
+  const restoreNav = () => {
+    if (!navBefore) return;
+    if (navBefore.reactor !== state.reactor) resetSimulation();
+    dispatch({ type: 'restoreNav', nav: navBefore });
+    setNavBefore(null);
+  };
+
+  // Anlatım adımı kaydı ve doğrudan bağlantı (hash) eşitlemesi.
+  const learningTour = state.view === 'learn' && state.learnMode === 'tour';
+  const learningPredict = state.view === 'learn' && state.learnMode === 'predict' && state.reactor === 'pwr';
+  // Yalnız görünümü açmak kayıtlı “kaldığım yer”i ezmesin: adım, kullanıcı ilerleyince kaydedilir.
+  // Hiç kayıt yoksa ilk görülen adım kaydedilir.
+  useEffect(() => {
+    if (learningTour && !progressApi.progress.last) progressApi.recordTour(state.reactor, state.lessonStep);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [learningTour, state.reactor, state.lessonStep]);
+  useEffect(() => {
+    const h = learningTour
+      ? lessonHash({ kind: 'tour', reactor: state.reactor, step: state.lessonStep }, CATALOG)
+      : learningPredict
+        ? lessonHash({ kind: 'predict', lessonId: PREDICT_ID, stepId: predictState.step }, CATALOG)
+        : '';
+    if (h !== window.location.hash && (h || window.location.hash.startsWith('#ders='))) {
+      window.history.replaceState(null, '', h || window.location.pathname + window.location.search);
+    }
+  }, [learningTour, learningPredict, state.reactor, state.lessonStep, predictState.step, PREDICT_ID]);
+
+  const openTour = (r: ReactorId, step?: number) => {
+    if (r !== state.reactor) changeReactor(r);
+    dispatch({ type: 'setLearnMode', mode: 'tour' });
+    if (step !== undefined) {
+      dispatch({ type: 'lessonStep', step, count: reactors[r].lessons.length });
+      progressApi.recordTour(r, step);
+    }
+  };
+  const openPredict = () => {
+    if (state.reactor !== 'pwr') changeReactor('pwr');
+    setPredictState(toPredictState(progressApi.progress.predictions[PREDICT_ID]));
+    setPredictEpoch((n) => n + 1);
+    dispatch({ type: 'setLearnMode', mode: 'predict' });
+  };
+  const resumeLearning = () => {
+    const last = progressApi.progress.last;
+    if (!last) return;
+    const m = /^(pwr|bwr|vver)\.tour$/.exec(last.lessonId);
+    if (m) {
+      const r = m[1] as ReactorId;
+      openTour(r, Math.max(0, reactors[r].lessons.findIndex((l) => l.id === last.stepId)));
+    } else openPredict();
+  };
+
+  const closeAssistant = useCallback(() => {
+    setAssistantOpen(false);
+    // Panel kaldırıldıktan sonra odak açan düğmeye döner.
+    setTimeout(() => document.getElementById('assistant-toggle')?.focus(), 0);
+  }, []);
+
+  const assistantCtx: AssistantContext = {
+    reactor: state.reactor,
+    view: state.view,
+    pwrView: state.pwrView,
+    opsSection: state.opsSection,
+    selected: state.selected,
+    xenonScenario: state.reactor === 'pwr' && state.view === 'scheme' && state.pwrView === 'ops' && state.opsSection === 'xenon' ? xenonScenario : null,
+  };
+
+  const stripNo = (t: string) => t.replace(/^\d+\.\s*/, '');
+  const names = {
+    equipment: (r: ReactorId, id: string) => reactors[r].config.components.find((c) => c.id === id)?.name ?? id,
+    detail: (r: ReactorId, key: string) => reactors[r].config.details.find((d) => d.key === key)?.title ?? key,
+    lesson: (id: string) => getPredictLesson(id)?.title ?? reactors[lessonIndex(id)?.reactor ?? 'pwr'].lessons.find((l) => l.id === id)?.title ?? id,
+    section: (id: string) => stripNo(OPS_SECTIONS.find((x) => x.id === id)?.label ?? id),
+    event: (id: string) => findChartEvent(id)?.event.title ?? id,
+  };
+
   const highlight = useMemo<ReadonlySet<string> | null>(() => {
     if (state.view === 'learn') return new Set(lessons[state.lessonStep]?.highlight ?? []);
+    if (state.assistantHL && state.assistantHL.reactor === state.reactor) return new Set(state.assistantHL.ids);
     if (state.focus) {
       const f = config.focusActions.find((a) => a.id === state.focus);
       return f ? new Set(f.highlight) : null;
@@ -78,7 +229,7 @@ export function App() {
       return new Set([state.selected, ...(c?.related ?? [])]);
     }
     return null;
-  }, [state.view, state.lessonStep, state.focus, state.selected, config, lessons]);
+  }, [state.view, state.lessonStep, state.focus, state.selected, state.assistantHL, state.reactor, config, lessons]);
 
   const sceneCtx = useMemo<SceneContextValue>(
     () => ({
@@ -94,18 +245,38 @@ export function App() {
   const isPwr = state.reactor === 'pwr';
   const selectedComp = state.view !== 'learn' && state.selected ? config.components.find((c) => c.id === state.selected) : undefined;
   const showOps = isPwr && state.view === 'scheme' && state.pwrView === 'ops';
+  const showPredict = isPwr && state.view === 'learn' && state.learnMode === 'predict';
   const detailTitle = config.details.find((d) => d.key === state.detail)?.title ?? '';
+  const contextLabel = [
+    config.shortName,
+    state.view === 'compare'
+      ? 'Karşılaştırma'
+      : showPredict
+        ? 'Tahmin dersi'
+        : state.view === 'learn'
+          ? `Anlatım · ${lessons[state.lessonStep]?.title ?? ''}`
+          : showOps
+            ? `İşletme · ${names.section(state.opsSection)}`
+            : 'Santral şeması',
+    selectedComp ? `Seçili: ${selectedComp.name}` : null,
+    state.assistantHL && state.assistantHL.reactor === state.reactor ? `Vurgu: ${state.assistantHL.label}` : null,
+    state.detail ? `Yakın plan: ${detailTitle}` : null,
+  ]
+    .filter(Boolean)
+    .join(' · ');
 
   return (
     <SimulationContext.Provider value={{ clock, model, reducedMotion }}>
       <ViewLayoutContext.Provider value={viewLayout}>
-      <div className={`app reactor-${state.reactor}`}>
+      <div className={`app reactor-${state.reactor}${assistantOpen ? ' has-assistant' : ''}`}>
         <Header
           reactor={state.reactor}
           config={config}
           view={state.view}
           onReactor={changeReactor}
           onView={(v) => dispatch({ type: 'setView', view: v })}
+          assistantOpen={assistantOpen}
+          onAssistant={() => (assistantOpen ? closeAssistant() : setAssistantOpen(true))}
         />
         {reducedMotion && (
           <p className="notice" role="status">
@@ -113,7 +284,7 @@ export function App() {
           </p>
         )}
 
-        {isPwr && state.view !== 'compare' && (
+        {isPwr && state.view !== 'compare' && !showPredict && (
           <nav className="seg subview" aria-label="PWR görünümü">
             <button type="button" aria-pressed={!showOps} className={!showOps ? 'on' : ''} onClick={() => dispatch({ type: 'setPwrView', view: 'plant' })}>
               Santral şeması
@@ -124,14 +295,81 @@ export function App() {
           </nav>
         )}
 
-        {state.view === 'compare' ? (
+        {isPwr && state.view === 'learn' && (
+          <nav className="seg subview" aria-label="Öğrenme türü">
+            <button type="button" aria-pressed={state.learnMode === 'tour'} className={state.learnMode === 'tour' ? 'on' : ''} onClick={() => dispatch({ type: 'setLearnMode', mode: 'tour' })}>
+              Adım adım anlatım
+            </button>
+            <button type="button" aria-pressed={state.learnMode === 'predict'} className={state.learnMode === 'predict' ? 'on' : ''} onClick={() => dispatch({ type: 'setLearnMode', mode: 'predict' })}>
+              Tahmin et → dene → açıkla
+            </button>
+          </nav>
+        )}
+
+        {state.view === 'learn' && (
+          <ProgressPanel
+            progress={progressApi.progress}
+            persistent={progressApi.persistent}
+            onResume={resumeLearning}
+            onOpenTour={(r) => openTour(r, Math.max(0, reactors[r].lessons.findIndex((l) => l.id === progressApi.progress.tourSteps[r])))}
+            onOpenPredict={openPredict}
+            onReset={() => {
+              progressApi.reset();
+              setPredictState(emptyPredictState());
+              setPredictEpoch((n) => n + 1);
+            }}
+          />
+        )}
+
+        {state.assistantHL && state.assistantHL.reactor === state.reactor && state.view === 'scheme' && !showOps && (
+          <p className="assistant-hl-bar" role="status">
+            <span>
+              Vurgulanan: <strong>{state.assistantHL.label}</strong>
+            </span>
+            <button type="button" onClick={() => dispatch({ type: 'assistantHighlight', hl: null })}>
+              Vurguyu temizle
+            </button>
+          </p>
+        )}
+
+        {showPredict ? (
           <main className="main compare-main">
-            <CompareView />
+            <PredictLessonView
+              key={predictEpoch}
+              lesson={PWR_XENON_SHUTDOWN}
+              initial={predictState}
+              onChange={onPredictChange}
+              onExit={() => dispatch({ type: 'setLearnMode', mode: 'tour' })}
+              onAskAssistant={(q) => {
+                setAssistantOpen(true);
+                setAssistantSeed((x) => ({ q, n: (x?.n ?? 0) + 1 }));
+              }}
+            />
+          </main>
+        ) : state.view === 'compare' ? (
+          <main className="main compare-main">
+            <CompareView
+              topicId={state.compareTopic}
+              onTopic={(t) => dispatch({ type: 'setCompareTopic', topic: t })}
+              currentReactor={state.reactor}
+              onExplore={(r, topic) => {
+                // Reaktör değişimi kullanıcının açık tıklamasıyla; mevcut kural gereği simülasyon başa döner.
+                if (r !== state.reactor) changeReactor(r);
+                dispatch({ type: 'setView', view: 'scheme' });
+                dispatch({ type: 'setPwrView', view: 'plant' });
+                dispatch({ type: 'assistantHighlight', hl: { reactor: r, ids: topic.sides[r].main, label: `Karşılaştırma · ${topic.label}` } });
+              }}
+            />
           </main>
         ) : showOps ? (
           <main className="main compare-main">
             <Suspense fallback={<p className="notice">İşletme modülü yükleniyor…</p>}>
-              <PwrOperations />
+              <PwrOperations
+                section={state.opsSection}
+                onSection={(s) => dispatch({ type: 'setOpsSection', section: s })}
+                focusEvent={state.opsFocus}
+                onXenonScenario={setXenonScenario}
+              />
             </Suspense>
           </main>
         ) : (
@@ -148,6 +386,9 @@ export function App() {
                   onToggleFlow={() => dispatch({ type: 'toggleFlow' })}
                   onToggleCore={() => dispatch({ type: 'toggleCore' })}
                   onBackgroundClick={() => state.selected && dispatch({ type: 'select', id: null })}
+                  labelDetail={state.labelDetail}
+                  onLabelDetail={(d) => dispatch({ type: 'setLabelDetail', detail: d })}
+                  selectedName={selectedComp?.name}
                 >
                   <Scene showLabels={state.showLabels} showFlow={state.showFlow} />
                 </SceneViewport>
@@ -184,7 +425,11 @@ export function App() {
                   lessons={lessons}
                   step={state.lessonStep}
                   reactorName={config.shortName}
-                  onStep={(s) => dispatch({ type: 'lessonStep', step: s, count: lessons.length })}
+                  onStep={(s) => {
+                    const step = Math.max(0, Math.min(lessons.length - 1, s));
+                    dispatch({ type: 'lessonStep', step, count: lessons.length });
+                    progressApi.recordTour(state.reactor, step);
+                  }}
                   onExit={() => dispatch({ type: 'setView', view: 'scheme' })}
                 />
               ) : (
@@ -202,7 +447,7 @@ export function App() {
         )}
 
         {/* Santral sahnesinin kontrolleri ve göstergeleri işletme modülünde gizlenir; modülün kendi kontrolleri vardır. */}
-        {!showOps && (
+        {!showOps && !showPredict && (
           <>
             <ControlBar
               power={power}
@@ -237,6 +482,21 @@ export function App() {
         )}
 
         <SourcesSection />
+        <div id="assistant-panel">
+          <AssistantPanel
+            open={assistantOpen}
+            onClose={closeAssistant}
+            context={assistantCtx}
+            contextLabel={contextLabel}
+            actionText={(a) => actionLabel(a, names)}
+            onRun={runAssistantAction}
+            hasHighlight={!!state.assistantHL}
+            onClearHighlight={() => dispatch({ type: 'assistantHighlight', hl: null })}
+            restoreLabel={navBefore ? `Önceki konuma dön${navBefore.reactor !== state.reactor ? ` (${REACTOR_NAME[navBefore.reactor]}; simülasyon başa döner)` : ''}` : null}
+            onRestore={restoreNav}
+            seed={assistantSeed}
+          />
+        </div>
       </div>
       </ViewLayoutContext.Provider>
     </SimulationContext.Provider>

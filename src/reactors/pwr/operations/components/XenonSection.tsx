@@ -1,54 +1,15 @@
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useSimulation, useTick } from '../../../../hooks/useSimulation';
 import { FIG_2_40, FIG_2_41 } from '../data/figures';
-import { demandAt, profileEvents } from '../models/profile';
-import { decayHeatPercents, indexAt, peakXenon, simulate, type Trajectory } from '../models/xenon';
+import { decayHeatPercents, indexAt, type Trajectory } from '../models/xenon';
+import { buildScenario, findChartEvent, SHUTDOWN_LEVELS, type XenonLab } from '../models/xenonScenarios';
 import { advance, createPlayback, resetPlayback, seek, togglePlay, type Playback } from '../models/playback';
+import { EventList, EventMarkers } from './ChartEvents';
 import { ChartFrame, LegendItem, ModelNote, SourceTags, WhyBox, fmt, type AxisDef, type ChartScales } from './common';
 
-type Lab = 'load' | 'shutdown';
-const SHUTDOWN_LEVELS = [25, 50, 75, 100] as const;
+type Lab = XenonLab;
 const W = 720;
 const H = 230;
-
-interface Scenario {
-  id: string;
-  lab: Lab;
-  title: string;
-  hours: number;
-  tr: Trajectory;
-  events: { t: number; text: string }[];
-  note?: string;
-  priorPower?: number;
-}
-
-function buildScenario(lab: Lab, key: string): Scenario {
-  if (lab === 'load') {
-    const p = FIG_2_40.find((x) => x.id === key) ?? FIG_2_40[0];
-    const tr = simulate({ hours: 24, demand: (t) => demandAt(p, t), initialPower: 100, lag: 0.25 });
-    const pk = peakXenon(tr);
-    const events = [...profileEvents(p)];
-    if (pk.t > 0.2 && pk.t < 23.8) events.push({ t: pk.t, text: `Modelde ksenon tepesi (${fmt(pk.t)} sa)` });
-    events.sort((a, b) => a.t - b.t);
-    return { id: `load-${p.id}`, lab, title: p.label, hours: 24, tr, events, note: p.note };
-  }
-  const p0 = Number(key);
-  const tr = simulate({ hours: 100, demand: (t) => (t <= 0 ? p0 : 0), initialPower: p0, sample: 0.25 });
-  const pk = peakXenon(tr);
-  return {
-    id: `shut-${p0}`,
-    lab,
-    title: `%${p0} güçten kapatma`,
-    hours: 100,
-    tr,
-    priorPower: p0,
-    events: [
-      { t: 0, text: 'Kapatma: fisyon gücü sıfıra iner; artık ısı sürer' },
-      { t: pk.t, text: `Modelde ksenon tepesi (${fmt(pk.t)} sa)` },
-      { t: Math.min(100, pk.t + 40), text: 'İyot tükendikçe ksenon bozunarak azalıyor' },
-    ],
-  };
-}
 
 function seriesPath(tr: Trajectory, values: Float64Array, s: ChartScales, upTo?: number): string {
   let d = '';
@@ -57,14 +18,39 @@ function seriesPath(tr: Trajectory, values: Float64Array, s: ChartScales, upTo?:
   return d;
 }
 
-export function XenonSection() {
+interface Props {
+  focusEvent?: { eventId: string; nonce: number } | null;
+  onScenario?: (id: string | null) => void;
+}
+
+export function XenonSection({ focusEvent = null, onScenario }: Props) {
   const { clock } = useSimulation();
-  const [lab, setLab] = useState<Lab>('load');
-  const [key, setKey] = useState('12-3-6-3');
+  const initialFocus = focusEvent ? findChartEvent(focusEvent.eventId) : null;
+  const [lab, setLab] = useState<Lab>(initialFocus?.scenario.lab ?? 'load');
+  const [key, setKey] = useState(initialFocus?.scenario.key ?? '12-3-6-3');
   const sc = useMemo(() => buildScenario(lab, key), [lab, key]);
-  const [pb, setPb] = useState<Playback>(() => createPlayback(24));
+  const [pb, setPb] = useState<Playback>(() => createPlayback(lab === 'load' ? 24 : 100, lab === 'load' ? 1 : 4));
   const pbRef = useRef(pb);
   pbRef.current = pb;
+  /** Seçili olay: açıklaması gösterilir; senaryo saati yalnız “Zamanı bu olaya götür” ile değişir. */
+  const [selEvent, setSelEvent] = useState<string | null>(initialFocus?.event.id ?? null);
+
+  // Asistan/gezinme bir olay açtığında: senaryoyu seç, olayı işaretle (zaman değiştirilmez).
+  const lastNonce = useRef(focusEvent?.nonce ?? 0);
+  useEffect(() => {
+    if (!focusEvent || focusEvent.nonce === lastNonce.current) return;
+    lastNonce.current = focusEvent.nonce;
+    const f = findChartEvent(focusEvent.eventId);
+    if (!f) return;
+    if (f.scenario.lab !== lab || f.scenario.key !== key) choose(f.scenario.lab, f.scenario.key);
+    setSelEvent(f.event.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [focusEvent]);
+
+  useEffect(() => {
+    onScenario?.(sc.id);
+    return () => onScenario?.(null);
+  }, [sc.id, onScenario]);
 
   // Ortak saatten beslenir; yalnız oynatılırken durum güncellenir (paralel rAF döngüsü yok).
   const sinceRender = useRef(0);
@@ -83,6 +69,7 @@ export function XenonSection() {
   const choose = (nextLab: Lab, nextKey: string) => {
     setLab(nextLab);
     setKey(nextKey);
+    setSelEvent(null);
     // Senaryo değişince saat, seçim ve grafik başa döner.
     const fresh = createPlayback(nextLab === 'load' ? 24 : 100, nextLab === 'load' ? 1 : 4);
     pbRef.current = fresh;
@@ -105,8 +92,7 @@ export function XenonSection() {
   const decayNow = decayHeatPercents(Math.max(pb.t, 1 / 3600), sc.priorPower ?? 100);
 
   const cursor = (s: ChartScales) => <line className="ops-cursor" x1={s.x(pb.t)} x2={s.x(pb.t)} y1={s.top} y2={s.bottom} />;
-  const eventMarks = (s: ChartScales) =>
-    sc.events.map((e, k) => <line key={k} className="ops-event" x1={s.x(e.t)} x2={s.x(e.t)} y1={s.top} y2={s.bottom} />);
+  const eventMarks = (s: ChartScales, interactive = false) => <EventMarkers events={sc.events} s={s} selected={selEvent} onSelect={setSelEvent} interactive={interactive} />;
 
   // Kapatma senaryosunda artık ısı eğrisi (güç grafiğinde ayrı çizgi).
   const decaySeries = useMemo(() => {
@@ -198,7 +184,7 @@ export function XenonSection() {
         >
           {(s) => (
             <>
-              {eventMarks(s)}
+              {eventMarks(s, true)}
               {lab === 'load' && <path className="ops-line demand" d={seriesPath(tr, tr.demand, s)} />}
               <path className="ops-line power" d={seriesPath(tr, tr.power, s)} />
               {decaySeries && <path className="ops-line decay" d={seriesPath(tr, decaySeries, s)} />}
@@ -289,16 +275,7 @@ export function XenonSection() {
           <dd>{fmt(tr.worth[i], 2)}</dd>
         </dl>
         <h4>Olay işaretleri</h4>
-        <ul className="ops-events">
-          {sc.events.map((e, k) => (
-            <li key={k}>
-              <button type="button" onClick={() => setPb((p) => seek({ ...p, playing: false }, e.t))}>
-                {fmt(e.t)} sa
-              </button>{' '}
-              {e.text}
-            </li>
-          ))}
-        </ul>
+        <EventList events={sc.events} selected={selEvent} onSelect={setSelEvent} onSeek={(t) => setPb((p) => seek({ ...p, playing: false }, t))} />
         <WhyBox>
           Güç düştüğünde veya fisyon durduğunda ksenon etkisi hemen kaybolmaz. Ksenonun büyük kısmı iyot-135’in bozunmasıyla oluşur; iyot önceki güç düzeyinde birikmiştir. Düşük güçte
           nötronla ksenon tüketimi azalır. Bu yüzden ksenon önce artar (negatif reaktivite büyür), saatler sonra tepe yapar ve iyot tükendikçe azalır (kaynak 2-94). Yük takibinde bu ek negatif

@@ -26,6 +26,8 @@ export interface FocusAction {
 }
 
 export interface LessonStep {
+  /** Kararlı kimlik (ör. 'pwr.tour.sg'); ilerleme kaydı ve asistan bağlantıları bunu kullanır. */
+  id: string;
   title: string;
   text: string;
   highlight: string[];

@@ -1,0 +1,33 @@
+/**
+ * Doğrudan ders bağlantısı: `#ders=<ders veya adım kimliği>[&adim=<adım>]`.
+ * Örnekler: `#ders=pwr.tour.sg`, `#ders=pwr.predict.xenon-shutdown&adim=experiment`.
+ * Bilinmeyen kimlikler yok sayılır (site normal açılır). Hash kullanıldığı için statik yayında sunucu ayarı gerekmez.
+ */
+import type { ReactorId } from '../reactors/shared/types';
+import type { ProgressCatalog } from './progressStore';
+
+export type LessonLink = { kind: 'tour'; reactor: ReactorId; step: number } | { kind: 'predict'; lessonId: string; stepId: string | null };
+
+export function parseLessonHash(hash: string, cat: ProgressCatalog): LessonLink | null {
+  const params = new URLSearchParams(hash.replace(/^#/, ''));
+  const id = params.get('ders');
+  if (!id || id.length > 80) return null;
+  const tour = /^(pwr|bwr|vver)\.tour(?:\.([\w-]+))?$/.exec(id);
+  if (tour) {
+    const r = tour[1] as ReactorId;
+    const steps = cat.tours[r];
+    const i = tour[2] ? steps.indexOf(id) : 0;
+    return { kind: 'tour', reactor: r, step: Math.max(0, i) };
+  }
+  const p = cat.predict[id];
+  if (p) {
+    const step = params.get('adim');
+    return { kind: 'predict', lessonId: id, stepId: step && p.steps.includes(step) ? step : null };
+  }
+  return null;
+}
+
+export function lessonHash(link: LessonLink, cat: ProgressCatalog): string {
+  if (link.kind === 'tour') return `#ders=${encodeURIComponent(cat.tours[link.reactor][link.step] ?? `${link.reactor}.tour`)}`;
+  return `#ders=${encodeURIComponent(link.lessonId)}${link.stepId ? `&adim=${encodeURIComponent(link.stepId)}` : ''}`;
+}

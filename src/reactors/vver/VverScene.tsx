@@ -6,6 +6,18 @@ import { Condenser, CoolingSource } from '../shared/equipment/Condenser';
 import { GridLink, Pump } from '../shared/equipment/Pump';
 import { Bubbles, RodGroup } from '../shared/equipment/animated';
 import { HSG_FLOW_IDS, MAIN_LOOP_COUNT, type HsgLayout } from './hsgGeometry';
+import { Junction, Penetration } from '../shared/equipment/PipeMarks';
+import {
+  VVER_COLLECTORS as COL,
+  VVER_CONDENSER,
+  VVER_FEEDPUMP,
+  VVER_HSG,
+  VVER_MCP,
+  VVER_PENETRATIONS,
+  VVER_PRESSURIZER,
+  VVER_ROUTES as RT,
+  VVER_TURBINE,
+} from './vverLayout';
 import { HsgHiddenSegments, HsgTubes, type HsgTubeLoop } from './HsgTubes';
 
 const SHELL = 'M430 250 H630 A50 50 0 0 1 630 350 H430 A50 50 0 0 1 430 250 Z';
@@ -20,6 +32,9 @@ const HSG_LOOPS: HsgTubeLoop[] = Array.from({ length: MAIN_LOOP_COUNT }, (_, k) 
  * VVER sahnesi — PWR ailesinden, yatay buhar üreteçli temsili tek çevrim.
  * Dar/uzun kap ve yüksek üst blok, farklı kotlarda sıcak/soğuk kol, geniş yatay buhar üreteci.
  */
+const SURGE = `M${VVER_PRESSURIZER.surgeTop.join(' ')} V${VVER_PRESSURIZER.surgeBottom[1]}`;
+const rectOf = (r: { x: number; y: number; w: number; h: number }) => ({ x: r.x, y: r.y, width: r.w, height: r.h });
+
 export function VverScene({ showLabels, showFlow }: SceneProps) {
   return (
     <svg viewBox="0 0 1400 800" className="scene-svg" role="group" aria-label="VVER santral şeması">
@@ -80,13 +95,13 @@ export function VverScene({ showLabels, showFlow }: SceneProps) {
         <path className="heater" d="M276 306 l4 -8 l4 8 l4 -8 l4 8 l4 -8 l4 8 l4 -8" />
       </Hotspot>
       <Hotspot id="surge" pad={4}>
-        <path className="pipe-wall" d="M290 322 V372" strokeWidth={9} />
-        <path className="pipe-fluid fluid-hot" d="M290 322 V372" strokeWidth={5} />
+        <path className="pipe-wall" d={SURGE} strokeWidth={9} />
+        <path className="pipe-fluid fluid-hot" d={SURGE} strokeWidth={5} />
       </Hotspot>
 
       {/* Sıcak kol (üst kot) */}
       <Hotspot id="hotleg" pad={2} contains={['f-hotleg']}>
-        <Flow id="f-hotleg" d="M228 380 H476 Q490 380 490 366" kind="hot" pipe={12} speed={60} spacing={24} scale="constant" showFlow={showFlow} />
+        <Flow id="f-hotleg" d={RT.hotleg.d} kind="hot" pipe={12} speed={60} spacing={24} scale="constant" showFlow={showFlow} />
       </Hotspot>
 
       {/* ---------- Yatay buhar üreteci ---------- */}
@@ -115,20 +130,20 @@ export function VverScene({ showLabels, showFlow }: SceneProps) {
 
       {/* Kolektörler */}
       <Hotspot id="collector-hot" pad={2}>
-        <rect className="collector" x="479" y="262" width="22" height="110" rx="4" />
+        <rect className="collector" {...rectOf(COL.hot)} rx="4" />
       </Hotspot>
       <Hotspot id="collector-cold" pad={2}>
-        <rect className="collector cold" x="559" y="262" width="22" height="110" rx="4" />
+        <rect className="collector cold" {...rectOf(COL.cold)} rx="4" />
       </Hotspot>
       <HsgHiddenSegments layout={HSG} loops={HSG_LOOPS} />
 
       {/* Soğuk kol (alt kot) + ana sirkülasyon pompası */}
       <Hotspot id="coldleg" pad={2} contains={['f-crossleg', 'f-coldleg']}>
-        <Flow id="f-crossleg" d="M570 372 V540 Q570 560 550 560 H418" kind="cold" pipe={12} speed={60} spacing={24} scale="constant" showFlow={showFlow} />
-        <Flow id="f-coldleg" d="M374 560 H260 Q245 560 245 545 V465 Q245 450 230 450 H228" kind="cold" pipe={12} speed={60} spacing={24} scale="constant" showFlow={showFlow} />
+        <Flow id="f-crossleg" d={RT.crossleg.d} kind="cold" pipe={12} speed={60} spacing={24} scale="constant" showFlow={showFlow} />
+        <Flow id="f-coldleg" d={RT.coldleg.d} kind="cold" pipe={12} speed={60} spacing={24} scale="constant" showFlow={showFlow} />
       </Hotspot>
       <Hotspot id="mcp">
-        <Pump x={396} y={560} r={22} motor="top" rps={1.2} />
+        <Pump x={VVER_MCP.c[0]} y={VVER_MCP.c[1]} r={VVER_MCP.r} motor="top" rps={1.2} />
       </Hotspot>
 
       {/* ---------- İkincil devre ---------- */}
@@ -139,24 +154,33 @@ export function VverScene({ showLabels, showFlow }: SceneProps) {
             <path className="pipe-fluid fluid-steam" d={`M${x} 212 V240`} strokeWidth={8} />
           </g>
         ))}
-        <Flow id="f-steamline" d="M463 212 H782 V233" kind="steam" pipe={12} speed={80} spacing={26} showFlow={showFlow} />
+        {VVER_HSG.steamNozzles.map((x) => (
+          <Junction key={`j${x}`} at={[x, VVER_HSG.steamHeaderY]} r={3.5} />
+        ))}
+        <Flow id="f-steamline" d={RT.steamline.d} kind="steam" pipe={12} speed={80} spacing={26} showFlow={showFlow} />
       </Hotspot>
-      <TurbineGenerator x={760} y={260} ids={{ hp: 'hp', lp: 'lp', gen: 'gen', crossover: 'f-crossover' }} showFlow={showFlow} />
+      <TurbineGenerator x={VVER_TURBINE.x} y={VVER_TURBINE.y} ids={{ hp: 'hp', lp: 'lp', gen: 'gen', crossover: 'f-crossover' }} showFlow={showFlow} />
       <Flow id="f-lp-l" d="M965 206 C925 206 912 298 962 326 V348" kind="steam" pipe={0} speed={50} spacing={20} showFlow={showFlow} r={2.8} />
       <Flow id="f-lp-r" d="M985 206 C1025 206 1038 298 988 326 V348" kind="steam" pipe={0} speed={50} spacing={20} showFlow={showFlow} r={2.8} />
       <GridLink x={1272} y={260} />
-      <Condenser x={885} y={336} w={180} h={150} id="condenser" coolId="f-cool" coolTo={1280} showFlow={showFlow} />
+      <Condenser {...VVER_CONDENSER} id="condenser" coolId="f-cool" coolTo={1280} showFlow={showFlow} />
       <CoolingSource x={1280} y={360} id="coolsource" />
 
-      <Flow id="f-feed1" d="M930 492 V620 H846" kind="feed" pipe={9} speed={45} spacing={24} showFlow={showFlow} />
-      <Flow id="f-feed2" d="M812 620 H720 V298 H686" kind="feed" pipe={9} speed={45} spacing={24} showFlow={showFlow} />
+      <Flow id="f-feed1" d={RT.feed1.d} kind="feed" pipe={9} speed={45} spacing={24} showFlow={showFlow} />
+      <Flow id="f-feed2" d={RT.feed2.d} kind="feed" pipe={9} speed={45} spacing={24} showFlow={showFlow} />
       <Hotspot id="feedpump">
-        <Pump x={829} y={620} r={16} motor="side" rps={1.5} />
+        {/* Motor üstte: emme ve basma hatları motorun içinden geçmez. */}
+        <Pump x={VVER_FEEDPUMP.c[0]} y={VVER_FEEDPUMP.c[1]} r={VVER_FEEDPUMP.r} motor="top" rps={1.5} />
       </Hotspot>
       <Hotspot id="heater">
         <rect className="heater-box" x="735" y="604" width="54" height="32" rx="5" />
         <path className="heater-coil" d="M741 620 q5 -9 10 0 t10 0 t10 0 t10 0 t10 0" />
       </Hotspot>
+
+      <Junction at={VVER_PRESSURIZER.surgeBottom} r={3.5} />
+      {VVER_PENETRATIONS.map((p) => (
+        <Penetration key={p.at.join()} {...p} />
+      ))}
 
       <SceneNote
         x={960}
@@ -172,23 +196,26 @@ export function VverScene({ showLabels, showFlow }: SceneProps) {
       </g>
 
       <g className="labels" style={{ display: showLabels ? undefined : 'none' }}>
-        <Label x={370} y={41} tx={430} ty={6} text="Koruma yapısı (containment)" />
-        <Label x={150} y={170} tx={8} ty={104} text="Üst blok: çubuk sürücüleri" sub="çubuklar üstten girer" />
-        <Label x={124} y={600} tx={30} ty={704} text="Reaktör kabı (dar, uzun)" />
-        <Label x={350} y={380} tx={318} ty={350} text="Sıcak kol (üst kot)" />
-        <Label x={232} y={452} tx={250} ty={598} text="Soğuk kol (alt kot)" />
-        <Label x={312} y={196} tx={330} ty={150} text="Basınçlandırıcı" />
-        <Label x={520} y={252} tx={470} ty={140} text="Yatay buhar üreteci" sub="yatay boru demeti + kolektörler" />
-        <Label x={486} y={370} tx={420} ty={408} text="Sıcak kolektör" />
-        <Label x={576} y={370} tx={592} ty={436} text="Soğuk kolektör" />
-        <Label x={410} y={572} tx={420} ty={604} text="Ana sirkülasyon pompası" />
-        <Label x={660} y={212} tx={700} ty={168} text="Ana buhar hattı" />
-        <Label x={800} y={300} tx={806} ty={318} text="YB türbini" />
-        <Label x={1050} y={206} tx={1000} ty={134} text="AB türbini" />
-        <Label x={1170} y={216} tx={1146} ty={158} text="Jeneratör" />
-        <Label x={1062} y={470} tx={1080} ty={504} text="Kondenser" />
-        <Label x={832} y={636} tx={764} ty={672} text="Besleme suyu pompası" />
-        <Label x={762} y={604} tx={735} ty={556} text="Ön ısıtıcı" />
+        <Label x={370} y={41} tx={430} ty={6} text="Koruma yapısı (containment)" for="containment" />
+        <Label x={150} y={170} tx={8} ty={104} text={'Üst blok:\nçubuk sürücüleri'} sub="çubuklar üstten girer" for="rods" />
+        <Label x={124} y={600} tx={30} ty={704} text="Reaktör kabı (dar, uzun)" for="vessel" />
+        <Label x={312} y={196} tx={330} ty={150} text="Basınçlandırıcı" for="pressurizer" />
+        <Label x={520} y={252} tx={470} ty={140} text="Yatay buhar üreteci" sub="yatay boru demeti + kolektörler" for="hsg" />
+        <Label x={410} y={572} tx={420} ty={604} text="Ana sirkülasyon pompası" for="mcp" />
+        <Label x={800} y={300} tx={806} ty={318} text="YB türbini" for="hp" />
+        <Label x={1050} y={206} tx={1000} ty={134} text="AB türbini" for="lp" />
+        <Label x={1170} y={216} tx={1146} ty={158} text="Jeneratör" for="gen" />
+        <Label x={1062} y={470} tx={1080} ty={504} text="Kondenser" for="condenser" />
+        <Label x={832} y={636} tx={764} ty={672} text="Besleme suyu pompası" for="feedpump" />
+        {/* Ayrıntı: kolektörler, kotlar ve hatlar */}
+        <Label level="detail" x={350} y={380} tx={318} ty={350} text="Sıcak kol (üst kot)" for="hotleg" />
+        <Label level="detail" x={232} y={452} tx={250} ty={598} text="Soğuk kol (alt kot)" for="coldleg" />
+        <Label level="detail" x={486} y={370} tx={420} ty={408} text="Sıcak kolektör" for="collector-hot" />
+        <Label level="detail" x={576} y={370} tx={592} ty={436} text="Soğuk kolektör" for="collector-cold" />
+        <Label level="detail" x={660} y={212} tx={700} ty={168} text="Ana buhar hattı" for="steamline" />
+        <Label level="detail" x={762} y={604} tx={735} ty={556} text="Ön ısıtıcı" for="heater" />
+        <Label level="detail" x={620} y={267} tx={640} ty={196} text="Nem ayırıcı" />
+        <Label level="detail" x={160} y={610} tx={30} ty={730} text="Altıgen yakıt demetleri" for="vessel" />
       </g>
     </svg>
   );

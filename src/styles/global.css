@@ -1595,3 +1595,17 @@ table.compare-table {
 .detail-hint {
   margin: 4px 12px;
 }
+
+/* Boru birleşimleri ve koruma yapısı geçişleri (bağlantı / bağlantısız kesişim ayrımı) */
+.pipe-junction {
+  fill: #3a3a40;
+  stroke: #fff;
+  stroke-width: 1.2;
+  pointer-events: none;
+}
+.penetration {
+  fill: none;
+  stroke: #6f6a5e;
+  stroke-width: 1.6;
+  pointer-events: none;
+}

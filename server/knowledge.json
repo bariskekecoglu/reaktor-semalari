@@ -1,0 +1,2301 @@
+{
+ "version": 1,
+ "sources": [
+  {
+   "id": "app-guide",
+   "kind": "app",
+   "title": "Uygulama kullanım rehberi",
+   "locator": "Site kontrolleri, yerel rehber ve ders ilerlemesi"
+  },
+  {
+   "id": "nuce-ch2",
+   "kind": "pdf",
+   "title": "Nuc E 430 ders notları, Bölüm 2",
+   "locator": "PWR, BWR ve VVER sistemleri (genel)"
+  },
+  {
+   "id": "nuce-2-5",
+   "kind": "pdf",
+   "title": "Nuc E 430 ders notları, Bölüm 2",
+   "locator": "2.5 PWR Reactor Operations, s. 2-88 – 2-101"
+  },
+  {
+   "id": "tab-2-14",
+   "kind": "pdf",
+   "title": "Nuc E 430 ders notları, Bölüm 2",
+   "locator": "Tablo 2-14, s. 2-88 (işletme modları)"
+  },
+  {
+   "id": "p-2-89",
+   "kind": "pdf",
+   "title": "Nuc E 430 ders notları, Bölüm 2",
+   "locator": "s. 2-89 – 2-93 (ısınma ve ısı uzaklaştırma)"
+  },
+  {
+   "id": "p-2-94",
+   "kind": "pdf",
+   "title": "Nuc E 430 ders notları, Bölüm 2",
+   "locator": "s. 2-94 (yük takibi ve ksenon)"
+  },
+  {
+   "id": "p-2-96",
+   "kind": "pdf",
+   "title": "Nuc E 430 ders notları, Bölüm 2",
+   "locator": "s. 2-96 – 2-98 (eksenel güç, ΔI, otomatik kontrol)"
+  },
+  {
+   "id": "fig-2-39",
+   "kind": "figure",
+   "title": "Nuc E 430 ders notları, Bölüm 2",
+   "locator": "Şekil 2-39, s. 2-94 (bor azaltma eğrisi)"
+  },
+  {
+   "id": "fig-2-40",
+   "kind": "figure",
+   "title": "Nuc E 430 ders notları, Bölüm 2",
+   "locator": "Şekil 2-40, s. 2-95 (yük takibi profilleri)"
+  },
+  {
+   "id": "fig-2-41",
+   "kind": "figure",
+   "title": "Nuc E 430 ders notları, Bölüm 2",
+   "locator": "Şekil 2-41, s. 2-96 (kapatma sonrası Xe worth)"
+  },
+  {
+   "id": "fig-2-42",
+   "kind": "figure",
+   "title": "Nuc E 430 ders notları, Bölüm 2",
+   "locator": "Şekil 2-42, s. 2-100 (eksenel güç ve ksenon profilleri)"
+  },
+  {
+   "id": "fig-2-43",
+   "kind": "figure",
+   "title": "Nuc E 430 ders notları, Bölüm 2",
+   "locator": "Şekil 2-43, s. 2-101 (güç–ΔI düzlemi)"
+  },
+  {
+   "id": "nrc-unit3",
+   "kind": "web",
+   "title": "U.S. NRC — Student Corner, Unit 3: Nuclear Reactors & Energy Generation",
+   "locator": null
+  },
+  {
+   "id": "nrc-bwr",
+   "kind": "web",
+   "title": "U.S. NRC — Boiling Water Reactors",
+   "locator": null
+  },
+  {
+   "id": "iaea-vver",
+   "kind": "web",
+   "title": "N. Trunov ve ark., VVER tasarım özellikleri (IAEA, P1500)",
+   "locator": null
+  },
+  {
+   "id": "model-plant",
+   "kind": "model",
+   "title": "Uygulamanın temsili santral modeli",
+   "locator": "Normalize güç, sabit %33 verim, birinci dereceden gecikmeler"
+  },
+  {
+   "id": "model-xenon",
+   "kind": "model",
+   "title": "Uygulamanın temsili iyot/ksenon modeli",
+   "locator": "dI/dt, dX/dt; κ = 3·λX temsili katsayı"
+  }
+ ],
+ "entries": [
+  {
+   "id": "pwr",
+   "reactorId": "pwr",
+   "kind": "reactor",
+   "name": "Basınçlı Su Reaktörü (PWR) — temsili dikey buhar üreteçli tasarım",
+   "summary": "Birincil devredeki su yüksek basınç altında (ders notlarında ~155 bar) tutulduğu için çekirdekte toplu kaynama olmaz. Isı, dikey U borulu buhar üretecinde ayrı bir ikincil devreye aktarılır; türbine yalnız ikincil devrenin buharı gider.",
+   "body": null,
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-unit3"
+   ],
+   "targets": [
+    {
+     "type": "openReactor",
+     "reactor": "pwr"
+    }
+   ]
+  },
+  {
+   "id": "pwr.vessel",
+   "reactorId": "pwr",
+   "kind": "equipment",
+   "name": "Reaktör basınç kabı",
+   "summary": "Çekirdeği ve birincil soğutucuyu yüksek basınç altında barındırır.",
+   "body": "Soğuk koldan gelen su kap duvarı ile çekirdek gömleği arasındaki halkasal boşluktan (downcomer) aşağı iner, alt plenumdan dönüp çekirdekten yukarı çıkarken ısınır ve sıcak koldan ayrılır. Yüksek basınç nedeniyle duvarlar kalındır.",
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-unit3"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "pwr",
+     "equipmentId": "vessel"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "pwr",
+     "detail": "core"
+    }
+   ]
+  },
+  {
+   "id": "pwr.rods",
+   "reactorId": "pwr",
+   "kind": "equipment",
+   "name": "Kontrol çubukları (üstten)",
+   "summary": "Nötron soğurarak zincir reaksiyonun hızını ayarlar.",
+   "body": "PWR’de çubuklar kabın üst kapağındaki sürücülerden aşağı doğru girer. Çubuk konumu gücün tek belirleyicisi değildir: sıcaklık geri beslemesi ve soğutucudaki çözünmüş bor da reaktiviteyi etkiler. Bu nedenle uygulamada çubuk konumu güçle birebir eşlenmez.",
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-unit3"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "pwr",
+     "equipmentId": "rods"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "pwr",
+     "detail": "core"
+    }
+   ]
+  },
+  {
+   "id": "pwr.pressurizer",
+   "reactorId": "pwr",
+   "kind": "equipment",
+   "name": "Basınçlandırıcı",
+   "summary": "Birincil devre basıncını kontrol eder ve hacim değişimlerini karşılar.",
+   "body": "Ders notlarına göre içi kabaca %60 su, %40 buhardır. Basınç düşerse elektrikli ısıtıcılar suyun bir kısmını buharlaştırarak basıncı artırır; basınç yükselirse üstteki püskürtme (soğuk koldan beslenir) buharı yoğuşturur. Sıcak kola dalgalanma (surge) hattıyla bağlıdır.",
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-unit3"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "pwr",
+     "equipmentId": "pressurizer"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "pwr",
+     "detail": "pressurizer"
+    }
+   ]
+  },
+  {
+   "id": "pwr.sg",
+   "reactorId": "pwr",
+   "kind": "equipment",
+   "name": "Buhar üreteci (dikey, U borulu)",
+   "summary": "Birincil devrenin ısısını ikincil devreye aktararak buhar üretir.",
+   "body": "Sıcak birincil su alt kanal başlığından U borularına girer, boruların içinde kalır ve soğuyarak çıkar. Isı boru duvarından geçer; boruların dışındaki ikincil su kaynar. Üst bölümdeki ayırıcılar ve kurutucular nemi alır; türbine kuru doymuş buhar gider.",
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-unit3"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "pwr",
+     "equipmentId": "sg"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "pwr",
+     "detail": "sg"
+    }
+   ]
+  },
+  {
+   "id": "pwr.hotleg",
+   "reactorId": "pwr",
+   "kind": "equipment",
+   "name": "Sıcak kol",
+   "summary": "Çekirdekte ısınan birincil suyu buhar üretecine taşır.",
+   "body": "Reaktör çıkış nozulundan buhar üretecinin giriş kanal başlığına uzanır. Su basınç altında sıvıdır; şemada turuncu-kırmızı ve düz çizgiyle gösterilir.",
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-unit3"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "pwr",
+     "equipmentId": "hotleg"
+    }
+   ]
+  },
+  {
+   "id": "pwr.coldleg",
+   "reactorId": "pwr",
+   "kind": "equipment",
+   "name": "Soğuk kol",
+   "summary": "Buhar üretecinde soğuyan birincil suyu pompa üzerinden reaktöre geri gönderir.",
+   "body": "Buhar üreteci çıkışından pompaya giden ara bacak ve pompadan reaktör giriş nozuluna giden kısımdan oluşur. Şemada mavi ve düz çizgiyle gösterilir.",
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-unit3"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "pwr",
+     "equipmentId": "coldleg"
+    }
+   ]
+  },
+  {
+   "id": "pwr.rcp",
+   "reactorId": "pwr",
+   "kind": "equipment",
+   "name": "Birincil soğutucu pompası",
+   "summary": "Birincil suyu kapalı çevrimde dolaştırır.",
+   "body": "Dikey motorlu santrifüj pompadır. Birincil debi büyük ölçüde sabit tutulur; güç değişince debiden çok çekirdek giriş-çıkış sıcaklık farkı değişir. Bu yüzden şemada birincil akış hızı güçle değişmez.",
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-unit3"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "pwr",
+     "equipmentId": "rcp"
+    }
+   ]
+  },
+  {
+   "id": "pwr.steamline",
+   "reactorId": "pwr",
+   "kind": "equipment",
+   "name": "Ana buhar hattı",
+   "summary": "Buhar üretecinde oluşan ikincil buharı türbine götürür.",
+   "body": "Bu hattaki buhar ikincil devreye aittir; birincil soğutucu türbine gitmez. Koruma yapısını bir geçişle terk eder.",
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-unit3"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "pwr",
+     "equipmentId": "steamline"
+    }
+   ]
+  },
+  {
+   "id": "pwr.hp",
+   "reactorId": "pwr",
+   "kind": "equipment",
+   "name": "Yüksek basınç (YB) türbini",
+   "summary": "Buharın enerjisinin bir kısmını mil işine dönüştürür.",
+   "body": "Doymuş buhar YB türbininde genişler; çıkışta geçiş borusuyla AB türbinine gider.",
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-unit3"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "pwr",
+     "equipmentId": "hp"
+    }
+   ]
+  },
+  {
+   "id": "pwr.lp",
+   "reactorId": "pwr",
+   "kind": "equipment",
+   "name": "Alçak basınç (AB) türbini",
+   "summary": "Buhar enerjisinin kalanını mekanik enerjiye çevirir.",
+   "body": "Çift akışlıdır: buhar ortadan girip iki yöne genişler ve alttaki kondensere boşalır. Türbinler ve jeneratör aynı mil üzerindedir.",
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-unit3"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "pwr",
+     "equipmentId": "lp"
+    }
+   ]
+  },
+  {
+   "id": "pwr.gen",
+   "reactorId": "pwr",
+   "kind": "equipment",
+   "name": "Jeneratör",
+   "summary": "Mil işini elektriğe dönüştürür.",
+   "body": "Şebekeye senkron bağlı olduğundan sabit hızda döner (50 Hz şebekede iki kutuplu makine için 3000 dev/dk). Güç değişince hız değil, mildeki tork ve akım değişir; şemadaki mil animasyonu bu nedenle güçten bağımsızdır.",
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-unit3"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "pwr",
+     "equipmentId": "gen"
+    }
+   ]
+  },
+  {
+   "id": "pwr.condenser",
+   "reactorId": "pwr",
+   "kind": "equipment",
+   "name": "Kondenser",
+   "summary": "Türbinden çıkan buharı yoğuşturarak suya çevirir.",
+   "body": "Buhar, içinden soğutma suyu geçen boruların dışında yoğuşur ve alttaki sıcak kuyuda (hotwell) toplanır. Gizli ısı soğutma suyuna aktarılır; soğutma suyu borular içinde kalır, ikincil su ile karışmaz.",
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-unit3"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "pwr",
+     "equipmentId": "condenser"
+    }
+   ]
+  },
+  {
+   "id": "pwr.feedpump",
+   "reactorId": "pwr",
+   "kind": "equipment",
+   "name": "Besleme suyu pompası",
+   "summary": "Yoğuşan suyu buhar üretecine geri basar.",
+   "body": "Kondenserden gelen su ön ısıtıcıdan geçirilerek buhar üretecinin ikincil tarafına (besleme halkasına) gönderilir.",
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-unit3"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "pwr",
+     "equipmentId": "feedpump"
+    }
+   ]
+  },
+  {
+   "id": "pwr.heater",
+   "reactorId": "pwr",
+   "kind": "equipment",
+   "name": "Besleme suyu ön ısıtıcısı",
+   "summary": "Besleme suyunu buhar üretecine girmeden önce ısıtır.",
+   "body": "Gerçek tesislerde türbinden alınan ara buharla çalışan birden çok ısıtıcı bulunur; burada tek kutu ile sadeleştirildi.",
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-unit3"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "pwr",
+     "equipmentId": "heater"
+    }
+   ]
+  },
+  {
+   "id": "pwr.coolsource",
+   "reactorId": "pwr",
+   "kind": "equipment",
+   "name": "Soğutma suyu çevrimi",
+   "summary": "Kondenserdeki ısıyı çevreye atar.",
+   "body": "Ayrı bir üçüncü çevrimdir (deniz, nehir, göl veya soğutma kulesi). Şemada yeşil-turkuaz ve kesik-noktalı çizgiyle gösterilir.",
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-unit3"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "pwr",
+     "equipmentId": "coolsource"
+    }
+   ]
+  },
+  {
+   "id": "pwr.containment",
+   "reactorId": "pwr",
+   "kind": "equipment",
+   "name": "Koruma yapısı (containment)",
+   "summary": "Birincil devreyi çevreleyen çelik astarlı beton yapı.",
+   "body": "PWR’de radyoaktif birincil devre (kap, pompa, basınçlandırıcı, buhar üreteci) bu yapının içindedir; türbin tarafı dışarıdadır.",
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-unit3"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "pwr",
+     "equipmentId": "containment"
+    }
+   ]
+  },
+  {
+   "id": "pwr.surge",
+   "reactorId": "pwr",
+   "kind": "equipment",
+   "name": "Dalgalanma (surge) hattı",
+   "summary": "Basınçlandırıcıyı sıcak kola bağlar.",
+   "body": "Birincil sudaki ısıl genleşme/büzülme bu hat üzerinden basınçlandırıcıya girip çıkar.",
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-unit3"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "pwr",
+     "equipmentId": "surge"
+    }
+   ]
+  },
+  {
+   "id": "pwr.focus.pzr",
+   "reactorId": "pwr",
+   "kind": "focus",
+   "name": "Basınçlandırıcının görevi",
+   "summary": "Basınçlandırıcı, birincil suyun kaynamaması için basıncı yüksek tutar. Isıtıcılar basıncı yükseltir, püskürtme düşürür. Su/buhar ara yüzü yalnız burada, kontrollü olarak bulunur.",
+   "body": null,
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-unit3"
+   ],
+   "targets": [
+    {
+     "type": "highlightFlow",
+     "reactor": "pwr",
+     "ids": [
+      "pressurizer",
+      "surge",
+      "f-hotleg"
+     ],
+     "label": "Basınçlandırıcının görevi"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "pwr",
+     "detail": "pressurizer"
+    }
+   ]
+  },
+  {
+   "id": "pwr.focus.loops",
+   "reactorId": "pwr",
+   "kind": "focus",
+   "name": "İki devre neden ayrı?",
+   "summary": "Buhar üreteci birincil ve ikincil devreyi ayırır: radyoaktif maddeler büyük ölçüde birincil devrede ve koruma yapısında kalır, türbin bakımında doz azalır. İki devre arasında akışkan değil, yalnız ısı geçer.",
+   "body": null,
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-unit3"
+   ],
+   "targets": [
+    {
+     "type": "highlightFlow",
+     "reactor": "pwr",
+     "ids": [
+      "sg",
+      "f-sg-tubes",
+      "f-hotleg",
+      "f-crossleg",
+      "f-coldleg",
+      "f-steamline",
+      "f-feed2",
+      "containment"
+     ],
+     "label": "İki devre neden ayrı?"
+    }
+   ]
+  },
+  {
+   "id": "pwr.focus.sgzoom",
+   "reactorId": "pwr",
+   "kind": "focus",
+   "name": "Buhar üreteci yakın planı",
+   "summary": "U boruları, boru levhası, bölme plakası, ayırıcılar ve kurutucular yakın planda.",
+   "body": null,
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-unit3"
+   ],
+   "targets": [
+    {
+     "type": "highlightFlow",
+     "reactor": "pwr",
+     "ids": [
+      "sg"
+     ],
+     "label": "Buhar üreteci yakın planı"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "pwr",
+     "detail": "sg"
+    }
+   ]
+  },
+  {
+   "id": "pwr.focus.hot",
+   "reactorId": "pwr",
+   "kind": "focus",
+   "name": "Sıcak kolu vurgula",
+   "summary": "Sıcak kol: reaktör çıkışından buhar üretecine. Çekirdekte ısınan su, kaynamadan, basınç altında sıvı olarak taşınır.",
+   "body": null,
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-unit3"
+   ],
+   "targets": [
+    {
+     "type": "highlightFlow",
+     "reactor": "pwr",
+     "ids": [
+      "hotleg",
+      "f-hotleg",
+      "f-core-up"
+     ],
+     "label": "Sıcak kolu vurgula"
+    }
+   ]
+  },
+  {
+   "id": "pwr.focus.cold",
+   "reactorId": "pwr",
+   "kind": "focus",
+   "name": "Soğuk kolu vurgula",
+   "summary": "Soğuk kol: buhar üreteci çıkışından pompaya ve reaktör girişine. Soğumuş su kabın halkasal boşluğundan aşağı iner.",
+   "body": null,
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-unit3"
+   ],
+   "targets": [
+    {
+     "type": "highlightFlow",
+     "reactor": "pwr",
+     "ids": [
+      "coldleg",
+      "f-crossleg",
+      "f-coldleg",
+      "rcp",
+      "f-vessel-down"
+     ],
+     "label": "Soğuk kolu vurgula"
+    }
+   ]
+  },
+  {
+   "id": "pwr.tour.core",
+   "reactorId": "pwr",
+   "kind": "lesson",
+   "name": "PWR anlatımı · 1. Çekirdek",
+   "summary": "Uranyum-235 çekirdekleri nötronla bölünür; açığa çıkan enerji yakıt çubuklarında ısıya dönüşür. Kontrol çubukları üstten girer ve nötron soğurarak reaksiyonu ayarlar. Su hem soğutucu hem yavaşlatıcıdır.",
+   "body": null,
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-unit3"
+   ],
+   "targets": [
+    {
+     "type": "openLesson",
+     "lessonId": "pwr.tour.core"
+    }
+   ]
+  },
+  {
+   "id": "pwr.tour.primary",
+   "reactorId": "pwr",
+   "kind": "lesson",
+   "name": "PWR anlatımı · 2. Birincil devre",
+   "summary": "Birincil su yüksek basınç altında tutulur; çekirdekte ısınır ama normal çalışmada toplu olarak kaynamaz. Pompa suyu kapalı çevrimde dolaştırır, basınçlandırıcı basıncı ayarlar.",
+   "body": null,
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-unit3"
+   ],
+   "targets": [
+    {
+     "type": "openLesson",
+     "lessonId": "pwr.tour.primary"
+    }
+   ]
+  },
+  {
+   "id": "pwr.tour.sg",
+   "reactorId": "pwr",
+   "kind": "lesson",
+   "name": "PWR anlatımı · 3. Buhar üreteci",
+   "summary": "Sıcak birincil su U borularının içinden geçer. Isı boru duvarından ikincil tarafa aktarılır ve borular dışındaki ikincil su kaynar. Akışkanlar karışmaz; yalnız enerji geçer.",
+   "body": null,
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-unit3"
+   ],
+   "targets": [
+    {
+     "type": "openLesson",
+     "lessonId": "pwr.tour.sg"
+    }
+   ]
+  },
+  {
+   "id": "pwr.tour.turbine",
+   "reactorId": "pwr",
+   "kind": "lesson",
+   "name": "PWR anlatımı · 4. Türbin ve jeneratör",
+   "summary": "İkincil devrenin buharı ana buhar hattıyla YB türbinine, oradan AB türbinine gider. Türbinler ve jeneratör aynı mili döndürür; mekanik enerji elektriğe çevrilir.",
+   "body": null,
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-unit3"
+   ],
+   "targets": [
+    {
+     "type": "openLesson",
+     "lessonId": "pwr.tour.turbine"
+    }
+   ]
+  },
+  {
+   "id": "pwr.tour.condenser",
+   "reactorId": "pwr",
+   "kind": "lesson",
+   "name": "PWR anlatımı · 5. Kondenser",
+   "summary": "Türbinden çıkan buhar, içinden soğutma suyu geçen boruların üzerinde yoğuşur. Bu ısı ayrı soğutma suyu çevrimiyle çevreye atılır; soğutma suyu ikincil su ile karışmaz.",
+   "body": null,
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-unit3"
+   ],
+   "targets": [
+    {
+     "type": "openLesson",
+     "lessonId": "pwr.tour.condenser"
+    }
+   ]
+  },
+  {
+   "id": "pwr.tour.return",
+   "reactorId": "pwr",
+   "kind": "lesson",
+   "name": "PWR anlatımı · 6. Dönüş",
+   "summary": "Yoğuşan su besleme pompası ve ön ısıtıcı üzerinden buhar üretecinin ikincil tarafına geri döner; ikincil çevrim tamamlanır. Birincil çevrim ise kendi içinde reaktöre döner.",
+   "body": null,
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-unit3"
+   ],
+   "targets": [
+    {
+     "type": "openLesson",
+     "lessonId": "pwr.tour.return"
+    }
+   ]
+  },
+  {
+   "id": "bwr",
+   "reactorId": "bwr",
+   "kind": "reactor",
+   "name": "Kaynar Su Reaktörü (BWR) — temsili jet pompalı tasarım",
+   "summary": "Reaktör suyu daha düşük basınçta (ders notlarında ~70 bar) tutulur ve doğrudan çekirdekte kaynar. Buhar kabın üst bölümünde ayrılıp kurutulur ve ayrı bir buhar üreteci olmadan doğrudan türbine gider. Kontrol çubukları alttan girer.",
+   "body": null,
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-bwr"
+   ],
+   "targets": [
+    {
+     "type": "openReactor",
+     "reactor": "bwr"
+    }
+   ]
+  },
+  {
+   "id": "bwr.vessel",
+   "reactorId": "bwr",
+   "kind": "equipment",
+   "name": "Reaktör basınç kabı",
+   "summary": "Çekirdeği, kaynayan suyu ve buhar ayırma donanımını barındırır.",
+   "body": "BWR kabı PWR’ye göre daha ince duvarlı ama çok daha büyüktür; çünkü çekirdeğin yanı sıra buhar ayırıcıları ve kurutucuları da içerir. Kabın alt bölümü sıvı, orta bölümü su-buhar karışımı, üst bölümü buhardır.",
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-bwr"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "bwr",
+     "equipmentId": "vessel"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "bwr",
+     "detail": "zones"
+    }
+   ]
+  },
+  {
+   "id": "bwr.core",
+   "reactorId": "bwr",
+   "kind": "equipment",
+   "name": "Çekirdek (kaynama bölgesi)",
+   "summary": "Fisyon ısısını üretir; su burada kaynamaya başlar.",
+   "body": "Su yakıt demetlerinin kanal kutuları içinden yukarı akarken ısınır ve kaynar; çekirdeğin üst kısmına doğru kabarcık oranı artar. Su hem soğutucu hem yavaşlatıcıdır.",
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-bwr"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "bwr",
+     "equipmentId": "core"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "bwr",
+     "detail": "core"
+    }
+   ]
+  },
+  {
+   "id": "bwr.rods",
+   "reactorId": "bwr",
+   "kind": "equipment",
+   "name": "Kontrol çubukları (alttan)",
+   "summary": "Nötron soğurarak reaksiyon hızını ayarlar.",
+   "body": "Geleneksel BWR’de haç (cruciform) kesitli çubuklar, kabın altındaki sürücülerden yukarı doğru girer (ders notları: alttan giren tek LWR tipi). BWR’de güç ayrıca devridaim debisi değiştirilerek de ayarlanır. Çubuk konumu güçle birebir eşlenmez.",
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-bwr"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "bwr",
+     "equipmentId": "rods"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "bwr",
+     "detail": "core"
+    }
+   ]
+  },
+  {
+   "id": "bwr.separators",
+   "reactorId": "bwr",
+   "kind": "equipment",
+   "name": "Buhar ayırıcıları",
+   "summary": "Su-buhar karışımındaki suyu ayırır.",
+   "body": "Çekirdekten yükselen karışım dikey borularla (standpipe) siklon tipi ayırıcılara girer; dönen akış suyu dışa atar. Ayrılan su halkasal boşluktan (downcomer) aşağı döner, buhar yukarı devam eder.",
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-bwr"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "bwr",
+     "equipmentId": "separators"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "bwr",
+     "detail": "separator"
+    }
+   ]
+  },
+  {
+   "id": "bwr.dryers",
+   "reactorId": "bwr",
+   "kind": "equipment",
+   "name": "Buhar kurutucuları",
+   "summary": "Buhardaki kalan nemi tutar.",
+   "body": "Çok katlı oluklu (şevron) paneller buhardaki damlacıkları yakalar; damlalar aşağı süzülür. Türbine giden buharın nemi düşük tutulur.",
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-bwr"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "bwr",
+     "equipmentId": "dryers"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "bwr",
+     "detail": "separator"
+    }
+   ]
+  },
+  {
+   "id": "bwr.jetpumps",
+   "reactorId": "bwr",
+   "kind": "equipment",
+   "name": "Jet pompaları ve downcomer",
+   "summary": "Devridaim akışını çekirdeğe yönlendirir.",
+   "body": "Ayrılan su ve besleme suyu çekirdek gömleği ile kap duvarı arasındaki halkasal boşluktan aşağı iner. Dış devridaim pompasının bastığı sürücü akış jet pompalarında bu suyu sürükler ve alt plenuma iter.",
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-bwr"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "bwr",
+     "equipmentId": "jetpumps"
+    }
+   ]
+  },
+  {
+   "id": "bwr.recirc",
+   "reactorId": "bwr",
+   "kind": "equipment",
+   "name": "Devridaim pompası ve hattı",
+   "summary": "Jet pompalarına sürücü akış sağlar.",
+   "body": "Downcomer’dan alınan suyu jet pompalarının nozullarına basar. Devridaim debisi artınca kaynama boşluğu azalır, nötron yavaşlaması artar ve güç yükselir; bu BWR’ye özgü bir güç ayarı yoludur.",
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-bwr"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "bwr",
+     "equipmentId": "recirc"
+    }
+   ]
+  },
+  {
+   "id": "bwr.steamline",
+   "reactorId": "bwr",
+   "kind": "equipment",
+   "name": "Ana buhar hattı",
+   "summary": "Reaktörde oluşan buharı doğrudan türbine taşır.",
+   "body": "BWR’de türbine giden buhar reaktör suyundan oluşur; arada buhar üreteci yoktur. Bu nedenle türbin tarafı da radyasyon açısından korumalı ve izlenen bir bölgedir.",
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-bwr"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "bwr",
+     "equipmentId": "steamline"
+    }
+   ]
+  },
+  {
+   "id": "bwr.hp",
+   "reactorId": "bwr",
+   "kind": "equipment",
+   "name": "Yüksek basınç (YB) türbini",
+   "summary": "Reaktör buharının enerjisinin bir kısmını mil işine çevirir.",
+   "body": "Reaktörden gelen doymuş buhar YB türbininde genişler, geçiş borusuyla AB türbinine gider.",
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-bwr"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "bwr",
+     "equipmentId": "hp"
+    }
+   ]
+  },
+  {
+   "id": "bwr.lp",
+   "reactorId": "bwr",
+   "kind": "equipment",
+   "name": "Alçak basınç (AB) türbini",
+   "summary": "Buhar enerjisinin kalanını mekanik enerjiye çevirir.",
+   "body": "Çift akışlı türbinden çıkan buhar kondensere boşalır. Türbinler ve jeneratör aynı mil üzerindedir.",
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-bwr"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "bwr",
+     "equipmentId": "lp"
+    }
+   ]
+  },
+  {
+   "id": "bwr.gen",
+   "reactorId": "bwr",
+   "kind": "equipment",
+   "name": "Jeneratör",
+   "summary": "Mil işini elektriğe dönüştürür.",
+   "body": "Şebekeye senkron bağlıdır; güç değişince hız değil tork değişir. Mil animasyonu güçten bağımsız sabit hızdadır.",
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-bwr"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "bwr",
+     "equipmentId": "gen"
+    }
+   ]
+  },
+  {
+   "id": "bwr.condenser",
+   "reactorId": "bwr",
+   "kind": "equipment",
+   "name": "Kondenser",
+   "summary": "Türbin çıkış buharını yoğuşturur.",
+   "body": "Buhar soğutma suyu borularının dışında yoğuşur ve sıcak kuyuda toplanır. Soğutma suyu ayrı bir çevrimdir, reaktör suyuyla karışmaz.",
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-bwr"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "bwr",
+     "equipmentId": "condenser"
+    }
+   ]
+  },
+  {
+   "id": "bwr.feedpump",
+   "reactorId": "bwr",
+   "kind": "equipment",
+   "name": "Besleme suyu pompası",
+   "summary": "Yoğuşan suyu doğrudan reaktör kabına geri basar.",
+   "body": "Su ön ısıtıcıdan geçip kabın üst kısmındaki besleme suyu dağıtıcısından (sparger) downcomer’a girer ve ayrılan suyla karışır.",
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-bwr"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "bwr",
+     "equipmentId": "feedpump"
+    }
+   ]
+  },
+  {
+   "id": "bwr.heater",
+   "reactorId": "bwr",
+   "kind": "equipment",
+   "name": "Besleme suyu ön ısıtıcısı",
+   "summary": "Besleme suyunu kaba girmeden önce ısıtır.",
+   "body": "Gerçek tesislerde birden çok ısıtıcı bulunur; burada tek kutuyla sadeleştirildi.",
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-bwr"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "bwr",
+     "equipmentId": "heater"
+    }
+   ]
+  },
+  {
+   "id": "bwr.coolsource",
+   "reactorId": "bwr",
+   "kind": "equipment",
+   "name": "Soğutma suyu çevrimi",
+   "summary": "Kondenser ısısını çevreye atar.",
+   "body": "Deniz, nehir veya soğutma kulesi üzerinden çalışan ayrı çevrimdir; şemada turkuaz ve kesik-noktalı çizgiyle gösterilir.",
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-bwr"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "bwr",
+     "equipmentId": "coolsource"
+    }
+   ]
+  },
+  {
+   "id": "bwr.turbinebldg",
+   "reactorId": "bwr",
+   "kind": "equipment",
+   "name": "Türbin binası (korumalı bölge)",
+   "summary": "Türbin, kondenser ve besleme sistemini barındırır.",
+   "body": "Buhar doğrudan reaktörden geldiği için BWR türbin binası radyasyon açısından korunan ve izlenen bir bölgedir. PWR ve VVER’de türbine yalnız ikincil devre buharı gider.",
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-bwr"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "bwr",
+     "equipmentId": "turbinebldg"
+    }
+   ]
+  },
+  {
+   "id": "bwr.containment",
+   "reactorId": "bwr",
+   "kind": "equipment",
+   "name": "Koruma yapısı (temsili)",
+   "summary": "Reaktör kabını ve devridaim sistemini çevreler.",
+   "body": "BWR koruma yapıları (Mark I/II/III vb.) basınç bastırma havuzu içerir ve tasarıma göre çok farklıdır; burada sadeleştirilmiş bir dış hat çizildi.",
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-bwr"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "bwr",
+     "equipmentId": "containment"
+    }
+   ]
+  },
+  {
+   "id": "bwr.focus.where",
+   "reactorId": "bwr",
+   "kind": "focus",
+   "name": "Buhar nerede oluşuyor?",
+   "summary": "BWR’de buhar reaktör kabının içinde, doğrudan çekirdekte oluşur: su yakıt demetleri arasında yukarı akarken kaynar. Ayrı bir buhar üreteci yoktur.",
+   "body": null,
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-bwr"
+   ],
+   "targets": [
+    {
+     "type": "highlightFlow",
+     "reactor": "bwr",
+     "ids": [
+      "core",
+      "vessel",
+      "f-core-1",
+      "f-core-2",
+      "f-core-3"
+     ],
+     "label": "Buhar nerede oluşuyor?"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "bwr",
+     "detail": "zones"
+    }
+   ]
+  },
+  {
+   "id": "bwr.focus.sepzoom",
+   "reactorId": "bwr",
+   "kind": "focus",
+   "name": "Ayırıcı ve kurutucu yakın planı",
+   "summary": "Siklon tipi ayırıcılar suyu dönen akışla dışa atar; şevron kurutucular kalan damlacıkları tutar. Kuru buhar kubbeden ana buhar hattına çıkar.",
+   "body": null,
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-bwr"
+   ],
+   "targets": [
+    {
+     "type": "highlightFlow",
+     "reactor": "bwr",
+     "ids": [
+      "separators",
+      "dryers",
+      "f-steam-1",
+      "f-steam-2",
+      "f-steam-3",
+      "f-moist-L",
+      "f-moist-R"
+     ],
+     "label": "Ayırıcı ve kurutucu yakın planı"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "bwr",
+     "detail": "separator"
+    }
+   ]
+  },
+  {
+   "id": "bwr.focus.recircpath",
+   "reactorId": "bwr",
+   "kind": "focus",
+   "name": "Devridaim yolunu vurgula",
+   "summary": "Ayrılan su downcomer’dan iner → jet pompaları → alt plenum → çekirdekten yukarı → ayırıcılar → tekrar downcomer. Dış devridaim pompası jet pompalarını sürer.",
+   "body": null,
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-bwr"
+   ],
+   "targets": [
+    {
+     "type": "highlightFlow",
+     "reactor": "bwr",
+     "ids": [
+      "jetpumps",
+      "recirc",
+      "f-down-L",
+      "f-down-R",
+      "f-recirc-out",
+      "f-recirc-in",
+      "f-core-1",
+      "f-core-2",
+      "f-core-3"
+     ],
+     "label": "Devridaim yolunu vurgula"
+    }
+   ]
+  },
+  {
+   "id": "bwr.focus.zones",
+   "reactorId": "bwr",
+   "kind": "focus",
+   "name": "Kap içindeki sıvı ve buhar bölgeleri",
+   "summary": "Alt plenum ve downcomer: sıvı su. Çekirdek ve üstü: kabarcık oranı artan su-buhar karışımı. Su seviyesi ayırıcılar hizasında; üstünde kurutucular ve buhar kubbesi.",
+   "body": null,
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-bwr"
+   ],
+   "targets": [
+    {
+     "type": "highlightFlow",
+     "reactor": "bwr",
+     "ids": [
+      "vessel",
+      "separators",
+      "dryers"
+     ],
+     "label": "Kap içindeki sıvı ve buhar bölgeleri"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "bwr",
+     "detail": "zones"
+    }
+   ]
+  },
+  {
+   "id": "bwr.tour.boiling",
+   "reactorId": "bwr",
+   "kind": "lesson",
+   "name": "BWR anlatımı · 1. Çekirdekte kaynama",
+   "summary": "Fisyon ısısıyla su, yakıt demetleri arasında yukarı akarken doğrudan kaynar. Kabarcıklar çekirdeğin üst kısmına doğru çoğalır. Kontrol çubukları alttan girer.",
+   "body": null,
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-bwr"
+   ],
+   "targets": [
+    {
+     "type": "openLesson",
+     "lessonId": "bwr.tour.boiling"
+    }
+   ]
+  },
+  {
+   "id": "bwr.tour.separation",
+   "reactorId": "bwr",
+   "kind": "lesson",
+   "name": "BWR anlatımı · 2. Buhar ayırma ve kurutma",
+   "summary": "Su-buhar karışımı ayırıcılarda dönerek ayrışır; su aşağı döner. Buhar kurutuculardan geçerken kalan nem tutulur ve kuru buhar kubbede toplanır.",
+   "body": null,
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-bwr"
+   ],
+   "targets": [
+    {
+     "type": "openLesson",
+     "lessonId": "bwr.tour.separation"
+    }
+   ]
+  },
+  {
+   "id": "bwr.tour.turbine",
+   "reactorId": "bwr",
+   "kind": "lesson",
+   "name": "BWR anlatımı · 3. Doğrudan türbine",
+   "summary": "Buhar ana buhar hattıyla reaktörden doğrudan türbine gider; ara buhar üreteci yoktur. Bu yüzden türbin binası da korumalı bölgedir.",
+   "body": null,
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-bwr"
+   ],
+   "targets": [
+    {
+     "type": "openLesson",
+     "lessonId": "bwr.tour.turbine"
+    }
+   ]
+  },
+  {
+   "id": "bwr.tour.condenser",
+   "reactorId": "bwr",
+   "kind": "lesson",
+   "name": "BWR anlatımı · 4. Kondenser",
+   "summary": "Türbinden çıkan buhar soğutma suyu boruları üzerinde yoğuşur. Soğutma suyu ayrı çevrimdir ve reaktör suyuyla karışmaz.",
+   "body": null,
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-bwr"
+   ],
+   "targets": [
+    {
+     "type": "openLesson",
+     "lessonId": "bwr.tour.condenser"
+    }
+   ]
+  },
+  {
+   "id": "bwr.tour.feedwater",
+   "reactorId": "bwr",
+   "kind": "lesson",
+   "name": "BWR anlatımı · 5. Besleme suyu dönüşü",
+   "summary": "Yoğuşan su ön ısıtılıp kaba geri basılır, ayrılan suyla downcomer’da karışır. Jet pompaları ve devridaim pompası suyu tekrar çekirdeğe yönlendirir.",
+   "body": null,
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-bwr"
+   ],
+   "targets": [
+    {
+     "type": "openLesson",
+     "lessonId": "bwr.tour.feedwater"
+    }
+   ]
+  },
+  {
+   "id": "vver",
+   "reactorId": "vver",
+   "kind": "reactor",
+   "name": "VVER (Su-Su Enerji Reaktörü) — PWR ailesinden, yatay buhar üreteçli temsili tasarım",
+   "summary": "VVER bir basınçlı su reaktörüdür: birincil su basınç altında sıvı kalır, buhar ayrı bir ikincil devrede oluşur. Ayırt edici özellikleri yatay buhar üreteci, sıcak/soğuk kolların kaba farklı kotlarda bağlanması ve altıgen (üçgen adımlı) yakıt demetleridir.",
+   "body": null,
+   "sourceIds": [
+    "nuce-ch2",
+    "iaea-vver"
+   ],
+   "targets": [
+    {
+     "type": "openReactor",
+     "reactor": "vver"
+    }
+   ]
+  },
+  {
+   "id": "vver.vessel",
+   "reactorId": "vver",
+   "kind": "equipment",
+   "name": "Reaktör basınç kabı",
+   "summary": "Çekirdeği ve birincil soğutucuyu basınç altında tutar.",
+   "body": "VVER-1000 kabı görece dar ve uzundur. Ders notlarına göre sıcak ve soğuk kollar kaba farklı kotlarda bağlanır: soğuk su alt nozul sırasından girip halkasal boşluktan iner, çekirdekten yukarı çıkarak üst nozul sırasından ayrılır.",
+   "sourceIds": [
+    "nuce-ch2",
+    "iaea-vver"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "vver",
+     "equipmentId": "vessel"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "vver",
+     "detail": "core"
+    }
+   ]
+  },
+  {
+   "id": "vver.rods",
+   "reactorId": "vver",
+   "kind": "equipment",
+   "name": "Kontrol çubukları ve üst blok",
+   "summary": "Nötron soğurarak reaksiyon hızını ayarlar.",
+   "body": "Çubuklar ABD PWR’lerinde olduğu gibi üstten girer; sürücüler kabın üzerindeki yüksek üst blokta bulunur. Altıgen demetlerin kılavuz borularına küme hâlinde girerler. Çubuk konumu güçle birebir eşlenmez.",
+   "sourceIds": [
+    "nuce-ch2",
+    "iaea-vver"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "vver",
+     "equipmentId": "rods"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "vver",
+     "detail": "core"
+    }
+   ]
+  },
+  {
+   "id": "vver.pressurizer",
+   "reactorId": "vver",
+   "kind": "equipment",
+   "name": "Basınçlandırıcı",
+   "summary": "Birincil devre basıncını kontrol eder.",
+   "body": "Ders notlarına göre çevrimlerden birinin sıcak koluna bağlıdır. Isıtıcılar ve püskürtme ile basıncı ayarlar; birincil devrede toplu kaynamayı önler.",
+   "sourceIds": [
+    "nuce-ch2",
+    "iaea-vver"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "vver",
+     "equipmentId": "pressurizer"
+    }
+   ]
+  },
+  {
+   "id": "vver.hsg",
+   "reactorId": "vver",
+   "kind": "equipment",
+   "name": "Yatay buhar üreteci",
+   "summary": "Birincil ısıyı ikincil devreye aktararak buhar üretir.",
+   "body": "Birincil su boruların içinde, ikincil su gövde (kabuk) tarafındadır. Sıcak su sıcak kolektörden yatay U borularına dağılır, ısısını boru duvarından verip soğuk kolektörde toplanır. Gövde geniş bir buhar tamburu gibi çalışır; üstteki ayırıcılar nemi alır. Yatay düzen tortu temizliğini kolaylaştırır; doğal dolaşım itici yüksekliği dikey üreteçlere göre daha azdır (ders notları).",
+   "sourceIds": [
+    "nuce-ch2",
+    "iaea-vver"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "vver",
+     "equipmentId": "hsg"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "vver",
+     "detail": "hsg"
+    }
+   ]
+  },
+  {
+   "id": "vver.collector-hot",
+   "reactorId": "vver",
+   "kind": "equipment",
+   "name": "Sıcak kolektör",
+   "summary": "Sıcak kol suyunu yatay borulara dağıtır.",
+   "body": "Dikey, kalın cidarlı bir silindirdir; boruların uçları kolektör duvarına bağlanır. Birincil su buradan borulara girer.",
+   "sourceIds": [
+    "nuce-ch2",
+    "iaea-vver"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "vver",
+     "equipmentId": "collector-hot"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "vver",
+     "detail": "hsg"
+    }
+   ]
+  },
+  {
+   "id": "vver.collector-cold",
+   "reactorId": "vver",
+   "kind": "equipment",
+   "name": "Soğuk kolektör",
+   "summary": "Borularda soğuyan birincil suyu toplar.",
+   "body": "Borulardan dönen su bu kolektörde birleşir ve soğuk kol üzerinden pompaya gider.",
+   "sourceIds": [
+    "nuce-ch2",
+    "iaea-vver"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "vver",
+     "equipmentId": "collector-cold"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "vver",
+     "detail": "hsg"
+    }
+   ]
+  },
+  {
+   "id": "vver.hotleg",
+   "reactorId": "vver",
+   "kind": "equipment",
+   "name": "Sıcak kol (üst kot)",
+   "summary": "Isınan birincil suyu sıcak kolektöre taşır.",
+   "body": "Kabın üst nozul sırasından çıkar. Su basınç altında sıvıdır; şemada turuncu-kırmızı, düz çizgi.",
+   "sourceIds": [
+    "nuce-ch2",
+    "iaea-vver"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "vver",
+     "equipmentId": "hotleg"
+    }
+   ]
+  },
+  {
+   "id": "vver.coldleg",
+   "reactorId": "vver",
+   "kind": "equipment",
+   "name": "Soğuk kol (alt kot)",
+   "summary": "Soğuk kolektörden çıkan suyu pompa üzerinden kaba döndürür.",
+   "body": "Kabın alt nozul sırasından girer. Şemada mavi, düz çizgi.",
+   "sourceIds": [
+    "nuce-ch2",
+    "iaea-vver"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "vver",
+     "equipmentId": "coldleg"
+    }
+   ]
+  },
+  {
+   "id": "vver.mcp",
+   "reactorId": "vver",
+   "kind": "equipment",
+   "name": "Ana sirkülasyon pompası",
+   "summary": "Birincil suyu kapalı çevrimde dolaştırır.",
+   "body": "Dikey motorlu büyük santrifüj pompa. Birincil debi sabit gösterilir; güç değişince sıcaklık farkı değişir.",
+   "sourceIds": [
+    "nuce-ch2",
+    "iaea-vver"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "vver",
+     "equipmentId": "mcp"
+    }
+   ]
+  },
+  {
+   "id": "vver.steamline",
+   "reactorId": "vver",
+   "kind": "equipment",
+   "name": "Ana buhar hattı",
+   "summary": "İkincil buharı türbine götürür.",
+   "body": "Yatay buhar üretecinin üstündeki nozullardan toplanan ikincil buhar koruma yapısının dışındaki türbine gider. Birincil su türbine gitmez.",
+   "sourceIds": [
+    "nuce-ch2",
+    "iaea-vver"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "vver",
+     "equipmentId": "steamline"
+    }
+   ]
+  },
+  {
+   "id": "vver.hp",
+   "reactorId": "vver",
+   "kind": "equipment",
+   "name": "Yüksek basınç (YB) türbini",
+   "summary": "Buhar enerjisinin bir kısmını mil işine çevirir.",
+   "body": "İkincil devre buharı YB türbininde genişler, geçiş borusuyla AB türbinine gider.",
+   "sourceIds": [
+    "nuce-ch2",
+    "iaea-vver"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "vver",
+     "equipmentId": "hp"
+    }
+   ]
+  },
+  {
+   "id": "vver.lp",
+   "reactorId": "vver",
+   "kind": "equipment",
+   "name": "Alçak basınç (AB) türbini",
+   "summary": "Buhar enerjisinin kalanını mekanik enerjiye çevirir.",
+   "body": "Çift akışlı türbinden çıkan buhar kondensere boşalır.",
+   "sourceIds": [
+    "nuce-ch2",
+    "iaea-vver"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "vver",
+     "equipmentId": "lp"
+    }
+   ]
+  },
+  {
+   "id": "vver.gen",
+   "reactorId": "vver",
+   "kind": "equipment",
+   "name": "Jeneratör",
+   "summary": "Mil işini elektriğe dönüştürür.",
+   "body": "Şebekeye senkron bağlıdır; güç değişince hız değil tork değişir.",
+   "sourceIds": [
+    "nuce-ch2",
+    "iaea-vver"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "vver",
+     "equipmentId": "gen"
+    }
+   ]
+  },
+  {
+   "id": "vver.condenser",
+   "reactorId": "vver",
+   "kind": "equipment",
+   "name": "Kondenser",
+   "summary": "Türbin çıkış buharını yoğuşturur.",
+   "body": "Buhar soğutma suyu borularının dışında yoğuşur; soğutma suyu ayrı çevrimdir ve karışmaz.",
+   "sourceIds": [
+    "nuce-ch2",
+    "iaea-vver"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "vver",
+     "equipmentId": "condenser"
+    }
+   ]
+  },
+  {
+   "id": "vver.feedpump",
+   "reactorId": "vver",
+   "kind": "equipment",
+   "name": "Besleme suyu pompası",
+   "summary": "Yoğuşan suyu buhar üretecine geri basar.",
+   "body": "Su ön ısıtıcıdan geçip yatay buhar üretecindeki besleme suyu dağıtıcısına gider.",
+   "sourceIds": [
+    "nuce-ch2",
+    "iaea-vver"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "vver",
+     "equipmentId": "feedpump"
+    }
+   ]
+  },
+  {
+   "id": "vver.heater",
+   "reactorId": "vver",
+   "kind": "equipment",
+   "name": "Besleme suyu ön ısıtıcısı",
+   "summary": "Besleme suyunu ısıtır.",
+   "body": "Birden çok ısıtıcı tek kutuyla sadeleştirildi.",
+   "sourceIds": [
+    "nuce-ch2",
+    "iaea-vver"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "vver",
+     "equipmentId": "heater"
+    }
+   ]
+  },
+  {
+   "id": "vver.coolsource",
+   "reactorId": "vver",
+   "kind": "equipment",
+   "name": "Soğutma suyu çevrimi",
+   "summary": "Kondenser ısısını çevreye atar.",
+   "body": "Ayrı üçüncü çevrim; turkuaz ve kesik-noktalı çizgi.",
+   "sourceIds": [
+    "nuce-ch2",
+    "iaea-vver"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "vver",
+     "equipmentId": "coolsource"
+    }
+   ]
+  },
+  {
+   "id": "vver.containment",
+   "reactorId": "vver",
+   "kind": "equipment",
+   "name": "Koruma yapısı (containment)",
+   "summary": "Birincil devreyi çevreleyen yapı.",
+   "body": "Ders notlarına göre VVER-1000 koruma yapısı ABD tipi çelik astarlı ön gerilmeli beton yapıya benzer. Eski VVER-440/230’da tam kapsamlı bir koruma yapısı yoktu; tasarımlar arasında büyük fark vardır.",
+   "sourceIds": [
+    "nuce-ch2",
+    "iaea-vver"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "vver",
+     "equipmentId": "containment"
+    }
+   ]
+  },
+  {
+   "id": "vver.surge",
+   "reactorId": "vver",
+   "kind": "equipment",
+   "name": "Dalgalanma (surge) hattı",
+   "summary": "Basınçlandırıcıyı sıcak kola bağlar.",
+   "body": "Birincil sudaki hacim değişimleri bu hat üzerinden basınçlandırıcıya girip çıkar.",
+   "sourceIds": [
+    "nuce-ch2",
+    "iaea-vver"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "vver",
+     "equipmentId": "surge"
+    }
+   ]
+  },
+  {
+   "id": "vver.focus.hsgzoom",
+   "reactorId": "vver",
+   "kind": "focus",
+   "name": "Yatay buhar üreteci yakın planı",
+   "summary": "Gövde, kolektörler, yatay U boru demeti, su seviyesi, buhar boşluğu, nem ayırıcı ve besleme dağıtıcısı yakın planda.",
+   "body": null,
+   "sourceIds": [
+    "nuce-ch2",
+    "iaea-vver"
+   ],
+   "targets": [
+    {
+     "type": "highlightFlow",
+     "reactor": "vver",
+     "ids": [
+      "hsg",
+      "collector-hot",
+      "collector-cold"
+     ],
+     "label": "Yatay buhar üreteci yakın planı"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "vver",
+     "detail": "hsg"
+    }
+   ]
+  },
+  {
+   "id": "vver.focus.collectors",
+   "reactorId": "vver",
+   "kind": "focus",
+   "name": "Kolektör ve boru demeti",
+   "summary": "Sıcak kolektör → yatay U boruları → soğuk kolektör. Birincil su boruların içinde kalır; ikincil su boruların dışında kaynar. İki akışkan karışmaz.",
+   "body": null,
+   "sourceIds": [
+    "nuce-ch2",
+    "iaea-vver"
+   ],
+   "targets": [
+    {
+     "type": "highlightFlow",
+     "reactor": "vver",
+     "ids": [
+      "collector-hot",
+      "collector-cold",
+      "f-sg-left",
+      "f-sg-right",
+      "f-sg-left-2",
+      "f-sg-right-2",
+      "f-sg-left-3",
+      "f-sg-right-3",
+      "f-hotleg",
+      "f-crossleg"
+     ],
+     "label": "Kolektör ve boru demeti"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "vver",
+     "detail": "hsg"
+    }
+   ]
+  },
+  {
+   "id": "vver.focus.hexfuel",
+   "reactorId": "vver",
+   "kind": "focus",
+   "name": "Altıgen yakıt demeti",
+   "summary": "VVER yakıt çubukları üçgen adımlı dizilir ve demetler altıgendir; ABD PWR’lerinde kare adım kullanılır (ders notları).",
+   "body": null,
+   "sourceIds": [
+    "nuce-ch2",
+    "iaea-vver"
+   ],
+   "targets": [
+    {
+     "type": "highlightFlow",
+     "reactor": "vver",
+     "ids": [
+      "vessel",
+      "rods"
+     ],
+     "label": "Altıgen yakıt demeti"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "vver",
+     "detail": "core"
+    }
+   ]
+  },
+  {
+   "id": "vver.focus.vsg",
+   "reactorId": "vver",
+   "kind": "focus",
+   "name": "Dikey buhar üreteciyle karşılaştır",
+   "summary": "İkisi de PWR ailesinde birincil ve ikincil devreyi ayırır. Fark ekipman geometrisindedir: dikey U borulu üreteç yüksek ve dar, VVER’in yatay üreteci uzun ve yataydır.",
+   "body": null,
+   "sourceIds": [
+    "nuce-ch2",
+    "iaea-vver"
+   ],
+   "targets": [
+    {
+     "type": "highlightFlow",
+     "reactor": "vver",
+     "ids": [
+      "hsg"
+     ],
+     "label": "Dikey buhar üreteciyle karşılaştır"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "vver",
+     "detail": "compare"
+    }
+   ]
+  },
+  {
+   "id": "vver.tour.core",
+   "reactorId": "vver",
+   "kind": "lesson",
+   "name": "VVER anlatımı · 1. Çekirdek",
+   "summary": "Altıgen yakıt demetlerinde fisyon ısısı üretilir. Kontrol çubuğu kümeleri üst bloktan aşağı girer. Su hem soğutucu hem yavaşlatıcıdır.",
+   "body": null,
+   "sourceIds": [
+    "nuce-ch2",
+    "iaea-vver"
+   ],
+   "targets": [
+    {
+     "type": "openLesson",
+     "lessonId": "vver.tour.core"
+    }
+   ]
+  },
+  {
+   "id": "vver.tour.primary",
+   "reactorId": "vver",
+   "kind": "lesson",
+   "name": "VVER anlatımı · 2. Birincil çevrim",
+   "summary": "Birincil su basınç altında sıvı kalır. Isınan su üst kottaki sıcak koldan çıkar, pompa ile alt kottaki soğuk koldan geri döner. Basınçlandırıcı basıncı ayarlar.",
+   "body": null,
+   "sourceIds": [
+    "nuce-ch2",
+    "iaea-vver"
+   ],
+   "targets": [
+    {
+     "type": "openLesson",
+     "lessonId": "vver.tour.primary"
+    }
+   ]
+  },
+  {
+   "id": "vver.tour.hsg",
+   "reactorId": "vver",
+   "kind": "lesson",
+   "name": "VVER anlatımı · 3. Yatay buhar üreteci",
+   "summary": "Sıcak kolektörden yatay U borularına dağılan birincil su ısısını boru duvarından verir ve soğuk kolektörde toplanır. Gövde tarafındaki ikincil su kaynar; akışkanlar karışmaz.",
+   "body": null,
+   "sourceIds": [
+    "nuce-ch2",
+    "iaea-vver"
+   ],
+   "targets": [
+    {
+     "type": "openLesson",
+     "lessonId": "vver.tour.hsg"
+    }
+   ]
+  },
+  {
+   "id": "vver.tour.secondary",
+   "reactorId": "vver",
+   "kind": "lesson",
+   "name": "VVER anlatımı · 4. İkincil çevrim",
+   "summary": "Gövdenin üst bölümünde ayrılan buhar nozullardan toplanır ve ana buhar hattıyla koruma yapısının dışına çıkar.",
+   "body": null,
+   "sourceIds": [
+    "nuce-ch2",
+    "iaea-vver"
+   ],
+   "targets": [
+    {
+     "type": "openLesson",
+     "lessonId": "vver.tour.secondary"
+    }
+   ]
+  },
+  {
+   "id": "vver.tour.turbine",
+   "reactorId": "vver",
+   "kind": "lesson",
+   "name": "VVER anlatımı · 5. Türbin ve kondenser",
+   "summary": "Buhar YB ve AB türbinlerinde genişleyerek jeneratörü döndürür, ardından kondenserde ayrı soğutma suyu çevrimiyle yoğuşturulur.",
+   "body": null,
+   "sourceIds": [
+    "nuce-ch2",
+    "iaea-vver"
+   ],
+   "targets": [
+    {
+     "type": "openLesson",
+     "lessonId": "vver.tour.turbine"
+    }
+   ]
+  },
+  {
+   "id": "vver.tour.return",
+   "reactorId": "vver",
+   "kind": "lesson",
+   "name": "VVER anlatımı · 6. Dönüş",
+   "summary": "Yoğuşan su besleme pompası ve ön ısıtıcıdan geçerek yatay buhar üretecindeki dağıtıcıya geri döner.",
+   "body": null,
+   "sourceIds": [
+    "nuce-ch2",
+    "iaea-vver"
+   ],
+   "targets": [
+    {
+     "type": "openLesson",
+     "lessonId": "vver.tour.return"
+    }
+   ]
+  },
+  {
+   "id": "bwr.topic.no-sg",
+   "reactorId": "bwr",
+   "kind": "topic",
+   "name": "BWR’de buhar üreteci ve basınçlandırıcı yoktur",
+   "summary": "BWR’de reaktör suyu doğrudan çekirdekte kaynar; buhar kabın üst bölümündeki ayırıcı ve kurutuculardan geçip doğrudan türbine gider. Ayrı bir buhar üreteci ve basınçlandırıcı yoktur; tek çevrim vardır.",
+   "body": null,
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-bwr"
+   ],
+   "targets": [
+    {
+     "type": "highlightFlow",
+     "reactor": "bwr",
+     "ids": [
+      "core",
+      "separators",
+      "dryers",
+      "f-core-1",
+      "f-core-2",
+      "f-core-3",
+      "f-steam-1",
+      "f-steam-2",
+      "f-steam-3",
+      "f-steamline"
+     ],
+     "label": "Kapta buhar oluşumu ve doğrudan türbine"
+    }
+   ]
+  },
+  {
+   "id": "pwr.topic.steam-where",
+   "reactorId": "pwr",
+   "kind": "topic",
+   "name": "PWR’de buhar nerede oluşur?",
+   "summary": "Buhar, dikey U borulu buhar üretecinin ikincil (gövde) tarafında oluşur. Birincil su yüksek basınçta tutulduğu için normal çalışmada çekirdekte toplu kaynama olmaz; iki devre arasında yalnız ısı geçer.",
+   "body": null,
+   "sourceIds": [
+    "nuce-ch2",
+    "nrc-unit3"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "pwr",
+     "equipmentId": "sg"
+    }
+   ]
+  },
+  {
+   "id": "vver.topic.steam-where",
+   "reactorId": "vver",
+   "kind": "topic",
+   "name": "VVER’de buhar nerede oluşur?",
+   "summary": "Buhar, yatay buhar üretecinin ikincil (gövde) tarafında, yatay U borularının dışında oluşur. Birincil su basınç altında sıvı kalır; iki devre arasında yalnız ısı geçer.",
+   "body": null,
+   "sourceIds": [
+    "nuce-ch2",
+    "iaea-vver"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "vver",
+     "equipmentId": "hsg"
+    }
+   ]
+  },
+  {
+   "id": "pwr.ops.modes",
+   "reactorId": "pwr",
+   "kind": "ops",
+   "name": "İşletme ve davranış · İşletme modları",
+   "summary": "PWR’nin altı işletme modu: güçte çalışmadan yakıt değişimine kadar fisyon gücü, türbin, soğutma yolu (birincil pompa + buhar üreteci ya da RHR), çubuklar ve kap kapağının durumu.",
+   "body": null,
+   "sourceIds": [
+    "tab-2-14",
+    "nuce-2-5"
+   ],
+   "targets": [
+    {
+     "type": "openOperationsSection",
+     "section": "modes"
+    }
+   ]
+  },
+  {
+   "id": "pwr.ops.heatup",
+   "reactorId": "pwr",
+   "kind": "ops",
+   "name": "İşletme ve davranış · Isınma ve ısı uzaklaştırma",
+   "summary": "Soğuk durumdan çalışma sıcaklığına ısınmanın kavramsal aşamaları: ısı kaynakları ve alıcıları, basınçlandırıcıda buhar hacmi oluşturma, pompa ısısı, buhar boşaltma (steam dump).",
+   "body": null,
+   "sourceIds": [
+    "p-2-89"
+   ],
+   "targets": [
+    {
+     "type": "openOperationsSection",
+     "section": "heatup"
+    }
+   ]
+  },
+  {
+   "id": "pwr.ops.boron",
+   "reactorId": "pwr",
+   "kind": "ops",
+   "name": "İşletme ve davranış · Bor ve yakıt çevrimi",
+   "summary": "Yakıt çevrimi boyunca soğutucudaki bor derişiminin azaltılması (bor azaltma eğrisi).",
+   "body": null,
+   "sourceIds": [
+    "fig-2-39",
+    "p-2-94"
+   ],
+   "targets": [
+    {
+     "type": "openOperationsSection",
+     "section": "boron"
+    }
+   ]
+  },
+  {
+   "id": "pwr.ops.xenon",
+   "reactorId": "pwr",
+   "kind": "ops",
+   "name": "İşletme ve davranış · Yük takibi ve ksenon",
+   "summary": "Yük takibi profilleri ve kapatma sonrası iyot-135 / ksenon-135 davranışı; ksenonun reaktivite etkisi.",
+   "body": null,
+   "sourceIds": [
+    "fig-2-40",
+    "fig-2-41",
+    "p-2-94",
+    "model-xenon"
+   ],
+   "targets": [
+    {
+     "type": "openOperationsSection",
+     "section": "xenon"
+    }
+   ]
+  },
+  {
+   "id": "pwr.ops.axial",
+   "reactorId": "pwr",
+   "kind": "ops",
+   "name": "İşletme ve davranış · Eksenel güç dağılımı",
+   "summary": "Çekirdekte üst/alt güç dağılımı, ΔI ve eksenel ofset (AO); aynı toplam güçte farklı dağılımlar.",
+   "body": null,
+   "sourceIds": [
+    "fig-2-42",
+    "fig-2-43",
+    "p-2-96"
+   ],
+   "targets": [
+    {
+     "type": "openOperationsSection",
+     "section": "axial"
+    }
+   ]
+  },
+  {
+   "id": "pwr.ops.controls",
+   "reactorId": "pwr",
+   "kind": "ops",
+   "name": "İşletme ve davranış · Otomatik kontrol ilişkileri",
+   "summary": "Otomatik kontrol sistemlerinin hangi büyüklüğü hangi ekipmanla ayarladığı ve eksenel dağılımın neden tek bir otomatik değişkene indirgenemediği.",
+   "body": null,
+   "sourceIds": [
+    "p-2-96"
+   ],
+   "targets": [
+    {
+     "type": "openOperationsSection",
+     "section": "controls"
+    }
+   ]
+  },
+  {
+   "id": "pwr.topic.xenon-shutdown",
+   "reactorId": "pwr",
+   "kind": "topic",
+   "name": "Kapatmadan sonra ksenon neden artar?",
+   "summary": "Ksenon-135’in büyük kısmı doğrudan fisyondan değil, iyot-135’in bozunmasından gelir. İyot önceki güç düzeyinde birikmiştir. Güç düştüğünde veya fisyon durduğunda ksenonun nötronla tüketimi azalır ya da durur; iyot ise bozunmaya devam eder. Bu yüzden ksenon önce artar (negatif reaktivite büyür), saatler sonra tepe yapar ve iyot tükendikçe azalır (kaynak s. 2-94; Şekil 2-41). Daha yüksek güçten kapatmada birikmiş iyot fazla olduğundan etki daha büyüktür.",
+   "body": null,
+   "sourceIds": [
+    "p-2-94",
+    "fig-2-41",
+    "model-xenon"
+   ],
+   "targets": [
+    {
+     "type": "focusChartEvent",
+     "eventId": "xenon:shut-100:peak-model"
+    }
+   ]
+  },
+  {
+   "id": "pwr.predict.xenon-shutdown",
+   "reactorId": "pwr",
+   "kind": "predict",
+   "name": "Tahmin dersi · Kapatmadan sonra ksenon ne yapar?",
+   "summary": "Reaktör kapatıldıktan sonraki saatlerde ksenon-135’in neden önce artıp sonra azaldığını açıklayabilmek.",
+   "body": null,
+   "sourceIds": [
+    "p-2-94",
+    "fig-2-41",
+    "model-xenon"
+   ],
+   "targets": [
+    {
+     "type": "openLesson",
+     "lessonId": "pwr.predict.xenon-shutdown"
+    }
+   ]
+  },
+  {
+   "id": "xenon:shut-100:trip",
+   "reactorId": "pwr",
+   "kind": "chartEvent",
+   "name": "%100 güçten kapatma · Kapatma (t = 0)",
+   "summary": "Fisyon gücü sıfıra iner; artık ısı sürer. Şekil 2-41’in yatay ekseni bu andan itibaren sayılır.",
+   "body": null,
+   "sourceIds": [
+    "fig-2-41",
+    "p-2-94"
+   ],
+   "targets": [
+    {
+     "type": "focusChartEvent",
+     "eventId": "xenon:shut-100:trip"
+    }
+   ]
+  },
+  {
+   "id": "xenon:shut-100:peak-model",
+   "reactorId": "pwr",
+   "kind": "chartEvent",
+   "name": "%100 güçten kapatma · Modelde ksenon tepesi (7,8 sa)",
+   "summary": "Temsili modelde ksenonun en yüksek olduğu an. Kapatmadan sonra ksenon nötronla tüketilmez; önceki güçte birikmiş iyot bozunarak ksenon üretmeye devam eder. Üretim bozunmayı geçtiği sürece ksenon artar.",
+   "body": null,
+   "sourceIds": [
+    "model-xenon",
+    "p-2-94"
+   ],
+   "targets": [
+    {
+     "type": "focusChartEvent",
+     "eventId": "xenon:shut-100:peak-model"
+    }
+   ]
+  },
+  {
+   "id": "xenon:shut-100:peak-figure",
+   "reactorId": "pwr",
+   "kind": "chartEvent",
+   "name": "%100 güçten kapatma · Kaynak eğrisinde tepe (~8,0 sa)",
+   "summary": "Şekil 2-41’de %100 güçten kapatma eğrisinin en negatif olduğu yaklaşık an (şekilden okunmuştur; ± okuma belirsizliği vardır).",
+   "body": null,
+   "sourceIds": [
+    "fig-2-41"
+   ],
+   "targets": [
+    {
+     "type": "focusChartEvent",
+     "eventId": "xenon:shut-100:peak-figure"
+    }
+   ]
+  },
+  {
+   "id": "xenon:shut-100:decay",
+   "reactorId": "pwr",
+   "kind": "chartEvent",
+   "name": "%100 güçten kapatma · İyot tükendikçe ksenon azalıyor",
+   "summary": "İyot büyük ölçüde bozunduktan sonra ksenon üretimi kendi bozunmasının gerisinde kalır; ksenon ve negatif etkisi azalır.",
+   "body": null,
+   "sourceIds": [
+    "model-xenon",
+    "p-2-94"
+   ],
+   "targets": [
+    {
+     "type": "focusChartEvent",
+     "eventId": "xenon:shut-100:decay"
+    }
+   ]
+  },
+  {
+   "id": "xenon:load-12-3-6-3:ramp-1-start",
+   "reactorId": "pwr",
+   "kind": "chartEvent",
+   "name": "Yük takibi 12-3-6-3 · Güç azaltma başlıyor (%100 → %50)",
+   "summary": "İstenen güç düşmeye başlar. Ksenonun tüketimi güçle azaldığı, iyot ise önceki güçte birikmiş olduğu için ksenon etkisi takip eden saatlerde büyür.",
+   "body": null,
+   "sourceIds": [
+    "fig-2-40",
+    "p-2-94"
+   ],
+   "targets": [
+    {
+     "type": "focusChartEvent",
+     "eventId": "xenon:load-12-3-6-3:ramp-1-start"
+    }
+   ]
+  },
+  {
+   "id": "xenon:load-12-3-6-3:ramp-1-end",
+   "reactorId": "pwr",
+   "kind": "chartEvent",
+   "name": "Yük takibi 12-3-6-3 · Rampa bitti: %50",
+   "summary": "İstenen güç yeni düzeyde sabitlenir; iyot ve ksenon bu güce ait dengeye saatler içinde yaklaşır (anında değil).",
+   "body": null,
+   "sourceIds": [
+    "fig-2-40",
+    "p-2-94"
+   ],
+   "targets": [
+    {
+     "type": "focusChartEvent",
+     "eventId": "xenon:load-12-3-6-3:ramp-1-end"
+    }
+   ]
+  },
+  {
+   "id": "xenon:load-12-3-6-3:peak-model",
+   "reactorId": "pwr",
+   "kind": "chartEvent",
+   "name": "Yük takibi 12-3-6-3 · Modelde ksenon tepesi (13,4 sa)",
+   "summary": "Temsili modelde ksenonun en yüksek olduğu an. Güç düşüşünden sonra iyottan gelen ksenon üretimi, tüketim ve bozunmayı geçtiği sürece ksenon artar; dengelendiği anda tepe oluşur.",
+   "body": null,
+   "sourceIds": [
+    "model-xenon",
+    "p-2-94"
+   ],
+   "targets": [
+    {
+     "type": "focusChartEvent",
+     "eventId": "xenon:load-12-3-6-3:peak-model"
+    }
+   ]
+  },
+  {
+   "id": "xenon:load-12-3-6-3:ramp-2-start",
+   "reactorId": "pwr",
+   "kind": "chartEvent",
+   "name": "Yük takibi 12-3-6-3 · Güç artırma başlıyor (%50 → %100)",
+   "summary": "İstenen güç artmaya başlar. Nötron akısı arttıkça ksenon daha hızlı tüketilir; ksenon etkisi önce azalır, sonra yeni dengeye yönelir.",
+   "body": null,
+   "sourceIds": [
+    "fig-2-40",
+    "p-2-94"
+   ],
+   "targets": [
+    {
+     "type": "focusChartEvent",
+     "eventId": "xenon:load-12-3-6-3:ramp-2-start"
+    }
+   ]
+  },
+  {
+   "id": "xenon:load-12-3-6-3:ramp-2-end",
+   "reactorId": "pwr",
+   "kind": "chartEvent",
+   "name": "Yük takibi 12-3-6-3 · Rampa bitti: %100",
+   "summary": "İstenen güç yeni düzeyde sabitlenir; iyot ve ksenon bu güce ait dengeye saatler içinde yaklaşır (anında değil).",
+   "body": null,
+   "sourceIds": [
+    "fig-2-40",
+    "p-2-94"
+   ],
+   "targets": [
+    {
+     "type": "focusChartEvent",
+     "eventId": "xenon:load-12-3-6-3:ramp-2-end"
+    }
+   ]
+  }
+ ]
+}

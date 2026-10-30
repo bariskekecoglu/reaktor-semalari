@@ -12,6 +12,11 @@ interface Props {
   onToggleFlow: () => void;
   onToggleCore: () => void;
   onBackgroundClick: () => void;
+  /** Etiket ayrıntı düzeyi. “Temel”de alt bileşen etiketleri %150 ve üstü yakınlaştırmada kendiliğinden açılır. */
+  labelDetail: 'basic' | 'detailed';
+  onLabelDetail: (d: 'basic' | 'detailed') => void;
+  /** Seçili ekipmanın adı (her zaman görünür). */
+  selectedName?: string;
 }
 
 /**
@@ -19,7 +24,7 @@ interface Props {
  * Kaydırma, kap içindeki kaydırma çubuğu/dokunma ile ya da fareyle sürükleyerek yapılır.
  * Sürükleme 6 pikseli geçmedikçe tıklama ekipman seçimi olarak kalır.
  */
-export function SceneViewport({ children, notes, showLabels, showFlow, coreOpen, onToggleLabels, onToggleFlow, onToggleCore, onBackgroundClick }: Props) {
+export function SceneViewport({ children, notes, showLabels, showFlow, coreOpen, onToggleLabels, onToggleFlow, onToggleCore, onBackgroundClick, labelDetail, onLabelDetail, selectedName }: Props) {
   const [zoomIdx, setZoomIdx] = useState(0);
   const [fit, setFit] = useState(true);
   const scroller = useRef<HTMLDivElement>(null);
@@ -97,6 +102,14 @@ export function SceneViewport({ children, notes, showLabels, showFlow, coreOpen,
         <button type="button" aria-pressed={showLabels} onClick={onToggleLabels}>
           Etiketler
         </button>
+        <span className="lod-seg" role="group" aria-label="Etiket ayrıntısı">
+          <button type="button" aria-pressed={labelDetail === 'basic'} disabled={!showLabels} onClick={() => onLabelDetail('basic')}>
+            Temel
+          </button>
+          <button type="button" aria-pressed={labelDetail === 'detailed'} disabled={!showLabels} onClick={() => onLabelDetail('detailed')}>
+            Ayrıntılı
+          </button>
+        </span>
         <button type="button" aria-pressed={showFlow} onClick={onToggleFlow}>
           Akış işaretleri
         </button>
@@ -104,6 +117,11 @@ export function SceneViewport({ children, notes, showLabels, showFlow, coreOpen,
           Çekirdek yakın planı
         </button>
       </div>
+      {selectedName && (
+        <p className="scene-selected" role="status">
+          <span>Seçili:</span> <strong>{selectedName}</strong>
+        </p>
+      )}
       <div
         ref={scroller}
         className={`scene-scroll ${fit ? 'fit' : ''}`}
@@ -121,7 +139,12 @@ export function SceneViewport({ children, notes, showLabels, showFlow, coreOpen,
         }}
         onClick={onBackgroundClick}
       >
-        <div className="scene-canvas" style={fit ? undefined : { width: `max(${1040 * zoom}px, ${zoom * 100}%)` }}>
+        <div
+          className="scene-canvas"
+          data-lod={labelDetail}
+          data-zoomed={!fit && zoom >= 1.5 ? '1' : undefined}
+          style={fit ? undefined : { width: `max(${1040 * zoom}px, ${zoom * 100}%)` }}
+        >
           {children}
         </div>
       </div>
@@ -129,7 +152,7 @@ export function SceneViewport({ children, notes, showLabels, showFlow, coreOpen,
         {notes.map((n) => (
           <p key={n}>{n}</p>
         ))}
-        <p>+ ile ayrıntıları büyütün · Kaydırarak veya fareyle sürükleyerek gezinin · Ekipman seçmek için dokunun ya da Tab ve Enter kullanın.</p>
+        <p>+ ile büyütün (%150 ve üstünde alt bileşen etiketleri açılır) · Kaydırarak veya fareyle sürükleyerek gezinin · Ekipman seçmek için dokunun ya da Tab ve Enter kullanın.</p>
       </div>
     </div>
   );

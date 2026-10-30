@@ -23,9 +23,11 @@ interface Props {
   view: ViewMode;
   onReactor: (id: ReactorId) => void;
   onView: (v: ViewMode) => void;
+  assistantOpen: boolean;
+  onAssistant: () => void;
 }
 
-export function Header({ reactor, config, view, onReactor, onView }: Props) {
+export function Header({ reactor, config, view, onReactor, onView, assistantOpen, onAssistant }: Props) {
   const { preference, layout, setPreference } = useViewLayout();
   const narrow = layout === 'narrow';
   return (
@@ -44,6 +46,9 @@ export function Header({ reactor, config, view, onReactor, onView }: Props) {
               </button>
             ))}
           </nav>
+          <button type="button" id="assistant-toggle" className="assistant-toggle" aria-expanded={assistantOpen} aria-controls="assistant-panel" onClick={onAssistant}>
+            <span aria-hidden="true">✦</span> Asistan
+          </button>
           {/* Yerleşim tercihi: içerik seçiminden ayrıdır; reaktörü veya dersi değiştirmez. */}
           <div className="layout-pref" role="group" aria-labelledby="layout-pref-label">
             <label id="layout-pref-label" htmlFor="layout-choice" className="layout-pref-label">

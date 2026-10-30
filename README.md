@@ -11,9 +11,51 @@ npm run typecheck  # TypeScript strict tür kontrolü
 npm test           # Vitest birim testleri
 npm run build      # tür kontrolü + production build (dist/)
 npm run preview    # build çıktısını yerelde sun
+npm run kb:export  # bilgi tabanını sunucu kopyasına aktar (server/knowledge.json)
+npm run guide:export  # yerel soru-cevap kataloğunu docs/LOCAL_GUIDE_QUESTIONS.md dosyasına aktar
 ```
 
-Bağımlılıklar yalnızca `react`, `react-dom` ve geliştirme araçlarıdır (`vite`, `@vitejs/plugin-react`, `typescript`, `vitest`, tip paketleri).
+Ön yüz bağımlılıkları yalnızca `react`, `react-dom` ve geliştirme araçlarıdır (`vite`, `@vitejs/plugin-react`, `typescript`, `vitest`, tip paketleri). Yerel rehber için API anahtarı, ücretli servis veya ayrı sunucu gerekmez. Önceki `server/` denemesi korunmuştur ancak siteye bağlı değildir.
+
+## Asistan, tahmin dersi ve öğrenme ilerlemesi
+
+Ayrıntılı durum ve doğrulama kayıtları: [`docs/IMPLEMENTATION_STATUS.md`](docs/IMPLEMENTATION_STATUS.md).
+
+### Asistan (başlıktaki “✦ Asistan”)
+
+- Soruyu proje bilgi tabanında (`src/knowledge/`) arar; kısa, **kaynaklı** açıklama verir ve ilgili bölümü açabilir (ekipman seçme, akış vurgulama, yakın plan, ders, işletme bölümü, grafik olayı).
+- Yalnız tiplenmiş ve doğrulanmış işlemler çalışır (`src/assistant/actions.ts`); bilinmeyen kimlik, serbest kod, DOM seçicisi veya URL çalıştırılmaz. Reaktör değiştiren işlemler (simülasyonu başa alır) yalnız kullanıcı tıklayınca çalışır. “Vurguyu temizle” ve “Önceki konuma dön” vardır.
+- **Yalnız yerel rehber:** hazırlanmış cevapları tarayıcıda eşleştirir; model eğitimi veya üretken yapay zekâ değildir. Sorular için ağ isteği yapmaz. Önceki `VITE_ASSISTANT_ENDPOINT` ayarı kullanılmaz.
+- **205 cevap, 1723 farklı soru ifadesi:** ekipmanlar, dersler, PWR işletme modları ve ısınma aşamaları, otomatik kontrol ilişkileri, ksenon/bor/eksenel güç, reaktör karşılaştırmaları, sık karıştırılan parçalar ve site kullanımı. Bunlar tüm olası soruları kapsama iddiası taşımaz.
+- Panelde **Hazır sorular** kitaplığı: konu ve metin filtresi; seçilen soru kaynaklı cevabı açar. Türkçe karakter yazılmadan yazılan sorular, bazı ekler, yaygın terim eş anlamları ve uzun kelimelerde tek harflik yazım hataları desteklenir. Belirsiz soruda seçenek sunulur; bilinmeyen soru için cevap üretilmez.
+- Kısa takipler: “Bunu göster”, “Daha ayrıntılı”; reaktöre özgü karşılaştırma cevabından sonra “Peki PWR’de?” gibi sorular. Bu sınırlı takip desteği genel sohbet belleği değildir.
+- Sohbetler kaydedilmez (yalnız açık sekmede, bellekte).
+
+### Yerel rehber içeriğini geliştirme
+
+İncelenebilir soru-cevap listesi: [`docs/LOCAL_GUIDE_QUESTIONS.md`](docs/LOCAL_GUIDE_QUESTIONS.md). `npm run guide:export` ile yeniden üretin. Yeni özel cevap, soru varyantı ve kaynak/şema hedefleri `src/assistant/guideCatalog.ts` içinde tanımlanır. Ekipman ve ders cevapları mevcut içerikten türetilir; bu metinleri asıl kaynak dosyasında düzenleyin. Eşleştirme `guideSearch.ts`, bağlam ve açıklayıcı sorular `localGuide.ts` içindedir.
+
+Doğrulama: bütün katalog soruları, tüm alternatif ifadelerin tanınması, kaynak/hedef kimlikleri, ayrı doğal dil örnekleri, kapsam dışı sorular, takip soruları ve panelin yerel gösterimi `src/assistant/guide.test.ts` ile denetlenir. Bir varyant eklemek, benzer ama ilgisiz sorulara yanlış cevap verilip verilmediğini de kontrol etmeyi gerektirir.
+
+### Tahmin et → dene → açıkla (PWR pilot dersi)
+
+Öğrenme → “Tahmin et → dene → açıkla”: *Kapatmadan sonra ksenon ne yapar?* Hedef, başlangıç durumu, tahmin, kontrollü deney (değiştirilen değişken görünür: fisyon gücü %100 → %0), gözlem, kaynaklı açıklama (s. 2-94, Şekil 2-41), kısa değerlendirme. Tahmin yapılmadan sonraki adımlar açılmaz; “Atla ve açıklamayı gör” ayrıdır. Yanlış seçeneklerin neden makul görünebildiği açıklanır. Canlandırma mevcut temsili iyot/ksenon modelini kullanır; tepe yüksekliği kaynaktan farklı olduğu için sayısal büyüklük sorulmaz.
+
+### Grafik olayları (PWR işletme · ksenon)
+
+Olaylar türüne göre ayrı işaretlenir: ■ kaynakta tanımlı, ◆ şekilden okunan, ● modelden hesaplanan. İşaretler tıklama, dokunma ve klavyeyle seçilir; açıklama grafiğin altında gösterilir. Seçmek senaryo saatini değiştirmez; “Senaryo saatini bu olaya götür” ayrı düğmedir.
+
+### Karşılaştırma konuları
+
+Konu seçince üç mini şemada ilgili parçalar kalın çizgi + kesikli çerçeveyle vurgulanır, diğerleri geri plana alınır; her reaktör için kısa açıklama, kapsam etiketi (“Reaktör ailesi geneli” / “Çizilen temsili tasarım”), kaynaklar ve “… şemasında ayrıntılı incele”. Dar ekranda tek reaktör ve reaktör geçişi; seçili konu korunur.
+
+### Etiket ayrıntısı
+
+Şema araç çubuğunda **Temel / Ayrıntılı**. Temel’de alt bileşen etiketleri %150 ve üstü yakınlaştırmada açılır; seçili ekipmanın etiketi her zaman görünür, şemanın üstünde “Seçili: …” satırı vardır.
+
+### Öğrenme ilerlemesi (yalnız bu cihaz)
+
+Tamamlanan dersler, son kalınan ders/adım, tahmin sonuçları (yalnız seçenek kimlikleri) ve son öğrenme bölümü `localStorage` anahtarı `reaktor-semalari:learning-progress` altında, sürümlü şemayla saklanır. Bozuk/eski veri güvenli başlangıca döner; depolama engelliyse bellekte çalışır. Öğrenme görünümünde “Kaldığım yerden devam et” ve “İlerlemeyi sıfırla” (görünüm tercihini silmez). Doğrudan ders bağlantısı: `#ders=pwr.tour.sg`, `#ders=pwr.predict.xenon-shutdown&adim=experiment`.
 
 ## Özellikler
 

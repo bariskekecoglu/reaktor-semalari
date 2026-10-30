@@ -79,6 +79,9 @@ export function Hotspot({ id, children, pad = 6, hit = true, contains }: Hotspot
   );
 }
 
+/** Etiket ayrıntı düzeyi: ana ekipman adları her zaman, alt bileşenler “Ayrıntılı” ya da yakınlaştırınca. */
+export type LabelLevel = 'main' | 'detail';
+
 interface LabelProps {
   /** İşaret edilen nokta. */
   x: number;
@@ -86,23 +89,36 @@ interface LabelProps {
   /** Yazının konumu. */
   tx: number;
   ty: number;
+  /** Uzun adlar “\n” ile anlamlı satırlara bölünebilir. */
   text: string;
   sub?: string;
   anchor?: 'start' | 'middle' | 'end';
+  level?: LabelLevel;
+  /** Etiketin ait olduğu ekipman: seçiliyse ayrıntı düzeyinden bağımsız görünür ve vurgulanır. */
+  for?: string;
 }
 
-/** Açıklama çizgili ekipman etiketi. */
-export function Label({ x, y, tx, ty, text, sub, anchor = 'start' }: LabelProps) {
+const LINE = 17;
+
+/** Açıklama çizgili ekipman etiketi. Kılavuz çizgi ince ve kesiklidir; borulardan ayırt edilir. */
+export function Label({ x, y, tx, ty, text, sub, anchor = 'start', level = 'main', for: forId }: LabelProps) {
+  const ctx = useScene();
+  const lines = text.split('\n');
   const lineEndY = ty - 5;
+  const selected = !!forId && ctx.selected === forId;
   return (
-    <g className="label" aria-hidden="true">
+    <g className={`label lvl-${level}${selected ? ' is-current' : ''}`} aria-hidden="true">
       <polyline className="leader" points={`${x},${y} ${tx},${lineEndY}`} />
       <circle className="leader-dot" cx={x} cy={y} r={2.2} />
       <text x={tx} y={ty + 10} textAnchor={anchor} className="label-text">
-        {text}
+        {lines.map((l, i) => (
+          <tspan key={i} x={tx} dy={i === 0 ? 0 : LINE}>
+            {l}
+          </tspan>
+        ))}
       </text>
       {sub && (
-        <text x={tx} y={ty + 26} textAnchor={anchor} className="label-sub">
+        <text x={tx} y={ty + 26 + (lines.length - 1) * LINE} textAnchor={anchor} className="label-sub">
           {sub}
         </text>
       )}

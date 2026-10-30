@@ -5,6 +5,8 @@ import { TurbineGenerator } from '../shared/equipment/TurbineGenerator';
 import { Condenser, CoolingSource } from '../shared/equipment/Condenser';
 import { GridLink, Pump } from '../shared/equipment/Pump';
 import { Bubbles, RodGroup } from '../shared/equipment/animated';
+import { Penetration } from '../shared/equipment/PipeMarks';
+import { BWR_CONDENSER, BWR_FEEDPUMP, BWR_PENETRATIONS, BWR_RECIRC_PUMP, BWR_ROUTES as RT, BWR_TURBINE } from './bwrLayout';
 
 const SEP_X = [280, 310, 340, 370, 400];
 const BOX_X = [270, 294, 318, 342, 366, 390];
@@ -69,6 +71,8 @@ export function BwrScene({ showLabels, showFlow }: SceneProps) {
         <path className="jet-pump" d="M250 380 H244 V460 L240 590 H254 L250 460 Z" />
         <rect className="nozzle steam" x="448" y="108" width="12" height="16" />
         <rect className="nozzle" x="448" y="592" width="10" height="16" />
+        {/* Devridaim dönüş nozulu: jet pompası sürücü akışı kap duvarından girer. */}
+        <rect className="nozzle" x="440" y="512" width="16" height="16" />
       </Hotspot>
 
       {/* Çekirdek: kanal kutulu yakıt demetleri */}
@@ -110,9 +114,9 @@ export function BwrScene({ showLabels, showFlow }: SceneProps) {
 
       {/* Devridaim döngüsü */}
       <Hotspot id="recirc" contains={['f-recirc-out', 'f-recirc-in']}>
-        <Flow id="f-recirc-out" d="M456 600 H500 V700 H515" kind="cold" pipe={10} speed={50} spacing={22} showFlow={showFlow} />
-        <Flow id="f-recirc-in" d="M555 700 H575 V520 H440" kind="cold" pipe={10} speed={60} spacing={22} showFlow={showFlow} />
-        <Pump x={535} y={700} r={20} motor="none" rps={1.2} />
+        <Flow id="f-recirc-out" d={RT.recircOut.d} kind="cold" pipe={10} speed={50} spacing={22} showFlow={showFlow} />
+        <Flow id="f-recirc-in" d={RT.recircIn.d} kind="cold" pipe={10} speed={60} spacing={22} showFlow={showFlow} />
+        <Pump x={BWR_RECIRC_PUMP.c[0]} y={BWR_RECIRC_PUMP.c[1]} r={BWR_RECIRC_PUMP.r} motor="none" rps={1.2} />
       </Hotspot>
       <Hotspot id="jetpumps" pad={2}>
         <rect x="425" y="378" width="18" height="214" fill="transparent" />
@@ -129,24 +133,29 @@ export function BwrScene({ showLabels, showFlow }: SceneProps) {
 
       {/* ---------- Türbin tarafı ---------- */}
       <Hotspot id="steamline" pad={2} contains={['f-steamline']}>
-        <Flow id="f-steamline" d="M456 115 H742 V203" kind="steam" pipe={12} speed={80} spacing={26} showFlow={showFlow} />
+        <Flow id="f-steamline" d={RT.steamline.d} kind="steam" pipe={12} speed={80} spacing={26} showFlow={showFlow} />
       </Hotspot>
-      <TurbineGenerator x={720} y={230} ids={{ hp: 'hp', lp: 'lp', gen: 'gen', crossover: 'f-crossover' }} showFlow={showFlow} />
+      <TurbineGenerator x={BWR_TURBINE.x} y={BWR_TURBINE.y} ids={{ hp: 'hp', lp: 'lp', gen: 'gen', crossover: 'f-crossover' }} showFlow={showFlow} />
       <Flow id="f-lp-l" d="M925 176 C885 176 872 268 922 296 V318" kind="steam" pipe={0} speed={50} spacing={20} showFlow={showFlow} r={2.8} />
       <Flow id="f-lp-r" d="M945 176 C985 176 998 268 948 296 V318" kind="steam" pipe={0} speed={50} spacing={20} showFlow={showFlow} r={2.8} />
       <GridLink x={1232} y={230} />
-      <Condenser x={845} y={306} w={180} h={150} id="condenser" coolId="f-cool" coolTo={1250} showFlow={showFlow} />
+      <Condenser {...BWR_CONDENSER} id="condenser" coolId="f-cool" coolTo={1250} showFlow={showFlow} />
       <CoolingSource x={1250} y={330} id="coolsource" />
 
-      <Flow id="f-feed1" d="M890 462 V600 H786" kind="feed" pipe={9} speed={45} spacing={24} showFlow={showFlow} />
-      <Flow id="f-feed2" d="M752 600 H600 V275 H452" kind="feed" pipe={9} speed={45} spacing={24} showFlow={showFlow} />
+      <Flow id="f-feed1" d={RT.feed1.d} kind="feed" pipe={9} speed={45} spacing={24} showFlow={showFlow} />
+      <Flow id="f-feed2" d={RT.feed2.d} kind="feed" pipe={9} speed={45} spacing={24} showFlow={showFlow} />
       <Hotspot id="feedpump">
-        <Pump x={769} y={600} r={16} motor="side" rps={1.5} />
+        {/* Motor üstte: emme ve basma hatları motorun içinden geçmez. */}
+        <Pump x={BWR_FEEDPUMP.c[0]} y={BWR_FEEDPUMP.c[1]} r={BWR_FEEDPUMP.r} motor="top" rps={1.5} />
       </Hotspot>
       <Hotspot id="heater">
         <rect className="heater-box" x="640" y="584" width="54" height="32" rx="5" />
         <path className="heater-coil" d="M646 600 q5 -9 10 0 t10 0 t10 0 t10 0 t10 0" />
       </Hotspot>
+
+      {BWR_PENETRATIONS.map((p) => (
+        <Penetration key={p.at.join()} {...p} />
+      ))}
 
       <SceneNote x={930} y={650} w={380} lines={['Buhar reaktör kabında oluşur ve doğrudan', 'türbine gider. Ayrı buhar üreteci ve', 'basınçlandırıcı yoktur; tek çevrim vardır.']} />
 
@@ -156,25 +165,27 @@ export function BwrScene({ showLabels, showFlow }: SceneProps) {
       </g>
 
       <g className="labels" style={{ display: showLabels ? undefined : 'none' }}>
-        <Label x={390} y={31} tx={480} ty={4} text="Koruma yapısı (temsili)" />
-        <Label x={300} y={80} tx={8} ty={58} text="Buhar kubbesi" />
-        <Label x={432} y={170} tx={470} ty={146} text="Buhar kurutucuları" />
-        <Label x={412} y={262} tx={470} ty={196} text="Buhar ayırıcıları" sub="siklon tipi" />
-        <Label x={237} y={255} tx={8} ty={226} text="Su seviyesi" sub="(temsili)" />
-        <Label x={240} y={340} tx={8} ty={312} text="Downcomer" sub="halkasal boşluk" />
-        <Label x={246} y={500} tx={8} ty={440} text="Jet pompaları" />
-        <Label x={268} y={540} tx={8} ty={528} text="Çekirdek" sub="kaynama burada" />
-        <Label x={289} y={720} tx={8} ty={650} text="Kontrol çubukları" sub="alttan girer" />
-        <Label x={525} y={716} tx={470} ty={722} text="Devridaim pompası" />
-        <Label x={520} y={275} tx={470} ty={290} text="Besleme suyu" />
-        <Label x={560} y={115} tx={480} ty={56} text="Ana buhar hattı" sub="reaktör buharı" />
-        <Label x={735} y={210} tx={736} ty={150} text="YB türbini" anchor="end" />
-        <Label x={1010} y={176} tx={960} ty={104} text="AB türbini" />
-        <Label x={1130} y={186} tx={1106} ty={128} text="Jeneratör" />
-        <Label x={1022} y={440} tx={1040} ty={474} text="Kondenser" />
-        <Label x={772} y={616} tx={704} ty={652} text="Besleme suyu pompası" />
-        <Label x={664} y={584} tx={640} ty={530} text="Ön ısıtıcı" />
-        <Label x={1220} y={70} tx={1214} ty={68} text="Türbin binası · korumalı bölge" anchor="end" />
+        <Label x={390} y={31} tx={480} ty={4} text="Koruma yapısı (temsili)" for="containment" />
+        <Label x={432} y={170} tx={470} ty={146} text="Buhar kurutucuları" for="dryers" />
+        <Label x={412} y={262} tx={470} ty={196} text="Buhar ayırıcıları" sub="siklon tipi" for="separators" />
+        <Label x={268} y={540} tx={8} ty={528} text="Çekirdek" sub="kaynama burada" for="core" />
+        <Label x={289} y={720} tx={8} ty={650} text="Kontrol çubukları" sub="alttan girer" for="rods" />
+        <Label x={525} y={716} tx={470} ty={722} text="Devridaim pompası" for="recirc" />
+        <Label x={735} y={210} tx={736} ty={150} text="YB türbini" anchor="end" for="hp" />
+        <Label x={1010} y={176} tx={960} ty={104} text="AB türbini" for="lp" />
+        <Label x={1130} y={186} tx={1106} ty={128} text="Jeneratör" for="gen" />
+        <Label x={1022} y={440} tx={1040} ty={474} text="Kondenser" for="condenser" />
+        <Label x={772} y={616} tx={704} ty={652} text="Besleme suyu pompası" for="feedpump" />
+        {/* Ayrıntı: kap içi bölgeler ve hatlar */}
+        <Label level="detail" x={300} y={80} tx={8} ty={58} text="Buhar kubbesi" for="vessel" />
+        <Label level="detail" x={237} y={255} tx={8} ty={226} text="Su seviyesi" sub="(temsili)" for="vessel" />
+        <Label level="detail" x={240} y={340} tx={8} ty={312} text="Downcomer" sub="halkasal boşluk" for="jetpumps" />
+        <Label level="detail" x={246} y={500} tx={8} ty={440} text="Jet pompaları" for="jetpumps" />
+        <Label level="detail" x={520} y={275} tx={470} ty={290} text="Besleme suyu" for="feedpump" />
+        <Label level="detail" x={560} y={115} tx={480} ty={56} text="Ana buhar hattı" sub="reaktör buharı" for="steamline" />
+        <Label level="detail" x={664} y={584} tx={640} ty={530} text="Ön ısıtıcı" for="heater" />
+        <Label level="detail" x={448} y={520} tx={470} ty={470} text={'Jet pompası\nsürücü nozulu'} for="recirc" />
+        <Label level="detail" x={1220} y={70} tx={1214} ty={68} text="Türbin binası · korumalı bölge" anchor="end" for="turbinebldg" />
       </g>
     </svg>
   );

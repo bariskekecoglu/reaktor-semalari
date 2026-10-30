@@ -5,12 +5,16 @@ import { TurbineGenerator } from '../shared/equipment/TurbineGenerator';
 import { Condenser, CoolingSource } from '../shared/equipment/Condenser';
 import { GridLink, Pump } from '../shared/equipment/Pump';
 import { Bubbles, HeatPulse, RodGroup } from '../shared/equipment/animated';
+import { Junction, Penetration } from '../shared/equipment/PipeMarks';
+import { PWR_CONDENSER, PWR_FEEDPUMP, PWR_PENETRATIONS, PWR_PRESSURIZER, PWR_RCP, PWR_ROUTES as RT, PWR_TURBINE } from './pwrLayout';
 
 /**
  * PWR sahnesi — dikey U borulu buhar üreteçli temsili basınçlı su reaktörü.
  * Sol: koruma yapısı içinde reaktör kabı, basınçlandırıcı, buhar üreteci ve pompa.
  * Sağ: türbin-jeneratör, kondenser, besleme suyu hattı ve ayrı soğutma suyu çevrimi.
  */
+const SURGE = `M${PWR_PRESSURIZER.surgeTop.join(' ')} V${PWR_PRESSURIZER.surgeBottom[1]}`;
+
 export function PwrScene({ showLabels, showFlow }: SceneProps) {
   const fuelX = Array.from({ length: 9 }, (_, i) => 136 + i * 8.5);
   return (
@@ -74,13 +78,13 @@ export function PwrScene({ showLabels, showFlow }: SceneProps) {
         <path className="spray" d="M300 230 V244 M292 250 l8 -6 l8 6" />
       </Hotspot>
       <Hotspot id="surge" pad={4}>
-        <path className="pipe-wall" d="M300 402 V430" strokeWidth={9} />
-        <path className="pipe-fluid fluid-hot" d="M300 402 V430" strokeWidth={5} />
+        <path className="pipe-wall" d={SURGE} strokeWidth={9} />
+        <path className="pipe-fluid fluid-hot" d={SURGE} strokeWidth={5} />
       </Hotspot>
 
       {/* Sıcak kol */}
       <Hotspot id="hotleg" pad={2} contains={['f-hotleg']}>
-        <Flow id="f-hotleg" d="M236 438 H350 C398 438 404 580 452 580 Q472 580 472 562" kind="hot" pipe={12} speed={60} spacing={24} scale="constant" showFlow={showFlow} />
+        <Flow id="f-hotleg" d={RT.hotleg.d} kind="hot" pipe={12} speed={60} spacing={24} scale="constant" showFlow={showFlow} />
       </Hotspot>
 
       {/* Buhar üreteci */}
@@ -111,40 +115,48 @@ export function PwrScene({ showLabels, showFlow }: SceneProps) {
         <rect className="nozzle feed" x="539" y="279" width="10" height="12" />
       </Hotspot>
       <Bubbles x={467} y={322} w={56} h={192} count={16} showFlow={showFlow} />
-      <Flow id="f-sg-tubes" d="M472 560 V360 A23 23 0 0 1 518 360 V560" kind="grad" pipe={0} speed={55} spacing={18} scale="constant" showFlow={showFlow} r={2.6} />
+      <Flow id="f-sg-tubes" d={RT.sgTubes.d} kind="grad" pipe={0} speed={55} spacing={18} scale="constant" showFlow={showFlow} r={2.6} />
       <Flow id="f-sg-steam" d="M495 312 V160" kind="steam" pipe={0} speed={40} spacing={22} showFlow={showFlow} r={3} />
 
       {/* Soğuk kol: ara bacak + pompa + reaktör girişi */}
       <Hotspot id="coldleg" pad={2} contains={['f-crossleg', 'f-coldleg']}>
-        <Flow id="f-crossleg" d="M518 562 V640 Q518 690 478 690 H402 Q380 690 380 674" kind="cold" pipe={12} speed={60} spacing={24} scale="constant" showFlow={showFlow} />
-        <Flow id="f-coldleg" d="M358 652 H300 Q285 652 285 637 V600 Q285 585 270 585 H236" kind="cold" pipe={12} speed={60} spacing={24} scale="constant" showFlow={showFlow} />
+        <Flow id="f-crossleg" d={RT.crossleg.d} kind="cold" pipe={12} speed={60} spacing={24} scale="constant" showFlow={showFlow} />
+        <Flow id="f-coldleg" d={RT.coldleg.d} kind="cold" pipe={12} speed={60} spacing={24} scale="constant" showFlow={showFlow} />
       </Hotspot>
       <Hotspot id="rcp">
-        <Pump x={380} y={652} r={22} motor="top" rps={1.2} />
+        <Pump x={PWR_RCP.c[0]} y={PWR_RCP.c[1]} r={PWR_RCP.r} motor="top" rps={1.2} />
       </Hotspot>
+
+      {/* Dalgalanma hattı sıcak kola burada bağlanır (gerçek birleşim). */}
+      <Junction at={PWR_PRESSURIZER.surgeBottom} r={3.5} />
 
       {/* ---------- İKİNCİL DEVRE ---------- */}
       <Hotspot id="steamline" pad={2} contains={['f-steamline']}>
-        <Flow id="f-steamline" d="M495 140 V108 H742 V203" kind="steam" pipe={12} speed={80} spacing={26} showFlow={showFlow} />
+        <Flow id="f-steamline" d={RT.steamline.d} kind="steam" pipe={12} speed={80} spacing={26} showFlow={showFlow} />
       </Hotspot>
-      <TurbineGenerator x={720} y={230} ids={{ hp: 'hp', lp: 'lp', gen: 'gen', crossover: 'f-crossover' }} showFlow={showFlow} />
+      <TurbineGenerator x={PWR_TURBINE.x} y={PWR_TURBINE.y} ids={{ hp: 'hp', lp: 'lp', gen: 'gen', crossover: 'f-crossover' }} showFlow={showFlow} />
       <Flow id="f-lp-l" d="M925 176 C885 176 872 268 922 296 V318" kind="steam" pipe={0} speed={50} spacing={20} showFlow={showFlow} r={2.8} />
       <Flow id="f-lp-r" d="M945 176 C985 176 998 268 948 296 V318" kind="steam" pipe={0} speed={50} spacing={20} showFlow={showFlow} r={2.8} />
       <GridLink x={1232} y={230} />
 
-      <Condenser x={845} y={306} w={180} h={150} id="condenser" coolId="f-cool" coolTo={1250} showFlow={showFlow} />
+      <Condenser {...PWR_CONDENSER} id="condenser" coolId="f-cool" coolTo={1250} showFlow={showFlow} />
       <CoolingSource x={1250} y={330} id="coolsource" />
 
       {/* Besleme suyu dönüşü */}
-      <Flow id="f-feed1" d="M890 462 V600 H786" kind="feed" pipe={9} speed={45} spacing={24} showFlow={showFlow} />
-      <Flow id="f-feed2" d="M752 600 H590 V285 H549" kind="feed" pipe={9} speed={45} spacing={24} showFlow={showFlow} />
+      <Flow id="f-feed1" d={RT.feed1.d} kind="feed" pipe={9} speed={45} spacing={24} showFlow={showFlow} />
+      <Flow id="f-feed2" d={RT.feed2.d} kind="feed" pipe={9} speed={45} spacing={24} showFlow={showFlow} />
       <Hotspot id="feedpump">
-        <Pump x={769} y={600} r={16} motor="side" rps={1.5} />
+        {/* Motor üstte: emme (sağdan) ve basma (soldan) hatları motorun içinden geçmez. */}
+        <Pump x={PWR_FEEDPUMP.c[0]} y={PWR_FEEDPUMP.c[1]} r={PWR_FEEDPUMP.r} motor="top" rps={1.5} />
       </Hotspot>
       <Hotspot id="heater">
         <rect className="heater-box" x="640" y="584" width="54" height="32" rx="5" />
         <path className="heater-coil" d="M646 600 q5 -9 10 0 t10 0 t10 0 t10 0 t10 0" />
       </Hotspot>
+
+      {PWR_PENETRATIONS.map((p) => (
+        <Penetration key={p.at.join()} {...p} />
+      ))}
 
       <SceneNote
         x={930}
@@ -161,22 +173,30 @@ export function PwrScene({ showLabels, showFlow }: SceneProps) {
       </g>
 
       <g className="labels" style={{ display: showLabels ? undefined : 'none' }}>
-        <Label x={325} y={46} tx={372} ty={10} text="Koruma yapısı (containment)" />
-        <Label x={140} y={310} tx={58} ty={250} text="Kontrol çubukları" sub="üstten girer" />
-        <Label x={112} y={470} tx={56} ty={708} text="Reaktör basınç kabı" />
-        <Label x={205} y={625} tx={235} ty={690} text="Yakıt (çekirdek)" />
-        <Label x={322} y={292} tx={334} ty={196} text="Basınçlandırıcı" sub="su + buhar yastığı" />
-        <Label x={540} y={235} tx={622} ty={316} text="Buhar üreteci" sub="dikey, U borulu" />
-        <Label x={340} y={438} tx={318} ty={466} text="Sıcak kol" />
-        <Label x={252} y={585} tx={292} ty={606} text="Soğuk kol" />
-        <Label x={398} y={652} tx={420} ty={716} text="Birincil pompa" />
-        <Label x={650} y={108} tx={630} ty={66} text="Ana buhar hattı" sub="ikincil devre" />
-        <Label x={735} y={210} tx={628} ty={150} text="YB türbini" />
-        <Label x={1010} y={176} tx={960} ty={104} text="AB türbini" />
-        <Label x={1130} y={186} tx={1106} ty={128} text="Jeneratör" />
-        <Label x={1022} y={440} tx={1040} ty={474} text="Kondenser" />
-        <Label x={772} y={616} tx={704} ty={652} text="Besleme suyu pompası" />
-        <Label x={664} y={584} tx={622} ty={530} text="Ön ısıtıcı" />
+        <Label x={325} y={46} tx={372} ty={10} text="Koruma yapısı (containment)" for="containment" />
+        <Label x={140} y={310} tx={58} ty={250} text="Kontrol çubukları" sub="üstten girer" for="rods" />
+        <Label x={112} y={470} tx={56} ty={708} text="Reaktör basınç kabı" for="vessel" />
+        <Label x={322} y={292} tx={334} ty={196} text="Basınçlandırıcı" sub="su + buhar yastığı" for="pressurizer" />
+        {/* Kılavuz çizgi besleme hattını kesmesin diye yazı buhar üretecinin sağ üstünde. */}
+        <Label x={540} y={235} tx={556} ty={186} text="Buhar üreteci" sub="dikey, U borulu" for="sg" />
+        {/* Pompanın altından geçen ara bacağı kesmemek için iki satır, pompa ile buhar üreteci arasında. */}
+        <Label x={401} y={646} tx={420} ty={616} text={'Birincil\npompa'} for="rcp" />
+        <Label x={735} y={210} tx={628} ty={150} text="YB türbini" for="hp" />
+        <Label x={1010} y={176} tx={960} ty={104} text="AB türbini" for="lp" />
+        <Label x={1130} y={186} tx={1106} ty={128} text="Jeneratör" for="gen" />
+        <Label x={1022} y={440} tx={1040} ty={474} text="Kondenser" for="condenser" />
+        <Label x={772} y={616} tx={704} ty={652} text="Besleme suyu pompası" for="feedpump" />
+        {/* Ayrıntı: devreler ve alt bileşenler */}
+        <Label level="detail" x={205} y={625} tx={235} ty={690} text="Yakıt (çekirdek)" for="vessel" />
+        <Label level="detail" x={340} y={438} tx={318} ty={466} text="Sıcak kol" for="hotleg" />
+        <Label level="detail" x={252} y={585} tx={292} ty={606} text="Soğuk kol" for="coldleg" />
+        <Label level="detail" x={650} y={108} tx={630} ty={66} text="Ana buhar hattı" sub="ikincil devre" for="steamline" />
+        <Label level="detail" x={664} y={584} tx={622} ty={530} text="Ön ısıtıcı" for="heater" />
+        <Label level="detail" x={308} y={246} tx={340} ty={244} text="Püskürtme" />
+        <Label level="detail" x={316} y={384} tx={340} ty={366} text="Isıtıcılar" />
+        <Label level="detail" x={300} y={418} tx={340} ty={392} text={'Dalgalanma\nhattı'} for="surge" />
+        <Label level="detail" x={522} y={272} tx={438} ty={272} text={'Ayırıcı ve\nkurutucular'} anchor="end" />
+        <Label level="detail" x={518} y={430} tx={532} ty={424} text={'U\nboruları'} />
       </g>
     </svg>
   );
