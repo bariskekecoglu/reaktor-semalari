@@ -1,6 +1,17 @@
 # Uygulama durumu (devir notu)
 
-Son güncelleme: 2026-10-31 · RBMK ve CANDU eklendi ve kod denetimi yapıldı. Aşağıdaki aşama notları uygulama sırasındaki tarihsel kayıtları da içerir.
+Son güncelleme: 2026-10-31 · RBMK Çernobil kaza analizi eklendi ve doğrulandı. Aşağıdaki aşama notları uygulama sırasındaki tarihsel kayıtları da içerir.
+
+
+## RBMK · Çernobil 1986 — Kaza analizi (2026-10-31)
+
+- Beş aşamalı kaynaklı tarihsel canlandırma eklendi. Yeni modül: `src/reactors/rbmk/chernobyl/`; ortak santral fiziği ve mevcut RBMK sahnesi değişmedi.
+- Reducer'da `rbmkView` ve `chernobylStage`; reaktör/görünüm korumaları, asistan gezinme geri dönüşü, aşama hash bağlantısı ve sürüm 1 ile geriye uyumlu isteğe bağlı ilerleme alanı.
+- Ayrık belgelenmiş MW noktaları, temsili bağlantılar, ölçeksiz son saniyeler ve bilinmeyen tepe güç ayrı sunulur. Kanal/pompa/çubuk çizimleri tek sunum zamanına bağlıdır. Oynat/duraklat, olay adımı, hız, kaydırıcı ve tıklanabilir grafik işaretleri; durağan inceleme ve Sistem/Açık/Koyu bölüm teması.
+- Yerel rehbere altı cevap, bilgi tabanına beş aşama girdisi; Türkçe/İngilizce/Kiril eş anlamları. Dışa aktarımlar: 474 cevap, 3486 soru ifadesi; 189 bilgi girdisi.
+- Doğrulama: typecheck, 19 dosyada 762 test, build ve iki dışa aktarım geçti. 1440/768/390 px'te beş aşama, oynatma kontrolleri, kaydırıcı, olay seçimi ve iki tema denendi; sayfa genelinde yatay taşma yok. Vite ana paket için 500 kB boyut uyarısı veriyor; derleme başarılı.
+- Kaynak taslağındaki saat/sayı farkları, kaynak konumları, görüntüler ve ayrıntılı sonuçlar: [CHERNOBYL_VERIFICATION.md](CHERNOBYL_VERIFICATION.md).
+- Sınırlar: gerçek ekran okuyucu/dokunmatik cihaz denenmedi. Sistem hareket azaltma davranışı bileşen testinde, durağan kare davranışı tarayıcıda doğrulandı; OS ayarı elle değiştirilmedi. Sayısal RBMK fiziği, kesin son güç zirvesi ve güncel santral güvenlik değerlendirmesi yoktur.
 
 ## Kod denetimi ve düzeltmeler (2026-10-31)
 

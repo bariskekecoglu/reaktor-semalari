@@ -5,6 +5,7 @@ import { REACTOR_IDS, REACTOR_NAME, tourReactor } from '../reactors/meta';
 import { PREDICT_LESSONS } from '../lessons/predict/pwrXenonShutdown';
 import { STEP_LABEL, type PredictStepId } from '../lessons/predict/types';
 import type { Progress } from './progressStore';
+import { STAGES } from '../reactors/rbmk/chernobyl/stages';
 
 const NAME = REACTOR_NAME;
 
@@ -14,12 +15,14 @@ interface Props {
   onResume: () => void;
   onOpenTour: (r: ReactorId) => void;
   onOpenPredict: (lessonId: string) => void;
+  onOpenChernobyl?: () => void;
   onReset: () => void;
 }
 
 /** “Kaldığım yer” metni (ör. “PWR anlatımı · 3. Buhar üreteci”). */
 export function describeLast(p: Progress): string | null {
   if (!p.last) return null;
+  if (p.last.lessonId === 'rbmk.chernobyl') return `Çernobil kaza analizi · ${STAGES.find(s => s.id === p.last!.stepId)?.title ?? ''}`;
   const r = tourReactor(p.last.lessonId);
   if (r) {
     const step = reactors[r].lessons.find((l) => l.id === p.last!.stepId);
@@ -29,9 +32,9 @@ export function describeLast(p: Progress): string | null {
   return l ? `Tahmin dersi · ${l.title} · ${STEP_LABEL[p.last.stepId as PredictStepId] ?? ''}` : null;
 }
 
-export function ProgressPanel({ progress, persistent, onResume, onOpenTour, onOpenPredict, onReset }: Props) {
+export function ProgressPanel({ progress, persistent, onResume, onOpenTour, onOpenPredict, onOpenChernobyl, onReset }: Props) {
   const [confirm, setConfirm] = useState(false);
-  const total = REACTOR_IDS.length + PREDICT_LESSONS.length;
+  const total = REACTOR_IDS.length + PREDICT_LESSONS.length + 1;
   const last = describeLast(progress);
   return (
     <section className="progress-panel" aria-labelledby="progress-title">
@@ -54,6 +57,7 @@ export function ProgressPanel({ progress, persistent, onResume, onOpenTour, onOp
       <details>
         <summary>Ayrıntılar</summary>
         <ul className="progress-list">
+          <li><span><strong>Çernobil kaza analizi</strong> — {progress.completed.includes('rbmk.chernobyl') ? 'tamamlandı ✓' : progress.chernobyl ? STAGES.find(s => s.id === progress.chernobyl)?.title : 'başlanmadı'}</span>{onOpenChernobyl && <button type="button" onClick={onOpenChernobyl}>Aç / devam et</button>}</li>
           {(Object.keys(reactors) as ReactorId[]).map((r) => {
             const steps = reactors[r].lessons;
             const at = steps.findIndex((s) => s.id === progress.tourSteps[r]);

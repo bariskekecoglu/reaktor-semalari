@@ -6,8 +6,10 @@
 import type { ReactorId } from '../reactors/shared/types';
 import { REACTOR_IDS } from '../reactors/meta';
 import type { OpsSectionId } from '../reactors/pwr/operations/types';
+import { isChernobylStage, type ChernobylStageId } from '../reactors/rbmk/chernobyl/stages';
 
 export type AssistantAction =
+  | { type: 'openChernobylStage'; stage: ChernobylStageId }
   | { type: 'openReactor'; reactor: ReactorId }
   | { type: 'openLesson'; lessonId: string }
   | { type: 'openOperationsSection'; section: OpsSectionId }
@@ -20,6 +22,7 @@ export type AssistantAction =
 export type ActionType = AssistantAction['type'];
 
 export const ACTION_TYPES: readonly ActionType[] = [
+  'openChernobylStage',
   'openReactor',
   'openLesson',
   'openOperationsSection',
@@ -60,6 +63,8 @@ export function validateAction(raw: unknown, reg: ActionRegistry): Result<Assist
   if (!isObj(raw)) return { ok: false, error: 'İşlem bir nesne değil' };
   const type = raw.type;
   switch (type) {
+    case 'openChernobylStage':
+      return isChernobylStage(raw.stage) ? { ok: true, value: { type, stage: raw.stage } } : { ok: false, error: 'Bilinmeyen kaza analizi aşaması' };
     case 'openReactor':
       return isReactor(raw.reactor) ? { ok: true, value: { type, reactor: raw.reactor } } : { ok: false, error: 'Bilinmeyen reaktör' };
     case 'openLesson':
@@ -108,6 +113,8 @@ export function validateActions(raw: unknown, reg: ActionRegistry): { actions: A
 /** İşlemin hangi reaktöre ait olduğu (reaktör değişimi gerekiyorsa kullanıcı onayı istenir). */
 export function actionReactor(a: AssistantAction): ReactorId | null {
   switch (a.type) {
+    case 'openChernobylStage':
+      return 'rbmk';
     case 'openReactor':
     case 'selectEquipment':
     case 'highlightFlow':

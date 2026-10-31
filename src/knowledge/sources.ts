@@ -22,6 +22,7 @@ export interface SourceDef {
 const NUCE = 'Nuc E 430 ders notları, Bölüm 2';
 
 export const SOURCES: readonly SourceDef[] = [
+  { id: 'iaea-bme-void', kind: 'web', title: 'BME — Void coefficient measurement (2017), IAEA eğitim arşivi', locator: '§1–2, s. 1–3: moderasyon, boşluk ve reaktivite ilişkisi', url: 'https://nucleus.iaea.org/sites/connect/RRIHpublic/CompendiumDB/Shared%20Documents/Hungary-BME/Protocols%20in%20PDF/Hungary%20BME%2008%20Void%20Coefficient.pdf' },
   { id: 'app-guide', kind: 'app', title: 'Uygulama kullanım rehberi', locator: 'Site kontrolleri, yerel rehber ve ders ilerlemesi' },
   { id: 'nuce-ch2', kind: 'pdf', title: NUCE, locator: 'PWR, BWR ve VVER sistemleri (genel)' },
   { id: 'nuce-2-5', kind: 'pdf', title: NUCE, locator: '2.5 PWR Reactor Operations, s. 2-88 – 2-101' },
@@ -58,14 +59,14 @@ export const SOURCES: readonly SourceDef[] = [
     id: 'iaea-insag7',
     kind: 'web',
     title: 'IAEA INSAG-7, The Chernobyl Accident: Updating of INSAG-1 (1992)',
-    locator: '§2.2, 2.6, 2.8–2.10 (RBMK-1000 tasarım anlatımı, 1986 durumu)',
+    locator: '§2, s. 3–8; §3–6, s. 10–25; Ek, s. 27–28; Ek I Tablo I-I, s. 53–55; §I-4.6–I-4.7, s. 64–83 (1986 tasarımı ve tarihsel kaza analizi)',
     url: 'https://www-pub.iaea.org/MTCD/publications/PDF/Pub913e_web.pdf',
   },
   {
     id: 'nea-chernobyl',
     kind: 'web',
     title: 'OECD NEA — Chernobyl, Chapter I: The site and accident sequence',
-    locator: 'RBMK-1000 reaktörünün tanımı',
+    locator: '2002 değerlendirmesi, Bölüm I: The RBMK-1000 reactor; Events leading to the accident; The accident',
     url: 'https://oecd-nea.org/jcms/pl_28271/chernobyl-chapter-i-the-site-and-accident-sequence',
   },
   {

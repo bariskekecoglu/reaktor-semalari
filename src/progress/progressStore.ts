@@ -10,11 +10,12 @@
  */
 import type { ReactorId } from '../reactors/shared/types';
 import { REACTOR_IDS, tourReactor } from '../reactors/meta';
+import { isChernobylStage, STAGE_IDS, type ChernobylStageId } from '../reactors/rbmk/chernobyl/stages';
 
 export const PROGRESS_KEY = 'reaktor-semalari:learning-progress';
 export const PROGRESS_VERSION = 1;
 
-export type LearningArea = 'tour' | 'predict';
+export type LearningArea = 'tour' | 'predict' | 'chernobyl';
 
 export interface PredictRecord {
   step: string;
@@ -38,6 +39,8 @@ export interface Progress {
   tourSteps: Partial<Record<ReactorId, string>>;
   /** Tahmin dersi sonuçları (yalnız seçenek kimlikleri). */
   predictions: Record<string, PredictRecord>;
+  /** Optional additive v1 field: old records remain valid. */
+  chernobyl?: ChernobylStageId;
 }
 
 /** Doğrulamanın dayandığı geçerli içerik kimlikleri (ders içeriğinden üretilir). */
@@ -57,6 +60,7 @@ export function tourLessonId(r: ReactorId) {
 
 /** Ders kimliği katalogda var mı? Anlatım dersleri `pwr.tour` biçimindedir. */
 function lessonSteps(cat: ProgressCatalog, lessonId: string): string[] | null {
+  if (lessonId === 'rbmk.chernobyl') return [...STAGE_IDS];
   const r = tourReactor(lessonId);
   if (r) return cat.tours[r] ?? null;
   return cat.predict[lessonId]?.steps ?? null;
@@ -76,7 +80,8 @@ export function parseProgress(raw: unknown, cat: ProgressCatalog): Progress {
       out.last = { lessonId, stepId: stepId && steps.includes(stepId) ? stepId : steps[0] };
     }
   }
-  if (raw.lastArea === 'tour' || raw.lastArea === 'predict') out.lastArea = raw.lastArea;
+  if (raw.lastArea === 'tour' || raw.lastArea === 'predict' || raw.lastArea === 'chernobyl') out.lastArea = raw.lastArea;
+  if (isChernobylStage(raw.chernobyl)) out.chernobyl = raw.chernobyl;
   if (isObj(raw.tourSteps)) {
     for (const r of REACTOR_IDS) {
       const id = str(raw.tourSteps[r]);
@@ -190,4 +195,10 @@ export function recordPredict(p: Progress, lessonId: string, rec: PredictRecord)
     predictions: { ...p.predictions, [lessonId]: rec },
     completed: rec.completed && !p.completed.includes(lessonId) ? [...p.completed, lessonId] : p.completed,
   };
+}
+
+export function recordChernobyl(p: Progress, stage: ChernobylStageId): Progress {
+  if (!isChernobylStage(stage)) return p;
+  return { ...p, chernobyl: stage, last: { lessonId: 'rbmk.chernobyl', stepId: stage }, lastArea: 'chernobyl',
+    completed: stage === 'lessons' && !p.completed.includes('rbmk.chernobyl') ? [...p.completed, 'rbmk.chernobyl'] : p.completed };
 }

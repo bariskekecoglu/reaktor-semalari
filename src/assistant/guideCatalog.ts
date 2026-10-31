@@ -7,6 +7,7 @@ import { HEATUP } from '../reactors/pwr/operations/data/heatup';
 import { AXIAL_NOT_AUTO, CONTROL_RELATIONS } from '../reactors/pwr/operations/data/controls';
 import type { AssistantAction } from './actions';
 import { REACTOR_IDS } from '../reactors/meta';
+import { STAGES } from '../reactors/rbmk/chernobyl/stages';
 
 export const GUIDE_CATEGORIES = ['PWR', 'BWR', 'VVER', 'RBMK', 'CANDU', 'Karşılaştırma', 'İşletme', 'Site kullanımı'] as const;
 
@@ -74,6 +75,7 @@ export function buildGuideCatalog(kb: KnowledgeSource): GuideCard[] {
 
   // Cevaplar tek kaynaktan okunur: ekipman/ders metni değişirse rehber de güncellenir.
   for (const e of kb.all()) {
+    if (e.id.startsWith('rbmk.chernobyl.')) continue;
     const r = e.reactorId;
     const name = e.name.replace(/^\d+\.\s*/, '');
     const prefix = r ? r.toUpperCase() : '';
@@ -187,6 +189,20 @@ export function buildGuideCatalog(kb: KnowledgeSource): GuideCard[] {
     'Sürgü temsili santral modelinin hedef gücünü değiştirir. Isıl güç ve elektrik tepkileri gecikmeli gelişir; çubuk hareketi güç yüzdesiyle birebir eşlenmez. Gerçek tesis kumandası değildir.');
   site('chat', 'Sohbetim kaydediliyor mu?', ['sorularım saklanıyor mu', 'sohbeti nasıl temizlerim'],
     'Sohbet yalnız açık sekmenin belleğinde tutulur. “Sohbeti temizle” ile silebilirsiniz; sayfa yenilendiğinde sohbet gider. Ders ilerlemesi bundan ayrı saklanır.');
+  const accidentQuestions = {
+    conditions: ["Çernobil'de ne oldu?", 'Chernobyl kazası nasıl oldu', 'Чорнобиль kazası', 'Çernobil kazasını göster', 'Чорнобиль', 'Çernobil'],
+    void: ['Pozitif boşluk katsayısı nedir?', 'RBMK void coefficient nedir', 'Çernobil su buharlaşınca reaktivite neden artar'],
+    az5: ["AZ-5’e basınca güç neden arttı?", 'AZ-5 nedir', 'AZ5 neden ters etki yaptı', 'Çernobil grafit yer değiştirici nasıl çalışır'],
+    seconds: ['Çernobil son saniyelerde ne oldu?', 'Çernobil zaman çizelgesi', 'Çernobil tepe gücü kaçtı'],
+    lessons: ["Bugünkü RBMK’ler farklı mı?", 'RBMK kaza sonrası ne değişti', 'INSAG-7 ile INSAG-1 farkı nedir'],
+  };
+  for (const s of STAGES) {
+    const [question, ...variants] = accidentQuestions[s.id];
+    add(`chernobyl:${s.id}`, question, variants, s.text, [`rbmk.chernobyl.${s.id}`], { category: 'RBMK', reactors: ['rbmk'], detail: `Kaynak konumu: ${s.locator}` });
+  }
+  add('chernobyl:pwr', "PWR’de Çernobil kazası olabilir mi?", ['PWR Çernobil gibi olabilir mi', 'PWRde bu olabilir mi', 'BWR Çernobil farkı'],
+    'Çernobil’deki grafit yer değiştirici ve pozitif boşluk geri beslemesi mekanizması PWR/BWR tasarımıyla aynı değildir. Su moderatörlü tasarımlarda olağan koşullarda boşluk artışı negatif geri besleme verir; bu, başka kaza mekanizmalarının imkânsız olduğu anlamına gelmez.',
+    ['rbmk.chernobyl.void'], { category: 'Karşılaştırma', reactors: ['pwr', 'bwr', 'rbmk'], sourceIds: ['iaea-insag7', 'iaea-bme-void'], detail: 'INSAG-7 §2.1–2.2, s. 3–4; BME Void coefficient measurement §1–2, s. 1–3 (IAEA eğitim arşivi): su moderasyonu ve negatif boşluk geri beslemesi; işaretin çekirdek düzenine bağımlılığı.' });
   return cards;
 }
 

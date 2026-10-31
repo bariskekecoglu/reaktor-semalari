@@ -6,13 +6,18 @@
 import type { ReactorId } from '../reactors/shared/types';
 import { parseTourId } from '../reactors/meta';
 import type { ProgressCatalog } from './progressStore';
+import { isChernobylStage, type ChernobylStageId } from '../reactors/rbmk/chernobyl/stages';
 
-export type LessonLink = { kind: 'tour'; reactor: ReactorId; step: number } | { kind: 'predict'; lessonId: string; stepId: string | null };
+export type LessonLink = { kind: 'tour'; reactor: ReactorId; step: number } | { kind: 'predict'; lessonId: string; stepId: string | null } | { kind: 'chernobyl'; stage: ChernobylStageId };
 
 export function parseLessonHash(hash: string, cat: ProgressCatalog): LessonLink | null {
   const params = new URLSearchParams(hash.replace(/^#/, ''));
   const id = params.get('ders');
   if (!id || id.length > 80) return null;
+  if (id === 'rbmk.chernobyl') {
+    const stage = params.get('adim');
+    return { kind: 'chernobyl', stage: isChernobylStage(stage) ? stage : 'conditions' };
+  }
   const tour = parseTourId(id);
   if (tour && cat.tours[tour.reactor]) {
     const r = tour.reactor;
@@ -29,6 +34,7 @@ export function parseLessonHash(hash: string, cat: ProgressCatalog): LessonLink 
 }
 
 export function lessonHash(link: LessonLink, cat: ProgressCatalog): string {
+  if (link.kind === 'chernobyl') return `#ders=rbmk.chernobyl&adim=${link.stage}`;
   if (link.kind === 'tour') return `#ders=${encodeURIComponent(cat.tours[link.reactor][link.step] ?? `${link.reactor}.tour`)}`;
   return `#ders=${encodeURIComponent(link.lessonId)}${link.stepId ? `&adim=${encodeURIComponent(link.stepId)}` : ''}`;
 }

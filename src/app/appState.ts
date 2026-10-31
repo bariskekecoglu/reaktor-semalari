@@ -1,5 +1,6 @@
 import type { ReactorId } from '../reactors/shared/types';
 import type { OpsSectionId } from '../reactors/pwr/operations/types';
+import { isChernobylStage, type ChernobylStageId } from '../reactors/rbmk/chernobyl/stages';
 
 export type ViewMode = 'scheme' | 'compare' | 'learn';
 /** Yalnız PWR’de: santral şeması ya da “İşletme ve davranış” modülü. */
@@ -28,6 +29,8 @@ export interface AppState {
   /** Sahne değişiminde bileşenleri yeniden bağlamak için artan sayaç. */
   sceneEpoch: number;
   pwrView: PwrSubView;
+  rbmkView: 'plant' | 'chernobyl';
+  chernobylStage: ChernobylStageId;
   /** PWR işletme modülünde açık bölüm (asistan ve sekmeler aynı durumu kullanır). */
   opsSection: OpsSectionId;
   /** Grafikte seçilecek olay (asistan ya da gezinme). `nonce` aynı olayın tekrar açılmasını sağlar. */
@@ -52,6 +55,8 @@ export const initialAppState: AppState = {
   showFlow: true,
   sceneEpoch: 0,
   pwrView: 'plant',
+  rbmkView: 'plant',
+  chernobylStage: 'conditions',
   opsSection: 'modes',
   opsFocus: null,
   learnMode: 'tour',
@@ -61,11 +66,11 @@ export const initialAppState: AppState = {
 };
 
 /** Asistanın “önceki konuma dön” için sakladığı gezinme durumu. */
-export type NavSnapshot = Pick<AppState, 'reactor' | 'view' | 'selected' | 'focus' | 'lessonStep' | 'detail' | 'pwrView' | 'opsSection' | 'learnMode' | 'compareTopic'>;
+export type NavSnapshot = Pick<AppState, 'reactor' | 'view' | 'selected' | 'focus' | 'lessonStep' | 'detail' | 'pwrView' | 'rbmkView' | 'chernobylStage' | 'opsSection' | 'learnMode' | 'compareTopic'>;
 
 export function navSnapshot(s: AppState): NavSnapshot {
   const { reactor, view, selected, focus, lessonStep, detail, pwrView, opsSection, learnMode, compareTopic } = s;
-  return { reactor, view, selected, focus, lessonStep, detail, pwrView, opsSection, learnMode, compareTopic };
+  return { reactor, view, selected, focus, lessonStep, detail, pwrView, rbmkView: s.rbmkView, chernobylStage: s.chernobylStage, opsSection, learnMode, compareTopic };
 }
 
 export type AppAction =
@@ -81,6 +86,8 @@ export type AppAction =
   | { type: 'toggleFlow' }
   | { type: 'reset' }
   | { type: 'setPwrView'; view: PwrSubView }
+  | { type: 'setRbmkView'; view: 'plant' | 'chernobyl' }
+  | { type: 'setChernobylStage'; stage: ChernobylStageId }
   | { type: 'setOpsSection'; section: OpsSectionId }
   | { type: 'focusChartEvent'; eventId: string }
   | { type: 'setLearnMode'; mode: LearnMode }
@@ -105,6 +112,8 @@ export function appReducer(state: AppState, action: AppAction): AppState {
         sceneEpoch: state.sceneEpoch + 1,
         // PWR işletme modülü ve tahmin dersi yalnız PWR’ye aittir; başka reaktöre taşınmaz.
         pwrView: 'plant',
+        rbmkView: 'plant',
+        chernobylStage: 'conditions',
         opsFocus: null,
         learnMode: action.reactor === 'pwr' ? state.learnMode : 'tour',
         assistantHL: state.assistantHL?.reactor === action.reactor ? state.assistantHL : null,
@@ -117,7 +126,14 @@ export function appReducer(state: AppState, action: AppAction): AppState {
         focus: null,
         selected: action.view === 'learn' ? null : state.selected,
         pwrView: action.view === 'scheme' ? state.pwrView : 'plant',
+        rbmkView: 'plant',
       };
+    case 'setRbmkView':
+      if (state.reactor !== 'rbmk') return state;
+      return { ...state, rbmkView: action.view, view: 'scheme', selected: null, focus: null, detail: null, assistantHL: null };
+    case 'setChernobylStage':
+      if (state.reactor !== 'rbmk' || !isChernobylStage(action.stage)) return state;
+      return { ...state, rbmkView: 'chernobyl', chernobylStage: action.stage, view: 'scheme', selected: null, focus: null, detail: null, assistantHL: null };
     case 'setPwrView':
       if (state.reactor !== 'pwr') return state;
       return { ...state, pwrView: action.view, view: 'scheme', detail: null, focus: null, selected: null };
@@ -149,7 +165,7 @@ export function appReducer(state: AppState, action: AppAction): AppState {
       return { ...state, view: 'scheme', pwrView: 'ops', opsSection: 'xenon', opsFocus: { eventId: action.eventId, nonce: (state.opsFocus?.nonce ?? 0) + 1 } };
     case 'setLearnMode':
       if (action.mode === 'predict' && state.reactor !== 'pwr') return state;
-      return { ...state, view: 'learn', learnMode: action.mode, selected: null, focus: null, detail: null, pwrView: 'plant' };
+      return { ...state, view: 'learn', learnMode: action.mode, selected: null, focus: null, detail: null, pwrView: 'plant', rbmkView: 'plant' };
     case 'assistantHighlight':
       return { ...state, assistantHL: action.hl, ...(action.hl ? { selected: null, focus: null } : {}) };
     case 'setLabelDetail':
@@ -160,7 +176,7 @@ export function appReducer(state: AppState, action: AppAction): AppState {
       const n = action.nav;
       // Reaktör farklıysa önce reaktör değişimi (sahne yeniden bağlanır), sonra gezinme alanları.
       const base = n.reactor !== state.reactor ? appReducer(state, { type: 'setReactor', reactor: n.reactor }) : state;
-      return { ...base, ...n, assistantHL: null, opsFocus: null };
+      return { ...base, ...n, rbmkView: n.reactor === 'rbmk' && n.view === 'scheme' ? n.rbmkView : 'plant', chernobylStage: isChernobylStage(n.chernobylStage) ? n.chernobylStage : 'conditions', assistantHL: null, opsFocus: null };
     }
     default:
       return state;

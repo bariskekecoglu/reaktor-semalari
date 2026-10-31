@@ -7,6 +7,7 @@ const FOLD: Record<string, string> = { ç: 'c', ğ: 'g', ı: 'i', i̇: 'i', ö: 
 export function normalize(s: string): string {
   return s
     .toLocaleLowerCase('tr-TR')
+    .replace(/чорнобиль|чернобыль|chernobyl/g, 'çernobil')
     .replace(/[çğıöşüâîû]|i̇/g, (c) => FOLD[c] ?? c)
     .replace(/['’`]/g, ' ')
     .replace(/[^a-z0-9δ\s-]/g, ' ')

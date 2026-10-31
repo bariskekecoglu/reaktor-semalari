@@ -1,6 +1,6 @@
 # Yerel rehber soru-cevap kataloğu
 
-468 hazır cevap; 3463 farklı soru ifadesi.
+474 hazır cevap; 3486 farklı soru ifadesi.
 
 Bu dosya `npm run guide:export` ile üretilir. Düzenleme yeri: `src/assistant/guideCatalog.ts` ve referans aldığı mevcut ders/ekipman verileri.
 
@@ -4699,6 +4699,95 @@ Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
 
 </details>
 
+### Çernobil'de ne oldu?
+
+Kimlik: `chernobyl:conditions`
+
+Test, şebeke kaybında türbinin serbest dönüşüyle pompaların dizeller devreye girene kadar beslenmesini araştırıyordu. Güç azaltma ertelendi; sonraki düşük güç ve ksenon zehirlenmesi çubuk çekilmesiyle birlikte değerlendirilmelidir. Bazı korumalar devre dışıydı; ECCS’nin ayrılması kazayı başlatan neden değildi.
+
+Kaynak konumu: INSAG-7 §3, s. 10–12; §5.2, s. 17–19; Ek I §I-4.7.2–I-4.7.3, s. 72–74; NEA Bölüm I, Events leading to the accident
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- Chernobyl kazası nasıl oldu
+- Чорнобиль kazası
+- Çernobil kazasını göster
+- Чорнобиль
+- Çernobil
+
+</details>
+
+### Pozitif boşluk katsayısı nedir?
+
+Kimlik: `chernobyl:void`
+
+Boşluk, soğutucu içindeki buhar hacmini ifade eder. Kaza koşullarında suyun azalması nötron soğurulmasını azaltırken grafit moderatör yerinde kaldığı için reaktivite artabiliyordu. Bu geri beslemenin büyüklüğü çekirdek bileşimine ve işletme durumuna bağlıdır; bütün RBMK durumlarına sabit bir katsayı atanamaz.
+
+Kaynak konumu: §2.1, s. 3; §2.8, s. 7
+
+Kaynaklar: `iaea-insag7`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK void coefficient nedir
+- Çernobil su buharlaşınca reaktivite neden artar
+
+</details>
+
+### AZ-5’e basınca güç neden arttı?
+
+Kimlik: `chernobyl:az5`
+
+1986 tasarımında tamamen çekilmiş çubuğun grafit yer değiştiricisi çekirdeğin ortasında, altında ve üstünde su bölgeleriyle bulunuyordu. Çubuk inmeye başlayınca alt bölgedeki suyun grafitle yer değiştirmesi başlangıçta yerel pozitif reaktivite ekleyebiliyordu. Etki güç dağılımına bağlıydı; acil kapatma her koşulda güç artırır anlamına gelmez.
+
+Kaynak konumu: §2.2–2.3, s. 4; Şekil 1, s. 5
+
+Kaynaklar: `iaea-insag7`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- AZ-5 nedir
+- AZ5 neden ters etki yaptı
+- Çernobil grafit yer değiştirici nasıl çalışır
+
+</details>
+
+### Çernobil son saniyelerde ne oldu?
+
+Kimlik: `chernobyl:seconds`
+
+Test başlangıcından çubukların girişine ve hasar sinyallerine kadar olayları birlikte izleyin. Debi ve boşluk çizgileri yalnız kavramsal eğilimlerdir; sürekli ölçüm serisi değildir. Son güç yükselişi ölçeksiz gösterilir: tek bir kesin tepe değeri verilmez.
+
+Kaynak konumu: Ek I, Tablo I-I, s. 54–55; §I-4.3–I-4.4, s. 51–59; NEA Bölüm I, The accident
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- Çernobil zaman çizelgesi
+- Çernobil tepe gücü kaçtı
+
+</details>
+
+### Bugünkü RBMK’ler farklı mı?
+
+Kimlik: `chernobyl:lessons`
+
+INSAG-7, ilk raporun işletmeci eylemlerine verdiği ağırlığı tasarım kusurları, işletme koşulları ve güvenlik kültürüyle birlikte yeniden değerlendirir. Çubuk tasarımı, pozitif boşluk geri beslemesi ve yavaş kapatma; düşük ORM, koruma düzeni ve yetersiz güvenlik bilgisiyle birleşmiştir. Rapor 1992 durumunu anlatır; tek tek santrallerin bugünkü durumunu doğrulamaz.
+
+Kaynak konumu: INSAG-7 §5–6, s. 16–25; Ek, s. 27–28; NEA Bölüm I, The accident
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK kaza sonrası ne değişti
+- INSAG-7 ile INSAG-1 farkı nedir
+
+</details>
+
 ## CANDU
 
 ### CANDU Türbin ve jeneratör arasındaki fark nedir?
@@ -9179,6 +9268,24 @@ Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`, `canteach-c6`, `cante
 - RBMK ve CANDU kanalları
 - RBMK CANDU kanalları nasıl farklı
 - RBMK ve CANDU basınç kanalları
+
+</details>
+
+### PWR’de Çernobil kazası olabilir mi?
+
+Kimlik: `chernobyl:pwr`
+
+Çernobil’deki grafit yer değiştirici ve pozitif boşluk geri beslemesi mekanizması PWR/BWR tasarımıyla aynı değildir. Su moderatörlü tasarımlarda olağan koşullarda boşluk artışı negatif geri besleme verir; bu, başka kaza mekanizmalarının imkânsız olduğu anlamına gelmez.
+
+INSAG-7 §2.1–2.2, s. 3–4; BME Void coefficient measurement §1–2, s. 1–3 (IAEA eğitim arşivi): su moderasyonu ve negatif boşluk geri beslemesi; işaretin çekirdek düzenine bağımlılığı.
+
+Kaynaklar: `iaea-insag7`, `iaea-bme-void`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- PWR Çernobil gibi olabilir mi
+- PWRde bu olabilir mi
+- BWR Çernobil farkı
 
 </details>
 

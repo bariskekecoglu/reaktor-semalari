@@ -21,13 +21,15 @@ import type { AppState } from './appState';
 import type { PredictRecord } from '../progress/progressStore';
 
 const CATALOG = buildCatalog();
+import { isChernobylStage, type ChernobylStageId } from '../reactors/rbmk/chernobyl/stages';
 
 /** Açılışta `#ders=…` bağlantısı varsa ilgili dersle başlar (bilinmeyen kimlikler yok sayılır). */
 function initFromHash(base: AppState): AppState {
   if (typeof window === 'undefined') return base;
   const link = parseLessonHash(window.location.hash, CATALOG);
   if (!link) return base;
-  let s = appReducer(base, { type: 'setReactor', reactor: link.kind === 'tour' ? link.reactor : 'pwr' });
+  let s = appReducer(base, { type: 'setReactor', reactor: link.kind === 'tour' ? link.reactor : link.kind === 'chernobyl' ? 'rbmk' : 'pwr' });
+  if (link.kind === 'chernobyl') return appReducer(s, { type: 'setChernobylStage', stage: link.stage });
   if (link.kind === 'tour') {
     s = appReducer(s, { type: 'setLearnMode', mode: 'tour' });
     s = appReducer(s, { type: 'lessonStep', step: link.step, count: CATALOG.tours[link.reactor].length });
@@ -55,6 +57,7 @@ import { CompareView } from '../components/educational/CompareView';
 
 // PWR işletme modülü ayrı bir parçada yüklenir; yalnız PWR seçiliyken açılır.
 const PwrOperations = lazy(() => import('../reactors/pwr/operations/PwrOperations').then((m) => ({ default: m.PwrOperations })));
+const ChernobylView = lazy(() => import('../reactors/rbmk/chernobyl/ChernobylView').then(m => ({ default: m.ChernobylView })));
 
 export function App() {
   const [clock] = useState(() => new SimClock());
@@ -153,6 +156,10 @@ export function App() {
   // Anlatım adımı kaydı ve doğrudan bağlantı (hash) eşitlemesi.
   const learningTour = state.view === 'learn' && state.learnMode === 'tour';
   const learningPredict = state.view === 'learn' && state.learnMode === 'predict' && state.reactor === 'pwr';
+  const showChernobyl = state.reactor === 'rbmk' && state.view === 'scheme' && state.rbmkView === 'chernobyl';
+  useEffect(() => {
+    if (showChernobyl) progressApi.recordChernobyl(state.chernobylStage);
+  }, [showChernobyl, state.chernobylStage, progressApi.recordChernobyl]);
   // Yalnız görünümü açmak kayıtlı “kaldığım yer”i ezmesin: adım, kullanıcı ilerleyince kaydedilir.
   // Hiç kayıt yoksa ilk görülen adım kaydedilir.
   useEffect(() => {
@@ -160,7 +167,7 @@ export function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [learningTour, state.reactor, state.lessonStep]);
   useEffect(() => {
-    const h = learningTour
+    const h = showChernobyl ? lessonHash({ kind: 'chernobyl', stage: state.chernobylStage }, CATALOG) : learningTour
       ? lessonHash({ kind: 'tour', reactor: state.reactor, step: state.lessonStep }, CATALOG)
       : learningPredict
         ? lessonHash({ kind: 'predict', lessonId: PREDICT_ID, stepId: predictState.step }, CATALOG)
@@ -168,7 +175,30 @@ export function App() {
     if (h !== window.location.hash && (h || window.location.hash.startsWith('#ders='))) {
       window.history.replaceState(null, '', h || window.location.pathname + window.location.search);
     }
-  }, [learningTour, learningPredict, state.reactor, state.lessonStep, predictState.step, PREDICT_ID]);
+  }, [showChernobyl, state.chernobylStage, learningTour, learningPredict, state.reactor, state.lessonStep, predictState.step, PREDICT_ID]);
+
+  // Direct links pasted into an already open tab also navigate. replaceState does not trigger this listener.
+  useEffect(() => {
+    const navigate = () => {
+      const link = parseLessonHash(window.location.hash, CATALOG);
+      if (!link) return;
+      const target = link.kind === 'tour' ? link.reactor : link.kind === 'chernobyl' ? 'rbmk' : 'pwr';
+      if (target !== state.reactor) resetSimulation();
+      dispatch({ type: 'setReactor', reactor: target });
+      if (link.kind === 'chernobyl') dispatch({ type: 'setChernobylStage', stage: link.stage });
+      else if (link.kind === 'tour') {
+        dispatch({ type: 'setLearnMode', mode: 'tour' });
+        dispatch({ type: 'lessonStep', step: link.step, count: CATALOG.tours[link.reactor].length });
+      } else { dispatch({ type: 'setLearnMode', mode: 'predict' }); if (link.stepId) setPredictState(p => restorePredictState(p, link.stepId!)); }
+    };
+    window.addEventListener('hashchange', navigate);
+    return () => window.removeEventListener('hashchange', navigate);
+  }, [state.reactor, resetSimulation]);
+
+  const openChernobyl = (stage: ChernobylStageId) => {
+    if (state.reactor !== 'rbmk') changeReactor('rbmk');
+    dispatch({ type: 'setChernobylStage', stage });
+  };
 
   const openTour = (r: ReactorId, step?: number) => {
     if (r !== state.reactor) changeReactor(r);
@@ -187,6 +217,7 @@ export function App() {
   const resumeLearning = () => {
     const last = progressApi.progress.last;
     if (!last) return;
+    if (last.lessonId === 'rbmk.chernobyl') { openChernobyl(isChernobylStage(last.stepId) ? last.stepId : 'conditions'); return; }
     const r = tourReactor(last.lessonId);
     if (r) {
       openTour(r, Math.max(0, reactors[r].lessons.findIndex((l) => l.id === last.stepId)));
@@ -257,7 +288,7 @@ export function App() {
           ? `Anlatım · ${lessons[state.lessonStep]?.title ?? ''}`
           : showOps
             ? `İşletme · ${names.section(state.opsSection)}`
-            : 'Santral şeması',
+            : showChernobyl ? 'Çernobil kaza analizi' : 'Santral şeması',
     selectedComp ? `Seçili: ${selectedComp.name}` : null,
     state.assistantHL && state.assistantHL.reactor === state.reactor ? `Vurgu: ${state.assistantHL.label}` : null,
     state.detail ? `Yakın plan: ${detailTitle}` : null,
@@ -306,6 +337,11 @@ export function App() {
           </nav>
         )}
 
+        {state.reactor === 'rbmk' && state.view !== 'compare' && <nav className="seg subview" aria-label="RBMK görünümü">
+          <button type="button" aria-pressed={!showChernobyl} className={!showChernobyl ? 'on' : ''} onClick={() => dispatch({ type: 'setRbmkView', view: 'plant' })}>Santral şeması</button>
+          <button type="button" aria-pressed={showChernobyl} className={showChernobyl ? 'on' : ''} onClick={() => openChernobyl(progressApi.progress.chernobyl ?? 'conditions')}>Çernobil 1986 — Kaza analizi</button>
+        </nav>}
+
         {state.view === 'learn' && (
           <ProgressPanel
             progress={progressApi.progress}
@@ -313,6 +349,7 @@ export function App() {
             onResume={resumeLearning}
             onOpenTour={(r) => openTour(r, Math.max(0, reactors[r].lessons.findIndex((l) => l.id === progressApi.progress.tourSteps[r])))}
             onOpenPredict={openPredict}
+            onOpenChernobyl={() => openChernobyl(progressApi.progress.chernobyl ?? 'conditions')}
             onReset={() => {
               progressApi.reset();
               setPredictState(emptyPredictState());
@@ -332,7 +369,7 @@ export function App() {
           </p>
         )}
 
-        {showPredict ? (
+        {showChernobyl ? <main className="main compare-main"><Suspense fallback={<p className="notice">Kaza analizi yükleniyor…</p>}><ChernobylView stageId={state.chernobylStage} onStage={openChernobyl} onCompare={() => { dispatch({ type: 'setCompareTopic', topic: 'moderator' }); dispatch({ type: 'setView', view: 'compare' }); }} /></Suspense></main> : showPredict ? (
           <main className="main compare-main">
             <PredictLessonView
               key={predictEpoch}
@@ -447,7 +484,7 @@ export function App() {
         )}
 
         {/* Santral sahnesinin kontrolleri ve göstergeleri işletme modülünde gizlenir; modülün kendi kontrolleri vardır. */}
-        {!showOps && !showPredict && (
+        {!showOps && !showPredict && !showChernobyl && (
           <>
             <ControlBar
               power={power}

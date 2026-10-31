@@ -19,6 +19,7 @@ import { buildScenario, findChartEvent } from '../reactors/pwr/operations/models
 import { PREDICT_LESSONS } from '../lessons/predict/pwrXenonShutdown';
 import type { ActionRegistry, AssistantAction } from '../assistant/actions';
 import { isSourceId } from './sources';
+import { STAGES } from '../reactors/rbmk/chernobyl/stages';
 
 export type EntryKind = 'reactor' | 'equipment' | 'focus' | 'topic' | 'lesson' | 'predict' | 'ops' | 'chartEvent';
 
@@ -212,6 +213,12 @@ function build(): KnowledgeEntry[] {
   }
 
   out.push(...channelReactorTopics());
+  out.push(...STAGES.map(s => ({
+    id: `rbmk.chernobyl.${s.id}`, reactorId: 'rbmk' as const, kind: 'topic' as const,
+    name: `Çernobil: ${s.title}`, aliases: s.id === 'conditions' ? ['Çernobil', 'Chernobyl', 'Чорнобиль', 'Çernobil kazası'] : s.id === 'void' ? ['pozitif boşluk katsayısı', 'void coefficient'] : s.id === 'az5' ? ['AZ-5', 'AZ5', 'EPS-5', 'grafit yer değiştirici'] : s.id === 'lessons' ? ['RBMK kaza sonrası değişiklikler'] : ['Çernobil son saniyeler'],
+    summary: s.text, body: `${s.text}\n\nKaynak konumu: ${s.locator}`, sourceIds: s.sourceIds, related: ['rbmk.rods', 'rbmk.channels'],
+    targets: [{ type: 'openChernobylStage' as const, stage: s.id }],
+  })));
 
   for (const s of OPS_SECTIONS) {
     out.push({

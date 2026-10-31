@@ -98,7 +98,7 @@ export function SourcesSection() {
                 Basınçlandırıcının ve moderatör sisteminin bağlantı yerleri temsilidir. CANDU 6’da birincil ağır suda sınırlı kaynama olabilir; animasyon bu iki fazlı davranışı modellemez
                 (CANTEACH, Heat Transport System Thermalhydraulics, §3.3). Türbine giden buhar ayrı ikincil devrede oluşur. Aynı normalize eğitim modeli kullanılır; RBMK veya CANDU fiziği (ör. boşluk katsayısı) modellenmez.
               </li>
-              <li>Kapsam normal çalışmadır; kaza senaryoları, güvenlik sistemleri ve işletme prosedürleri içermez. RBMK’nin tarihsel güvenlik özellikleri yalnız dönem ve kaynak belirtilerek anılır.</li>
+              <li>Santral şemalarının kapsamı normal çalışmadır. RBMK içindeki ayrı “Çernobil 1986 — Kaza analizi” kaynaklı tarihsel canlandırmadır; ortak fizik modelini kullanmaz. Kayıtlı noktalar, temsili çizimler ve bilinmeyen son güç zirvesi ayrı etiketlenir. İşletme prosedürü veya doğrulanmış kaza simülatörü değildir.</li>
             </ul>
           </section>
         </div>

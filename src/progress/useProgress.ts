@@ -3,6 +3,8 @@ import { reactors } from '../reactors/registry';
 import type { ReactorId } from '../reactors/shared/types';
 import { PREDICT_LESSONS } from '../lessons/predict/pwrXenonShutdown';
 import { PREDICT_STEPS } from '../lessons/predict/types';
+import { recordChernobyl } from './progressStore';
+import type { ChernobylStageId } from '../reactors/rbmk/chernobyl/stages';
 import { emptyProgress, memoryBackend, parseProgress, recordPredict, recordTourStep, storageBackend, type Progress, type ProgressBackend, type ProgressCatalog, type PredictRecord } from './progressStore';
 
 /** Geçerli içerik kimlikleri (ders içeriği değişince kayıtlar buna göre doğrulanır). */
@@ -25,6 +27,7 @@ export interface ProgressApi {
   persistent: boolean;
   recordTour: (r: ReactorId, stepIndex: number) => void;
   recordPredict: (lessonId: string, rec: PredictRecord) => void;
+  recordChernobyl: (stage: ChernobylStageId) => void;
   reset: () => void;
 }
 
@@ -55,6 +58,7 @@ export function useProgress(): ProgressApi {
       [catalog, commit],
     ),
     recordPredict: useCallback((lessonId, rec) => commit((p) => recordPredict(p, lessonId, rec)), [commit]),
+    recordChernobyl: useCallback((stage) => commit(p => p.last?.lessonId === 'rbmk.chernobyl' && p.chernobyl === stage ? p : recordChernobyl(p, stage)), [commit]),
     reset: useCallback(() => {
       backend.clear();
       setProgress(emptyProgress());
