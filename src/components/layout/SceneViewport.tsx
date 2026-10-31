@@ -1,4 +1,6 @@
 import { useRef, useState, type ReactNode, type PointerEvent } from 'react';
+import { exportScene } from '../../export/sceneExport';
+import { t } from '../../i18n/locale';
 
 const ZOOMS = [1, 1.25, 1.5, 2, 2.5];
 
@@ -27,11 +29,23 @@ interface Props {
 export function SceneViewport({ children, notes, showLabels, showFlow, coreOpen, onToggleLabels, onToggleFlow, onToggleCore, onBackgroundClick, labelDetail, onLabelDetail, selectedName }: Props) {
   const [zoomIdx, setZoomIdx] = useState(0);
   const [fit, setFit] = useState(true);
+  const [exporting, setExporting] = useState(false);
+  const [exportStatus, setExportStatus] = useState('');
   const scroller = useRef<HTMLDivElement>(null);
   const drag = useRef<{ x: number; y: number; sl: number; st: number; moved: boolean; id: number } | null>(null);
   const suppressClick = useRef(false);
 
   const zoom = ZOOMS[zoomIdx];
+  const save = async (format: 'svg' | 'png') => {
+    const scene = scroller.current?.querySelector<SVGSVGElement>('svg.scene-svg');
+    if (!scene || exporting) return;
+    setExporting(true); setExportStatus('Dışa aktarılıyor…');
+    try {
+      await exportScene(scene, format, `reactor-${scene.getAttribute('aria-label')?.split(' ')[0].toLowerCase() ?? 'diagram'}-${document.documentElement.lang}`);
+      setExportStatus('Şema indirildi.');
+    } catch { setExportStatus('Şema dışa aktarılamadı. Lütfen yeniden deneyin.'); }
+    finally { setExporting(false); }
+  };
   const setZoom = (i: number) => {
     setFit(false);
     setZoomIdx(Math.max(0, Math.min(ZOOMS.length - 1, i)));
@@ -67,16 +81,20 @@ export function SceneViewport({ children, notes, showLabels, showFlow, coreOpen,
 
   return (
     <div className="viewport">
-      <div className="viewport-toolbar" role="toolbar" aria-label="Şema görünümü">
+      <div className="viewport-toolbar" role="toolbar" aria-label={t("Şema görünümü")}>
+        <div className="tb-group export-controls">
+          <button type="button" disabled={exporting} onClick={() => save('svg')}>{t('SVG indir')}</button>
+          <button type="button" disabled={exporting} onClick={() => save('png')}>{t('PNG indir')}</button>
+        </div>
         <div className="tb-group">
           <div className="zoom-cluster">
-            <button type="button" onClick={() => setZoom(zoomIdx - 1)} disabled={fit || zoomIdx === 0} aria-label="Uzaklaştır">
+            <button type="button" onClick={() => setZoom(zoomIdx - 1)} disabled={fit || zoomIdx === 0} aria-label={t("Uzaklaştır")}>
               −
             </button>
             <span className="zoom-readout" aria-live="polite">
-              {fit ? 'Sığdırıldı' : `%${Math.round(zoom * 100)}`}
+              {t(fit ? 'Sığdırıldı' : `%${Math.round(zoom * 100)}`)}
             </span>
-            <button type="button" onClick={() => setZoom(fit ? 0 : zoomIdx + 1)} disabled={!fit && zoomIdx === ZOOMS.length - 1} aria-label="Yakınlaştır">
+            <button type="button" onClick={() => setZoom(fit ? 0 : zoomIdx + 1)} disabled={!fit && zoomIdx === ZOOMS.length - 1} aria-label={t("Yakınlaştır")}>
               +
             </button>
           </div>
@@ -88,9 +106,7 @@ export function SceneViewport({ children, notes, showLabels, showFlow, coreOpen,
               scroller.current?.scrollTo({ left: 0, top: 0 });
             }}
             aria-pressed={fit}
-          >
-            Sığdır
-          </button>
+          >{t("Sığdır")}</button>
           <button
             type="button"
             onClick={() => {
@@ -98,34 +114,23 @@ export function SceneViewport({ children, notes, showLabels, showFlow, coreOpen,
               setZoomIdx(0);
               scroller.current?.scrollTo({ left: 0, top: 0 });
             }}
-          >
-            Görünümü sıfırla
-          </button>
+          >{t("Görünümü sıfırla")}</button>
         </div>
         <span className="tb-sep" aria-hidden="true" />
         <div className="tb-group">
-          <button type="button" aria-pressed={showLabels} onClick={onToggleLabels}>
-            Etiketler
-          </button>
-          <span className="lod-seg" role="group" aria-label="Etiket ayrıntısı">
-            <button type="button" aria-pressed={labelDetail === 'basic'} disabled={!showLabels} onClick={() => onLabelDetail('basic')}>
-              Temel
-            </button>
-            <button type="button" aria-pressed={labelDetail === 'detailed'} disabled={!showLabels} onClick={() => onLabelDetail('detailed')}>
-              Ayrıntılı
-            </button>
+          <button type="button" aria-pressed={showLabels} onClick={onToggleLabels}>{t("Etiketler")}</button>
+          <span className="lod-seg" role="group" aria-label={t("Etiket ayrıntısı")}>
+            <button type="button" aria-pressed={labelDetail === 'basic'} disabled={!showLabels} onClick={() => onLabelDetail('basic')}>{t("Temel")}</button>
+            <button type="button" aria-pressed={labelDetail === 'detailed'} disabled={!showLabels} onClick={() => onLabelDetail('detailed')}>{t("Ayrıntılı")}</button>
           </span>
-          <button type="button" aria-pressed={showFlow} onClick={onToggleFlow}>
-            Akış işaretleri
-          </button>
-          <button type="button" aria-pressed={coreOpen} onClick={onToggleCore}>
-            Çekirdek yakın planı
-          </button>
+          <button type="button" aria-pressed={showFlow} onClick={onToggleFlow}>{t("Akış işaretleri")}</button>
+          <button type="button" aria-pressed={coreOpen} onClick={onToggleCore}>{t("Çekirdek yakın planı")}</button>
         </div>
       </div>
+      {exportStatus && <p className="export-status" role="status">{t(exportStatus)}</p>}
       {selectedName && (
         <p className="scene-selected" role="status">
-          <span>Seçili:</span> <strong>{selectedName}</strong>
+          <span>{t("Seçili:")}</span> <strong>{t(selectedName)}</strong>
         </p>
       )}
       <div
@@ -151,14 +156,14 @@ export function SceneViewport({ children, notes, showLabels, showFlow, coreOpen,
           data-zoomed={!fit && zoom >= 1.5 ? '1' : undefined}
           style={fit ? undefined : { width: `max(${1040 * zoom}px, ${zoom * 100}%)` }}
         >
-          {children}
+          {t(children)}
         </div>
       </div>
       <div className="scene-notes">
         {notes.map((n) => (
-          <p key={n}>{n}</p>
+          <p key={n}>{t(n)}</p>
         ))}
-        <p className="scene-help">+ ile büyütün (%150 ve üstünde alt bileşen etiketleri açılır) · Kaydırarak veya fareyle sürükleyerek gezinin · Ekipman seçmek için dokunun ya da Tab ve Enter kullanın.</p>
+        <p className="scene-help">{t("+ ile büyütün (%150 ve üstünde alt bileşen etiketleri açılır) · Kaydırarak veya fareyle sürükleyerek gezinin · Ekipman seçmek için dokunun ya da Tab ve Enter kullanın.")}</p>
       </div>
     </div>
   );

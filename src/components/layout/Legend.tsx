@@ -1,3 +1,4 @@
+import { t } from '../../i18n/locale';
 import type { ReactorId } from '../../reactors/shared/types';
 
 interface Item {
@@ -45,7 +46,7 @@ export function Legend({ reactor }: { reactor: ReactorId }) {
   const items = itemsFor(reactor);
   const primaryNote = NOTE[reactor] ?? 'Birincil devre: düz çizgi (sıcak/soğuk kol) · İkincil devre: kesikli (buhar) ve noktalı (besleme suyu).';
   return (
-    <div className="legend" aria-label="Renk ve akış lejantı">
+    <div className="legend" aria-label={t("Renk ve akış lejantı")}>
       <ul>
         {items.map((it) => (
           <li key={it.key}>
@@ -67,14 +68,11 @@ export function Legend({ reactor }: { reactor: ReactorId }) {
                 </>
               )}
             </svg>
-            {it.label}
+            {t(it.label)}
           </li>
         ))}
       </ul>
-      <p className="legend-note">
-        Renkler sıcaklık ve faz için anlatım aracıdır, ölçek değildir. Malzemeler ayrıca şema üzerinde metinle etiketlenir. {primaryNote} İşaretlerin hızı görseldir; gerçek akış hızını
-        göstermez.
-      </p>
+      <p className="legend-note">{t("Renkler sıcaklık ve faz için anlatım aracıdır, ölçek değildir. Malzemeler ayrıca şema üzerinde metinle etiketlenir. ")}{t(primaryNote)}{t(" İşaretlerin hızı görseldir; gerçek akış hızını göstermez.")}</p>
     </div>
   );
 }

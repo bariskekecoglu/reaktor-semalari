@@ -64,8 +64,10 @@ describe('asistan gezinmesi (mevcut reducer üzerinden)', () => {
     expect(s.sceneEpoch).toBe(initialAppState.sceneEpoch);
   });
 
-  it('tahmin dersi PWR dışında açılmaz', () => {
+  it('BWR tahmin dersi açılır; dersi olmayan reaktörlerde açılmaz', () => {
     const bwr = appReducer(initialAppState, { type: 'setReactor', reactor: 'bwr' });
-    expect(appReducer(bwr, { type: 'setLearnMode', mode: 'predict' })).toBe(bwr);
+    expect(appReducer(bwr, { type: 'setLearnMode', mode: 'predict' }).learnMode).toBe('predict');
+    const candu = appReducer(initialAppState, { type: 'setReactor', reactor: 'candu' });
+    expect(appReducer(candu, { type: 'setLearnMode', mode: 'predict' })).toBe(candu);
   });
 });

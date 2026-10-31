@@ -22,6 +22,7 @@ export interface SourceDef {
 const NUCE = 'Nuc E 430 ders notları, Bölüm 2';
 
 export const SOURCES: readonly SourceDef[] = [
+  { id: 'nrc-bwr-flow', kind: 'web', title: 'U.S. NRC — Reactor Concepts (R-100) Training Course', locator: 'Boiling Water Reactor: recirculation, steam voids and power', url: 'https://www.nrc.gov/sites/default/files/doc_library/cdn/legacy/reading-rm/training/reactor-concepts-training-course.pdf' },
   { id: 'iaea-safety-functions', kind: 'web', title: 'IAEA BPTC — Module III: Basic principles of nuclear safety (2015)', locator: '§3 temel işlevler, s. 18–22; §4 derinliğine savunma, s. 23–33', url: 'https://gnssn.iaea.org/main/bptc/BPTC%20Module%20Documents/Module03%20Basic%20principles%20of%20nuclear%20safety.pdf' },
   { id: 'nrc-eccs', kind: 'web', title: 'U.S. NRC — Emergency core cooling systems (ECCS)', locator: 'Sözlük: ECCS işlevi ve bileşenleri', url: 'https://www.nrc.gov/education-regulatory-research/glossary/emergency-core-cooling-systems-eccs' },
   { id: 'cnsc-safety', kind: 'web', title: 'CNSC — Nuclear power plant safety systems', locator: 'Controlling the reactor; Cooling the fuel; Containing radioactive material (Kanada CANDU kapsamı)', url: 'https://www.cnsc-ccsn.gc.ca/eng/reactors/power-plants/nuclear-power-plant-safety-systems/index.cfm' },

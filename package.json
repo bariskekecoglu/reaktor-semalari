@@ -8,6 +8,7 @@
     "build": "tsc --noEmit && vite build",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
+    "test:offline": "npm run build && node scripts/check-offline.mjs",
     "preview": "vite preview",
     "kb:export": "vite-node scripts/export-knowledge.ts",
     "guide:export": "vite-node scripts/export-guide.ts"

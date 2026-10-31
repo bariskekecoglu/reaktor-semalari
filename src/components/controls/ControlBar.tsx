@@ -1,3 +1,4 @@
+import { t } from '../../i18n/locale';
 import { SPEEDS } from '../../simulation/clock';
 import { MAX_POWER, MIN_POWER } from '../../simulation/educationalModel';
 import { useModelSnapshot, usePlayback, useSimulation } from '../../hooks/useSimulation';
@@ -19,31 +20,28 @@ export function ControlBar({ power, onPower, onReset, learning, disabledScene, o
   const snap = useModelSnapshot(5);
 
   return (
-    <section className="controls" aria-label="Simülasyon kontrolleri">
+    <section className="controls" aria-label={t("Simülasyon kontrolleri")}>
       <div className="controls-main">
         <div className="ctrl-group ctrl-playback">
           <button type="button" className="primary play" aria-pressed={playing} onClick={() => (playing ? clock.pause() : clock.play())}>
-            {playing ? '❚❚ Duraklat' : '▶ Oynat'}
+            {t(playing ? '❚❚ Duraklat' : '▶ Oynat')}
           </button>
-          <button type="button" onClick={onReset} title="Modeli, grafiği ve sahneyi başlangıca döndürür">
-            ↺ Sıfırla
-          </button>
+          <button type="button" onClick={onReset} title={t("Modeli, grafiği ve sahneyi başlangıca döndürür")}>{t("↺ Sıfırla")}</button>
         </div>
 
-        <div className="ctrl-group ctrl-speed" role="group" aria-label="Animasyon hızı">
-          <span className="ctrl-label">Animasyon hızı</span>
+        <div className="ctrl-group ctrl-speed" role="group" aria-label={t("Animasyon hızı")}>
+          <span className="ctrl-label">{t("Animasyon hızı")}</span>
           <div className="seg small">
             {SPEEDS.map((s) => (
               <button key={s} type="button" className={speed === s ? 'on' : ''} aria-pressed={speed === s} onClick={() => clock.setSpeed(s)}>
-                {s}×
+                {t(s)}×
               </button>
             ))}
           </div>
         </div>
 
         <div className="ctrl-group power">
-          <label htmlFor="power" className="ctrl-label">
-            Eğitim senaryosu: göreli güç <output htmlFor="power">{pct(power)}</output>
+          <label htmlFor="power" className="ctrl-label">{t("Eğitim senaryosu: göreli güç ")}<output htmlFor="power">{t(pct(power))}</output>
           </label>
           <input
             id="power"
@@ -59,33 +57,30 @@ export function ControlBar({ power, onPower, onReset, learning, disabledScene, o
 
         <dl className="readouts" aria-live="off">
           <div>
-            <dt>Isıl güç</dt>
-            <dd>{pct(snap.thermal)}</dd>
+            <dt>{t("Isıl güç")}</dt>
+            <dd>{t(pct(snap.thermal))}</dd>
           </div>
           <div>
-            <dt>Elektrik</dt>
-            <dd>{pct(snap.electric)}</dd>
+            <dt>{t("Elektrik")}</dt>
+            <dd>{t(pct(snap.electric))}</dd>
           </div>
           <div>
-            <dt>Kontrol çubukları</dt>
-            <dd>{pct(snap.rodInsertion)} içeride</dd>
+            <dt>{t("Kontrol çubukları")}</dt>
+            <dd>{t(pct(snap.rodInsertion))}{t(" içeride")}</dd>
           </div>
           <div>
-            <dt>Türbin mili</dt>
-            <dd>senkron · sabit hız</dd>
+            <dt>{t("Türbin mili")}</dt>
+            <dd>{t("senkron · sabit hız")}</dd>
           </div>
         </dl>
 
         <div className="ctrl-group ctrl-learn">
           <button type="button" aria-pressed={learning} disabled={disabledScene} onClick={onToggleLearn}>
-            {learning ? 'Anlatımı kapat' : 'Adım adım anlatım'}
+            {t(learning ? 'Anlatımı kapat' : 'Adım adım anlatım')}
           </button>
         </div>
       </div>
-      <p className="ctrl-note">
-        Değerler nominal ısıl güce göre temsili oranlardır; gerçek kontrol paneli veya işletme prosedürü değildir. Çubuk konumu güçle birebir eşlenmez: güç değişirken
-        geçici olarak fazla hareket eder, sonra yeni dengeye oturur.
-      </p>
+      <p className="ctrl-note">{t("Değerler nominal ısıl güce göre temsili oranlardır; gerçek kontrol paneli veya işletme prosedürü değildir. Çubuk konumu güçle birebir eşlenmez: güç değişirken geçici olarak fazla hareket eder, sonra yeni dengeye oturur.")}</p>
     </section>
   );
 }

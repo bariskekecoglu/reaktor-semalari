@@ -1,3 +1,4 @@
+import { t } from '../i18n/locale';
 import { useState } from 'react';
 import type { ReactorId } from '../reactors/shared/types';
 import { reactors } from '../reactors/registry';
@@ -39,25 +40,22 @@ export function ProgressPanel({ progress, persistent, onResume, onOpenTour, onOp
   return (
     <section className="progress-panel" aria-labelledby="progress-title">
       <div className="progress-head">
-        <h2 id="progress-title">Öğrenme ilerlemem</h2>
+        <h2 id="progress-title">{t("Öğrenme ilerlemem")}</h2>
         <span className="progress-count">
-          {progress.completed.length}/{total} ders tamamlandı
-        </span>
+          {t(progress.completed.length)}/{t(total)}{t(" ders tamamlandı")}</span>
       </div>
       {last ? (
         <p className="progress-resume">
-          <span>Kaldığınız yer: {last}</span>
-          <button type="button" className="primary" onClick={onResume}>
-            Kaldığım yerden devam et
-          </button>
+          <span>{t("Kaldığınız yer: ")}{t(last)}</span>
+          <button type="button" className="primary" onClick={onResume}>{t("Kaldığım yerden devam et")}</button>
         </p>
       ) : (
-        <p className="progress-resume">Henüz kayıtlı ilerleme yok. Bir derse başlayınca burada görünür.</p>
+        <p className="progress-resume">{t("Henüz kayıtlı ilerleme yok. Bir derse başlayınca burada görünür.")}</p>
       )}
       <details>
-        <summary>Ayrıntılar</summary>
+        <summary>{t("Ayrıntılar")}</summary>
         <ul className="progress-list">
-          <li><span><strong>Çernobil kaza analizi</strong> — {progress.completed.includes('rbmk.chernobyl') ? 'tamamlandı ✓' : progress.chernobyl ? STAGES.find(s => s.id === progress.chernobyl)?.title : 'başlanmadı'}</span>{onOpenChernobyl && <button type="button" onClick={onOpenChernobyl}>Aç / devam et</button>}</li>
+          <li><span><strong>{t("Çernobil kaza analizi")}</strong> — {t(progress.completed.includes('rbmk.chernobyl') ? 'tamamlandı ✓' : progress.chernobyl ? STAGES.find(s => s.id === progress.chernobyl)?.title : 'başlanmadı')}</span>{onOpenChernobyl && <button type="button" onClick={onOpenChernobyl}>{t("Aç / devam et")}</button>}</li>
           {(Object.keys(reactors) as ReactorId[]).map((r) => {
             const steps = reactors[r].lessons;
             const at = steps.findIndex((s) => s.id === progress.tourSteps[r]);
@@ -65,11 +63,9 @@ export function ProgressPanel({ progress, persistent, onResume, onOpenTour, onOp
             return (
               <li key={r}>
                 <span>
-                  <strong>{NAME[r]} anlatımı</strong> — {done ? 'tamamlandı ✓' : at >= 0 ? `${at + 1}/${steps.length}. adım` : 'başlanmadı'}
+                  <strong>{t(NAME[r])}{t(" anlatımı")}</strong> — {t(done ? 'tamamlandı ✓' : at >= 0 ? `${at + 1}/${steps.length}. adım` : 'başlanmadı')}
                 </span>
-                <button type="button" onClick={() => onOpenTour(r)}>
-                  Aç
-                </button>
+                <button type="button" onClick={() => onOpenTour(r)}>{t("Aç")}</button>
               </li>
             );
           })}
@@ -84,27 +80,24 @@ export function ProgressPanel({ progress, persistent, onResume, onOpenTour, onOp
             return (
               <li key={l.id}>
                 <span>
-                  <strong>Tahmin dersi: {l.title}</strong> — {status}
+                  <strong>{t("Tahmin dersi: ")}{t(l.title)}</strong> — {t(status)}
                   {rec && (
                     <>
                       <br />
-                      <small>
-                        Tahmin: {rec.skipped && !choice ? 'atlandı' : choice ? `${choice.text} (${choice.correct ? 'doğru' : 'gözlemle uyumsuz'})` : 'henüz yok'}
+                      <small>{t("Tahmin: ")}{t(rec.skipped && !choice ? 'atlandı' : choice ? `${choice.text} (${choice.correct ? 'doğru' : 'gözlemle uyumsuz'})` : 'henüz yok')}
                       </small>
                     </>
                   )}
                 </span>
-                <button type="button" onClick={() => onOpenPredict(l.id)}>
-                  Aç
-                </button>
+                <button type="button" onClick={() => onOpenPredict(l.id)}>{t("Aç")}</button>
               </li>
             );
           })}
         </ul>
         <p className="progress-note">
-          {persistent
+          {t(persistent
             ? 'İlerleme yalnız bu cihaz ve tarayıcıda saklanır; hesap yoktur, başka cihaza aktarılmaz. Sohbetler ve serbest metin kaydedilmez.'
-            : 'Bu tarayıcıda depolama kullanılamıyor; ilerleme yalnız bu oturum boyunca bellekte tutulur.'}
+            : 'Bu tarayıcıda depolama kullanılamıyor; ilerleme yalnız bu oturum boyunca bellekte tutulur.')}
         </p>
         <div className="btn-row">
           {confirm ? (
@@ -116,20 +109,14 @@ export function ProgressPanel({ progress, persistent, onResume, onOpenTour, onOp
                   onReset();
                   setConfirm(false);
                 }}
-              >
-                Evet, ilerlemeyi sıfırla
-              </button>
-              <button type="button" onClick={() => setConfirm(false)}>
-                Vazgeç
-              </button>
+              >{t("Evet, ilerlemeyi sıfırla")}</button>
+              <button type="button" onClick={() => setConfirm(false)}>{t("Vazgeç")}</button>
             </>
           ) : (
-            <button type="button" onClick={() => setConfirm(true)} disabled={!progress.last && progress.completed.length === 0}>
-              İlerlemeyi sıfırla
-            </button>
+            <button type="button" onClick={() => setConfirm(true)} disabled={!progress.last && progress.completed.length === 0}>{t("İlerlemeyi sıfırla")}</button>
           )}
         </div>
-        <p className="progress-note">Sıfırlama yalnız öğrenme ilerlemesini siler; görünüm tercihiniz (Otomatik/Mobil/Masaüstü) korunur.</p>
+        <p className="progress-note">{t("Sıfırlama yalnız öğrenme ilerlemesini siler; görünüm tercihiniz (Otomatik/Mobil/Masaüstü) korunur.")}</p>
       </details>
     </section>
   );

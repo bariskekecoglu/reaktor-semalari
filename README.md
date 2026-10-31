@@ -9,6 +9,7 @@ npm install
 npm run dev        # geliştirme sunucusu (http://localhost:5173)
 npm run typecheck  # TypeScript strict tür kontrolü
 npm test           # Vitest birim testleri
+npm run test:offline # production build + çevrimdışı önbellek ve alt dizin kontrolleri
 npm run build      # tür kontrolü + production build (dist/)
 npm run preview    # build çıktısını yerelde sun
 npm run kb:export  # bilgi tabanını sunucu kopyasına aktar (server/knowledge.json)
@@ -16,6 +17,23 @@ npm run guide:export  # yerel soru-cevap kataloğunu docs/LOCAL_GUIDE_QUESTIONS.
 ```
 
 Ön yüz bağımlılıkları yalnızca `react`, `react-dom` ve geliştirme araçlarıdır (`vite`, `@vitejs/plugin-react`, `typescript`, `vitest`, tip paketleri). Yerel rehber için API anahtarı, ücretli servis veya ayrı sunucu gerekmez. Önceki `server/` denemesi korunmuştur ancak siteye bağlı değildir.
+
+## PWA, şema indirme ve TR / EN
+
+- PWA yalnız üretim çıktısında etkinleşir: `npm run build` ve `npm run preview`. Yayında HTTPS, yerelde localhost gerekir. Destekleyen tarayıcı kurulum olayı sunduğunda başlıkta **Uygulamayı yükle** düğmesi görünür; diğer tarayıcılarda kendi ana ekrana ekleme menüsü kullanılır.
+- **Çevrimdışı kullanıma hazır** yazısı göründükten sonra uygulama ve sonradan açılan ders modülleri çevrimdışı kullanılabilir. Dış kaynak bağlantıları ağ gerektirir. Yeni sürüm, eski uygulama pencereleri ve sekmeleri kapatıldıktan sonra etkinleşir. İlerleme kayıtları uygulama önbelleğinden ayrıdır.
+- Şema araç çubuğundaki **SVG indir / PNG indir**, yakınlaştırma ve kaydırmadan bağımsız olarak tam şemayı indirir. O anki etiket görünürlüğü, vurgu ve animasyon konumu korunur; PNG çözünürlüğü şema boyutunun iki katıdır. Bu çıktı tüm sayfanın veya ayrı yakın plan penceresinin görüntüsü değildir.
+- Başlıktaki **TR / EN** tercihi bu tarayıcıda saklanır. İngilizce kapsamı: ana gezinme, şema kontrolleri, ders akışı ve yeni BWR tahmin dersinin tamamı. Eski teknik açıklamalar, bazı şema metinleri, PWR ders içeriği ve yerel asistan henüz tamamen çevrilmiş değildir; İngilizce arayüz bu kapsamı açıkça belirtir. Çeviri sözlüğü `src/i18n/en.json` içindedir. Dil değiştirmek cevapları veya ilerlemeyi sıfırlamaz.
+
+## BWR güç kontrolü tahmin dersi
+
+**BWR → Öğrenme → Tahmin et → dene → açıkla** yolundan veya `#ders=bwr.predict.flow-control` bağlantısından açılır. Tahmin, kontrollü animasyon, gözlem, kaynaklı açıklama ve değerlendirme adımlarını içerir; PWR dersinden bağımsız ilerleme kaydeder.
+
+Negatif boşluk katsayılı ve kaynama olan bir BWR için debi artışının ilk boşluk azaltıcı etkisi ile sonraki güç/kaynama geri beslemesi ayrılır. Grafik boyutsuz bir neden–sonuç çizimidir; sayısal reaktör tahmini veya işletme prosedürü değildir. Dayanak: [NRC Reactor Concepts (R-100), BWR devridaim açıklaması](https://www.nrc.gov/sites/default/files/doc_library/cdn/legacy/reading-rm/training/reactor-concepts-training-course.pdf).
+
+Hızlı elle kontrol: üretim önizlemesinde BWR dersinde bir tahmin yapın, EN seçin ve cevabın korunduğunu doğrulayın. Şemaya dönüp SVG ve PNG indirin; dosyaları açarak renkleri, Türkçe karakterleri ve tam şema sınırlarını kontrol edin. Tarayıcıda çevrimdışı moda geçip sayfayı yenileyin ve daha önce açmadığınız işletme modülünü deneyin.
+
+Otomatik doğrulama: 824 birim testi ve üretilmiş service worker üzerinde çevrimdışı kontrol testi geçti. Bu geliştirme oturumunda tarayıcı bağlantı/URL doğrulama kısıtı nedeniyle gerçek PWA kurulumu ve SVG/PNG çıktılarının görsel doğrulaması tamamlanamadı.
 
 ## Asistan, tahmin dersi ve öğrenme ilerlemesi
 

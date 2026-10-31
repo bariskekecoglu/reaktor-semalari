@@ -1,3 +1,4 @@
+import { t } from '../../i18n/locale';
 import { createContext, useContext, useLayoutEffect, useRef, useState, type KeyboardEvent, type ReactNode } from 'react';
 
 export interface SceneContextValue {
@@ -71,9 +72,9 @@ export function Hotspot({ id, children, pad = 6, hit = true, contains }: Hotspot
       }}
       onKeyDown={onKey}
     >
-      <title>{name}</title>
+      <title>{t(name)}</title>
       {box && hit && <rect className="hs-hit" x={box.x} y={box.y} width={box.w} height={box.h} rx={6} />}
-      <g ref={inner}>{children}</g>
+      <g ref={inner}>{t(children)}</g>
       {box && <rect className="hs-frame" x={box.x} y={box.y} width={box.w} height={box.h} rx={6} />}
     </g>
   );
@@ -113,13 +114,13 @@ export function Label({ x, y, tx, ty, text, sub, anchor = 'start', level = 'main
       <text x={tx} y={ty + 10} textAnchor={anchor} className="label-text">
         {lines.map((l, i) => (
           <tspan key={i} x={tx} dy={i === 0 ? 0 : LINE}>
-            {l}
+            {t(l)}
           </tspan>
         ))}
       </text>
       {sub && (
         <text x={tx} y={ty + 26 + (lines.length - 1) * LINE} textAnchor={anchor} className="label-sub">
-          {sub}
+          {t(sub)}
         </text>
       )}
     </g>
@@ -134,7 +135,7 @@ export function SceneNote({ x, y, w, lines }: { x: number; y: number; w: number;
       <rect x={x} y={y} width={w} height={h} rx={4} />
       {lines.map((l, i) => (
         <text key={i} x={x + 10} y={y + 22 + i * 18}>
-          {l}
+          {t(l)}
         </text>
       ))}
     </g>

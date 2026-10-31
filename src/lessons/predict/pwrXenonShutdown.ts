@@ -1,4 +1,5 @@
 import type { PredictLesson } from './types';
+import { BWR_FLOW } from './bwrFlow';
 
 /**
  * PWR pilot dersi: kapatmadan sonra ksenon-135.
@@ -91,7 +92,7 @@ export const PWR_XENON_SHUTDOWN: PredictLesson = {
   ],
 };
 
-export const PREDICT_LESSONS = [PWR_XENON_SHUTDOWN] as const;
+export const PREDICT_LESSONS = [PWR_XENON_SHUTDOWN, BWR_FLOW] as const;
 
 export function getPredictLesson(id: string) {
   return PREDICT_LESSONS.find((l) => l.id === id);

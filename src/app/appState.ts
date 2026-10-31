@@ -124,7 +124,7 @@ export function appReducer(state: AppState, action: AppAction): AppState {
         rbmkView: 'plant',
         chernobylStage: 'conditions',
         opsFocus: null,
-        learnMode: action.reactor === 'pwr' ? state.learnMode : 'tour',
+        learnMode: (action.reactor === 'pwr' || action.reactor === 'bwr') ? state.learnMode : 'tour',
         assistantHL: state.assistantHL?.reactor === action.reactor ? state.assistantHL : null,
       };
     case 'setView':
@@ -174,7 +174,7 @@ export function appReducer(state: AppState, action: AppAction): AppState {
       if (state.reactor !== 'pwr') return state;
       return { ...state, safetyTopic: null, view: 'scheme', pwrView: 'ops', opsSection: 'xenon', opsFocus: { eventId: action.eventId, nonce: (state.opsFocus?.nonce ?? 0) + 1 } };
     case 'setLearnMode':
-      if (action.mode === 'predict' && state.reactor !== 'pwr') return state;
+      if (action.mode === 'predict' && state.reactor !== 'pwr' && state.reactor !== 'bwr') return state;
       return { ...state, safetyTopic: null, view: 'learn', learnMode: action.mode, selected: null, focus: null, detail: null, pwrView: 'plant', rbmkView: 'plant' };
     case 'assistantHighlight':
       return { ...state, assistantHL: action.hl, ...(action.hl ? { selected: null, focus: null } : {}) };

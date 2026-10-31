@@ -1,3 +1,4 @@
+import { t } from '../../i18n/locale';
 import { useEffect, useRef } from 'react';
 import type { LessonStep } from '../../reactors/shared/types';
 
@@ -19,33 +20,27 @@ export function LessonPanel({ lessons, step, reactorName, onStep, onExit }: Prop
   return (
     <div className="side-panel lesson">
       <p className="eyebrow">
-        {reactorName} · adım adım anlatım · {step + 1}/{lessons.length}
+        {t(reactorName)}{t(" · adım adım anlatım · ")}{t(step + 1)}/{t(lessons.length)}
       </p>
-      <ol className="steps" aria-label="Ders adımları">
+      <ol className="steps" aria-label={t("Ders adımları")}>
         {lessons.map((l, i) => (
           <li key={l.title}>
             <button type="button" className={i === step ? 'on' : i < step ? 'done' : ''} aria-current={i === step ? 'step' : undefined} onClick={() => onStep(i)} title={l.title}>
-              {i + 1}
+              {t(i + 1)}
             </button>
           </li>
         ))}
       </ol>
       <h3 ref={headRef} tabIndex={-1}>
-        {lesson.title}
+        {t(lesson.title)}
       </h3>
-      <p>{lesson.text}</p>
-      <p className="hint">İlgili bölümler şemada kesikli çerçeve ve kalın çizgiyle vurgulanır; diğerleri soluklaşır.</p>
+      <p>{t(lesson.text)}</p>
+      <p className="hint">{t("İlgili bölümler şemada kesikli çerçeve ve kalın çizgiyle vurgulanır; diğerleri soluklaşır.")}</p>
       <div className="btn-row">
-        <button type="button" onClick={() => onStep(step - 1)} disabled={step === 0}>
-          ← Önceki
-        </button>
-        <button type="button" className="primary" onClick={() => onStep(step + 1)} disabled={step === lessons.length - 1}>
-          Sonraki →
-        </button>
+        <button type="button" onClick={() => onStep(step - 1)} disabled={step === 0}>{t("← Önceki")}</button>
+        <button type="button" className="primary" onClick={() => onStep(step + 1)} disabled={step === lessons.length - 1}>{t("Sonraki →")}</button>
       </div>
-      <button type="button" className="link" onClick={onExit}>
-        Şema görünümüne dön
-      </button>
+      <button type="button" className="link" onClick={onExit}>{t("Şema görünümüne dön")}</button>
     </div>
   );
 }

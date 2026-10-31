@@ -2,6 +2,12 @@
  "version": 1,
  "sources": [
   {
+   "id": "nrc-bwr-flow",
+   "kind": "web",
+   "title": "U.S. NRC — Reactor Concepts (R-100) Training Course",
+   "locator": "Boiling Water Reactor: recirculation, steam voids and power"
+  },
+  {
    "id": "iaea-safety-functions",
    "kind": "web",
    "title": "IAEA BPTC — Module III: Basic principles of nuclear safety (2015)",
@@ -4241,6 +4247,23 @@
     {
      "type": "openLesson",
      "lessonId": "pwr.predict.xenon-shutdown"
+    }
+   ]
+  },
+  {
+   "id": "bwr.predict.flow-control",
+   "reactorId": "bwr",
+   "kind": "predict",
+   "name": "Tahmin dersi · Devridaim debisi artarsa güç ne yapar?",
+   "summary": "Negatif boşluk katsayılı bir BWR’de debi, moderasyon ve güç ilişkisini açıklayabilmek.",
+   "body": null,
+   "sourceIds": [
+    "nrc-bwr-flow"
+   ],
+   "targets": [
+    {
+     "type": "openLesson",
+     "lessonId": "bwr.predict.flow-control"
     }
    ]
   },
