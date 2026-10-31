@@ -3,17 +3,21 @@
 .ops {
   background: var(--paper);
   border: 1px solid var(--rule);
-  border-radius: 8px;
-  padding: 12px;
+  border-radius: var(--radius-lg, 14px);
+  padding: 16px 18px;
+  box-shadow: var(--shadow-sm);
 }
 .ops-intro p {
-  margin: 0 0 10px;
-  max-width: 1000px;
+  margin: 0 0 12px;
+  max-width: 105ch;
+  color: var(--ink-soft);
+  line-height: 1.5;
 }
 .src-badge,
 .src-kind {
   display: inline-block;
   font-size: 0.74rem;
+  font-weight: 600;
   padding: 1px 6px;
   border-radius: 4px;
   border: 1px solid;
@@ -28,13 +32,13 @@
 .src-badge.figure,
 .src-figure .src-kind {
   border-color: #8a6a1e;
-  color: #6b4f10;
+  color: #5c4309;
   background: #fbf1d8;
 }
 .src-badge.model,
 .src-model .src-kind {
   border-color: #6b4a7d;
-  color: #533a63;
+  color: #492d59;
   background: #f1e9f6;
   border-style: dashed;
 }
@@ -42,10 +46,10 @@
 .ops-tabs {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 8px;
   border-bottom: 1px solid var(--rule);
-  padding-bottom: 8px;
-  margin-bottom: 12px;
+  padding-bottom: 10px;
+  margin-bottom: 14px;
 }
 .ops-tabs button {
   display: flex;
@@ -53,15 +57,27 @@
   align-items: flex-start;
   text-align: left;
   min-height: 44px;
+  padding: 7px 12px;
+  background: var(--surface-subtle, #f5f8fa);
+  border-color: var(--rule);
+  border-radius: var(--radius-md, 10px);
+}
+.ops-tabs button:hover:not(:disabled) {
+  background: var(--surface-accent, #e1f2f2);
+  border-color: var(--accent-border, #559ea1);
+}
+.ops-tabs button span {
+  font-weight: 650;
 }
 .ops-tabs button small {
   font-size: 0.72rem;
-  opacity: 0.8;
+  opacity: 0.85;
 }
 .ops-tabs button[aria-selected='true'] {
   background: var(--accent);
   color: #fff;
   border-color: var(--accent);
+  box-shadow: var(--shadow-xs);
 }
 
 .ops-section {
@@ -211,9 +227,9 @@
   height: auto;
   display: block;
   font-family: var(--font-tech);
-  background: #fdfcf8;
+  background: #ffffff;
   border: 1px solid var(--rule);
-  border-radius: 6px;
+  border-radius: var(--radius-md, 10px);
 }
 .mp-pipe {
   fill: none;
@@ -407,9 +423,9 @@
 }
 .ops-bar {
   height: 16px;
-  background: #ece8de;
+  background: var(--surface-muted, #e5edf2);
   border: 1px solid var(--rule);
-  border-radius: 3px;
+  border-radius: 4px;
   overflow: hidden;
 }
 .ops-bar .fill {
@@ -446,10 +462,10 @@
   fill: var(--ink);
 }
 .ops-grid {
-  stroke: #e4dfd3;
+  stroke: #d7e2e9;
 }
 .ops-grid.light {
-  stroke: #efebe2;
+  stroke: #e7eff4;
 }
 .ops-axis {
   stroke: var(--line);

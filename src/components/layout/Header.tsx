@@ -31,28 +31,34 @@ export function Header({ reactor, config, view, onReactor, onView, assistantOpen
     <header className="header">
       <div className="title-row">
         <div className="brand">
-          <p className="brand-kicker"><span aria-hidden="true">◈</span> ETKİLEŞİMLİ ÖĞRENME LABORATUVARI</p>
+          <div className="brand-top">
+            <p className="brand-kicker"><span aria-hidden="true">◈</span> ETKİLEŞİMLİ ÖĞRENME LABORATUVARI</p>
+            <div className="author">
+              <span className="author-name">Barış Kekeçoğlu</span>
+              <span className="author-sep" aria-hidden="true">·</span>
+              <span className="author-field">Nükleer Mühendislik</span>
+              <span className="author-sep" aria-hidden="true">·</span>
+              <a className="author-link" href="https://www.linkedin.com/in/bariskekecoglu" target="_blank" rel="noopener noreferrer">
+                linkedin.com/in/bariskekecoglu
+              </a>
+            </div>
+          </div>
           <h1>Nükleer Santral Şemaları</h1>
           <p className="subtitle">PWR · BWR · VVER · RBMK · CANDU — normal çalışma prensipleri, temsili ve ölçeksiz</p>
-          <div className="author">
-            <p className="author-name">Barış Kekeçoğlu</p>
-            <p className="author-field">Nükleer Mühendislik</p>
-            <a className="author-link" href="https://www.linkedin.com/in/bariskekecoglu" target="_blank" rel="noopener noreferrer">
-              www.linkedin.com/in/bariskekecoglu
-            </a>
-          </div>
         </div>
         <div className="header-controls">
-          <nav className="seg content-seg" aria-label="İçerik">
-            {VIEWS.map((v) => (
-              <button key={v.id} type="button" className={view === v.id ? 'on' : ''} aria-pressed={view === v.id} onClick={() => onView(v.id)}>
-                {v.label}
-              </button>
-            ))}
-          </nav>
-          <button type="button" id="assistant-toggle" className="assistant-toggle" aria-expanded={assistantOpen} aria-controls="assistant-panel" onClick={onAssistant}>
-            <span aria-hidden="true">✦</span> Asistan
-          </button>
+          <div className="header-nav-row">
+            <nav className="seg content-seg" aria-label="İçerik">
+              {VIEWS.map((v) => (
+                <button key={v.id} type="button" className={view === v.id ? 'on' : ''} aria-pressed={view === v.id} onClick={() => onView(v.id)}>
+                  {v.label}
+                </button>
+              ))}
+            </nav>
+            <button type="button" id="assistant-toggle" className="assistant-toggle" aria-expanded={assistantOpen} aria-controls="assistant-panel" onClick={onAssistant}>
+              <span aria-hidden="true">✦</span> Asistan
+            </button>
+          </div>
           {/* Yerleşim tercihi: içerik seçiminden ayrıdır; reaktörü veya dersi değiştirmez. */}
           <div className="layout-pref" role="group" aria-labelledby="layout-pref-label">
             <label id="layout-pref-label" htmlFor="layout-choice" className="layout-pref-label">
@@ -84,6 +90,7 @@ export function Header({ reactor, config, view, onReactor, onView, assistantOpen
           {narrow ? (
             <details className="reactor-summary compact">
               <summary>
+                <span className="family-pill">{config.shortName}</span>
                 <strong>{config.fullName}</strong>
               </summary>
               <p className="family">{config.family}</p>
@@ -91,8 +98,10 @@ export function Header({ reactor, config, view, onReactor, onView, assistantOpen
             </details>
           ) : (
             <div className="reactor-summary">
-              <h2>{config.fullName}</h2>
-              <p className="family">{config.family}</p>
+              <div className="reactor-summary-head">
+                <h2>{config.fullName}</h2>
+                <span className="family">{config.family}</span>
+              </div>
               <p>{config.summary}</p>
             </div>
           )}

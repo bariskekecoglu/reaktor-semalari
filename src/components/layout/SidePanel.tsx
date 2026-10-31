@@ -12,11 +12,12 @@ interface Props {
 export function SidePanel({ config, selected, focus, onFocus, onSelect, onDetail }: Props) {
   const comp = selected ? config.components.find((c) => c.id === selected) : null;
   const action = focus ? config.focusActions.find((a) => a.id === focus) : null;
+  const relatedComps = comp ? comp.related.filter((r) => !r.startsWith('f-')) : [];
 
   return (
     <div className="side-panel" aria-live="polite">
       {comp ? (
-        <div className="info">
+        <div className="info info-card is-active">
           <p className="eyebrow">Seçili ekipman · {config.shortName}</p>
           <h3 id="side-info-title" tabIndex={-1}>
             {comp.name}
@@ -24,19 +25,17 @@ export function SidePanel({ config, selected, focus, onFocus, onSelect, onDetail
           <p className="role">{comp.role}</p>
           <h4>Bu reaktörde nasıl çalışır?</h4>
           <p>{comp.how}</p>
-          {comp.related.length > 0 && (
+          {relatedComps.length > 0 && (
             <>
               <h4>Bağlantılı bölümler (şemada vurgulandı)</h4>
               <ul className="chips">
-                {comp.related
-                  .filter((r) => !r.startsWith('f-'))
-                  .map((r) => (
-                    <li key={r}>
-                      <button type="button" onClick={() => onSelect(r)}>
-                        {config.components.find((c) => c.id === r)?.name ?? r}
-                      </button>
-                    </li>
-                  ))}
+                {relatedComps.map((r) => (
+                  <li key={r}>
+                    <button type="button" onClick={() => onSelect(r)}>
+                      {config.components.find((c) => c.id === r)?.name ?? r}
+                    </button>
+                  </li>
+                ))}
               </ul>
             </>
           )}
@@ -52,7 +51,7 @@ export function SidePanel({ config, selected, focus, onFocus, onSelect, onDetail
           </div>
         </div>
       ) : action ? (
-        <div className="info">
+        <div className="info info-card is-active">
           <p className="eyebrow">{config.shortName} · odak</p>
           <h3>{action.label}</h3>
           <p>{action.text}</p>
@@ -68,7 +67,7 @@ export function SidePanel({ config, selected, focus, onFocus, onSelect, onDetail
           </div>
         </div>
       ) : (
-        <div className="info">
+        <div className="info info-card is-empty">
           <p className="eyebrow">{config.shortName}</p>
           <h3>Ekipman seçin</h3>
           <p>Şemadaki bir ekipmana tıklayın ya da Tab ile odaklanıp Enter’a basın. Görevi, bu reaktörde nasıl çalıştığı ve bağlantılı hatlar burada gösterilir.</p>
@@ -88,7 +87,7 @@ export function SidePanel({ config, selected, focus, onFocus, onSelect, onDetail
         </ul>
       </div>
       <div className="focus-list">
-        <h4>Tüm ekipmanlar</h4>
+        <h4>Tüm ekipmanlar ({config.components.length})</h4>
         <ul className="chips">
           {config.components.map((c) => (
             <li key={c.id}>

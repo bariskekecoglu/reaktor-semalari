@@ -68,54 +68,60 @@ export function SceneViewport({ children, notes, showLabels, showFlow, coreOpen,
   return (
     <div className="viewport">
       <div className="viewport-toolbar" role="toolbar" aria-label="Şema görünümü">
-        <button type="button" onClick={() => setZoom(zoomIdx - 1)} disabled={fit || zoomIdx === 0} aria-label="Uzaklaştır">
-          −
-        </button>
-        <span className="zoom-readout" aria-live="polite">
-          {fit ? 'Sığdırıldı' : `%${Math.round(zoom * 100)}`}
-        </span>
-        <button type="button" onClick={() => setZoom(fit ? 0 : zoomIdx + 1)} disabled={!fit && zoomIdx === ZOOMS.length - 1} aria-label="Yakınlaştır">
-          +
-        </button>
-        <button
-          type="button"
-          onClick={() => {
-            setFit(true);
-            setZoomIdx(0);
-            scroller.current?.scrollTo({ left: 0, top: 0 });
-          }}
-          aria-pressed={fit}
-        >
-          Sığdır
-        </button>
-        <button
-          type="button"
-          onClick={() => {
-            setFit(false);
-            setZoomIdx(0);
-            scroller.current?.scrollTo({ left: 0, top: 0 });
-          }}
-        >
-          Görünümü sıfırla
-        </button>
+        <div className="tb-group">
+          <div className="zoom-cluster">
+            <button type="button" onClick={() => setZoom(zoomIdx - 1)} disabled={fit || zoomIdx === 0} aria-label="Uzaklaştır">
+              −
+            </button>
+            <span className="zoom-readout" aria-live="polite">
+              {fit ? 'Sığdırıldı' : `%${Math.round(zoom * 100)}`}
+            </span>
+            <button type="button" onClick={() => setZoom(fit ? 0 : zoomIdx + 1)} disabled={!fit && zoomIdx === ZOOMS.length - 1} aria-label="Yakınlaştır">
+              +
+            </button>
+          </div>
+          <button
+            type="button"
+            onClick={() => {
+              setFit(true);
+              setZoomIdx(0);
+              scroller.current?.scrollTo({ left: 0, top: 0 });
+            }}
+            aria-pressed={fit}
+          >
+            Sığdır
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setFit(false);
+              setZoomIdx(0);
+              scroller.current?.scrollTo({ left: 0, top: 0 });
+            }}
+          >
+            Görünümü sıfırla
+          </button>
+        </div>
         <span className="tb-sep" aria-hidden="true" />
-        <button type="button" aria-pressed={showLabels} onClick={onToggleLabels}>
-          Etiketler
-        </button>
-        <span className="lod-seg" role="group" aria-label="Etiket ayrıntısı">
-          <button type="button" aria-pressed={labelDetail === 'basic'} disabled={!showLabels} onClick={() => onLabelDetail('basic')}>
-            Temel
+        <div className="tb-group">
+          <button type="button" aria-pressed={showLabels} onClick={onToggleLabels}>
+            Etiketler
           </button>
-          <button type="button" aria-pressed={labelDetail === 'detailed'} disabled={!showLabels} onClick={() => onLabelDetail('detailed')}>
-            Ayrıntılı
+          <span className="lod-seg" role="group" aria-label="Etiket ayrıntısı">
+            <button type="button" aria-pressed={labelDetail === 'basic'} disabled={!showLabels} onClick={() => onLabelDetail('basic')}>
+              Temel
+            </button>
+            <button type="button" aria-pressed={labelDetail === 'detailed'} disabled={!showLabels} onClick={() => onLabelDetail('detailed')}>
+              Ayrıntılı
+            </button>
+          </span>
+          <button type="button" aria-pressed={showFlow} onClick={onToggleFlow}>
+            Akış işaretleri
           </button>
-        </span>
-        <button type="button" aria-pressed={showFlow} onClick={onToggleFlow}>
-          Akış işaretleri
-        </button>
-        <button type="button" aria-pressed={coreOpen} onClick={onToggleCore}>
-          Çekirdek yakın planı
-        </button>
+          <button type="button" aria-pressed={coreOpen} onClick={onToggleCore}>
+            Çekirdek yakın planı
+          </button>
+        </div>
       </div>
       {selectedName && (
         <p className="scene-selected" role="status">
@@ -152,7 +158,7 @@ export function SceneViewport({ children, notes, showLabels, showFlow, coreOpen,
         {notes.map((n) => (
           <p key={n}>{n}</p>
         ))}
-        <p>+ ile büyütün (%150 ve üstünde alt bileşen etiketleri açılır) · Kaydırarak veya fareyle sürükleyerek gezinin · Ekipman seçmek için dokunun ya da Tab ve Enter kullanın.</p>
+        <p className="scene-help">+ ile büyütün (%150 ve üstünde alt bileşen etiketleri açılır) · Kaydırarak veya fareyle sürükleyerek gezinin · Ekipman seçmek için dokunun ya da Tab ve Enter kullanın.</p>
       </div>
     </div>
   );

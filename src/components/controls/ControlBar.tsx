@@ -20,65 +20,67 @@ export function ControlBar({ power, onPower, onReset, learning, disabledScene, o
 
   return (
     <section className="controls" aria-label="Simülasyon kontrolleri">
-      <div className="ctrl-group">
-        <button type="button" className="primary play" aria-pressed={playing} onClick={() => (playing ? clock.pause() : clock.play())}>
-          {playing ? '❚❚ Duraklat' : '▶ Oynat'}
-        </button>
-        <button type="button" onClick={onReset} title="Modeli, grafiği ve sahneyi başlangıca döndürür">
-          ↺ Sıfırla
-        </button>
-      </div>
+      <div className="controls-main">
+        <div className="ctrl-group ctrl-playback">
+          <button type="button" className="primary play" aria-pressed={playing} onClick={() => (playing ? clock.pause() : clock.play())}>
+            {playing ? '❚❚ Duraklat' : '▶ Oynat'}
+          </button>
+          <button type="button" onClick={onReset} title="Modeli, grafiği ve sahneyi başlangıca döndürür">
+            ↺ Sıfırla
+          </button>
+        </div>
 
-      <div className="ctrl-group" role="group" aria-label="Animasyon hızı">
-        <span className="ctrl-label">Animasyon hızı</span>
-        <div className="seg small">
-          {SPEEDS.map((s) => (
-            <button key={s} type="button" className={speed === s ? 'on' : ''} aria-pressed={speed === s} onClick={() => clock.setSpeed(s)}>
-              {s}×
-            </button>
-          ))}
+        <div className="ctrl-group ctrl-speed" role="group" aria-label="Animasyon hızı">
+          <span className="ctrl-label">Animasyon hızı</span>
+          <div className="seg small">
+            {SPEEDS.map((s) => (
+              <button key={s} type="button" className={speed === s ? 'on' : ''} aria-pressed={speed === s} onClick={() => clock.setSpeed(s)}>
+                {s}×
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
 
-      <div className="ctrl-group power">
-        <label htmlFor="power" className="ctrl-label">
-          Eğitim senaryosu: göreli güç <output htmlFor="power">{pct(power)}</output>
-        </label>
-        <input
-          id="power"
-          type="range"
-          min={MIN_POWER * 100}
-          max={MAX_POWER * 100}
-          step={5}
-          value={Math.round(power * 100)}
-          onChange={(e) => onPower(Number(e.target.value) / 100)}
-          aria-valuetext={`yüzde ${Math.round(power * 100)}`}
-        />
-      </div>
+        <div className="ctrl-group power">
+          <label htmlFor="power" className="ctrl-label">
+            Eğitim senaryosu: göreli güç <output htmlFor="power">{pct(power)}</output>
+          </label>
+          <input
+            id="power"
+            type="range"
+            min={MIN_POWER * 100}
+            max={MAX_POWER * 100}
+            step={5}
+            value={Math.round(power * 100)}
+            onChange={(e) => onPower(Number(e.target.value) / 100)}
+            aria-valuetext={`yüzde ${Math.round(power * 100)}`}
+          />
+        </div>
 
-      <dl className="readouts" aria-live="off">
-        <div>
-          <dt>Isıl güç</dt>
-          <dd>{pct(snap.thermal)}</dd>
-        </div>
-        <div>
-          <dt>Elektrik</dt>
-          <dd>{pct(snap.electric)}</dd>
-        </div>
-        <div>
-          <dt>Kontrol çubukları</dt>
-          <dd>{pct(snap.rodInsertion)} içeride</dd>
-        </div>
-        <div>
-          <dt>Türbin mili</dt>
-          <dd>senkron · sabit hız</dd>
-        </div>
-      </dl>
+        <dl className="readouts" aria-live="off">
+          <div>
+            <dt>Isıl güç</dt>
+            <dd>{pct(snap.thermal)}</dd>
+          </div>
+          <div>
+            <dt>Elektrik</dt>
+            <dd>{pct(snap.electric)}</dd>
+          </div>
+          <div>
+            <dt>Kontrol çubukları</dt>
+            <dd>{pct(snap.rodInsertion)} içeride</dd>
+          </div>
+          <div>
+            <dt>Türbin mili</dt>
+            <dd>senkron · sabit hız</dd>
+          </div>
+        </dl>
 
-      <div className="ctrl-group">
-        <button type="button" aria-pressed={learning} disabled={disabledScene} onClick={onToggleLearn}>
-          {learning ? 'Anlatımı kapat' : 'Adım adım anlatım'}
-        </button>
+        <div className="ctrl-group ctrl-learn">
+          <button type="button" aria-pressed={learning} disabled={disabledScene} onClick={onToggleLearn}>
+            {learning ? 'Anlatımı kapat' : 'Adım adım anlatım'}
+          </button>
+        </div>
       </div>
       <p className="ctrl-note">
         Değerler nominal ısıl güce göre temsili oranlardır; gerçek kontrol paneli veya işletme prosedürü değildir. Çubuk konumu güçle birebir eşlenmez: güç değişirken

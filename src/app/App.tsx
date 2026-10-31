@@ -296,6 +296,11 @@ export function App() {
     .filter(Boolean)
     .join(' · ');
 
+  const hasSubviews =
+    (isPwr && state.view !== 'compare' && !showPredict) ||
+    (isPwr && state.view === 'learn') ||
+    (state.reactor === 'rbmk' && state.view !== 'compare');
+
   return (
     <SimulationContext.Provider value={{ clock, model, reducedMotion }}>
       <ViewLayoutContext.Provider value={viewLayout}>
@@ -315,32 +320,50 @@ export function App() {
           </p>
         )}
 
-        {isPwr && state.view !== 'compare' && !showPredict && (
-          <nav className="seg subview" aria-label="PWR görünümü">
-            <button type="button" aria-pressed={!showOps} className={!showOps ? 'on' : ''} onClick={() => dispatch({ type: 'setPwrView', view: 'plant' })}>
-              Santral şeması
-            </button>
-            <button type="button" aria-pressed={showOps} className={showOps ? 'on' : ''} onClick={() => dispatch({ type: 'setPwrView', view: 'ops' })}>
-              İşletme ve davranış
-            </button>
-          </nav>
-        )}
+        {(hasSubviews || state.view !== 'compare') && (
+          <div className="workspace-bar">
+            {hasSubviews && (
+              <div className="subview-cluster">
+                {isPwr && state.view !== 'compare' && !showPredict && (
+                  <nav className="seg subview" aria-label="PWR görünümü">
+                    <button type="button" aria-pressed={!showOps} className={!showOps ? 'on' : ''} onClick={() => dispatch({ type: 'setPwrView', view: 'plant' })}>
+                      Santral şeması
+                    </button>
+                    <button type="button" aria-pressed={showOps} className={showOps ? 'on' : ''} onClick={() => dispatch({ type: 'setPwrView', view: 'ops' })}>
+                      İşletme ve davranış
+                    </button>
+                  </nav>
+                )}
 
-        {isPwr && state.view === 'learn' && (
-          <nav className="seg subview" aria-label="Öğrenme türü">
-            <button type="button" aria-pressed={state.learnMode === 'tour'} className={state.learnMode === 'tour' ? 'on' : ''} onClick={() => dispatch({ type: 'setLearnMode', mode: 'tour' })}>
-              Adım adım anlatım
-            </button>
-            <button type="button" aria-pressed={state.learnMode === 'predict'} className={state.learnMode === 'predict' ? 'on' : ''} onClick={() => dispatch({ type: 'setLearnMode', mode: 'predict' })}>
-              Tahmin et → dene → açıkla
-            </button>
-          </nav>
-        )}
+                {isPwr && state.view === 'learn' && (
+                  <nav className="seg subview" aria-label="Öğrenme türü">
+                    <button type="button" aria-pressed={state.learnMode === 'tour'} className={state.learnMode === 'tour' ? 'on' : ''} onClick={() => dispatch({ type: 'setLearnMode', mode: 'tour' })}>
+                      Adım adım anlatım
+                    </button>
+                    <button type="button" aria-pressed={state.learnMode === 'predict'} className={state.learnMode === 'predict' ? 'on' : ''} onClick={() => dispatch({ type: 'setLearnMode', mode: 'predict' })}>
+                      Tahmin et → dene → açıkla
+                    </button>
+                  </nav>
+                )}
 
-        {state.reactor === 'rbmk' && state.view !== 'compare' && <nav className="seg subview" aria-label="RBMK görünümü">
-          <button type="button" aria-pressed={!showChernobyl} className={!showChernobyl ? 'on' : ''} onClick={() => dispatch({ type: 'setRbmkView', view: 'plant' })}>Santral şeması</button>
-          <button type="button" aria-pressed={showChernobyl} className={showChernobyl ? 'on' : ''} onClick={() => openChernobyl(progressApi.progress.chernobyl ?? 'conditions')}>Çernobil 1986 — Kaza analizi</button>
-        </nav>}
+                {state.reactor === 'rbmk' && state.view !== 'compare' && (
+                  <nav className="seg subview" aria-label="RBMK görünümü">
+                    <button type="button" aria-pressed={!showChernobyl} className={!showChernobyl ? 'on' : ''} onClick={() => dispatch({ type: 'setRbmkView', view: 'plant' })}>
+                      Santral şeması
+                    </button>
+                    <button type="button" aria-pressed={showChernobyl} className={showChernobyl ? 'on' : ''} onClick={() => openChernobyl(progressApi.progress.chernobyl ?? 'conditions')}>
+                      Çernobil 1986 — Kaza analizi
+                    </button>
+                  </nav>
+                )}
+              </div>
+            )}
+            <p className="location-crumb" aria-live="polite">
+              <span className="crumb-dot" aria-hidden="true" />
+              <span>{contextLabel}</span>
+            </p>
+          </div>
+        )}
 
         {state.view === 'learn' && (
           <ProgressPanel
@@ -433,18 +456,27 @@ export function App() {
               {/* Dar ekranda yan panel aşağıda kalır; seçim şemanın hemen altında özetlenir. */}
               {viewLayout.layout === 'narrow' && selectedComp && (
                 <div className="selection-bar" role="status">
-                  <strong>{selectedComp.name}</strong>
-                  <span className="role">{selectedComp.role}</span>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const el = document.getElementById('side-info-title');
-                      el?.scrollIntoView({ block: 'start' });
-                      el?.focus({ preventScroll: true });
-                    }}
-                  >
-                    Ayrıntılar ↓
-                  </button>
+                  <div className="selection-bar-text">
+                    <strong>{selectedComp.name}</strong>
+                    <span className="role">{selectedComp.role}</span>
+                  </div>
+                  <div className="selection-bar-actions">
+                    {selectedComp.detail && (
+                      <button type="button" className="primary" onClick={() => dispatch({ type: 'openDetail', key: selectedComp.detail! })}>
+                        Yakın planı aç
+                      </button>
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const el = document.getElementById('side-info-title');
+                        el?.scrollIntoView({ block: 'start' });
+                        el?.focus({ preventScroll: true });
+                      }}
+                    >
+                      Ayrıntılar ↓
+                    </button>
+                  </div>
                 </div>
               )}
               {state.detail && (
@@ -501,10 +533,12 @@ export function App() {
             <section className="panels" aria-label="Göstergeler">
               <div className="panel">
                 <h2>Enerji dönüşümü</h2>
+                {viewLayout.layout === 'narrow' && <p className="scroll-hint">↔ Grafiğin tamamını görmek için yana kaydırabilirsiniz.</p>}
                 <EnergyFlow reactor={state.reactor} />
               </div>
               <div className="panel">
                 <h2>Zaman grafiği · son 60 simülasyon saniyesi</h2>
+                {viewLayout.layout === 'narrow' && <p className="scroll-hint">↔ Grafiğin tamamını görmek için yana kaydırabilirsiniz.</p>}
                 <TimeChart key={state.sceneEpoch} />
               </div>
               {state.coreOpen && state.view !== 'compare' && (
