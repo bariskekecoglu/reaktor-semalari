@@ -22,9 +22,11 @@ interface Props {
   onView: (v: ViewMode) => void;
   assistantOpen: boolean;
   onAssistant: () => void;
+  safetyOpen: boolean;
+  onSafety: () => void;
 }
 
-export function Header({ reactor, config, view, onReactor, onView, assistantOpen, onAssistant }: Props) {
+export function Header({ reactor, config, view, onReactor, onView, assistantOpen, onAssistant, safetyOpen, onSafety }: Props) {
   const { preference, layout, setPreference } = useViewLayout();
   const narrow = layout === 'narrow';
   return (
@@ -55,6 +57,7 @@ export function Header({ reactor, config, view, onReactor, onView, assistantOpen
                 </button>
               ))}
             </nav>
+            <button type="button" id="safety-toggle" aria-expanded={safetyOpen} aria-controls="safety-layer" onClick={onSafety}>Güvenlik sistemleri</button>
             <button type="button" id="assistant-toggle" className="assistant-toggle" aria-expanded={assistantOpen} aria-controls="assistant-panel" onClick={onAssistant}>
               <span aria-hidden="true">✦</span> Asistan
             </button>

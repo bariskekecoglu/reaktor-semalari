@@ -8,6 +8,7 @@ import type { ReactorId } from '../reactors/shared/types';
 import { actionReactor, type AssistantAction } from './actions';
 import { REACTOR_NAME } from '../reactors/meta';
 import { getStage } from '../reactors/rbmk/chernobyl/stages';
+import { safetyTopic } from '../safety/catalog';
 
 export interface NavPlan {
   dispatches: AppAction[];
@@ -22,6 +23,9 @@ export function planAction(a: AssistantAction, state: AppState, lessonIndex: (le
   const d: AppAction[] = [];
   if (needsReactorChange) d.push({ type: 'setReactor', reactor: needsReactorChange });
   switch (a.type) {
+    case 'openSafetyTopic':
+      d.push({ type: 'setSafetyTopic', topic: a.topic });
+      break;
     case 'openChernobylStage':
       d.push({ type: 'setChernobylStage', stage: a.stage });
       break;
@@ -63,6 +67,8 @@ export function planAction(a: AssistantAction, state: AppState, lessonIndex: (le
 /** İşlem düğmesinin metni (Türkçe, ne olacağını açıkça söyler). */
 export function actionLabel(a: AssistantAction, names: { equipment: (r: ReactorId, id: string) => string; detail: (r: ReactorId, key: string) => string; lesson: (id: string) => string; section: (id: string) => string; event: (id: string) => string }): string {
   switch (a.type) {
+    case 'openSafetyTopic':
+      return `${NAME[a.reactor]} güvenlik katmanı: ${safetyTopic(a.topic).title}`;
     case 'openChernobylStage':
       return `Çernobil analizi: ${getStage(a.stage).title}`;
     case 'openReactor':

@@ -8,8 +8,9 @@ import { AXIAL_NOT_AUTO, CONTROL_RELATIONS } from '../reactors/pwr/operations/da
 import type { AssistantAction } from './actions';
 import { REACTOR_IDS } from '../reactors/meta';
 import { STAGES } from '../reactors/rbmk/chernobyl/stages';
+import { SAFETY_TOPICS } from '../safety/catalog';
 
-export const GUIDE_CATEGORIES = ['PWR', 'BWR', 'VVER', 'RBMK', 'CANDU', 'Karşılaştırma', 'İşletme', 'Site kullanımı'] as const;
+export const GUIDE_CATEGORIES = ['PWR', 'BWR', 'VVER', 'RBMK', 'CANDU', 'Karşılaştırma', 'İşletme', 'Güvenlik', 'Site kullanımı'] as const;
 
 /** Karşılaştırma kartlarının reaktör grupları: bütün ikililer, üç basınç kabı tasarımı ve beşi birlikte. */
 const PAIRS: ReactorId[][] = REACTOR_IDS.flatMap((a, i) => REACTOR_IDS.slice(i + 1).map((b) => [a, b]));
@@ -43,6 +44,18 @@ export function buildGuideCatalog(kb: KnowledgeSource): GuideCard[] {
   // Sık karıştırılan parçalar: cevap metinleri ekipman tanımlarından birlikte okunur.
   for (const r of REACTOR_IDS) {
     const prefix = r.toUpperCase();
+    add(`safety-overview:${r}`, `${prefix} Güvenlik sistemleri ne işe yarar?`,
+      ['güvenlik sistemleri', 'temel güvenlik işlevleri', 'güvenlik katmanını göster', 'reaktör güvenlik sistemleri nedir'].map(q => `${prefix} ${q}`),
+      'Üç temel işlev reaktiviteyi kontrol etmek, yakıtı soğutmak ve radyoaktif maddeleri tutmaktır. Katmanda durdurma, artık ısı, acil çekirdek soğutma, bariyerler ve destek sistemlerini ayrı ayrı inceleyebilirsiniz.',
+      [`${r}.safety.shutdown`, `${r}.safety.heat`, `${r}.safety.barriers`],
+      { category: 'Güvenlik', reactors: [r], actions: [{ type: 'openSafetyTopic', reactor: r, topic: 'shutdown' }],
+        detail: 'Bu katman sistemlerin görevlerini açıklar; belirli bir santralin tüm güvenlik donanımını veya bir kazanın sayısal sonucunu modellemez.' });
+    add(`safety-cooling:${r}`, `${prefix} ECCS ile RHR arasındaki fark nedir?`,
+      ['acil çekirdek soğutma ile artık ısı uzaklaştırma farkı', 'ECCS ve RHR aynı mı', 'normal soğutma ile acil soğutma aynı mı', 'ana pompa ECCS mi'].map(q => `${prefix} ${q}`),
+      'ECCS acil koşullarda çekirdek soğutmasına yönelik sistemleri, RHR artık ısının uzaklaştırılmasını ifade eder. Aynı kavram değildirler; bazı tasarımlarda ekipman veya işlev paylaşımı olabilir. Normal dolaşım pompası tek başına ECCS olarak adlandırılamaz.',
+      [`${r}.safety.eccs`, `${r}.safety.heat`],
+      { category: 'Güvenlik', reactors: [r], actions: [{ type: 'openSafetyTopic', reactor: r, topic: 'eccs' }],
+        detail: 'Belirli bir tasarımın devrelerini karşılaştırmak için o santralin sistem açıklamaları gerekir. Bu uygulama kavramsal ayrımı gösterir; devreye girme eşikleri veya kapasite hesabı vermez.' });
     const pairs = [
       ['vessel-containment', 'vessel', 'containment', 'Reaktör kabı ve koruma yapısı aynı şey mi?', ['reaktör kabı koruma binası farkı', 'kap ve containment farkı']],
       ['turbine-generator', 'hp', 'gen', 'Türbin ve jeneratör arasındaki fark nedir?', ['elektrik türbinde mi jeneratörde mi üretilir', 'elektrik nerede üretilir']],
@@ -76,6 +89,15 @@ export function buildGuideCatalog(kb: KnowledgeSource): GuideCard[] {
   // Cevaplar tek kaynaktan okunur: ekipman/ders metni değişirse rehber de güncellenir.
   for (const e of kb.all()) {
     if (e.id.startsWith('rbmk.chernobyl.')) continue;
+    if (e.id.includes('.safety.')) {
+      const topic = SAFETY_TOPICS.find(t => e.id.endsWith(`.${t.id}`))!;
+      const prefix = e.reactorId!.toUpperCase();
+      cards.push({ id: `entry:${e.id}`, category: 'Güvenlik', reactors: [e.reactorId!],
+        question: `${prefix} ${topic.question}`,
+        variants: [topic.question, ...topic.aliases.flatMap(a => [`${a} nedir?`, `${a} nasıl çalışır?`, `${a} göster`])].map(q => `${prefix} ${q}`),
+        answer: e.summary, detail: e.body, sourceIds: e.sourceIds, entryIds: [e.id], actions: e.targets });
+      continue;
+    }
     const r = e.reactorId;
     const name = e.name.replace(/^\d+\.\s*/, '');
     const prefix = r ? r.toUpperCase() : '';

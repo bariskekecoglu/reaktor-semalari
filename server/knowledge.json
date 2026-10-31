@@ -2,6 +2,24 @@
  "version": 1,
  "sources": [
   {
+   "id": "iaea-safety-functions",
+   "kind": "web",
+   "title": "IAEA BPTC — Module III: Basic principles of nuclear safety (2015)",
+   "locator": "§3 temel işlevler, s. 18–22; §4 derinliğine savunma, s. 23–33"
+  },
+  {
+   "id": "nrc-eccs",
+   "kind": "web",
+   "title": "U.S. NRC — Emergency core cooling systems (ECCS)",
+   "locator": "Sözlük: ECCS işlevi ve bileşenleri"
+  },
+  {
+   "id": "cnsc-safety",
+   "kind": "web",
+   "title": "CNSC — Nuclear power plant safety systems",
+   "locator": "Controlling the reactor; Cooling the fuel; Containing radioactive material (Kanada CANDU kapsamı)"
+  },
+  {
    "id": "iaea-bme-void",
    "kind": "web",
    "title": "BME — Void coefficient measurement (2017), IAEA eğitim arşivi",
@@ -4384,6 +4402,496 @@
     {
      "type": "focusChartEvent",
      "eventId": "xenon:load-12-3-6-3:ramp-2-end"
+    }
+   ]
+  },
+  {
+   "id": "pwr.safety.shutdown",
+   "reactorId": "pwr",
+   "kind": "topic",
+   "name": "Reaktörü durdurma",
+   "summary": "Koruma sistemi, izlenen koşullar gerektiğinde zincirleme fisyon tepkimesinin durdurulmasını başlatır. Durdurma, yakıttaki artık ısıyı ortadan kaldırmaz.",
+   "body": "Güç ayarı ile koruyucu durdurma farklı işlevlerdir. Buradaki çubuk hareketi gerçek bir koruma sisteminin tepki hesabı değildir.\n\nPWR için kapsam: Bu şemadaki kontrol çubukları, reaktör kabı ve koruma yapısı ilgili parçaları incelemek içindir. ECCS, yardımcı besleme ve RHR borulaması bu normal çalışma şemasında çizilmemiştir.",
+   "sourceIds": [
+    "iaea-safety-functions",
+    "nuce-ch2",
+    "nuce-2-5"
+   ],
+   "targets": [
+    {
+     "type": "openSafetyTopic",
+     "reactor": "pwr",
+     "topic": "shutdown"
+    }
+   ]
+  },
+  {
+   "id": "pwr.safety.heat",
+   "reactorId": "pwr",
+   "kind": "topic",
+   "name": "Artık ısıyı uzaklaştırma",
+   "summary": "Fisyon durdurulduktan sonra radyoaktif bozunmalar yakıtta ısı üretmeyi sürdürür. Bu ısı, uygun bir soğutma yolu üzerinden nihai ısı alıcısına aktarılmalıdır.",
+   "body": "Elektrik üretiminin bitmesi, soğutma ihtiyacının bitmesi anlamına gelmez. Kullanılabilir soğutma yolu santral tasarımına ve koşullara bağlıdır.\n\nPWR için kapsam: Bu şemadaki kontrol çubukları, reaktör kabı ve koruma yapısı ilgili parçaları incelemek içindir. ECCS, yardımcı besleme ve RHR borulaması bu normal çalışma şemasında çizilmemiştir.",
+   "sourceIds": [
+    "iaea-safety-functions",
+    "nuce-ch2",
+    "nuce-2-5"
+   ],
+   "targets": [
+    {
+     "type": "openSafetyTopic",
+     "reactor": "pwr",
+     "topic": "heat"
+    }
+   ]
+  },
+  {
+   "id": "pwr.safety.eccs",
+   "reactorId": "pwr",
+   "kind": "topic",
+   "name": "Acil çekirdek soğutma",
+   "summary": "Acil çekirdek soğutma sistemleri, normal çekirdek soğutmasının kaybı gibi koşullarda yakıtın soğutulmasını destekleyen özel sistemlerdir. Pompa, vana, tank ve borulama düzeni tasarıma göre değişir.",
+   "body": "Ana dolaşım pompası ECCS ile aynı şey değildir. Aşağıdaki kavram zinciri, belirli bir santralin bağlantı veya devreye girme sırasını göstermez.\n\nPWR için kapsam: Bu şemadaki kontrol çubukları, reaktör kabı ve koruma yapısı ilgili parçaları incelemek içindir. ECCS, yardımcı besleme ve RHR borulaması bu normal çalışma şemasında çizilmemiştir.",
+   "sourceIds": [
+    "nrc-eccs",
+    "nuce-ch2",
+    "nuce-2-5"
+   ],
+   "targets": [
+    {
+     "type": "openSafetyTopic",
+     "reactor": "pwr",
+     "topic": "eccs"
+    }
+   ]
+  },
+  {
+   "id": "pwr.safety.barriers",
+   "reactorId": "pwr",
+   "kind": "topic",
+   "name": "Radyoaktif maddeyi tutma",
+   "summary": "Yakıt ve çevresindeki fiziksel bariyerler radyoaktif maddelerin yayılmasını sınırlar. Derinliğine savunma, bu bariyerlerin yanında önleme, izleme ve sonuçları azaltma katmanlarını da kapsar.",
+   "body": "Biyolojik zırhın ışınlamayı azaltması ile sızdırmaz bir bariyerin madde salımını sınırlaması farklı görevlerdir. Her reaktör binası eşdeğer bir containment değildir.\n\nPWR için kapsam: Bu şemadaki kontrol çubukları, reaktör kabı ve koruma yapısı ilgili parçaları incelemek içindir. ECCS, yardımcı besleme ve RHR borulaması bu normal çalışma şemasında çizilmemiştir.",
+   "sourceIds": [
+    "iaea-safety-functions",
+    "nuce-ch2",
+    "nuce-2-5"
+   ],
+   "targets": [
+    {
+     "type": "openSafetyTopic",
+     "reactor": "pwr",
+     "topic": "barriers"
+    }
+   ]
+  },
+  {
+   "id": "pwr.safety.support",
+   "reactorId": "pwr",
+   "kind": "topic",
+   "name": "Elektrik ve destek sistemleri",
+   "summary": "Güvenlik işlevleri, ilgili tasarıma göre elektrik, ölçüm, kontrol ve yardımcı soğutma gibi desteklere ihtiyaç duyar. Birden fazla güç kaynağı, tek bir kaynağın kaybına karşı korumayı destekler.",
+   "body": "Yedek kaynakların bulunması bütün işlevlerin sınırsız süre çalışacağı anlamına gelmez. Kapasite, bağımsızlık ve ortak nedenli arızalar ayrıca değerlendirilir.\n\nPWR için kapsam: Bu şemadaki kontrol çubukları, reaktör kabı ve koruma yapısı ilgili parçaları incelemek içindir. ECCS, yardımcı besleme ve RHR borulaması bu normal çalışma şemasında çizilmemiştir.",
+   "sourceIds": [
+    "iaea-safety-functions",
+    "nuce-ch2",
+    "nuce-2-5"
+   ],
+   "targets": [
+    {
+     "type": "openSafetyTopic",
+     "reactor": "pwr",
+     "topic": "support"
+    }
+   ]
+  },
+  {
+   "id": "bwr.safety.shutdown",
+   "reactorId": "bwr",
+   "kind": "topic",
+   "name": "Reaktörü durdurma",
+   "summary": "Koruma sistemi, izlenen koşullar gerektiğinde zincirleme fisyon tepkimesinin durdurulmasını başlatır. Durdurma, yakıttaki artık ısıyı ortadan kaldırmaz.",
+   "body": "Güç ayarı ile koruyucu durdurma farklı işlevlerdir. Buradaki çubuk hareketi gerçek bir koruma sisteminin tepki hesabı değildir.\n\nBWR için kapsam: Bu şemada kontrol çubukları alttan girer. Normal devridaim ve besleme yolları gösterilir; acil soğutma sistemlerinin ayrı devreleri çizilmemiştir.",
+   "sourceIds": [
+    "iaea-safety-functions",
+    "nuce-ch2",
+    "nrc-bwr"
+   ],
+   "targets": [
+    {
+     "type": "openSafetyTopic",
+     "reactor": "bwr",
+     "topic": "shutdown"
+    }
+   ]
+  },
+  {
+   "id": "bwr.safety.heat",
+   "reactorId": "bwr",
+   "kind": "topic",
+   "name": "Artık ısıyı uzaklaştırma",
+   "summary": "Fisyon durdurulduktan sonra radyoaktif bozunmalar yakıtta ısı üretmeyi sürdürür. Bu ısı, uygun bir soğutma yolu üzerinden nihai ısı alıcısına aktarılmalıdır.",
+   "body": "Elektrik üretiminin bitmesi, soğutma ihtiyacının bitmesi anlamına gelmez. Kullanılabilir soğutma yolu santral tasarımına ve koşullara bağlıdır.\n\nBWR için kapsam: Bu şemada kontrol çubukları alttan girer. Normal devridaim ve besleme yolları gösterilir; acil soğutma sistemlerinin ayrı devreleri çizilmemiştir.",
+   "sourceIds": [
+    "iaea-safety-functions",
+    "nuce-ch2",
+    "nrc-bwr"
+   ],
+   "targets": [
+    {
+     "type": "openSafetyTopic",
+     "reactor": "bwr",
+     "topic": "heat"
+    }
+   ]
+  },
+  {
+   "id": "bwr.safety.eccs",
+   "reactorId": "bwr",
+   "kind": "topic",
+   "name": "Acil çekirdek soğutma",
+   "summary": "Acil çekirdek soğutma sistemleri, normal çekirdek soğutmasının kaybı gibi koşullarda yakıtın soğutulmasını destekleyen özel sistemlerdir. Pompa, vana, tank ve borulama düzeni tasarıma göre değişir.",
+   "body": "Ana dolaşım pompası ECCS ile aynı şey değildir. Aşağıdaki kavram zinciri, belirli bir santralin bağlantı veya devreye girme sırasını göstermez.\n\nBWR için kapsam: Bu şemada kontrol çubukları alttan girer. Normal devridaim ve besleme yolları gösterilir; acil soğutma sistemlerinin ayrı devreleri çizilmemiştir.",
+   "sourceIds": [
+    "nrc-eccs",
+    "nuce-ch2",
+    "nrc-bwr"
+   ],
+   "targets": [
+    {
+     "type": "openSafetyTopic",
+     "reactor": "bwr",
+     "topic": "eccs"
+    }
+   ]
+  },
+  {
+   "id": "bwr.safety.barriers",
+   "reactorId": "bwr",
+   "kind": "topic",
+   "name": "Radyoaktif maddeyi tutma",
+   "summary": "Yakıt ve çevresindeki fiziksel bariyerler radyoaktif maddelerin yayılmasını sınırlar. Derinliğine savunma, bu bariyerlerin yanında önleme, izleme ve sonuçları azaltma katmanlarını da kapsar.",
+   "body": "Biyolojik zırhın ışınlamayı azaltması ile sızdırmaz bir bariyerin madde salımını sınırlaması farklı görevlerdir. Her reaktör binası eşdeğer bir containment değildir.\n\nBWR için kapsam: Bu şemada kontrol çubukları alttan girer. Normal devridaim ve besleme yolları gösterilir; acil soğutma sistemlerinin ayrı devreleri çizilmemiştir.",
+   "sourceIds": [
+    "iaea-safety-functions",
+    "nuce-ch2",
+    "nrc-bwr"
+   ],
+   "targets": [
+    {
+     "type": "openSafetyTopic",
+     "reactor": "bwr",
+     "topic": "barriers"
+    }
+   ]
+  },
+  {
+   "id": "bwr.safety.support",
+   "reactorId": "bwr",
+   "kind": "topic",
+   "name": "Elektrik ve destek sistemleri",
+   "summary": "Güvenlik işlevleri, ilgili tasarıma göre elektrik, ölçüm, kontrol ve yardımcı soğutma gibi desteklere ihtiyaç duyar. Birden fazla güç kaynağı, tek bir kaynağın kaybına karşı korumayı destekler.",
+   "body": "Yedek kaynakların bulunması bütün işlevlerin sınırsız süre çalışacağı anlamına gelmez. Kapasite, bağımsızlık ve ortak nedenli arızalar ayrıca değerlendirilir.\n\nBWR için kapsam: Bu şemada kontrol çubukları alttan girer. Normal devridaim ve besleme yolları gösterilir; acil soğutma sistemlerinin ayrı devreleri çizilmemiştir.",
+   "sourceIds": [
+    "iaea-safety-functions",
+    "nuce-ch2",
+    "nrc-bwr"
+   ],
+   "targets": [
+    {
+     "type": "openSafetyTopic",
+     "reactor": "bwr",
+     "topic": "support"
+    }
+   ]
+  },
+  {
+   "id": "vver.safety.shutdown",
+   "reactorId": "vver",
+   "kind": "topic",
+   "name": "Reaktörü durdurma",
+   "summary": "Koruma sistemi, izlenen koşullar gerektiğinde zincirleme fisyon tepkimesinin durdurulmasını başlatır. Durdurma, yakıttaki artık ısıyı ortadan kaldırmaz.",
+   "body": "Güç ayarı ile koruyucu durdurma farklı işlevlerdir. Buradaki çubuk hareketi gerçek bir koruma sisteminin tepki hesabı değildir.\n\nVVER için kapsam: Bu çizim yatay buhar üreteçli temsili bir VVER çevrimidir. VVER modellerinin güvenlik sistemleri aynı değildir; modele özgü acil soğutma borulaması bu çizimde yoktur.",
+   "sourceIds": [
+    "iaea-safety-functions",
+    "iaea-vver"
+   ],
+   "targets": [
+    {
+     "type": "openSafetyTopic",
+     "reactor": "vver",
+     "topic": "shutdown"
+    }
+   ]
+  },
+  {
+   "id": "vver.safety.heat",
+   "reactorId": "vver",
+   "kind": "topic",
+   "name": "Artık ısıyı uzaklaştırma",
+   "summary": "Fisyon durdurulduktan sonra radyoaktif bozunmalar yakıtta ısı üretmeyi sürdürür. Bu ısı, uygun bir soğutma yolu üzerinden nihai ısı alıcısına aktarılmalıdır.",
+   "body": "Elektrik üretiminin bitmesi, soğutma ihtiyacının bitmesi anlamına gelmez. Kullanılabilir soğutma yolu santral tasarımına ve koşullara bağlıdır.\n\nVVER için kapsam: Bu çizim yatay buhar üreteçli temsili bir VVER çevrimidir. VVER modellerinin güvenlik sistemleri aynı değildir; modele özgü acil soğutma borulaması bu çizimde yoktur.",
+   "sourceIds": [
+    "iaea-safety-functions",
+    "iaea-vver"
+   ],
+   "targets": [
+    {
+     "type": "openSafetyTopic",
+     "reactor": "vver",
+     "topic": "heat"
+    }
+   ]
+  },
+  {
+   "id": "vver.safety.eccs",
+   "reactorId": "vver",
+   "kind": "topic",
+   "name": "Acil çekirdek soğutma",
+   "summary": "Acil çekirdek soğutma sistemleri, normal çekirdek soğutmasının kaybı gibi koşullarda yakıtın soğutulmasını destekleyen özel sistemlerdir. Pompa, vana, tank ve borulama düzeni tasarıma göre değişir.",
+   "body": "Ana dolaşım pompası ECCS ile aynı şey değildir. Aşağıdaki kavram zinciri, belirli bir santralin bağlantı veya devreye girme sırasını göstermez.\n\nVVER için kapsam: Bu çizim yatay buhar üreteçli temsili bir VVER çevrimidir. VVER modellerinin güvenlik sistemleri aynı değildir; modele özgü acil soğutma borulaması bu çizimde yoktur.",
+   "sourceIds": [
+    "nrc-eccs",
+    "iaea-vver"
+   ],
+   "targets": [
+    {
+     "type": "openSafetyTopic",
+     "reactor": "vver",
+     "topic": "eccs"
+    }
+   ]
+  },
+  {
+   "id": "vver.safety.barriers",
+   "reactorId": "vver",
+   "kind": "topic",
+   "name": "Radyoaktif maddeyi tutma",
+   "summary": "Yakıt ve çevresindeki fiziksel bariyerler radyoaktif maddelerin yayılmasını sınırlar. Derinliğine savunma, bu bariyerlerin yanında önleme, izleme ve sonuçları azaltma katmanlarını da kapsar.",
+   "body": "Biyolojik zırhın ışınlamayı azaltması ile sızdırmaz bir bariyerin madde salımını sınırlaması farklı görevlerdir. Her reaktör binası eşdeğer bir containment değildir.\n\nVVER için kapsam: Bu çizim yatay buhar üreteçli temsili bir VVER çevrimidir. VVER modellerinin güvenlik sistemleri aynı değildir; modele özgü acil soğutma borulaması bu çizimde yoktur.",
+   "sourceIds": [
+    "iaea-safety-functions",
+    "iaea-vver"
+   ],
+   "targets": [
+    {
+     "type": "openSafetyTopic",
+     "reactor": "vver",
+     "topic": "barriers"
+    }
+   ]
+  },
+  {
+   "id": "vver.safety.support",
+   "reactorId": "vver",
+   "kind": "topic",
+   "name": "Elektrik ve destek sistemleri",
+   "summary": "Güvenlik işlevleri, ilgili tasarıma göre elektrik, ölçüm, kontrol ve yardımcı soğutma gibi desteklere ihtiyaç duyar. Birden fazla güç kaynağı, tek bir kaynağın kaybına karşı korumayı destekler.",
+   "body": "Yedek kaynakların bulunması bütün işlevlerin sınırsız süre çalışacağı anlamına gelmez. Kapasite, bağımsızlık ve ortak nedenli arızalar ayrıca değerlendirilir.\n\nVVER için kapsam: Bu çizim yatay buhar üreteçli temsili bir VVER çevrimidir. VVER modellerinin güvenlik sistemleri aynı değildir; modele özgü acil soğutma borulaması bu çizimde yoktur.",
+   "sourceIds": [
+    "iaea-safety-functions",
+    "iaea-vver"
+   ],
+   "targets": [
+    {
+     "type": "openSafetyTopic",
+     "reactor": "vver",
+     "topic": "support"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.safety.shutdown",
+   "reactorId": "rbmk",
+   "kind": "topic",
+   "name": "Reaktörü durdurma",
+   "summary": "Koruma sistemi, izlenen koşullar gerektiğinde zincirleme fisyon tepkimesinin durdurulmasını başlatır. Durdurma, yakıttaki artık ısıyı ortadan kaldırmaz.",
+   "body": "Güç ayarı ile koruyucu durdurma farklı işlevlerdir. Buradaki çubuk hareketi gerçek bir koruma sisteminin tepki hesabı değildir.\n\nRBMK için kapsam: Buradaki RBMK-1000 bina ve biyolojik zırhı, PWR tipi tam basınç containment ile eşdeğer değildir. Çernobil bölümü 1986 tasarımı ve tarihsel koşulları ele alır; bu katman güncel RBMK güvenlik değerlendirmesi değildir.",
+   "sourceIds": [
+    "iaea-safety-functions",
+    "iaea-insag7",
+    "nea-chernobyl"
+   ],
+   "targets": [
+    {
+     "type": "openSafetyTopic",
+     "reactor": "rbmk",
+     "topic": "shutdown"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.safety.heat",
+   "reactorId": "rbmk",
+   "kind": "topic",
+   "name": "Artık ısıyı uzaklaştırma",
+   "summary": "Fisyon durdurulduktan sonra radyoaktif bozunmalar yakıtta ısı üretmeyi sürdürür. Bu ısı, uygun bir soğutma yolu üzerinden nihai ısı alıcısına aktarılmalıdır.",
+   "body": "Elektrik üretiminin bitmesi, soğutma ihtiyacının bitmesi anlamına gelmez. Kullanılabilir soğutma yolu santral tasarımına ve koşullara bağlıdır.\n\nRBMK için kapsam: Buradaki RBMK-1000 bina ve biyolojik zırhı, PWR tipi tam basınç containment ile eşdeğer değildir. Çernobil bölümü 1986 tasarımı ve tarihsel koşulları ele alır; bu katman güncel RBMK güvenlik değerlendirmesi değildir.",
+   "sourceIds": [
+    "iaea-safety-functions",
+    "iaea-insag7",
+    "nea-chernobyl"
+   ],
+   "targets": [
+    {
+     "type": "openSafetyTopic",
+     "reactor": "rbmk",
+     "topic": "heat"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.safety.eccs",
+   "reactorId": "rbmk",
+   "kind": "topic",
+   "name": "Acil çekirdek soğutma",
+   "summary": "Acil çekirdek soğutma sistemleri, normal çekirdek soğutmasının kaybı gibi koşullarda yakıtın soğutulmasını destekleyen özel sistemlerdir. Pompa, vana, tank ve borulama düzeni tasarıma göre değişir.",
+   "body": "Ana dolaşım pompası ECCS ile aynı şey değildir. Aşağıdaki kavram zinciri, belirli bir santralin bağlantı veya devreye girme sırasını göstermez.\n\nRBMK için kapsam: Buradaki RBMK-1000 bina ve biyolojik zırhı, PWR tipi tam basınç containment ile eşdeğer değildir. Çernobil bölümü 1986 tasarımı ve tarihsel koşulları ele alır; bu katman güncel RBMK güvenlik değerlendirmesi değildir.",
+   "sourceIds": [
+    "nrc-eccs",
+    "iaea-insag7",
+    "nea-chernobyl"
+   ],
+   "targets": [
+    {
+     "type": "openSafetyTopic",
+     "reactor": "rbmk",
+     "topic": "eccs"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.safety.barriers",
+   "reactorId": "rbmk",
+   "kind": "topic",
+   "name": "Radyoaktif maddeyi tutma",
+   "summary": "Yakıt ve çevresindeki fiziksel bariyerler radyoaktif maddelerin yayılmasını sınırlar. Derinliğine savunma, bu bariyerlerin yanında önleme, izleme ve sonuçları azaltma katmanlarını da kapsar.",
+   "body": "Biyolojik zırhın ışınlamayı azaltması ile sızdırmaz bir bariyerin madde salımını sınırlaması farklı görevlerdir. Her reaktör binası eşdeğer bir containment değildir.\n\nRBMK için kapsam: Buradaki RBMK-1000 bina ve biyolojik zırhı, PWR tipi tam basınç containment ile eşdeğer değildir. Çernobil bölümü 1986 tasarımı ve tarihsel koşulları ele alır; bu katman güncel RBMK güvenlik değerlendirmesi değildir.",
+   "sourceIds": [
+    "iaea-safety-functions",
+    "iaea-insag7",
+    "nea-chernobyl"
+   ],
+   "targets": [
+    {
+     "type": "openSafetyTopic",
+     "reactor": "rbmk",
+     "topic": "barriers"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.safety.support",
+   "reactorId": "rbmk",
+   "kind": "topic",
+   "name": "Elektrik ve destek sistemleri",
+   "summary": "Güvenlik işlevleri, ilgili tasarıma göre elektrik, ölçüm, kontrol ve yardımcı soğutma gibi desteklere ihtiyaç duyar. Birden fazla güç kaynağı, tek bir kaynağın kaybına karşı korumayı destekler.",
+   "body": "Yedek kaynakların bulunması bütün işlevlerin sınırsız süre çalışacağı anlamına gelmez. Kapasite, bağımsızlık ve ortak nedenli arızalar ayrıca değerlendirilir.\n\nRBMK için kapsam: Buradaki RBMK-1000 bina ve biyolojik zırhı, PWR tipi tam basınç containment ile eşdeğer değildir. Çernobil bölümü 1986 tasarımı ve tarihsel koşulları ele alır; bu katman güncel RBMK güvenlik değerlendirmesi değildir.",
+   "sourceIds": [
+    "iaea-safety-functions",
+    "iaea-insag7",
+    "nea-chernobyl"
+   ],
+   "targets": [
+    {
+     "type": "openSafetyTopic",
+     "reactor": "rbmk",
+     "topic": "support"
+    }
+   ]
+  },
+  {
+   "id": "candu.safety.shutdown",
+   "reactorId": "candu",
+   "kind": "topic",
+   "name": "Reaktörü durdurma",
+   "summary": "Koruma sistemi, izlenen koşullar gerektiğinde zincirleme fisyon tepkimesinin durdurulmasını başlatır. Durdurma, yakıttaki artık ısıyı ortadan kaldırmaz.",
+   "body": "Güç ayarı ile koruyucu durdurma farklı işlevlerdir. Buradaki çubuk hareketi gerçek bir koruma sisteminin tepki hesabı değildir.\n\nCANDU için kapsam: Kanada CANDU reaktörlerinde iki bağımsız hızlı durdurma sistemi bulunur: durdurma çubukları ve nötron soğurucu sıvı enjeksiyonu. Mevcut şema ikinci sistemin borulamasını çizmez.",
+   "sourceIds": [
+    "iaea-safety-functions",
+    "cnsc-safety"
+   ],
+   "targets": [
+    {
+     "type": "openSafetyTopic",
+     "reactor": "candu",
+     "topic": "shutdown"
+    }
+   ]
+  },
+  {
+   "id": "candu.safety.heat",
+   "reactorId": "candu",
+   "kind": "topic",
+   "name": "Artık ısıyı uzaklaştırma",
+   "summary": "Fisyon durdurulduktan sonra radyoaktif bozunmalar yakıtta ısı üretmeyi sürdürür. Bu ısı, uygun bir soğutma yolu üzerinden nihai ısı alıcısına aktarılmalıdır.",
+   "body": "Elektrik üretiminin bitmesi, soğutma ihtiyacının bitmesi anlamına gelmez. Kullanılabilir soğutma yolu santral tasarımına ve koşullara bağlıdır.\n\nCANDU için kapsam: Kanada CANDU reaktörlerinde iki bağımsız hızlı durdurma sistemi bulunur: durdurma çubukları ve nötron soğurucu sıvı enjeksiyonu. Mevcut şema ikinci sistemin borulamasını çizmez.",
+   "sourceIds": [
+    "iaea-safety-functions",
+    "cnsc-safety"
+   ],
+   "targets": [
+    {
+     "type": "openSafetyTopic",
+     "reactor": "candu",
+     "topic": "heat"
+    }
+   ]
+  },
+  {
+   "id": "candu.safety.eccs",
+   "reactorId": "candu",
+   "kind": "topic",
+   "name": "Acil çekirdek soğutma",
+   "summary": "Acil çekirdek soğutma sistemleri, normal çekirdek soğutmasının kaybı gibi koşullarda yakıtın soğutulmasını destekleyen özel sistemlerdir. Pompa, vana, tank ve borulama düzeni tasarıma göre değişir.",
+   "body": "Ana dolaşım pompası ECCS ile aynı şey değildir. Aşağıdaki kavram zinciri, belirli bir santralin bağlantı veya devreye girme sırasını göstermez.\n\nCANDU için kapsam: Kanada CANDU reaktörlerinde iki bağımsız hızlı durdurma sistemi bulunur: durdurma çubukları ve nötron soğurucu sıvı enjeksiyonu. Mevcut şema ikinci sistemin borulamasını çizmez.",
+   "sourceIds": [
+    "nrc-eccs",
+    "cnsc-safety"
+   ],
+   "targets": [
+    {
+     "type": "openSafetyTopic",
+     "reactor": "candu",
+     "topic": "eccs"
+    }
+   ]
+  },
+  {
+   "id": "candu.safety.barriers",
+   "reactorId": "candu",
+   "kind": "topic",
+   "name": "Radyoaktif maddeyi tutma",
+   "summary": "Yakıt ve çevresindeki fiziksel bariyerler radyoaktif maddelerin yayılmasını sınırlar. Derinliğine savunma, bu bariyerlerin yanında önleme, izleme ve sonuçları azaltma katmanlarını da kapsar.",
+   "body": "Biyolojik zırhın ışınlamayı azaltması ile sızdırmaz bir bariyerin madde salımını sınırlaması farklı görevlerdir. Her reaktör binası eşdeğer bir containment değildir.\n\nCANDU için kapsam: Kanada CANDU reaktörlerinde iki bağımsız hızlı durdurma sistemi bulunur: durdurma çubukları ve nötron soğurucu sıvı enjeksiyonu. Mevcut şema ikinci sistemin borulamasını çizmez.",
+   "sourceIds": [
+    "iaea-safety-functions",
+    "cnsc-safety"
+   ],
+   "targets": [
+    {
+     "type": "openSafetyTopic",
+     "reactor": "candu",
+     "topic": "barriers"
+    }
+   ]
+  },
+  {
+   "id": "candu.safety.support",
+   "reactorId": "candu",
+   "kind": "topic",
+   "name": "Elektrik ve destek sistemleri",
+   "summary": "Güvenlik işlevleri, ilgili tasarıma göre elektrik, ölçüm, kontrol ve yardımcı soğutma gibi desteklere ihtiyaç duyar. Birden fazla güç kaynağı, tek bir kaynağın kaybına karşı korumayı destekler.",
+   "body": "Yedek kaynakların bulunması bütün işlevlerin sınırsız süre çalışacağı anlamına gelmez. Kapasite, bağımsızlık ve ortak nedenli arızalar ayrıca değerlendirilir.\n\nCANDU için kapsam: Kanada CANDU reaktörlerinde iki bağımsız hızlı durdurma sistemi bulunur: durdurma çubukları ve nötron soğurucu sıvı enjeksiyonu. Mevcut şema ikinci sistemin borulamasını çizmez.",
+   "sourceIds": [
+    "iaea-safety-functions",
+    "cnsc-safety"
+   ],
+   "targets": [
+    {
+     "type": "openSafetyTopic",
+     "reactor": "candu",
+     "topic": "support"
     }
    ]
   }

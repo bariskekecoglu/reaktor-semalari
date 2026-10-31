@@ -1,0 +1,22 @@
+.safety-panel { margin: 16px 0; padding: clamp(16px, 3vw, 28px); background: var(--paper); border: 1px solid var(--accent-border); border-radius: 16px; color: var(--ink); }
+.safety-heading { display: flex; justify-content: space-between; align-items: start; gap: 16px; }
+.safety-heading h2 { margin: 4px 0; font-size: clamp(1.15rem, 2vw, 1.5rem); }
+.safety-heading button { flex-shrink: 0; }
+.safety-topics, .safety-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+.safety-topics button.on { color: var(--accent-text); background: var(--surface-accent); border: 2px solid var(--accent); font-weight: 700; }
+.safety-content { display: grid; grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr); gap: 24px; }
+.safety-content h3 { margin: 8px 0; }
+.safety-content p { line-height: 1.65; }
+.safety-chain { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.safety-chain li { padding: 12px; background: var(--surface-subtle); border: 1px solid var(--rule); border-radius: 8px; font-size: .9rem; overflow-wrap: anywhere; }
+.safety-chain li span { display: block; color: var(--accent-text); font-weight: 800; margin-bottom: 6px; }
+.safety-scope { background: var(--surface-subtle); padding: 16px; border-radius: 12px; }
+.safety-scope ul { padding-left: 20px; }
+.safety-scope li { margin: 10px 0; overflow-wrap: anywhere; }
+.safety-distinction { border-left: 3px solid var(--accent); padding-left: 12px; }
+.assistant-suggestions { padding: 12px 16px; border-bottom: 1px solid var(--rule); }
+.assistant-suggestions p { margin: 0 0 8px; font-weight: 600; }
+.assistant-suggestions button { display: block; text-align: left; margin: 6px 0; max-width: 100%; white-space: normal; }
+@media (max-width: 760px) { .safety-content { grid-template-columns: minmax(0, 1fr); } .safety-chain { grid-template-columns: repeat(2, minmax(0, 1fr)); } .safety-heading { flex-wrap: wrap; } }
+:root[data-layout='narrow'] .header-nav-row .content-seg { grid-column: 1 / -1; }
+:root[data-layout='narrow'] #safety-toggle { font-size: .82rem; padding: 6px 10px; }

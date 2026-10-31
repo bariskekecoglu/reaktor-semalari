@@ -32,6 +32,16 @@ export function localAnswer(kb: KnowledgeSource, question: string, ctx: Assistan
   if (previous && /^(bunu goster|bunu ac|daha ayrintili|ayrintili anlat|biraz daha acikla|kaynaklari goster)$/.test(n)) {
     return fromCard(previous, true);
   }
+  if (previous?.id.includes('.safety.') && named.length === 1 && guideWords(q).length === 0) {
+    const topic = previous.id.split('.safety.')[1];
+    const target = cards.find(c => c.id === `entry:${named[0]}.safety.${topic}`);
+    if (target) return fromCard(target, detailed);
+  }
+  if (/^(bu parca ne ise yarar|bu ekipman ne ise yarar|secili parcayi acikla)$/.test(n)) {
+    const target = ctx.selected && cards.find(c => c.id === `entry:${ctx.reactor}.${ctx.selected}`);
+    if (target) return fromCard(target, detailed);
+    return { mode: 'local', text: 'Önce şemada bir ekipman seçin veya soruda parçanın adını belirtin.', sourceIds: [], actions: [], entryIds: [] };
+  }
   if (previous?.id.startsWith('compare:') && named.length === 1 && guideWords(q).length === 0) {
     const target = cards.find((c) => c.id === previous.id.replace(/:[^:]+$/, ':' + named[0]));
     if (target) return fromCard(target, detailed);
@@ -76,7 +86,7 @@ export function localAnswer(kb: KnowledgeSource, question: string, ctx: Assistan
     }
     return fromCard(top.card, detailed);
   }
-  return { mode: 'local', text: 'Bu soruya hazırlanmış güvenilir bir cevabım yok. PWR, BWR, VVER, RBMK ve CANDU ekipmanları, devreleri, karşılaştırmaları, PWR işletme davranışı ve site kullanımı hakkında yardımcı olabilirim. Hazır sorulardan birini seçebilir veya soruyu tek bir konuya odaklayabilirsiniz.',
+  return { mode: 'local', text: 'Bu soruya hazırlanmış güvenilir bir cevabım yok. PWR, BWR, VVER, RBMK ve CANDU ekipmanları, devreleri, karşılaştırmaları, güvenlik işlevleri, PWR işletme davranışı ve site kullanımı hakkında yardımcı olabilirim. Güvenlik için durdurma, artık ısı, ECCS, bariyerler veya yedek elektrik konularından birini sorabilirsiniz.',
     sourceIds: [], actions: [], entryIds: [], notCovered: true };
 }
 

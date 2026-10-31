@@ -8,6 +8,7 @@ import { GuideLibrary } from './GuideLibrary';
 import { validateActions } from './actions';
 import { REACTOR_NAME } from './execute';
 import type { AssistantContext, AssistantReply } from './types';
+import { suggestedQuestions } from './suggestions';
 
 
 interface Msg {
@@ -155,6 +156,10 @@ export function AssistantPanel({ open, onClose, context, contextLabel, actionTex
         role="log"
         aria-label="Asistan iletileri"
       >
+        <div className="assistant-suggestions">
+          <p>Bu görünümde sorabilecekleriniz</p>
+          {suggestedQuestions(context, kb).map(q => <button key={q} type="button" className="link" onClick={() => ask(q)}>{q}</button>)}
+        </div>
         <GuideLibrary cards={guideCatalog(kb)} reactor={context.reactor} onAsk={ask} />
         {msgs.length === 0 && (
           <div className="assistant-empty">

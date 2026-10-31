@@ -1,4 +1,5 @@
 import type { ReactorId } from '../reactors/shared/types';
+import { isSafetyTopic, type SafetyTopicId } from '../safety/catalog';
 import type { OpsSectionId } from '../reactors/pwr/operations/types';
 import { isChernobylStage, type ChernobylStageId } from '../reactors/rbmk/chernobyl/stages';
 
@@ -16,6 +17,7 @@ export interface AssistantHighlight {
 }
 
 export interface AppState {
+  safetyTopic: SafetyTopicId | null;
   reactor: ReactorId;
   view: ViewMode;
   selected: string | null;
@@ -44,6 +46,7 @@ export interface AppState {
 }
 
 export const initialAppState: AppState = {
+  safetyTopic: null,
   reactor: 'pwr',
   view: 'scheme',
   selected: null,
@@ -66,14 +69,15 @@ export const initialAppState: AppState = {
 };
 
 /** Asistanın “önceki konuma dön” için sakladığı gezinme durumu. */
-export type NavSnapshot = Pick<AppState, 'reactor' | 'view' | 'selected' | 'focus' | 'lessonStep' | 'detail' | 'pwrView' | 'rbmkView' | 'chernobylStage' | 'opsSection' | 'learnMode' | 'compareTopic'>;
+export type NavSnapshot = Pick<AppState, 'reactor' | 'view' | 'selected' | 'focus' | 'lessonStep' | 'detail' | 'pwrView' | 'rbmkView' | 'chernobylStage' | 'opsSection' | 'learnMode' | 'compareTopic'> & { safetyTopic?: SafetyTopicId | null };
 
 export function navSnapshot(s: AppState): NavSnapshot {
   const { reactor, view, selected, focus, lessonStep, detail, pwrView, opsSection, learnMode, compareTopic } = s;
-  return { reactor, view, selected, focus, lessonStep, detail, pwrView, rbmkView: s.rbmkView, chernobylStage: s.chernobylStage, opsSection, learnMode, compareTopic };
+  return { reactor, view, selected, focus, lessonStep, detail, pwrView, rbmkView: s.rbmkView, chernobylStage: s.chernobylStage, opsSection, learnMode, compareTopic, safetyTopic: s.safetyTopic };
 }
 
 export type AppAction =
+  | { type: 'setSafetyTopic'; topic: SafetyTopicId | null }
   | { type: 'setReactor'; reactor: ReactorId }
   | { type: 'setView'; view: ViewMode }
   | { type: 'select'; id: string | null }
@@ -98,12 +102,17 @@ export type AppAction =
 
 export function appReducer(state: AppState, action: AppAction): AppState {
   switch (action.type) {
+    case 'setSafetyTopic':
+      if (action.topic !== null && !isSafetyTopic(action.topic)) return state;
+      if (action.topic === null) return { ...state, safetyTopic: null, assistantHL: null };
+      return { ...state, safetyTopic: action.topic, view: 'scheme', pwrView: 'plant', rbmkView: 'plant', detail: null, selected: null, focus: null, assistantHL: null };
     case 'setReactor':
       if (action.reactor === state.reactor) return state;
       // Önceki reaktöre ait seçim, vurgu, ders adımı ve yakın planlar taşınmaz.
       return {
         ...state,
         reactor: action.reactor,
+        safetyTopic: null,
         selected: null,
         focus: null,
         lessonStep: 0,
@@ -122,6 +131,7 @@ export function appReducer(state: AppState, action: AppAction): AppState {
       return {
         ...state,
         view: action.view,
+        safetyTopic: null,
         detail: null,
         focus: null,
         selected: action.view === 'learn' ? null : state.selected,
@@ -130,13 +140,13 @@ export function appReducer(state: AppState, action: AppAction): AppState {
       };
     case 'setRbmkView':
       if (state.reactor !== 'rbmk') return state;
-      return { ...state, rbmkView: action.view, view: 'scheme', selected: null, focus: null, detail: null, assistantHL: null };
+      return { ...state, safetyTopic: null, rbmkView: action.view, view: 'scheme', selected: null, focus: null, detail: null, assistantHL: null };
     case 'setChernobylStage':
       if (state.reactor !== 'rbmk' || !isChernobylStage(action.stage)) return state;
-      return { ...state, rbmkView: 'chernobyl', chernobylStage: action.stage, view: 'scheme', selected: null, focus: null, detail: null, assistantHL: null };
+      return { ...state, safetyTopic: null, rbmkView: 'chernobyl', chernobylStage: action.stage, view: 'scheme', selected: null, focus: null, detail: null, assistantHL: null };
     case 'setPwrView':
       if (state.reactor !== 'pwr') return state;
-      return { ...state, pwrView: action.view, view: 'scheme', detail: null, focus: null, selected: null };
+      return { ...state, safetyTopic: null, pwrView: action.view, view: 'scheme', detail: null, focus: null, selected: null };
     case 'select':
       return { ...state, selected: action.id, focus: null, assistantHL: null };
     case 'focus':
@@ -159,13 +169,13 @@ export function appReducer(state: AppState, action: AppAction): AppState {
       return { ...state, selected: null, focus: null, lessonStep: 0, detail: null, sceneEpoch: state.sceneEpoch + 1, assistantHL: null };
     case 'setOpsSection':
       if (state.reactor !== 'pwr') return state;
-      return { ...state, view: 'scheme', pwrView: 'ops', opsSection: action.section, opsFocus: action.section === 'xenon' ? state.opsFocus : null };
+      return { ...state, safetyTopic: null, view: 'scheme', pwrView: 'ops', opsSection: action.section, opsFocus: action.section === 'xenon' ? state.opsFocus : null };
     case 'focusChartEvent':
       if (state.reactor !== 'pwr') return state;
-      return { ...state, view: 'scheme', pwrView: 'ops', opsSection: 'xenon', opsFocus: { eventId: action.eventId, nonce: (state.opsFocus?.nonce ?? 0) + 1 } };
+      return { ...state, safetyTopic: null, view: 'scheme', pwrView: 'ops', opsSection: 'xenon', opsFocus: { eventId: action.eventId, nonce: (state.opsFocus?.nonce ?? 0) + 1 } };
     case 'setLearnMode':
       if (action.mode === 'predict' && state.reactor !== 'pwr') return state;
-      return { ...state, view: 'learn', learnMode: action.mode, selected: null, focus: null, detail: null, pwrView: 'plant', rbmkView: 'plant' };
+      return { ...state, safetyTopic: null, view: 'learn', learnMode: action.mode, selected: null, focus: null, detail: null, pwrView: 'plant', rbmkView: 'plant' };
     case 'assistantHighlight':
       return { ...state, assistantHL: action.hl, ...(action.hl ? { selected: null, focus: null } : {}) };
     case 'setLabelDetail':
@@ -176,7 +186,7 @@ export function appReducer(state: AppState, action: AppAction): AppState {
       const n = action.nav;
       // Reaktör farklıysa önce reaktör değişimi (sahne yeniden bağlanır), sonra gezinme alanları.
       const base = n.reactor !== state.reactor ? appReducer(state, { type: 'setReactor', reactor: n.reactor }) : state;
-      return { ...base, ...n, rbmkView: n.reactor === 'rbmk' && n.view === 'scheme' ? n.rbmkView : 'plant', chernobylStage: isChernobylStage(n.chernobylStage) ? n.chernobylStage : 'conditions', assistantHL: null, opsFocus: null };
+      return { ...base, ...n, safetyTopic: n.view === 'scheme' && n.pwrView === 'plant' && n.rbmkView === 'plant' && isSafetyTopic(n.safetyTopic) ? n.safetyTopic : null, rbmkView: n.reactor === 'rbmk' && n.view === 'scheme' ? n.rbmkView : 'plant', chernobylStage: isChernobylStage(n.chernobylStage) ? n.chernobylStage : 'conditions', assistantHL: null, opsFocus: null };
     }
     default:
       return state;

@@ -22,6 +22,9 @@ export interface SourceDef {
 const NUCE = 'Nuc E 430 ders notları, Bölüm 2';
 
 export const SOURCES: readonly SourceDef[] = [
+  { id: 'iaea-safety-functions', kind: 'web', title: 'IAEA BPTC — Module III: Basic principles of nuclear safety (2015)', locator: '§3 temel işlevler, s. 18–22; §4 derinliğine savunma, s. 23–33', url: 'https://gnssn.iaea.org/main/bptc/BPTC%20Module%20Documents/Module03%20Basic%20principles%20of%20nuclear%20safety.pdf' },
+  { id: 'nrc-eccs', kind: 'web', title: 'U.S. NRC — Emergency core cooling systems (ECCS)', locator: 'Sözlük: ECCS işlevi ve bileşenleri', url: 'https://www.nrc.gov/education-regulatory-research/glossary/emergency-core-cooling-systems-eccs' },
+  { id: 'cnsc-safety', kind: 'web', title: 'CNSC — Nuclear power plant safety systems', locator: 'Controlling the reactor; Cooling the fuel; Containing radioactive material (Kanada CANDU kapsamı)', url: 'https://www.cnsc-ccsn.gc.ca/eng/reactors/power-plants/nuclear-power-plant-safety-systems/index.cfm' },
   { id: 'iaea-bme-void', kind: 'web', title: 'BME — Void coefficient measurement (2017), IAEA eğitim arşivi', locator: '§1–2, s. 1–3: moderasyon, boşluk ve reaktivite ilişkisi', url: 'https://nucleus.iaea.org/sites/connect/RRIHpublic/CompendiumDB/Shared%20Documents/Hungary-BME/Protocols%20in%20PDF/Hungary%20BME%2008%20Void%20Coefficient.pdf' },
   { id: 'app-guide', kind: 'app', title: 'Uygulama kullanım rehberi', locator: 'Site kontrolleri, yerel rehber ve ders ilerlemesi' },
   { id: 'nuce-ch2', kind: 'pdf', title: NUCE, locator: 'PWR, BWR ve VVER sistemleri (genel)' },

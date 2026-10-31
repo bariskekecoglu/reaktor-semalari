@@ -1,6 +1,6 @@
 # Yerel rehber soru-cevap kataloğu
 
-474 hazır cevap; 3486 farklı soru ifadesi.
+509 hazır cevap; 3889 farklı soru ifadesi.
 
 Bu dosya `npm run guide:export` ile üretilir. Düzenleme yeri: `src/assistant/guideCatalog.ts` ve referans aldığı mevcut ders/ekipman verileri.
 
@@ -10152,6 +10152,978 @@ Kaynaklar: `fig-2-42`, `fig-2-43`, `p-2-96`
 - eksenel ofset nedir
 - ao nedir
 - aynı toplam güç farklı dağılım olabilir mi
+
+</details>
+
+## Güvenlik
+
+### PWR Güvenlik sistemleri ne işe yarar?
+
+Kimlik: `safety-overview:pwr`
+
+Üç temel işlev reaktiviteyi kontrol etmek, yakıtı soğutmak ve radyoaktif maddeleri tutmaktır. Katmanda durdurma, artık ısı, acil çekirdek soğutma, bariyerler ve destek sistemlerini ayrı ayrı inceleyebilirsiniz.
+
+Bu katman sistemlerin görevlerini açıklar; belirli bir santralin tüm güvenlik donanımını veya bir kazanın sayısal sonucunu modellemez.
+
+Kaynaklar: `iaea-safety-functions`, `nuce-ch2`, `nuce-2-5`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- PWR güvenlik sistemleri
+- PWR temel güvenlik işlevleri
+- PWR güvenlik katmanını göster
+- PWR reaktör güvenlik sistemleri nedir
+
+</details>
+
+### PWR ECCS ile RHR arasındaki fark nedir?
+
+Kimlik: `safety-cooling:pwr`
+
+ECCS acil koşullarda çekirdek soğutmasına yönelik sistemleri, RHR artık ısının uzaklaştırılmasını ifade eder. Aynı kavram değildirler; bazı tasarımlarda ekipman veya işlev paylaşımı olabilir. Normal dolaşım pompası tek başına ECCS olarak adlandırılamaz.
+
+Belirli bir tasarımın devrelerini karşılaştırmak için o santralin sistem açıklamaları gerekir. Bu uygulama kavramsal ayrımı gösterir; devreye girme eşikleri veya kapasite hesabı vermez.
+
+Kaynaklar: `nrc-eccs`, `nuce-ch2`, `nuce-2-5`, `iaea-safety-functions`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- PWR acil çekirdek soğutma ile artık ısı uzaklaştırma farkı
+- PWR ECCS ve RHR aynı mı
+- PWR normal soğutma ile acil soğutma aynı mı
+- PWR ana pompa ECCS mi
+
+</details>
+
+### BWR Güvenlik sistemleri ne işe yarar?
+
+Kimlik: `safety-overview:bwr`
+
+Üç temel işlev reaktiviteyi kontrol etmek, yakıtı soğutmak ve radyoaktif maddeleri tutmaktır. Katmanda durdurma, artık ısı, acil çekirdek soğutma, bariyerler ve destek sistemlerini ayrı ayrı inceleyebilirsiniz.
+
+Bu katman sistemlerin görevlerini açıklar; belirli bir santralin tüm güvenlik donanımını veya bir kazanın sayısal sonucunu modellemez.
+
+Kaynaklar: `iaea-safety-functions`, `nuce-ch2`, `nrc-bwr`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- BWR güvenlik sistemleri
+- BWR temel güvenlik işlevleri
+- BWR güvenlik katmanını göster
+- BWR reaktör güvenlik sistemleri nedir
+
+</details>
+
+### BWR ECCS ile RHR arasındaki fark nedir?
+
+Kimlik: `safety-cooling:bwr`
+
+ECCS acil koşullarda çekirdek soğutmasına yönelik sistemleri, RHR artık ısının uzaklaştırılmasını ifade eder. Aynı kavram değildirler; bazı tasarımlarda ekipman veya işlev paylaşımı olabilir. Normal dolaşım pompası tek başına ECCS olarak adlandırılamaz.
+
+Belirli bir tasarımın devrelerini karşılaştırmak için o santralin sistem açıklamaları gerekir. Bu uygulama kavramsal ayrımı gösterir; devreye girme eşikleri veya kapasite hesabı vermez.
+
+Kaynaklar: `nrc-eccs`, `nuce-ch2`, `nrc-bwr`, `iaea-safety-functions`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- BWR acil çekirdek soğutma ile artık ısı uzaklaştırma farkı
+- BWR ECCS ve RHR aynı mı
+- BWR normal soğutma ile acil soğutma aynı mı
+- BWR ana pompa ECCS mi
+
+</details>
+
+### VVER Güvenlik sistemleri ne işe yarar?
+
+Kimlik: `safety-overview:vver`
+
+Üç temel işlev reaktiviteyi kontrol etmek, yakıtı soğutmak ve radyoaktif maddeleri tutmaktır. Katmanda durdurma, artık ısı, acil çekirdek soğutma, bariyerler ve destek sistemlerini ayrı ayrı inceleyebilirsiniz.
+
+Bu katman sistemlerin görevlerini açıklar; belirli bir santralin tüm güvenlik donanımını veya bir kazanın sayısal sonucunu modellemez.
+
+Kaynaklar: `iaea-safety-functions`, `iaea-vver`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- VVER güvenlik sistemleri
+- VVER temel güvenlik işlevleri
+- VVER güvenlik katmanını göster
+- VVER reaktör güvenlik sistemleri nedir
+
+</details>
+
+### VVER ECCS ile RHR arasındaki fark nedir?
+
+Kimlik: `safety-cooling:vver`
+
+ECCS acil koşullarda çekirdek soğutmasına yönelik sistemleri, RHR artık ısının uzaklaştırılmasını ifade eder. Aynı kavram değildirler; bazı tasarımlarda ekipman veya işlev paylaşımı olabilir. Normal dolaşım pompası tek başına ECCS olarak adlandırılamaz.
+
+Belirli bir tasarımın devrelerini karşılaştırmak için o santralin sistem açıklamaları gerekir. Bu uygulama kavramsal ayrımı gösterir; devreye girme eşikleri veya kapasite hesabı vermez.
+
+Kaynaklar: `nrc-eccs`, `iaea-vver`, `iaea-safety-functions`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- VVER acil çekirdek soğutma ile artık ısı uzaklaştırma farkı
+- VVER ECCS ve RHR aynı mı
+- VVER normal soğutma ile acil soğutma aynı mı
+- VVER ana pompa ECCS mi
+
+</details>
+
+### RBMK Güvenlik sistemleri ne işe yarar?
+
+Kimlik: `safety-overview:rbmk`
+
+Üç temel işlev reaktiviteyi kontrol etmek, yakıtı soğutmak ve radyoaktif maddeleri tutmaktır. Katmanda durdurma, artık ısı, acil çekirdek soğutma, bariyerler ve destek sistemlerini ayrı ayrı inceleyebilirsiniz.
+
+Bu katman sistemlerin görevlerini açıklar; belirli bir santralin tüm güvenlik donanımını veya bir kazanın sayısal sonucunu modellemez.
+
+Kaynaklar: `iaea-safety-functions`, `iaea-insag7`, `nea-chernobyl`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK güvenlik sistemleri
+- RBMK temel güvenlik işlevleri
+- RBMK güvenlik katmanını göster
+- RBMK reaktör güvenlik sistemleri nedir
+
+</details>
+
+### RBMK ECCS ile RHR arasındaki fark nedir?
+
+Kimlik: `safety-cooling:rbmk`
+
+ECCS acil koşullarda çekirdek soğutmasına yönelik sistemleri, RHR artık ısının uzaklaştırılmasını ifade eder. Aynı kavram değildirler; bazı tasarımlarda ekipman veya işlev paylaşımı olabilir. Normal dolaşım pompası tek başına ECCS olarak adlandırılamaz.
+
+Belirli bir tasarımın devrelerini karşılaştırmak için o santralin sistem açıklamaları gerekir. Bu uygulama kavramsal ayrımı gösterir; devreye girme eşikleri veya kapasite hesabı vermez.
+
+Kaynaklar: `nrc-eccs`, `iaea-insag7`, `nea-chernobyl`, `iaea-safety-functions`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK acil çekirdek soğutma ile artık ısı uzaklaştırma farkı
+- RBMK ECCS ve RHR aynı mı
+- RBMK normal soğutma ile acil soğutma aynı mı
+- RBMK ana pompa ECCS mi
+
+</details>
+
+### CANDU Güvenlik sistemleri ne işe yarar?
+
+Kimlik: `safety-overview:candu`
+
+Üç temel işlev reaktiviteyi kontrol etmek, yakıtı soğutmak ve radyoaktif maddeleri tutmaktır. Katmanda durdurma, artık ısı, acil çekirdek soğutma, bariyerler ve destek sistemlerini ayrı ayrı inceleyebilirsiniz.
+
+Bu katman sistemlerin görevlerini açıklar; belirli bir santralin tüm güvenlik donanımını veya bir kazanın sayısal sonucunu modellemez.
+
+Kaynaklar: `iaea-safety-functions`, `cnsc-safety`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU güvenlik sistemleri
+- CANDU temel güvenlik işlevleri
+- CANDU güvenlik katmanını göster
+- CANDU reaktör güvenlik sistemleri nedir
+
+</details>
+
+### CANDU ECCS ile RHR arasındaki fark nedir?
+
+Kimlik: `safety-cooling:candu`
+
+ECCS acil koşullarda çekirdek soğutmasına yönelik sistemleri, RHR artık ısının uzaklaştırılmasını ifade eder. Aynı kavram değildirler; bazı tasarımlarda ekipman veya işlev paylaşımı olabilir. Normal dolaşım pompası tek başına ECCS olarak adlandırılamaz.
+
+Belirli bir tasarımın devrelerini karşılaştırmak için o santralin sistem açıklamaları gerekir. Bu uygulama kavramsal ayrımı gösterir; devreye girme eşikleri veya kapasite hesabı vermez.
+
+Kaynaklar: `nrc-eccs`, `cnsc-safety`, `iaea-safety-functions`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU acil çekirdek soğutma ile artık ısı uzaklaştırma farkı
+- CANDU ECCS ve RHR aynı mı
+- CANDU normal soğutma ile acil soğutma aynı mı
+- CANDU ana pompa ECCS mi
+
+</details>
+
+### PWR Reaktör koruma sistemi ne işe yarar?
+
+Kimlik: `entry:pwr.safety.shutdown`
+
+Koruma sistemi, izlenen koşullar gerektiğinde zincirleme fisyon tepkimesinin durdurulmasını başlatır. Durdurma, yakıttaki artık ısıyı ortadan kaldırmaz.
+
+Güç ayarı ile koruyucu durdurma farklı işlevlerdir. Buradaki çubuk hareketi gerçek bir koruma sisteminin tepki hesabı değildir.
+
+PWR için kapsam: Bu şemadaki kontrol çubukları, reaktör kabı ve koruma yapısı ilgili parçaları incelemek içindir. ECCS, yardımcı besleme ve RHR borulaması bu normal çalışma şemasında çizilmemiştir.
+
+Kaynaklar: `iaea-safety-functions`, `nuce-ch2`, `nuce-2-5`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- PWR Reaktör koruma sistemi ne işe yarar?
+- PWR reaktör koruma sistemi nedir?
+- PWR reaktör koruma sistemi nasıl çalışır?
+- PWR reaktör koruma sistemi göster
+- PWR reaktör trip nedir?
+- PWR reaktör trip nasıl çalışır?
+- PWR reaktör trip göster
+- PWR scram nedir?
+- PWR scram nasıl çalışır?
+- PWR scram göster
+- PWR acil durdurma nedir?
+- PWR acil durdurma nasıl çalışır?
+- PWR acil durdurma göster
+- PWR reaktörü durdurma nedir?
+- PWR reaktörü durdurma nasıl çalışır?
+- PWR reaktörü durdurma göster
+
+</details>
+
+### PWR Artık ısı uzaklaştırma sistemi neden gerekir?
+
+Kimlik: `entry:pwr.safety.heat`
+
+Fisyon durdurulduktan sonra radyoaktif bozunmalar yakıtta ısı üretmeyi sürdürür. Bu ısı, uygun bir soğutma yolu üzerinden nihai ısı alıcısına aktarılmalıdır.
+
+Elektrik üretiminin bitmesi, soğutma ihtiyacının bitmesi anlamına gelmez. Kullanılabilir soğutma yolu santral tasarımına ve koşullara bağlıdır.
+
+PWR için kapsam: Bu şemadaki kontrol çubukları, reaktör kabı ve koruma yapısı ilgili parçaları incelemek içindir. ECCS, yardımcı besleme ve RHR borulaması bu normal çalışma şemasında çizilmemiştir.
+
+Kaynaklar: `iaea-safety-functions`, `nuce-ch2`, `nuce-2-5`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- PWR Artık ısı uzaklaştırma sistemi neden gerekir?
+- PWR artık ısı uzaklaştırma sistemi nedir?
+- PWR artık ısı uzaklaştırma sistemi nasıl çalışır?
+- PWR artık ısı uzaklaştırma sistemi göster
+- PWR rhr nedir?
+- PWR rhr nasıl çalışır?
+- PWR rhr göster
+- PWR kapatma soğutması nedir?
+- PWR kapatma soğutması nasıl çalışır?
+- PWR kapatma soğutması göster
+- PWR durdurma sonrası soğutma nedir?
+- PWR durdurma sonrası soğutma nasıl çalışır?
+- PWR durdurma sonrası soğutma göster
+
+</details>
+
+### PWR Acil çekirdek soğutma sistemi ECCS nedir?
+
+Kimlik: `entry:pwr.safety.eccs`
+
+Acil çekirdek soğutma sistemleri, normal çekirdek soğutmasının kaybı gibi koşullarda yakıtın soğutulmasını destekleyen özel sistemlerdir. Pompa, vana, tank ve borulama düzeni tasarıma göre değişir.
+
+Ana dolaşım pompası ECCS ile aynı şey değildir. Aşağıdaki kavram zinciri, belirli bir santralin bağlantı veya devreye girme sırasını göstermez.
+
+PWR için kapsam: Bu şemadaki kontrol çubukları, reaktör kabı ve koruma yapısı ilgili parçaları incelemek içindir. ECCS, yardımcı besleme ve RHR borulaması bu normal çalışma şemasında çizilmemiştir.
+
+Kaynaklar: `nrc-eccs`, `nuce-ch2`, `nuce-2-5`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- PWR Acil çekirdek soğutma sistemi ECCS nedir?
+- PWR acil çekirdek soğutma nedir?
+- PWR acil çekirdek soğutma nasıl çalışır?
+- PWR acil çekirdek soğutma göster
+- PWR eccs nedir?
+- PWR eccs nasıl çalışır?
+- PWR eccs göster
+- PWR acil soğutma nedir?
+- PWR acil soğutma nasıl çalışır?
+- PWR acil soğutma göster
+- PWR acil enjeksiyon nedir?
+- PWR acil enjeksiyon nasıl çalışır?
+- PWR acil enjeksiyon göster
+
+</details>
+
+### PWR Güvenlik bariyerleri ve derinliğine savunma nedir?
+
+Kimlik: `entry:pwr.safety.barriers`
+
+Yakıt ve çevresindeki fiziksel bariyerler radyoaktif maddelerin yayılmasını sınırlar. Derinliğine savunma, bu bariyerlerin yanında önleme, izleme ve sonuçları azaltma katmanlarını da kapsar.
+
+Biyolojik zırhın ışınlamayı azaltması ile sızdırmaz bir bariyerin madde salımını sınırlaması farklı görevlerdir. Her reaktör binası eşdeğer bir containment değildir.
+
+PWR için kapsam: Bu şemadaki kontrol çubukları, reaktör kabı ve koruma yapısı ilgili parçaları incelemek içindir. ECCS, yardımcı besleme ve RHR borulaması bu normal çalışma şemasında çizilmemiştir.
+
+Kaynaklar: `iaea-safety-functions`, `nuce-ch2`, `nuce-2-5`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- PWR Güvenlik bariyerleri ve derinliğine savunma nedir?
+- PWR güvenlik bariyerleri nedir?
+- PWR güvenlik bariyerleri nasıl çalışır?
+- PWR güvenlik bariyerleri göster
+- PWR derinliğine savunma nedir?
+- PWR derinliğine savunma nasıl çalışır?
+- PWR derinliğine savunma göster
+- PWR radyoaktif maddeyi tutma nedir?
+- PWR radyoaktif maddeyi tutma nasıl çalışır?
+- PWR radyoaktif maddeyi tutma göster
+- PWR fiziksel bariyerler nedir?
+- PWR fiziksel bariyerler nasıl çalışır?
+- PWR fiziksel bariyerler göster
+
+</details>
+
+### PWR Güvenlik sistemlerinde yedek elektrik neden gerekir?
+
+Kimlik: `entry:pwr.safety.support`
+
+Güvenlik işlevleri, ilgili tasarıma göre elektrik, ölçüm, kontrol ve yardımcı soğutma gibi desteklere ihtiyaç duyar. Birden fazla güç kaynağı, tek bir kaynağın kaybına karşı korumayı destekler.
+
+Yedek kaynakların bulunması bütün işlevlerin sınırsız süre çalışacağı anlamına gelmez. Kapasite, bağımsızlık ve ortak nedenli arızalar ayrıca değerlendirilir.
+
+PWR için kapsam: Bu şemadaki kontrol çubukları, reaktör kabı ve koruma yapısı ilgili parçaları incelemek içindir. ECCS, yardımcı besleme ve RHR borulaması bu normal çalışma şemasında çizilmemiştir.
+
+Kaynaklar: `iaea-safety-functions`, `nuce-ch2`, `nuce-2-5`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- PWR Güvenlik sistemlerinde yedek elektrik neden gerekir?
+- PWR yedek elektrik nedir?
+- PWR yedek elektrik nasıl çalışır?
+- PWR yedek elektrik göster
+- PWR güvenlik destek sistemleri nedir?
+- PWR güvenlik destek sistemleri nasıl çalışır?
+- PWR güvenlik destek sistemleri göster
+- PWR acil güç kaynağı nedir?
+- PWR acil güç kaynağı nasıl çalışır?
+- PWR acil güç kaynağı göster
+- PWR dizel jeneratör nedir?
+- PWR dizel jeneratör nasıl çalışır?
+- PWR dizel jeneratör göster
+- PWR bataryalar nedir?
+- PWR bataryalar nasıl çalışır?
+- PWR bataryalar göster
+
+</details>
+
+### BWR Reaktör koruma sistemi ne işe yarar?
+
+Kimlik: `entry:bwr.safety.shutdown`
+
+Koruma sistemi, izlenen koşullar gerektiğinde zincirleme fisyon tepkimesinin durdurulmasını başlatır. Durdurma, yakıttaki artık ısıyı ortadan kaldırmaz.
+
+Güç ayarı ile koruyucu durdurma farklı işlevlerdir. Buradaki çubuk hareketi gerçek bir koruma sisteminin tepki hesabı değildir.
+
+BWR için kapsam: Bu şemada kontrol çubukları alttan girer. Normal devridaim ve besleme yolları gösterilir; acil soğutma sistemlerinin ayrı devreleri çizilmemiştir.
+
+Kaynaklar: `iaea-safety-functions`, `nuce-ch2`, `nrc-bwr`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- BWR Reaktör koruma sistemi ne işe yarar?
+- BWR reaktör koruma sistemi nedir?
+- BWR reaktör koruma sistemi nasıl çalışır?
+- BWR reaktör koruma sistemi göster
+- BWR reaktör trip nedir?
+- BWR reaktör trip nasıl çalışır?
+- BWR reaktör trip göster
+- BWR scram nedir?
+- BWR scram nasıl çalışır?
+- BWR scram göster
+- BWR acil durdurma nedir?
+- BWR acil durdurma nasıl çalışır?
+- BWR acil durdurma göster
+- BWR reaktörü durdurma nedir?
+- BWR reaktörü durdurma nasıl çalışır?
+- BWR reaktörü durdurma göster
+
+</details>
+
+### BWR Artık ısı uzaklaştırma sistemi neden gerekir?
+
+Kimlik: `entry:bwr.safety.heat`
+
+Fisyon durdurulduktan sonra radyoaktif bozunmalar yakıtta ısı üretmeyi sürdürür. Bu ısı, uygun bir soğutma yolu üzerinden nihai ısı alıcısına aktarılmalıdır.
+
+Elektrik üretiminin bitmesi, soğutma ihtiyacının bitmesi anlamına gelmez. Kullanılabilir soğutma yolu santral tasarımına ve koşullara bağlıdır.
+
+BWR için kapsam: Bu şemada kontrol çubukları alttan girer. Normal devridaim ve besleme yolları gösterilir; acil soğutma sistemlerinin ayrı devreleri çizilmemiştir.
+
+Kaynaklar: `iaea-safety-functions`, `nuce-ch2`, `nrc-bwr`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- BWR Artık ısı uzaklaştırma sistemi neden gerekir?
+- BWR artık ısı uzaklaştırma sistemi nedir?
+- BWR artık ısı uzaklaştırma sistemi nasıl çalışır?
+- BWR artık ısı uzaklaştırma sistemi göster
+- BWR rhr nedir?
+- BWR rhr nasıl çalışır?
+- BWR rhr göster
+- BWR kapatma soğutması nedir?
+- BWR kapatma soğutması nasıl çalışır?
+- BWR kapatma soğutması göster
+- BWR durdurma sonrası soğutma nedir?
+- BWR durdurma sonrası soğutma nasıl çalışır?
+- BWR durdurma sonrası soğutma göster
+
+</details>
+
+### BWR Acil çekirdek soğutma sistemi ECCS nedir?
+
+Kimlik: `entry:bwr.safety.eccs`
+
+Acil çekirdek soğutma sistemleri, normal çekirdek soğutmasının kaybı gibi koşullarda yakıtın soğutulmasını destekleyen özel sistemlerdir. Pompa, vana, tank ve borulama düzeni tasarıma göre değişir.
+
+Ana dolaşım pompası ECCS ile aynı şey değildir. Aşağıdaki kavram zinciri, belirli bir santralin bağlantı veya devreye girme sırasını göstermez.
+
+BWR için kapsam: Bu şemada kontrol çubukları alttan girer. Normal devridaim ve besleme yolları gösterilir; acil soğutma sistemlerinin ayrı devreleri çizilmemiştir.
+
+Kaynaklar: `nrc-eccs`, `nuce-ch2`, `nrc-bwr`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- BWR Acil çekirdek soğutma sistemi ECCS nedir?
+- BWR acil çekirdek soğutma nedir?
+- BWR acil çekirdek soğutma nasıl çalışır?
+- BWR acil çekirdek soğutma göster
+- BWR eccs nedir?
+- BWR eccs nasıl çalışır?
+- BWR eccs göster
+- BWR acil soğutma nedir?
+- BWR acil soğutma nasıl çalışır?
+- BWR acil soğutma göster
+- BWR acil enjeksiyon nedir?
+- BWR acil enjeksiyon nasıl çalışır?
+- BWR acil enjeksiyon göster
+
+</details>
+
+### BWR Güvenlik bariyerleri ve derinliğine savunma nedir?
+
+Kimlik: `entry:bwr.safety.barriers`
+
+Yakıt ve çevresindeki fiziksel bariyerler radyoaktif maddelerin yayılmasını sınırlar. Derinliğine savunma, bu bariyerlerin yanında önleme, izleme ve sonuçları azaltma katmanlarını da kapsar.
+
+Biyolojik zırhın ışınlamayı azaltması ile sızdırmaz bir bariyerin madde salımını sınırlaması farklı görevlerdir. Her reaktör binası eşdeğer bir containment değildir.
+
+BWR için kapsam: Bu şemada kontrol çubukları alttan girer. Normal devridaim ve besleme yolları gösterilir; acil soğutma sistemlerinin ayrı devreleri çizilmemiştir.
+
+Kaynaklar: `iaea-safety-functions`, `nuce-ch2`, `nrc-bwr`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- BWR Güvenlik bariyerleri ve derinliğine savunma nedir?
+- BWR güvenlik bariyerleri nedir?
+- BWR güvenlik bariyerleri nasıl çalışır?
+- BWR güvenlik bariyerleri göster
+- BWR derinliğine savunma nedir?
+- BWR derinliğine savunma nasıl çalışır?
+- BWR derinliğine savunma göster
+- BWR radyoaktif maddeyi tutma nedir?
+- BWR radyoaktif maddeyi tutma nasıl çalışır?
+- BWR radyoaktif maddeyi tutma göster
+- BWR fiziksel bariyerler nedir?
+- BWR fiziksel bariyerler nasıl çalışır?
+- BWR fiziksel bariyerler göster
+
+</details>
+
+### BWR Güvenlik sistemlerinde yedek elektrik neden gerekir?
+
+Kimlik: `entry:bwr.safety.support`
+
+Güvenlik işlevleri, ilgili tasarıma göre elektrik, ölçüm, kontrol ve yardımcı soğutma gibi desteklere ihtiyaç duyar. Birden fazla güç kaynağı, tek bir kaynağın kaybına karşı korumayı destekler.
+
+Yedek kaynakların bulunması bütün işlevlerin sınırsız süre çalışacağı anlamına gelmez. Kapasite, bağımsızlık ve ortak nedenli arızalar ayrıca değerlendirilir.
+
+BWR için kapsam: Bu şemada kontrol çubukları alttan girer. Normal devridaim ve besleme yolları gösterilir; acil soğutma sistemlerinin ayrı devreleri çizilmemiştir.
+
+Kaynaklar: `iaea-safety-functions`, `nuce-ch2`, `nrc-bwr`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- BWR Güvenlik sistemlerinde yedek elektrik neden gerekir?
+- BWR yedek elektrik nedir?
+- BWR yedek elektrik nasıl çalışır?
+- BWR yedek elektrik göster
+- BWR güvenlik destek sistemleri nedir?
+- BWR güvenlik destek sistemleri nasıl çalışır?
+- BWR güvenlik destek sistemleri göster
+- BWR acil güç kaynağı nedir?
+- BWR acil güç kaynağı nasıl çalışır?
+- BWR acil güç kaynağı göster
+- BWR dizel jeneratör nedir?
+- BWR dizel jeneratör nasıl çalışır?
+- BWR dizel jeneratör göster
+- BWR bataryalar nedir?
+- BWR bataryalar nasıl çalışır?
+- BWR bataryalar göster
+
+</details>
+
+### VVER Reaktör koruma sistemi ne işe yarar?
+
+Kimlik: `entry:vver.safety.shutdown`
+
+Koruma sistemi, izlenen koşullar gerektiğinde zincirleme fisyon tepkimesinin durdurulmasını başlatır. Durdurma, yakıttaki artık ısıyı ortadan kaldırmaz.
+
+Güç ayarı ile koruyucu durdurma farklı işlevlerdir. Buradaki çubuk hareketi gerçek bir koruma sisteminin tepki hesabı değildir.
+
+VVER için kapsam: Bu çizim yatay buhar üreteçli temsili bir VVER çevrimidir. VVER modellerinin güvenlik sistemleri aynı değildir; modele özgü acil soğutma borulaması bu çizimde yoktur.
+
+Kaynaklar: `iaea-safety-functions`, `iaea-vver`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- VVER Reaktör koruma sistemi ne işe yarar?
+- VVER reaktör koruma sistemi nedir?
+- VVER reaktör koruma sistemi nasıl çalışır?
+- VVER reaktör koruma sistemi göster
+- VVER reaktör trip nedir?
+- VVER reaktör trip nasıl çalışır?
+- VVER reaktör trip göster
+- VVER scram nedir?
+- VVER scram nasıl çalışır?
+- VVER scram göster
+- VVER acil durdurma nedir?
+- VVER acil durdurma nasıl çalışır?
+- VVER acil durdurma göster
+- VVER reaktörü durdurma nedir?
+- VVER reaktörü durdurma nasıl çalışır?
+- VVER reaktörü durdurma göster
+
+</details>
+
+### VVER Artık ısı uzaklaştırma sistemi neden gerekir?
+
+Kimlik: `entry:vver.safety.heat`
+
+Fisyon durdurulduktan sonra radyoaktif bozunmalar yakıtta ısı üretmeyi sürdürür. Bu ısı, uygun bir soğutma yolu üzerinden nihai ısı alıcısına aktarılmalıdır.
+
+Elektrik üretiminin bitmesi, soğutma ihtiyacının bitmesi anlamına gelmez. Kullanılabilir soğutma yolu santral tasarımına ve koşullara bağlıdır.
+
+VVER için kapsam: Bu çizim yatay buhar üreteçli temsili bir VVER çevrimidir. VVER modellerinin güvenlik sistemleri aynı değildir; modele özgü acil soğutma borulaması bu çizimde yoktur.
+
+Kaynaklar: `iaea-safety-functions`, `iaea-vver`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- VVER Artık ısı uzaklaştırma sistemi neden gerekir?
+- VVER artık ısı uzaklaştırma sistemi nedir?
+- VVER artık ısı uzaklaştırma sistemi nasıl çalışır?
+- VVER artık ısı uzaklaştırma sistemi göster
+- VVER rhr nedir?
+- VVER rhr nasıl çalışır?
+- VVER rhr göster
+- VVER kapatma soğutması nedir?
+- VVER kapatma soğutması nasıl çalışır?
+- VVER kapatma soğutması göster
+- VVER durdurma sonrası soğutma nedir?
+- VVER durdurma sonrası soğutma nasıl çalışır?
+- VVER durdurma sonrası soğutma göster
+
+</details>
+
+### VVER Acil çekirdek soğutma sistemi ECCS nedir?
+
+Kimlik: `entry:vver.safety.eccs`
+
+Acil çekirdek soğutma sistemleri, normal çekirdek soğutmasının kaybı gibi koşullarda yakıtın soğutulmasını destekleyen özel sistemlerdir. Pompa, vana, tank ve borulama düzeni tasarıma göre değişir.
+
+Ana dolaşım pompası ECCS ile aynı şey değildir. Aşağıdaki kavram zinciri, belirli bir santralin bağlantı veya devreye girme sırasını göstermez.
+
+VVER için kapsam: Bu çizim yatay buhar üreteçli temsili bir VVER çevrimidir. VVER modellerinin güvenlik sistemleri aynı değildir; modele özgü acil soğutma borulaması bu çizimde yoktur.
+
+Kaynaklar: `nrc-eccs`, `iaea-vver`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- VVER Acil çekirdek soğutma sistemi ECCS nedir?
+- VVER acil çekirdek soğutma nedir?
+- VVER acil çekirdek soğutma nasıl çalışır?
+- VVER acil çekirdek soğutma göster
+- VVER eccs nedir?
+- VVER eccs nasıl çalışır?
+- VVER eccs göster
+- VVER acil soğutma nedir?
+- VVER acil soğutma nasıl çalışır?
+- VVER acil soğutma göster
+- VVER acil enjeksiyon nedir?
+- VVER acil enjeksiyon nasıl çalışır?
+- VVER acil enjeksiyon göster
+
+</details>
+
+### VVER Güvenlik bariyerleri ve derinliğine savunma nedir?
+
+Kimlik: `entry:vver.safety.barriers`
+
+Yakıt ve çevresindeki fiziksel bariyerler radyoaktif maddelerin yayılmasını sınırlar. Derinliğine savunma, bu bariyerlerin yanında önleme, izleme ve sonuçları azaltma katmanlarını da kapsar.
+
+Biyolojik zırhın ışınlamayı azaltması ile sızdırmaz bir bariyerin madde salımını sınırlaması farklı görevlerdir. Her reaktör binası eşdeğer bir containment değildir.
+
+VVER için kapsam: Bu çizim yatay buhar üreteçli temsili bir VVER çevrimidir. VVER modellerinin güvenlik sistemleri aynı değildir; modele özgü acil soğutma borulaması bu çizimde yoktur.
+
+Kaynaklar: `iaea-safety-functions`, `iaea-vver`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- VVER Güvenlik bariyerleri ve derinliğine savunma nedir?
+- VVER güvenlik bariyerleri nedir?
+- VVER güvenlik bariyerleri nasıl çalışır?
+- VVER güvenlik bariyerleri göster
+- VVER derinliğine savunma nedir?
+- VVER derinliğine savunma nasıl çalışır?
+- VVER derinliğine savunma göster
+- VVER radyoaktif maddeyi tutma nedir?
+- VVER radyoaktif maddeyi tutma nasıl çalışır?
+- VVER radyoaktif maddeyi tutma göster
+- VVER fiziksel bariyerler nedir?
+- VVER fiziksel bariyerler nasıl çalışır?
+- VVER fiziksel bariyerler göster
+
+</details>
+
+### VVER Güvenlik sistemlerinde yedek elektrik neden gerekir?
+
+Kimlik: `entry:vver.safety.support`
+
+Güvenlik işlevleri, ilgili tasarıma göre elektrik, ölçüm, kontrol ve yardımcı soğutma gibi desteklere ihtiyaç duyar. Birden fazla güç kaynağı, tek bir kaynağın kaybına karşı korumayı destekler.
+
+Yedek kaynakların bulunması bütün işlevlerin sınırsız süre çalışacağı anlamına gelmez. Kapasite, bağımsızlık ve ortak nedenli arızalar ayrıca değerlendirilir.
+
+VVER için kapsam: Bu çizim yatay buhar üreteçli temsili bir VVER çevrimidir. VVER modellerinin güvenlik sistemleri aynı değildir; modele özgü acil soğutma borulaması bu çizimde yoktur.
+
+Kaynaklar: `iaea-safety-functions`, `iaea-vver`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- VVER Güvenlik sistemlerinde yedek elektrik neden gerekir?
+- VVER yedek elektrik nedir?
+- VVER yedek elektrik nasıl çalışır?
+- VVER yedek elektrik göster
+- VVER güvenlik destek sistemleri nedir?
+- VVER güvenlik destek sistemleri nasıl çalışır?
+- VVER güvenlik destek sistemleri göster
+- VVER acil güç kaynağı nedir?
+- VVER acil güç kaynağı nasıl çalışır?
+- VVER acil güç kaynağı göster
+- VVER dizel jeneratör nedir?
+- VVER dizel jeneratör nasıl çalışır?
+- VVER dizel jeneratör göster
+- VVER bataryalar nedir?
+- VVER bataryalar nasıl çalışır?
+- VVER bataryalar göster
+
+</details>
+
+### RBMK Reaktör koruma sistemi ne işe yarar?
+
+Kimlik: `entry:rbmk.safety.shutdown`
+
+Koruma sistemi, izlenen koşullar gerektiğinde zincirleme fisyon tepkimesinin durdurulmasını başlatır. Durdurma, yakıttaki artık ısıyı ortadan kaldırmaz.
+
+Güç ayarı ile koruyucu durdurma farklı işlevlerdir. Buradaki çubuk hareketi gerçek bir koruma sisteminin tepki hesabı değildir.
+
+RBMK için kapsam: Buradaki RBMK-1000 bina ve biyolojik zırhı, PWR tipi tam basınç containment ile eşdeğer değildir. Çernobil bölümü 1986 tasarımı ve tarihsel koşulları ele alır; bu katman güncel RBMK güvenlik değerlendirmesi değildir.
+
+Kaynaklar: `iaea-safety-functions`, `iaea-insag7`, `nea-chernobyl`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK Reaktör koruma sistemi ne işe yarar?
+- RBMK reaktör koruma sistemi nedir?
+- RBMK reaktör koruma sistemi nasıl çalışır?
+- RBMK reaktör koruma sistemi göster
+- RBMK reaktör trip nedir?
+- RBMK reaktör trip nasıl çalışır?
+- RBMK reaktör trip göster
+- RBMK scram nedir?
+- RBMK scram nasıl çalışır?
+- RBMK scram göster
+- RBMK acil durdurma nedir?
+- RBMK acil durdurma nasıl çalışır?
+- RBMK acil durdurma göster
+- RBMK reaktörü durdurma nedir?
+- RBMK reaktörü durdurma nasıl çalışır?
+- RBMK reaktörü durdurma göster
+
+</details>
+
+### RBMK Artık ısı uzaklaştırma sistemi neden gerekir?
+
+Kimlik: `entry:rbmk.safety.heat`
+
+Fisyon durdurulduktan sonra radyoaktif bozunmalar yakıtta ısı üretmeyi sürdürür. Bu ısı, uygun bir soğutma yolu üzerinden nihai ısı alıcısına aktarılmalıdır.
+
+Elektrik üretiminin bitmesi, soğutma ihtiyacının bitmesi anlamına gelmez. Kullanılabilir soğutma yolu santral tasarımına ve koşullara bağlıdır.
+
+RBMK için kapsam: Buradaki RBMK-1000 bina ve biyolojik zırhı, PWR tipi tam basınç containment ile eşdeğer değildir. Çernobil bölümü 1986 tasarımı ve tarihsel koşulları ele alır; bu katman güncel RBMK güvenlik değerlendirmesi değildir.
+
+Kaynaklar: `iaea-safety-functions`, `iaea-insag7`, `nea-chernobyl`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK Artık ısı uzaklaştırma sistemi neden gerekir?
+- RBMK artık ısı uzaklaştırma sistemi nedir?
+- RBMK artık ısı uzaklaştırma sistemi nasıl çalışır?
+- RBMK artık ısı uzaklaştırma sistemi göster
+- RBMK rhr nedir?
+- RBMK rhr nasıl çalışır?
+- RBMK rhr göster
+- RBMK kapatma soğutması nedir?
+- RBMK kapatma soğutması nasıl çalışır?
+- RBMK kapatma soğutması göster
+- RBMK durdurma sonrası soğutma nedir?
+- RBMK durdurma sonrası soğutma nasıl çalışır?
+- RBMK durdurma sonrası soğutma göster
+
+</details>
+
+### RBMK Acil çekirdek soğutma sistemi ECCS nedir?
+
+Kimlik: `entry:rbmk.safety.eccs`
+
+Acil çekirdek soğutma sistemleri, normal çekirdek soğutmasının kaybı gibi koşullarda yakıtın soğutulmasını destekleyen özel sistemlerdir. Pompa, vana, tank ve borulama düzeni tasarıma göre değişir.
+
+Ana dolaşım pompası ECCS ile aynı şey değildir. Aşağıdaki kavram zinciri, belirli bir santralin bağlantı veya devreye girme sırasını göstermez.
+
+RBMK için kapsam: Buradaki RBMK-1000 bina ve biyolojik zırhı, PWR tipi tam basınç containment ile eşdeğer değildir. Çernobil bölümü 1986 tasarımı ve tarihsel koşulları ele alır; bu katman güncel RBMK güvenlik değerlendirmesi değildir.
+
+Kaynaklar: `nrc-eccs`, `iaea-insag7`, `nea-chernobyl`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK Acil çekirdek soğutma sistemi ECCS nedir?
+- RBMK acil çekirdek soğutma nedir?
+- RBMK acil çekirdek soğutma nasıl çalışır?
+- RBMK acil çekirdek soğutma göster
+- RBMK eccs nedir?
+- RBMK eccs nasıl çalışır?
+- RBMK eccs göster
+- RBMK acil soğutma nedir?
+- RBMK acil soğutma nasıl çalışır?
+- RBMK acil soğutma göster
+- RBMK acil enjeksiyon nedir?
+- RBMK acil enjeksiyon nasıl çalışır?
+- RBMK acil enjeksiyon göster
+
+</details>
+
+### RBMK Güvenlik bariyerleri ve derinliğine savunma nedir?
+
+Kimlik: `entry:rbmk.safety.barriers`
+
+Yakıt ve çevresindeki fiziksel bariyerler radyoaktif maddelerin yayılmasını sınırlar. Derinliğine savunma, bu bariyerlerin yanında önleme, izleme ve sonuçları azaltma katmanlarını da kapsar.
+
+Biyolojik zırhın ışınlamayı azaltması ile sızdırmaz bir bariyerin madde salımını sınırlaması farklı görevlerdir. Her reaktör binası eşdeğer bir containment değildir.
+
+RBMK için kapsam: Buradaki RBMK-1000 bina ve biyolojik zırhı, PWR tipi tam basınç containment ile eşdeğer değildir. Çernobil bölümü 1986 tasarımı ve tarihsel koşulları ele alır; bu katman güncel RBMK güvenlik değerlendirmesi değildir.
+
+Kaynaklar: `iaea-safety-functions`, `iaea-insag7`, `nea-chernobyl`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK Güvenlik bariyerleri ve derinliğine savunma nedir?
+- RBMK güvenlik bariyerleri nedir?
+- RBMK güvenlik bariyerleri nasıl çalışır?
+- RBMK güvenlik bariyerleri göster
+- RBMK derinliğine savunma nedir?
+- RBMK derinliğine savunma nasıl çalışır?
+- RBMK derinliğine savunma göster
+- RBMK radyoaktif maddeyi tutma nedir?
+- RBMK radyoaktif maddeyi tutma nasıl çalışır?
+- RBMK radyoaktif maddeyi tutma göster
+- RBMK fiziksel bariyerler nedir?
+- RBMK fiziksel bariyerler nasıl çalışır?
+- RBMK fiziksel bariyerler göster
+
+</details>
+
+### RBMK Güvenlik sistemlerinde yedek elektrik neden gerekir?
+
+Kimlik: `entry:rbmk.safety.support`
+
+Güvenlik işlevleri, ilgili tasarıma göre elektrik, ölçüm, kontrol ve yardımcı soğutma gibi desteklere ihtiyaç duyar. Birden fazla güç kaynağı, tek bir kaynağın kaybına karşı korumayı destekler.
+
+Yedek kaynakların bulunması bütün işlevlerin sınırsız süre çalışacağı anlamına gelmez. Kapasite, bağımsızlık ve ortak nedenli arızalar ayrıca değerlendirilir.
+
+RBMK için kapsam: Buradaki RBMK-1000 bina ve biyolojik zırhı, PWR tipi tam basınç containment ile eşdeğer değildir. Çernobil bölümü 1986 tasarımı ve tarihsel koşulları ele alır; bu katman güncel RBMK güvenlik değerlendirmesi değildir.
+
+Kaynaklar: `iaea-safety-functions`, `iaea-insag7`, `nea-chernobyl`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK Güvenlik sistemlerinde yedek elektrik neden gerekir?
+- RBMK yedek elektrik nedir?
+- RBMK yedek elektrik nasıl çalışır?
+- RBMK yedek elektrik göster
+- RBMK güvenlik destek sistemleri nedir?
+- RBMK güvenlik destek sistemleri nasıl çalışır?
+- RBMK güvenlik destek sistemleri göster
+- RBMK acil güç kaynağı nedir?
+- RBMK acil güç kaynağı nasıl çalışır?
+- RBMK acil güç kaynağı göster
+- RBMK dizel jeneratör nedir?
+- RBMK dizel jeneratör nasıl çalışır?
+- RBMK dizel jeneratör göster
+- RBMK bataryalar nedir?
+- RBMK bataryalar nasıl çalışır?
+- RBMK bataryalar göster
+
+</details>
+
+### CANDU Reaktör koruma sistemi ne işe yarar?
+
+Kimlik: `entry:candu.safety.shutdown`
+
+Koruma sistemi, izlenen koşullar gerektiğinde zincirleme fisyon tepkimesinin durdurulmasını başlatır. Durdurma, yakıttaki artık ısıyı ortadan kaldırmaz.
+
+Güç ayarı ile koruyucu durdurma farklı işlevlerdir. Buradaki çubuk hareketi gerçek bir koruma sisteminin tepki hesabı değildir.
+
+CANDU için kapsam: Kanada CANDU reaktörlerinde iki bağımsız hızlı durdurma sistemi bulunur: durdurma çubukları ve nötron soğurucu sıvı enjeksiyonu. Mevcut şema ikinci sistemin borulamasını çizmez.
+
+Kaynaklar: `iaea-safety-functions`, `cnsc-safety`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU Reaktör koruma sistemi ne işe yarar?
+- CANDU reaktör koruma sistemi nedir?
+- CANDU reaktör koruma sistemi nasıl çalışır?
+- CANDU reaktör koruma sistemi göster
+- CANDU reaktör trip nedir?
+- CANDU reaktör trip nasıl çalışır?
+- CANDU reaktör trip göster
+- CANDU scram nedir?
+- CANDU scram nasıl çalışır?
+- CANDU scram göster
+- CANDU acil durdurma nedir?
+- CANDU acil durdurma nasıl çalışır?
+- CANDU acil durdurma göster
+- CANDU reaktörü durdurma nedir?
+- CANDU reaktörü durdurma nasıl çalışır?
+- CANDU reaktörü durdurma göster
+
+</details>
+
+### CANDU Artık ısı uzaklaştırma sistemi neden gerekir?
+
+Kimlik: `entry:candu.safety.heat`
+
+Fisyon durdurulduktan sonra radyoaktif bozunmalar yakıtta ısı üretmeyi sürdürür. Bu ısı, uygun bir soğutma yolu üzerinden nihai ısı alıcısına aktarılmalıdır.
+
+Elektrik üretiminin bitmesi, soğutma ihtiyacının bitmesi anlamına gelmez. Kullanılabilir soğutma yolu santral tasarımına ve koşullara bağlıdır.
+
+CANDU için kapsam: Kanada CANDU reaktörlerinde iki bağımsız hızlı durdurma sistemi bulunur: durdurma çubukları ve nötron soğurucu sıvı enjeksiyonu. Mevcut şema ikinci sistemin borulamasını çizmez.
+
+Kaynaklar: `iaea-safety-functions`, `cnsc-safety`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU Artık ısı uzaklaştırma sistemi neden gerekir?
+- CANDU artık ısı uzaklaştırma sistemi nedir?
+- CANDU artık ısı uzaklaştırma sistemi nasıl çalışır?
+- CANDU artık ısı uzaklaştırma sistemi göster
+- CANDU rhr nedir?
+- CANDU rhr nasıl çalışır?
+- CANDU rhr göster
+- CANDU kapatma soğutması nedir?
+- CANDU kapatma soğutması nasıl çalışır?
+- CANDU kapatma soğutması göster
+- CANDU durdurma sonrası soğutma nedir?
+- CANDU durdurma sonrası soğutma nasıl çalışır?
+- CANDU durdurma sonrası soğutma göster
+
+</details>
+
+### CANDU Acil çekirdek soğutma sistemi ECCS nedir?
+
+Kimlik: `entry:candu.safety.eccs`
+
+Acil çekirdek soğutma sistemleri, normal çekirdek soğutmasının kaybı gibi koşullarda yakıtın soğutulmasını destekleyen özel sistemlerdir. Pompa, vana, tank ve borulama düzeni tasarıma göre değişir.
+
+Ana dolaşım pompası ECCS ile aynı şey değildir. Aşağıdaki kavram zinciri, belirli bir santralin bağlantı veya devreye girme sırasını göstermez.
+
+CANDU için kapsam: Kanada CANDU reaktörlerinde iki bağımsız hızlı durdurma sistemi bulunur: durdurma çubukları ve nötron soğurucu sıvı enjeksiyonu. Mevcut şema ikinci sistemin borulamasını çizmez.
+
+Kaynaklar: `nrc-eccs`, `cnsc-safety`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU Acil çekirdek soğutma sistemi ECCS nedir?
+- CANDU acil çekirdek soğutma nedir?
+- CANDU acil çekirdek soğutma nasıl çalışır?
+- CANDU acil çekirdek soğutma göster
+- CANDU eccs nedir?
+- CANDU eccs nasıl çalışır?
+- CANDU eccs göster
+- CANDU acil soğutma nedir?
+- CANDU acil soğutma nasıl çalışır?
+- CANDU acil soğutma göster
+- CANDU acil enjeksiyon nedir?
+- CANDU acil enjeksiyon nasıl çalışır?
+- CANDU acil enjeksiyon göster
+
+</details>
+
+### CANDU Güvenlik bariyerleri ve derinliğine savunma nedir?
+
+Kimlik: `entry:candu.safety.barriers`
+
+Yakıt ve çevresindeki fiziksel bariyerler radyoaktif maddelerin yayılmasını sınırlar. Derinliğine savunma, bu bariyerlerin yanında önleme, izleme ve sonuçları azaltma katmanlarını da kapsar.
+
+Biyolojik zırhın ışınlamayı azaltması ile sızdırmaz bir bariyerin madde salımını sınırlaması farklı görevlerdir. Her reaktör binası eşdeğer bir containment değildir.
+
+CANDU için kapsam: Kanada CANDU reaktörlerinde iki bağımsız hızlı durdurma sistemi bulunur: durdurma çubukları ve nötron soğurucu sıvı enjeksiyonu. Mevcut şema ikinci sistemin borulamasını çizmez.
+
+Kaynaklar: `iaea-safety-functions`, `cnsc-safety`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU Güvenlik bariyerleri ve derinliğine savunma nedir?
+- CANDU güvenlik bariyerleri nedir?
+- CANDU güvenlik bariyerleri nasıl çalışır?
+- CANDU güvenlik bariyerleri göster
+- CANDU derinliğine savunma nedir?
+- CANDU derinliğine savunma nasıl çalışır?
+- CANDU derinliğine savunma göster
+- CANDU radyoaktif maddeyi tutma nedir?
+- CANDU radyoaktif maddeyi tutma nasıl çalışır?
+- CANDU radyoaktif maddeyi tutma göster
+- CANDU fiziksel bariyerler nedir?
+- CANDU fiziksel bariyerler nasıl çalışır?
+- CANDU fiziksel bariyerler göster
+
+</details>
+
+### CANDU Güvenlik sistemlerinde yedek elektrik neden gerekir?
+
+Kimlik: `entry:candu.safety.support`
+
+Güvenlik işlevleri, ilgili tasarıma göre elektrik, ölçüm, kontrol ve yardımcı soğutma gibi desteklere ihtiyaç duyar. Birden fazla güç kaynağı, tek bir kaynağın kaybına karşı korumayı destekler.
+
+Yedek kaynakların bulunması bütün işlevlerin sınırsız süre çalışacağı anlamına gelmez. Kapasite, bağımsızlık ve ortak nedenli arızalar ayrıca değerlendirilir.
+
+CANDU için kapsam: Kanada CANDU reaktörlerinde iki bağımsız hızlı durdurma sistemi bulunur: durdurma çubukları ve nötron soğurucu sıvı enjeksiyonu. Mevcut şema ikinci sistemin borulamasını çizmez.
+
+Kaynaklar: `iaea-safety-functions`, `cnsc-safety`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU Güvenlik sistemlerinde yedek elektrik neden gerekir?
+- CANDU yedek elektrik nedir?
+- CANDU yedek elektrik nasıl çalışır?
+- CANDU yedek elektrik göster
+- CANDU güvenlik destek sistemleri nedir?
+- CANDU güvenlik destek sistemleri nasıl çalışır?
+- CANDU güvenlik destek sistemleri göster
+- CANDU acil güç kaynağı nedir?
+- CANDU acil güç kaynağı nasıl çalışır?
+- CANDU acil güç kaynağı göster
+- CANDU dizel jeneratör nedir?
+- CANDU dizel jeneratör nasıl çalışır?
+- CANDU dizel jeneratör göster
+- CANDU bataryalar nedir?
+- CANDU bataryalar nasıl çalışır?
+- CANDU bataryalar göster
 
 </details>
 

@@ -1,9 +1,11 @@
 import type { ReactorId } from '../reactors/shared/types';
 import type { OpsSectionId } from '../reactors/pwr/operations/types';
 import type { AssistantAction } from './actions';
+import type { SafetyTopicId } from '../safety/catalog';
 
 /** Asistana verilen kısa uygulama bağlamı (yalnız gezinme durumu; kullanıcı verisi yok). */
 export interface AssistantContext {
+  safetyTopic?: SafetyTopicId | null;
   reactor: ReactorId;
   view: 'scheme' | 'compare' | 'learn';
   pwrView: 'plant' | 'ops';

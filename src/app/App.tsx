@@ -19,6 +19,8 @@ import { ProgressPanel } from '../progress/ProgressPanel';
 import { lessonHash, parseLessonHash } from '../progress/deepLink';
 import type { AppState } from './appState';
 import type { PredictRecord } from '../progress/progressStore';
+import { SafetyPanel } from '../safety/SafetyPanel';
+import { safetyTopic } from '../safety/catalog';
 
 const CATALOG = buildCatalog();
 import { isChernobylStage, type ChernobylStageId } from '../reactors/rbmk/chernobyl/stages';
@@ -231,6 +233,7 @@ export function App() {
   }, []);
 
   const assistantCtx: AssistantContext = {
+    safetyTopic: state.safetyTopic,
     reactor: state.reactor,
     view: state.view,
     pwrView: state.pwrView,
@@ -280,6 +283,7 @@ export function App() {
   const detailTitle = config.details.find((d) => d.key === state.detail)?.title ?? '';
   const contextLabel = [
     config.shortName,
+    state.safetyTopic ? `Güvenlik · ${safetyTopic(state.safetyTopic).title}` : null,
     state.view === 'compare'
       ? 'Karşılaştırma'
       : showPredict
@@ -312,6 +316,8 @@ export function App() {
           onReactor={changeReactor}
           onView={(v) => dispatch({ type: 'setView', view: v })}
           assistantOpen={assistantOpen}
+          safetyOpen={state.safetyTopic !== null}
+          onSafety={() => dispatch({ type: 'setSafetyTopic', topic: state.safetyTopic ? null : 'shutdown' })}
           onAssistant={() => (assistantOpen ? closeAssistant() : setAssistantOpen(true))}
         />
         {reducedMotion && (
@@ -364,6 +370,15 @@ export function App() {
             </p>
           </div>
         )}
+
+        <div id="safety-layer">
+          {state.safetyTopic && <SafetyPanel config={config} topicId={state.safetyTopic}
+            onTopic={(topic) => dispatch({ type: 'setSafetyTopic', topic })}
+            onClose={() => { dispatch({ type: 'setSafetyTopic', topic: null }); document.getElementById('safety-toggle')?.focus(); }}
+            onAsk={(q) => { setAssistantOpen(true); setAssistantSeed(x => ({ q, n: (x?.n ?? 0) + 1 })); }}
+            onInspect={(ids) => dispatch({ type: 'assistantHighlight', hl: { reactor: state.reactor, ids, label: `${safetyTopic(state.safetyTopic!).title} · ilişkili parçalar` } })}
+          />}
+        </div>
 
         {state.view === 'learn' && (
           <ProgressPanel

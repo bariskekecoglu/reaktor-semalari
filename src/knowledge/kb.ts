@@ -20,6 +20,7 @@ import { PREDICT_LESSONS } from '../lessons/predict/pwrXenonShutdown';
 import type { ActionRegistry, AssistantAction } from '../assistant/actions';
 import { isSourceId } from './sources';
 import { STAGES } from '../reactors/rbmk/chernobyl/stages';
+import { SAFETY_TOPICS, REACTOR_SAFETY_NOTES } from '../safety/catalog';
 
 export type EntryKind = 'reactor' | 'equipment' | 'focus' | 'topic' | 'lesson' | 'predict' | 'ops' | 'chartEvent';
 
@@ -273,6 +274,18 @@ function build(): KnowledgeEntry[] {
         sourceIds: e.sourceIds,
         related: e.related.map((x) => `pwr.${x}`),
         targets: [{ type: 'focusChartEvent', eventId: e.id }],
+      });
+    }
+  }
+  for (const r of Object.keys(CONFIGS) as ReactorId[]) {
+    for (const topic of SAFETY_TOPICS) {
+      const note = REACTOR_SAFETY_NOTES[r];
+      out.push({
+        id: `${r}.safety.${topic.id}`, reactorId: r, kind: 'topic', name: topic.title,
+        aliases: [...topic.aliases], summary: topic.summary,
+        body: `${topic.distinction}\n\n${CONFIGS[r].shortName} için kapsam: ${note.text}`,
+        sourceIds: [...new Set([...topic.sourceIds, ...note.sourceIds])], related: [],
+        targets: [{ type: 'openSafetyTopic', reactor: r, topic: topic.id }],
       });
     }
   }

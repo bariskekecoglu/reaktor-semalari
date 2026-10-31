@@ -4,11 +4,13 @@
  * `validateAction` ile çalışma zamanında doğrulanır; bilinmeyen kimlikler reddedilir.
  */
 import type { ReactorId } from '../reactors/shared/types';
+import { isSafetyTopic, type SafetyTopicId } from '../safety/catalog';
 import { REACTOR_IDS } from '../reactors/meta';
 import type { OpsSectionId } from '../reactors/pwr/operations/types';
 import { isChernobylStage, type ChernobylStageId } from '../reactors/rbmk/chernobyl/stages';
 
 export type AssistantAction =
+  | { type: 'openSafetyTopic'; reactor: ReactorId; topic: SafetyTopicId }
   | { type: 'openChernobylStage'; stage: ChernobylStageId }
   | { type: 'openReactor'; reactor: ReactorId }
   | { type: 'openLesson'; lessonId: string }
@@ -22,6 +24,7 @@ export type AssistantAction =
 export type ActionType = AssistantAction['type'];
 
 export const ACTION_TYPES: readonly ActionType[] = [
+  'openSafetyTopic',
   'openChernobylStage',
   'openReactor',
   'openLesson',
@@ -63,6 +66,10 @@ export function validateAction(raw: unknown, reg: ActionRegistry): Result<Assist
   if (!isObj(raw)) return { ok: false, error: 'İşlem bir nesne değil' };
   const type = raw.type;
   switch (type) {
+    case 'openSafetyTopic':
+      return isReactor(raw.reactor) && isSafetyTopic(raw.topic)
+        ? { ok: true, value: { type, reactor: raw.reactor, topic: raw.topic } }
+        : { ok: false, error: 'Bilinmeyen güvenlik konusu veya reaktör' };
     case 'openChernobylStage':
       return isChernobylStage(raw.stage) ? { ok: true, value: { type, stage: raw.stage } } : { ok: false, error: 'Bilinmeyen kaza analizi aşaması' };
     case 'openReactor':
@@ -117,6 +124,7 @@ export function actionReactor(a: AssistantAction): ReactorId | null {
       return 'rbmk';
     case 'openReactor':
     case 'selectEquipment':
+    case 'openSafetyTopic':
     case 'highlightFlow':
     case 'openDetail':
       return a.reactor;
