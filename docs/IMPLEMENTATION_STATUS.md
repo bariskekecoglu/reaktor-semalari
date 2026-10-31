@@ -1,6 +1,26 @@
 # Uygulama durumu (devir notu)
 
-Son güncelleme: 2026-10-30 · Yerel rehber ve öğrenme geliştirmeleri commit kapsamına alındı; push/deployment yapılmadı. Aşağıdaki aşama notları uygulama sırasındaki tarihsel kayıtları da içerir.
+Son güncelleme: 2026-10-31 · RBMK ve CANDU eklendi ve kod denetimi yapıldı. Aşağıdaki aşama notları uygulama sırasındaki tarihsel kayıtları da içerir.
+
+## Kod denetimi ve düzeltmeler (2026-10-31)
+
+- CANDU 6 için kesin “birincil ağır su kaynamaz” anlatımı düzeltildi. CANTEACH, Heat Transport System Thermalhydraulics §3.3, s. 3-2–3-3 sınırlı birincil buharı ve buhar üretecinde yoğuşmasını açıklar. Yeni `canteach-thermal` kaynağı karşılaştırma, ders, bilgi tabanı ve yerel rehbere eklendi. Türbin buharının ayrı ikincil devreden geldiği korundu; iki fazlı davranış animasyonda modellenmez.
+- Grafit desenini örten CSS dolgu kuralı düzeltildi; SVG `fill` ile verilen desenler korunur.
+- CANDU ana sahnesindeki U borusu animasyonu dış hatlarla ortak bağlantı noktalarına bağlandı ve çizilmiş boru bükülmesiyle eşleştirildi. Yakın plandaki giriş/çıkış kopuklukları ve akışı örten kanal başlığı çizim sırası düzeltildi.
+- Yeni regresyon kontrolleri: ana sahnede ve yakın planda gerçek çizilmiş akış uçlarının sürekliliği; yerel rehberde sınırlı kaynama ayrımı ve kaynağı.
+- Doğrulama: TypeScript, 18 dosyada 736 test, üretim derlemesi ve her iki içerik dışa aktarımı geçti.
+- Bu denetimde görsel kontrol tamamlanamadı: in-app tarayıcı yerel sunucuya bağlanamadı; Windows tarayıcı aracı güncel URL’yi güvenilir doğrulayamadığı için bilgisayar kullanımını durdurdu. Aşağıdaki önceki tarayıcı kontrol kayıtları bu denetimde yeniden doğrulanmadı.
+
+## RBMK ve CANDU (2026-10-31) · TAMAMLANDI
+
+- Yeni modüller: `src/reactors/rbmk/` (RbmkScene, RbmkCoreDetail, RbmkDetails, rbmkConfig, rbmkLessons, rbmkLayout) ve `src/reactors/candu/` (CanduScene, CanduCoreDetail, CanduDetails, canduConfig, canduLessons, canduLayout). Temsili RBMK-1000 ve CANDU 6; kaynaklar ve sadeleştirmeler README’nin “RBMK ve CANDU modülleri” bölümünde.
+- Ortak meta veri: `src/reactors/meta.ts` (sıra, kısa ad, ipucu, anlatım kimliği çözümleme). Başlık, karşılaştırma, ilerleme paneli, ilerleme deposu, derin bağlantılar, asistan işlem doğrulaması ve yürütme bu listeyi kullanır; sabitlenmiş üçlü listeler kaldırıldı.
+- Ortak çizim: `FlowKind` → `mod` (CANDU moderatörü), `Flow` için `invert` (kanal boyunca ısınma) ve `boilAt` (kaynama başlangıcı); `shared/equipment/materials.tsx` (grafit/ağır su desenleri, akışkan etiketi, kesişme köprüsü); `styles/channel-reactors.css`.
+- Karşılaştırma 12 konuya ve beş reaktöre genişledi; `TopicSide.absent` ile “Bu tasarımda bulunmaz” (başka ekipmana yönlendirme yok). Geniş ekranda 3 + 2 kart ve reaktör filtresi; tablo seçili sütunlar.
+- Bilgi tabanı: RBMK/CANDU ekipman eş anlamlıları, reaktör takma adları, 8 kaynaklı konu girdisi; 7 yeni kaynak kimliği. Yerel rehber: RBMK/CANDU kategorileri, Türkçe bitişik ekler (ye/ya/ler/lerde…), 6 karışıklık kartı, tüm ikili karşılaştırmalar ve beşli karşılaştırma. 468 cevap, 3463 soru ifadesi.
+- PWR işletme modülü ve tahmin dersi RBMK/CANDU’da açılmaz (reducer korumaları değişmedi, testle doğrulandı). Kayıtlı ilerleme sürümü değişmedi; eski kayıtlar aynen okunur.
+- Doğrulama: typecheck, 18 dosyada 733 test, build, `guide:export`, `kb:export` geçti. Tarayıcıda 1440/768/390 px genişliklerde sahneler, yakın planlar, karşılaştırma, ders, seçim, duraklatma ve reaktör geçişleri denendi (ayrıntı README).
+- Bilinen sınırlar: gerçek dokunmatik cihaz ve ekran okuyucu ile denenmedi; tarayıcı paneli zaman zaman gizli kaldığı için bazı ekran görüntüleri betikle oluşturulan büyütülmüş kopyalardan alındı. CANTEACH belgeleri `ww.nuceng.ca` arşivinden okundu.
 
 ## Güncel karar: yalnız yerel rehber (2026-10-30)
 

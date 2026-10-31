@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import type { ReactorId } from '../reactors/shared/types';
 import { reactors } from '../reactors/registry';
+import { REACTOR_IDS, REACTOR_NAME, tourReactor } from '../reactors/meta';
 import { PREDICT_LESSONS } from '../lessons/predict/pwrXenonShutdown';
 import { STEP_LABEL, type PredictStepId } from '../lessons/predict/types';
 import type { Progress } from './progressStore';
 
-const NAME: Record<ReactorId, string> = { pwr: 'PWR', bwr: 'BWR', vver: 'VVER' };
+const NAME = REACTOR_NAME;
 
 interface Props {
   progress: Progress;
@@ -19,9 +20,8 @@ interface Props {
 /** “Kaldığım yer” metni (ör. “PWR anlatımı · 3. Buhar üreteci”). */
 export function describeLast(p: Progress): string | null {
   if (!p.last) return null;
-  const m = /^(pwr|bwr|vver)\.tour$/.exec(p.last.lessonId);
-  if (m) {
-    const r = m[1] as ReactorId;
+  const r = tourReactor(p.last.lessonId);
+  if (r) {
     const step = reactors[r].lessons.find((l) => l.id === p.last!.stepId);
     return `${NAME[r]} anlatımı · ${step?.title ?? ''}`;
   }
@@ -31,7 +31,7 @@ export function describeLast(p: Progress): string | null {
 
 export function ProgressPanel({ progress, persistent, onResume, onOpenTour, onOpenPredict, onReset }: Props) {
   const [confirm, setConfirm] = useState(false);
-  const total = 3 + PREDICT_LESSONS.length;
+  const total = REACTOR_IDS.length + PREDICT_LESSONS.length;
   const last = describeLast(progress);
   return (
     <section className="progress-panel" aria-labelledby="progress-title">

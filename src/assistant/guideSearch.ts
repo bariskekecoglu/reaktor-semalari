@@ -1,6 +1,6 @@
 import type { ReactorId } from '../reactors/shared/types';
 import type { GuideCard } from './guideCatalog';
-import { normalize, reactorsIn } from './search';
+import { normalize, reactorsIn, REACTOR_SUFFIX } from './search';
 
 const FILLER = new Set(('ne nedir neden niye nasil nerede nereden nereye hangi hangisi kac mi midir mu mudur bir bu su o ve veya ile icin ise ise yarar gore peki bana biraz lutfen acikla anlat anlatir misin soyle goster getir acar acabilir bilgi ver hakkinda detayli ayrintili daha nasil olur oluyor oluyorlar calisir calisiyor nedemek demek arasinda arasindaki fark farki farklar farklari karsilastir karsilastirma olarak de da den dan nin in un nun yi ni sini sunu bunu onun bunun kullanilir nedirler olusur olusuyor olusuyorlar'.split(' ')));
 
@@ -16,8 +16,9 @@ export function guideWords(q: string): string[] {
     .replace(/\b(?:konsantrasyon|derisim)[a-z]*/g, 'derisim')
     .replace(/\bazal[a-z]*/g, 'azal')
     .replace(/\bgoster(?:ir|ebilir|ebilirler)?\b/g, 'goster')
-    .replace(/\b(?:pwr|bwr|vver|wwer)(?:de|da|den|dan|nin|in|un|nun)?\b/g, ' ')
-    .replace(/\bbasincli su reaktoru\b/g, ' ')
+    .replace(new RegExp(`\\b(?:pwr|bwr|vver|wwer|rbmk|lwgr|candu|phwr)${REACTOR_SUFFIX}?\\b`, 'g'), ' ')
+    .replace(/\bbasincli (?:agir )?su reaktoru\b/g, ' ')
+    .replace(/\bagir su reaktoru\b/g, ' ')
     .replace(/\b(?:kaynar|kaynayan) su reaktoru\b/g, ' ');
   return [...new Set(folded.split(' ').filter((t) => (t.length >= 2 || /^\d+$/.test(t)) && !FILLER.has(t)))];
 }

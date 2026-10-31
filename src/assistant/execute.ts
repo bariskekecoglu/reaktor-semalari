@@ -6,13 +6,14 @@
 import type { AppAction, AppState } from '../app/appState';
 import type { ReactorId } from '../reactors/shared/types';
 import { actionReactor, type AssistantAction } from './actions';
+import { REACTOR_NAME } from '../reactors/meta';
 
 export interface NavPlan {
   dispatches: AppAction[];
   needsReactorChange: ReactorId | null;
 }
 
-const NAME: Record<ReactorId, string> = { pwr: 'PWR', bwr: 'BWR', vver: 'VVER' };
+const NAME = REACTOR_NAME;
 
 export function planAction(a: AssistantAction, state: AppState, lessonIndex: (lessonId: string) => { reactor: ReactorId; step: number; count: number } | null): NavPlan {
   const target = actionReactor(a);
@@ -77,4 +78,4 @@ export function actionLabel(a: AssistantAction, names: { equipment: (r: ReactorI
   }
 }
 
-export const REACTOR_NAME = NAME;
+export { REACTOR_NAME };

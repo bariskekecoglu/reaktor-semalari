@@ -4,6 +4,7 @@
  * `validateAction` ile çalışma zamanında doğrulanır; bilinmeyen kimlikler reddedilir.
  */
 import type { ReactorId } from '../reactors/shared/types';
+import { REACTOR_IDS } from '../reactors/meta';
 import type { OpsSectionId } from '../reactors/pwr/operations/types';
 
 export type AssistantAction =
@@ -29,7 +30,7 @@ export const ACTION_TYPES: readonly ActionType[] = [
   'clearAssistantHighlight',
 ];
 
-export const REACTOR_IDS: readonly ReactorId[] = ['pwr', 'bwr', 'vver'];
+export { REACTOR_IDS };
 export const OPS_SECTIONS: readonly OpsSectionId[] = ['modes', 'heatup', 'boron', 'xenon', 'axial', 'controls'];
 
 /** Doğrulamanın dayandığı gerçek uygulama kimlikleri (bilgi tabanından üretilir). */

@@ -9,6 +9,7 @@
  * - Depolama `ProgressBackend` arayüzü arkasındadır; ileride hesap eşitlemesi ayrı bir arka uç olarak eklenebilir.
  */
 import type { ReactorId } from '../reactors/shared/types';
+import { REACTOR_IDS, tourReactor } from '../reactors/meta';
 
 export const PROGRESS_KEY = 'reaktor-semalari:learning-progress';
 export const PROGRESS_VERSION = 1;
@@ -56,8 +57,8 @@ export function tourLessonId(r: ReactorId) {
 
 /** Ders kimliği katalogda var mı? Anlatım dersleri `pwr.tour` biçimindedir. */
 function lessonSteps(cat: ProgressCatalog, lessonId: string): string[] | null {
-  const m = /^(pwr|bwr|vver)\.tour$/.exec(lessonId);
-  if (m) return cat.tours[m[1] as ReactorId];
+  const r = tourReactor(lessonId);
+  if (r) return cat.tours[r] ?? null;
   return cat.predict[lessonId]?.steps ?? null;
 }
 
@@ -77,9 +78,9 @@ export function parseProgress(raw: unknown, cat: ProgressCatalog): Progress {
   }
   if (raw.lastArea === 'tour' || raw.lastArea === 'predict') out.lastArea = raw.lastArea;
   if (isObj(raw.tourSteps)) {
-    for (const r of ['pwr', 'bwr', 'vver'] as ReactorId[]) {
+    for (const r of REACTOR_IDS) {
       const id = str(raw.tourSteps[r]);
-      if (id && cat.tours[r].includes(id)) out.tourSteps[r] = id;
+      if (id && cat.tours[r]?.includes(id)) out.tourSteps[r] = id;
     }
   }
   if (isObj(raw.predictions)) {

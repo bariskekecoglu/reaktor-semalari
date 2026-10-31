@@ -2,14 +2,11 @@ import type { ReactorConfig, ReactorId } from '../../reactors/shared/types';
 import type { ViewMode } from '../../app/appState';
 import { VIEW_PREFERENCES } from '../../app/viewPreference';
 import { useViewLayout } from '../../hooks/useViewLayout';
+import { REACTOR_IDS, REACTOR_META } from '../../reactors/meta';
 
 const LAYOUT_NAME = { narrow: 'dar', medium: 'orta', wide: 'geniş' } as const;
 
-const REACTORS: { id: ReactorId; label: string; hint: string }[] = [
-  { id: 'pwr', label: 'PWR', hint: 'Basınçlı su reaktörü' },
-  { id: 'bwr', label: 'BWR', hint: 'Kaynar su reaktörü' },
-  { id: 'vver', label: 'VVER', hint: 'Rus tasarımı basınçlı su reaktörü' },
-];
+const REACTORS = REACTOR_IDS.map((id) => ({ id, label: REACTOR_META[id].name, hint: REACTOR_META[id].hint }));
 
 const VIEWS: { id: ViewMode; label: string }[] = [
   { id: 'scheme', label: 'Şema' },
@@ -36,7 +33,7 @@ export function Header({ reactor, config, view, onReactor, onView, assistantOpen
         <div className="brand">
           <p className="brand-kicker"><span aria-hidden="true">◈</span> ETKİLEŞİMLİ ÖĞRENME LABORATUVARI</p>
           <h1>Nükleer Santral Şemaları</h1>
-          <p className="subtitle">PWR · BWR · VVER — normal çalışma prensipleri, temsili ve ölçeksiz</p>
+          <p className="subtitle">PWR · BWR · VVER · RBMK · CANDU — normal çalışma prensipleri, temsili ve ölçeksiz</p>
         </div>
         <div className="header-controls">
           <nav className="seg content-seg" aria-label="İçerik">

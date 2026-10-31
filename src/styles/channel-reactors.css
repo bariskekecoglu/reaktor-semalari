@@ -1,0 +1,231 @@
+/* RBMK ve CANDU (kanal tipi reaktörler) çizim dili. Mevcut renk anlamları korunur;
+   ağır su, hafif su, grafit ve buhar ayrıca desen ve metin etiketiyle ayırt edilir. */
+
+/* Moderatör ağır suyu (CANDU): ayrı, düşük basınçlı sistem — mor tonlu, kesik-nokta deseni. */
+:root {
+  --mod: #6a4fa3;
+  --graphite: #6b6d72;
+}
+.fluid-mod {
+  stroke: #ddd3ef;
+}
+.p-mod {
+  fill: var(--mod);
+}
+.flow-mod .flow-guide.in-pipe {
+  stroke: var(--mod);
+}
+
+/* Grafit blokları: koyu gri + tuğla dokusu. */
+.graphite-block {
+  stroke: #3c3d41;
+  stroke-width: 1;
+}
+.graphite-block:not([fill]) {
+  fill: var(--graphite);
+}
+.graphite-tex line {
+  stroke: #8d8f95;
+  stroke-width: 0.9;
+}
+.graphite-gap {
+  fill: none;
+  stroke: #45464a;
+  stroke-width: 1.2;
+}
+
+/* Ağır su bölgesi (moderatör): açık mor dolgu + seyrek “D” noktaları deseni. */
+.d2o-zone {
+  fill: #ece6f7;
+}
+.d2o-dots circle {
+  fill: #9a86c6;
+}
+.h2o-zone {
+  fill: #cfe4f7;
+}
+
+/* Kanal katmanları */
+.pressure-tube {
+  fill: #dfe7ef;
+  stroke: #33363c;
+  stroke-width: 1.6;
+}
+.pressure-tube.thin {
+  stroke-width: 1.1;
+}
+.calandria-tube {
+  fill: #ffffff;
+  stroke: #7d828b;
+  stroke-width: 1.4;
+}
+.gas-gap {
+  fill: #ffffff;
+}
+.end-fitting {
+  fill: var(--metal);
+  stroke: var(--line);
+  stroke-width: 1.4;
+}
+.end-shield {
+  fill: #e4e0d6;
+  stroke: var(--line);
+  stroke-width: 1.6;
+}
+.calandria-shell {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 3;
+}
+.fuel-bundle {
+  fill: var(--fuel);
+  stroke: #8a6a1e;
+  stroke-width: 0.9;
+}
+.fuel-assy {
+  fill: var(--fuel);
+  stroke: #8a6a1e;
+  stroke-width: 1;
+}
+.channel-tube {
+  fill: #e6eef6;
+  stroke: #2f3238;
+  stroke-width: 1.6;
+}
+.ctrl-channel {
+  fill: #f2f2f0;
+  stroke: #2b2b30;
+  stroke-width: 1.6;
+  stroke-dasharray: 5 2.5;
+}
+.ctrl-drive {
+  fill: #3d3d43;
+  stroke: #1f1f22;
+}
+.shield-concrete {
+  fill: var(--concrete);
+  stroke: #a8a294;
+  stroke-width: 1.2;
+}
+.shield-plate {
+  fill: #cfcabd;
+  stroke: #8f897b;
+  stroke-width: 1.2;
+}
+.drum {
+  fill: #f1f2f4;
+  stroke: var(--line);
+  stroke-width: 2.6;
+}
+.header-end {
+  fill: #e9d6dc;
+  stroke: var(--line);
+  stroke-width: 2;
+}
+.header-end.cold {
+  fill: #d6e4f2;
+}
+.hx-shell {
+  fill: #ece6f7;
+  stroke: var(--line);
+  stroke-width: 1.6;
+}
+.fm-machine {
+  fill: #e8e5de;
+  stroke: var(--line);
+  stroke-width: 1.8;
+}
+.fm-ram {
+  fill: #8d8980;
+  stroke: var(--line);
+}
+
+/* Kesişme köprüsü: üstten geçen boru altındaki boşluk; birleşme değildir (birleşmeler ● ile). */
+.pipe-bridge {
+  fill: none;
+  stroke: #ffffff;
+  stroke-linecap: butt;
+}
+.detail-svg .pipe-bridge {
+  stroke: var(--paper);
+}
+
+/* Akışkan etiketi (renge ek metin) */
+.fluid-tag rect {
+  fill: #ffffff;
+  stroke: #55555c;
+  stroke-width: 0.8;
+}
+.fluid-tag text {
+  font-size: 11.5px;
+  font-weight: 600;
+  fill: var(--ink);
+  font-family: var(--font-ui);
+}
+.fluid-tag.mod rect {
+  stroke: var(--mod);
+}
+.fluid-tag.mod text {
+  fill: #4b3680;
+}
+.fluid-tag.graphite rect {
+  fill: #ececec;
+  stroke: #3c3d41;
+}
+
+/* “Bu tasarımda bulunmaz” karşılaştırma işareti */
+.cmp-absent {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 1px 8px;
+  border-radius: 10px;
+  border: 1px dashed #8a8475;
+  background: #f4f1ea;
+  color: #4d4a42;
+}
+.cmp-reactor-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  align-items: center;
+  margin: 6px 0 10px;
+  font-size: 0.92rem;
+}
+.cmp-reactor-filter label {
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+  min-height: 32px;
+}
+:root[data-layout='wide'] .compare-cards.five {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+:root[data-layout='medium'] .compare-cards.five {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.mini text.mini-tag {
+  font-size: 10px;
+  font-weight: 600;
+}
+.fuel-bundle.used {
+  fill: #cfa850;
+}
+.fuel-bundle.spent {
+  fill: #8f6f33;
+}
+.mini-flow.mix {
+  stroke: var(--hot);
+  stroke-dasharray: 3 3;
+}
+.mini-flow.mod {
+  stroke: var(--mod);
+  stroke-dasharray: 6 2 1 2;
+}
+fieldset.cmp-reactor-filter {
+  border: none;
+  padding: 0;
+}
+.cmp-absent {
+  margin-bottom: 6px;
+}

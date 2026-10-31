@@ -38,6 +38,7 @@ function initFromHash(base: AppState): AppState {
 const toPredictState = (r: PredictRecord | undefined): PredictState =>
   r ? restorePredictState({ ...r, step: r.step as PredictStepId }) : emptyPredictState();
 import { reactors } from '../reactors/registry';
+import { tourReactor } from '../reactors/meta';
 import type { ReactorId } from '../reactors/shared/types';
 import { SceneContext, type SceneContextValue } from '../reactors/shared/SceneContext';
 import { Header } from '../components/layout/Header';
@@ -186,9 +187,8 @@ export function App() {
   const resumeLearning = () => {
     const last = progressApi.progress.last;
     if (!last) return;
-    const m = /^(pwr|bwr|vver)\.tour$/.exec(last.lessonId);
-    if (m) {
-      const r = m[1] as ReactorId;
+    const r = tourReactor(last.lessonId);
+    if (r) {
       openTour(r, Math.max(0, reactors[r].lessons.findIndex((l) => l.id === last.stepId)));
     } else openPredict();
   };

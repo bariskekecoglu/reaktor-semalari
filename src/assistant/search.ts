@@ -41,13 +41,18 @@ export const REACTOR_WORDS: Record<ReactorId, string[]> = {
   pwr: ['pwr', 'basincli su'],
   bwr: ['bwr', 'kaynar su', 'kaynayan su'],
   vver: ['vver', 'wwer'],
+  rbmk: ['rbmk', 'lwgr'],
+  candu: ['candu', 'phwr', 'basincli agir su', 'agir su reaktoru'],
 };
+
+/** Reaktör adına bitişik yazılabilen Türkçe ekler (ör. “RBMKde”, “CANDUya”, “RBMKlerde”). */
+export const REACTOR_SUFFIX = '(?:de|da|te|ta|den|dan|ten|tan|nin|in|un|nun|ye|ya|yi|yu|yle|yla|ler|lar|lerde|larda|lerin|larin|lerde)';
 
 /** Soruda açıkça geçen reaktörler. */
 export function reactorsIn(q: string): ReactorId[] {
   const n = ` ${normalize(q)} `;
   return (Object.keys(REACTOR_WORDS) as ReactorId[]).filter((r) => REACTOR_WORDS[r].some((w) =>
-    new RegExp(` ${w}(?= |(?:de|da|den|dan|nin|in|un|nun) )`).test(n)));
+    new RegExp(` ${w}(?= |${REACTOR_SUFFIX} )`).test(n)));
 }
 
 export interface Hit {

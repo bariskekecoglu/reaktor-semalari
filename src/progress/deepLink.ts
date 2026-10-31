@@ -4,6 +4,7 @@
  * Bilinmeyen kimlikler yok sayılır (site normal açılır). Hash kullanıldığı için statik yayında sunucu ayarı gerekmez.
  */
 import type { ReactorId } from '../reactors/shared/types';
+import { parseTourId } from '../reactors/meta';
 import type { ProgressCatalog } from './progressStore';
 
 export type LessonLink = { kind: 'tour'; reactor: ReactorId; step: number } | { kind: 'predict'; lessonId: string; stepId: string | null };
@@ -12,11 +13,11 @@ export function parseLessonHash(hash: string, cat: ProgressCatalog): LessonLink 
   const params = new URLSearchParams(hash.replace(/^#/, ''));
   const id = params.get('ders');
   if (!id || id.length > 80) return null;
-  const tour = /^(pwr|bwr|vver)\.tour(?:\.([\w-]+))?$/.exec(id);
-  if (tour) {
-    const r = tour[1] as ReactorId;
+  const tour = parseTourId(id);
+  if (tour && cat.tours[tour.reactor]) {
+    const r = tour.reactor;
     const steps = cat.tours[r];
-    const i = tour[2] ? steps.indexOf(id) : 0;
+    const i = tour.step ? steps.indexOf(id) : 0;
     return { kind: 'tour', reactor: r, step: Math.max(0, i) };
   }
   const p = cat.predict[id];

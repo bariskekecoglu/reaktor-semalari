@@ -18,6 +18,10 @@ interface FlowProps {
   showFlow: boolean;
   /** Parçacık yarıçapı. */
   r?: number;
+  /** 'grad' için: true ise soğuktan sıcağa (ısınan soğutucu, ör. yakıt kanalı). */
+  invert?: boolean;
+  /** 'mix' için kaynamanın başladığı yol oranı (0 = baştan itibaren su–buhar karışımı). */
+  boilAt?: number;
 }
 
 const PATTERN: Record<FlowKind, string | undefined> = {
@@ -28,11 +32,15 @@ const PATTERN: Record<FlowKind, string | undefined> = {
   steam: '10 7',
   feed: '2 5',
   cool: '14 5 3 5',
+  mod: '9 3 2 3',
 };
 
-function particleClass(kind: FlowKind, progress: number): string {
-  if (kind === 'grad') return progress < 0.4 ? 'p p-hot' : progress < 0.72 ? 'p p-warm' : 'p p-cold';
-  if (kind === 'mix') return progress < 0.22 ? 'p p-hot' : 'p p-bubble';
+function particleClass(kind: FlowKind, progress: number, invert = false, boilAt = 0.22): string {
+  if (kind === 'grad') {
+    const q = invert ? 1 - progress : progress;
+    return q < 0.4 ? 'p p-hot' : q < 0.72 ? 'p p-warm' : 'p p-cold';
+  }
+  if (kind === 'mix') return progress < boilAt ? 'p p-hot' : 'p p-bubble';
   return `p p-${kind}`;
 }
 
@@ -40,7 +48,7 @@ function particleClass(kind: FlowKind, progress: number): string {
  * Tanımlı SVG yolu üzerinde hareket eden akış işaretleri.
  * Konumlar React render'ı olmadan, ortak saat aboneliğiyle doğrudan DOM özniteliklerine yazılır.
  */
-export function Flow({ id, d, kind, speed = 60, spacing = 26, pipe = 10, scale = 'power', showFlow, r = 3.2 }: FlowProps) {
+export function Flow({ id, d, kind, speed = 60, spacing = 26, pipe = 10, scale = 'power', showFlow, r = 3.2, invert = false, boilAt = 0.22 }: FlowProps) {
   const { model, clock } = useSimulation();
   const ctx = useScene();
   const pathRef = useRef<SVGPathElement>(null);
@@ -76,8 +84,8 @@ export function Flow({ id, d, kind, speed = 60, spacing = 26, pipe = 10, scale =
         const w = Math.sin(t * 7 + i * 1.7) * 1.6;
         ox = nx * w;
         oy = ny * w;
-      } else if (kind === 'mix' && progress >= 0.22) {
-        rad = r * (0.7 + 0.9 * Math.min(1, (progress - 0.22) / 0.6));
+      } else if (kind === 'mix' && progress >= boilAt) {
+        rad = r * (0.7 + 0.9 * Math.min(1, (progress - boilAt) / Math.max(0.2, 0.82 - boilAt)));
         const w = Math.sin(t * 5 + i * 2.3) * 2.4;
         ox = nx * w;
         oy = ny * w;
@@ -86,7 +94,7 @@ export function Flow({ id, d, kind, speed = 60, spacing = 26, pipe = 10, scale =
       c.setAttribute('cx', (x + ox).toFixed(1));
       c.setAttribute('cy', (y + oy).toFixed(1));
       if (kind === 'mix') c.setAttribute('r', rad.toFixed(2));
-      const cls = particleClass(kind, progress);
+      const cls = particleClass(kind, progress, invert, boilAt);
       if (c.getAttribute('class') !== cls) c.setAttribute('class', cls);
     }
   };
@@ -105,7 +113,7 @@ export function Flow({ id, d, kind, speed = 60, spacing = 26, pipe = 10, scale =
       <path ref={pathRef} className={`flow-guide ${pipe > 0 ? 'in-pipe' : 'in-vessel'}`} d={d} strokeDasharray={pattern} />
       <g ref={groupRef} className="particles" style={{ display: showFlow ? undefined : 'none' }}>
         {Array.from({ length: count }, (_, i) => (
-          <circle key={i} r={r} className={particleClass(kind, 0)} />
+          <circle key={i} r={r} className={particleClass(kind, 0, invert, boilAt)} />
         ))}
       </g>
     </g>

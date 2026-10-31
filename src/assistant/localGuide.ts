@@ -76,7 +76,7 @@ export function localAnswer(kb: KnowledgeSource, question: string, ctx: Assistan
     }
     return fromCard(top.card, detailed);
   }
-  return { mode: 'local', text: 'Bu soruya hazırlanmış güvenilir bir cevabım yok. PWR, BWR ve VVER ekipmanları, devreleri, karşılaştırmaları, PWR işletme davranışı ve site kullanımı hakkında yardımcı olabilirim. Hazır sorulardan birini seçebilir veya soruyu tek bir konuya odaklayabilirsiniz.',
+  return { mode: 'local', text: 'Bu soruya hazırlanmış güvenilir bir cevabım yok. PWR, BWR, VVER, RBMK ve CANDU ekipmanları, devreleri, karşılaştırmaları, PWR işletme davranışı ve site kullanımı hakkında yardımcı olabilirim. Hazır sorulardan birini seçebilir veya soruyu tek bir konuya odaklayabilirsiniz.',
     sourceIds: [], actions: [], entryIds: [], notCovered: true };
 }
 

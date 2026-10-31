@@ -1,4 +1,5 @@
 /** “Tahmin et → dene → açıkla” dersleri. Doğru cevap ve temel açıklama doğrulanmış içerikte tanımlıdır. */
+import type { ReactorId } from '../../reactors/shared/types';
 
 export interface Choice {
   id: string;
@@ -27,7 +28,7 @@ export const STEP_LABEL: Record<PredictStepId, string> = {
 
 export interface PredictLesson {
   id: string;
-  reactorId: 'pwr' | 'bwr' | 'vver';
+  reactorId: ReactorId;
   title: string;
   goal: string;
   initialState: string;

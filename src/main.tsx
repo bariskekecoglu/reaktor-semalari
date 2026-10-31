@@ -4,6 +4,7 @@ import { App } from './app/App';
 import './styles/global.css';
 import './styles/lab.css';
 import './styles/learning.css';
+import './styles/channel-reactors.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

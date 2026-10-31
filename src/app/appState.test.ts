@@ -73,12 +73,12 @@ describe('PWR işletme alt görünümü', () => {
 });
 
 describe('reaktör yapılandırmaları', () => {
-  const ids = ['pwr', 'bwr', 'vver'] as const;
+  const ids = ['pwr', 'bwr', 'vver', 'rbmk', 'candu'] as const;
 
   it('her reaktörün kendine özgü sahnesi, dersleri ve yakın planları var', () => {
-    expect(new Set(ids.map((r) => reactors[r].Scene)).size).toBe(3);
-    expect(new Set(ids.map((r) => reactors[r].CoreDetail)).size).toBe(3);
-    expect(new Set(ids.map((r) => reactors[r].lessons)).size).toBe(3);
+    expect(new Set(ids.map((r) => reactors[r].Scene)).size).toBe(5);
+    expect(new Set(ids.map((r) => reactors[r].CoreDetail)).size).toBe(5);
+    expect(new Set(ids.map((r) => reactors[r].lessons)).size).toBe(5);
   });
 
   it('bileşen kimlikleri reaktör içinde benzersiz ve yakın plan anahtarları tanımlı', () => {

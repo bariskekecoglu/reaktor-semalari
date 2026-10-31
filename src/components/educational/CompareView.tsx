@@ -1,9 +1,12 @@
-/** Etkileşimli karşılaştırma: konu seçici, üç reaktörün mini şemalarında vurgu ve karşılaştırılabilir açıklamalar. */
+/** Etkileşimli karşılaştırma: konu seçici, beş reaktörün mini şemalarında vurgu ve karşılaştırılabilir açıklamalar. */
 import { useState } from 'react';
 import type { ReactorId } from '../../reactors/shared/types';
 import { useViewLayout } from '../../hooks/useViewLayout';
 import { formatSource, getSource, SOURCE_KIND_LABEL } from '../../knowledge/sources';
+import { REACTOR_IDS, REACTOR_META, REACTOR_NAME } from '../../reactors/meta';
 import { COMPARE_TOPICS, getCompareTopic, type CompareTopic, type MiniPart } from './compareTopics';
+
+const REACTORS = REACTOR_IDS;
 
 type Active = ReadonlySet<MiniPart> | null;
 
@@ -177,51 +180,229 @@ function MiniVver({ a }: { a: Active }) {
   );
 }
 
-const MINI: Record<ReactorId, (p: { a: Active }) => JSX.Element> = { pwr: MiniPwr, bwr: MiniBwr, vver: MiniVver };
-const NAME: Record<ReactorId, string> = { pwr: 'PWR', bwr: 'BWR', vver: 'VVER' };
-const SUBTITLE: Record<ReactorId, string> = {
-  pwr: 'temsili dikey buhar üreteçli tasarım',
-  bwr: 'kaynar su reaktörü',
-  vver: 'PWR ailesi, yatay buhar üreteçli',
-};
-const REACTORS: ReactorId[] = ['pwr', 'bwr', 'vver'];
+function MiniRbmk({ a }: { a: Active }) {
+  const m = 'mini-arrow-rbmk';
+  return (
+    <svg viewBox="0 0 320 210" className="mini" role="img" aria-label="RBMK mini şema: grafit yığını içinde dikey kanallar, kap dışında ayırıcı tambur, buhar doğrudan türbine">
+      <MiniDefs id={m} />
+      <g data-part="graphite" className={P('graphite', a)}>
+        <rect x="26" y="96" width="94" height="84" className="graphite-block" />
+        <text x="73" y="207" textAnchor="middle" className="mini-tag">
+          grafit
+        </text>
+      </g>
+      <g data-part="channels" className={P('channels', a)}>
+        {[42, 62, 102].map((x) => (
+          <rect key={x} x={x - 4} y="86" width="8" height="104" className="channel-tube" />
+        ))}
+      </g>
+      <g data-part="fuel" className={P('fuel', a)}>
+        {[42, 62, 102].map((x) => (
+          <rect key={x} x={x - 1.5} y="104" width="3" height="66" className="fuel-assy" />
+        ))}
+      </g>
+      <g data-part="rods" className={P('rods', a)}>
+        <rect x="79" y="88" width="6" height="56" className="ctrl-channel" />
+        <rect x="80.5" y="96" width="3" height="30" className="control-rod" />
+      </g>
+      <g data-part="drum" className={P('drum', a)}>
+        <rect x="128" y="36" width="76" height="24" rx="12" className="drum" />
+        <text x="124" y="46" textAnchor="end" className="mini-tag">
+          ayırıcı tambur
+        </text>
+      </g>
+      <g data-part="hot" className={P('hot', a)}>
+        <Arrow d="M102 86 V72 H148 V62" cls="mix" m={m} />
+      </g>
+      <g data-part="cold" className={P('cold', a)}>
+        <Arrow d="M150 61 V198 H62 V192" cls="cold" m={m} />
+      </g>
+      <g data-part="steam" className={P('steam', a)}>
+        <Arrow d="M190 36 V22 H230 V60" cls="steam" m={m} />
+      </g>
+      <MiniTurbine a={a} m={m} />
+      <g data-part="feed" className={P('feed', a)}>
+        <Arrow d="M220 156 V172 H212 V52 H206" cls="feed" m={m} />
+      </g>
+      <text x="160" y="190">tek çevrim · kanallarda kaynama</text>
+    </svg>
+  );
+}
 
-const ROWS: { label: string; pwr: string; bwr: string; vver: string }[] = [
+function MiniCandu({ a }: { a: Active }) {
+  const m = 'mini-arrow-candu';
+  return (
+    <svg viewBox="0 0 320 210" className="mini" role="img" aria-label="CANDU mini şema: yatay calandria ve basınç tüpleri, ayrı moderatör, buhar üreteci, ayrı ikincil devre">
+      <MiniDefs id={m} />
+      <g data-part="containment" className={P('containment', a)}>
+        <path d="M6 200 V70 A100 54 0 0 1 206 70 V200" className="containment" strokeWidth={6} />
+      </g>
+      <g data-part="moderator" className={P('moderator', a)}>
+        <rect x="34" y="124" width="112" height="56" className="d2o-zone" />
+        <Arrow d="M60 180 V194 H120 V182" cls="mod" m={m} />
+      </g>
+      <g data-part="calandria" className={P('calandria', a)}>
+        <rect x="34" y="124" width="112" height="56" rx="4" className="calandria-shell" strokeWidth={2} />
+      </g>
+      <g data-part="channels" className={P('channels', a)}>
+        {[138, 152, 166].map((y) => (
+          <rect key={y} x="22" y={y - 3} width="136" height="6" className="pressure-tube thin" />
+        ))}
+      </g>
+      <g data-part="fuel" className={P('fuel', a)}>
+        {[138, 152, 166].map((y) => (
+          <rect key={y} x="40" y={y - 1.5} width="100" height="3" className="fuel-bundle" />
+        ))}
+      </g>
+      <g data-part="rods" className={P('rods', a)}>
+        <rect x="88" y="108" width="4" height="40" className="control-rod" />
+      </g>
+      <g data-part="headers" className={P('headers', a)}>
+        <circle cx="14" cy="112" r="6" className="header-end cold" />
+        <circle cx="166" cy="112" r="6" className="header-end" />
+      </g>
+      <g data-part="pzr" className={P('pzr', a)}>
+        <rect x="128" y="62" width="12" height="30" rx="6" className="vessel-wall" />
+        <path d="M134 92 V100 H160" className="mini-surge" />
+      </g>
+      <g data-part="sg" className={P('sg', a)}>
+        <path d="M168 96 V62 L163 54 V40 A13 8 0 0 1 189 40 V54 L184 62 V96 Z" className="sg-shell" />
+        <path d="M171 95 V70 A5 5 0 0 1 181 70 V95" className="u-tube" />
+      </g>
+      <g data-part="hot" className={P('hot', a)}>
+        <Arrow d="M166 106 V100 H172 V98" cls="hot" m={m} />
+      </g>
+      <g data-part="cold" className={P('cold', a)}>
+        <Arrow d="M182 96 V104 H196 V202 H8 V120" cls="cold" m={m} />
+      </g>
+      <g data-part="steam" className={P('steam', a)}>
+        <Arrow d="M176 32 V22 H230 V60" cls="steam" m={m} />
+      </g>
+      <MiniTurbine a={a} m={m} />
+      <g data-part="feed" className={P('feed', a)}>
+        <Arrow d="M220 156 V172 H204 V80 H190" cls="feed" m={m} />
+      </g>
+      <text x="40" y="118" className="mini-tag">
+        D₂O
+      </text>
+    </svg>
+  );
+}
+
+const MINI: Record<ReactorId, (p: { a: Active }) => JSX.Element> = { pwr: MiniPwr, bwr: MiniBwr, vver: MiniVver, rbmk: MiniRbmk, candu: MiniCandu };
+const NAME = REACTOR_NAME;
+
+type Cells = Record<ReactorId, string>;
+const ROWS: { label: string; cells: Cells }[] = [
   {
-    label: 'Buharın oluştuğu yer',
-    pwr: 'Buhar üretecinin ikincil (gövde) tarafında. Birincil devrede normal çalışmada toplu kaynama yok.',
-    bwr: 'Doğrudan reaktör kabında, çekirdekte kaynama ile.',
-    vver: 'Yatay buhar üretecinin ikincil (gövde) tarafında. Birincil su basınç altında sıvı kalır.',
+    label: 'Moderatör',
+    cells: {
+      pwr: 'Hafif su (soğutucuyla aynı).',
+      bwr: 'Hafif su (kaynayan reaktör suyu).',
+      vver: 'Hafif su (PWR ailesi).',
+      rbmk: 'Grafit blok yığını; soğutucu değil.',
+      candu: 'Ağır su; calandria’da, soğutucudan ayrı, düşük basınçlı sistem.',
+    },
   },
   {
-    label: 'Ayrı buhar üreteci',
-    pwr: 'Var — dikey, U borulu (çevrim başına bir adet).',
-    bwr: 'Yok. Ayırıcılar ve kurutucular kabın içindedir.',
-    vver: 'Var — yatay, kolektörlü.',
+    label: 'Soğutucu',
+    cells: {
+      pwr: 'Basınçlı hafif su (sıvı).',
+      bwr: 'Hafif su; çekirdekte kaynar.',
+      vver: 'Basınçlı hafif su (sıvı).',
+      rbmk: 'Hafif su; kanallarda kaynar.',
+      candu: 'Basınçlı ağır su; CANDU 6’da sınırlı kaynama olabilir. Ağır su türbine gitmez.',
+    },
+  },
+  {
+    label: 'Basınç sınırı',
+    cells: {
+      pwr: 'Reaktör basınç kabı.',
+      bwr: 'Reaktör basınç kabı (büyük, daha ince duvarlı).',
+      vver: 'Reaktör basınç kabı (dar, uzun).',
+      rbmk: 'Ayrı basınç kanalları; tek PWR tipi kap yok.',
+      candu: 'Basınç tüpleri; calandria basınç kabı değildir.',
+    },
+  },
+  {
+    label: 'Kanalların yönü',
+    cells: {
+      pwr: 'Uygulanmaz — ayrı basınç kanalı yok.',
+      bwr: 'Uygulanmaz — ayrı basınç kanalı yok (kanal kutuları kabın içinde).',
+      vver: 'Uygulanmaz — ayrı basınç kanalı yok.',
+      rbmk: 'Dikey; su alttan girer.',
+      candu: 'Yatay; komşu kanallarda ters akış.',
+    },
+  },
+  {
+    label: 'Buharın oluştuğu yer',
+    cells: {
+      pwr: 'Buhar üretecinin ikincil (gövde) tarafında. Birincil devrede normal çalışmada toplu kaynama yok.',
+      bwr: 'Doğrudan reaktör kabında, çekirdekte kaynama ile.',
+      vver: 'Yatay buhar üretecinin ikincil (gövde) tarafında. Birincil su basınç altında sıvı kalır.',
+      rbmk: 'Yakıt kanallarında; karışım ayırıcı tamburda ayrılır.',
+      candu: 'Buhar üretecinin ikincil tarafında (hafif su).',
+    },
+  },
+  {
+    label: 'Buhar üreteci / ayırıcı',
+    cells: {
+      pwr: 'Var — dikey, U borulu (çevrim başına bir adet).',
+      bwr: 'Buhar üreteci yok. Ayırıcılar ve kurutucular kabın içindedir.',
+      vver: 'Var — yatay, kolektörlü.',
+      rbmk: 'Buhar üreteci yok. Kap dışında ayırıcı tambur (ısı aktarmaz).',
+      candu: 'Var — dikey U borulu, tümleşik buhar tamburlu (CANDU 6).',
+    },
   },
   {
     label: 'Birincil ve ikincil çevrim ilişkisi',
-    pwr: 'İki ayrı çevrim; aralarında yalnız ısı geçer, akışkan karışmaz. Türbine ikincil buhar gider.',
-    bwr: 'Tek (doğrudan) çevrim: reaktör suyunun buharı türbine gider; türbin tarafı da korumalı bölgedir.',
-    vver: 'İki ayrı çevrim; aralarında yalnız ısı geçer. Türbine ikincil buhar gider.',
+    cells: {
+      pwr: 'İki ayrı çevrim; aralarında yalnız ısı geçer, akışkan karışmaz. Türbine ikincil buhar gider.',
+      bwr: 'Tek (doğrudan) çevrim: reaktör suyunun buharı türbine gider; türbin tarafı da korumalı bölgedir.',
+      vver: 'İki ayrı çevrim; aralarında yalnız ısı geçer. Türbine ikincil buhar gider.',
+      rbmk: 'Tek (doğrudan) çevrim: kanallardaki suyun buharı türbine gider.',
+      candu: 'İki ayrı çevrim (birincil D₂O, ikincil H₂O) + ayrı moderatör sistemi.',
+    },
   },
   {
     label: 'Ayırt edici ekipman geometrisi',
-    pwr: 'Basınçlandırıcı; yüksek ve dar dikey buhar üreteci; kare adımlı yakıt demetleri.',
-    bwr: 'Çok büyük, ince duvarlı kap; jet pompaları ve devridaim döngüsü; kanal kutulu demetler.',
-    vver: 'Uzun yatay buhar üreteci; dar-uzun kap; farklı kotlarda sıcak/soğuk kol; altıgen, üçgen adımlı demetler.',
+    cells: {
+      pwr: 'Basınçlandırıcı; yüksek ve dar dikey buhar üreteci; kare adımlı yakıt demetleri.',
+      bwr: 'Çok büyük, ince duvarlı kap; jet pompaları ve devridaim döngüsü; kanal kutulu demetler.',
+      vver: 'Uzun yatay buhar üreteci; dar-uzun kap; farklı kotlarda sıcak/soğuk kol; altıgen, üçgen adımlı demetler.',
+      rbmk: 'Büyük grafit yığını; çok sayıda dikey kanal; kanal başına ayrı borular; yatay ayırıcı tamburlar.',
+      candu: 'Yatay calandria; yatay basınç tüpleri; besleyiciler ve kolektörler; iki uçta yakıt değiştirme makineleri.',
+    },
+  },
+  {
+    label: 'Tipik yakıt ve yakıt değiştirme',
+    cells: {
+      pwr: 'Az zenginleştirilmiş UO₂; yakıt değiştirme reaktör kapalıyken (mod 6).',
+      bwr: 'PWR yakıtına benzer (IAEA); süreç bu uygulamada ele alınmaz.',
+      vver: 'Altıgen demetler; yakıt değiştirme ayrıntısı ele alınmaz.',
+      rbmk: '~%2 zenginleştirilmiş UO₂; işletme sırasında değiştirilebilir.',
+      candu: 'CANDU 6: tipik olarak doğal UO₂; işletme sırasında, iki uçtan. Başka yakıtlar da kullanılabilir.',
+    },
   },
   {
     label: 'Gösterilen temsili kontrol çubuğu yerleşimi',
-    pwr: 'Üstten giren çubuk kümeleri.',
-    bwr: 'Alttan giren haç (cruciform) kesitli çubuklar (geleneksel BWR).',
-    vver: 'Üst bloktan giren çubuk kümeleri.',
+    cells: {
+      pwr: 'Üstten giren çubuk kümeleri.',
+      bwr: 'Alttan giren haç (cruciform) kesitli çubuklar (geleneksel BWR).',
+      vver: 'Üst bloktan giren çubuk kümeleri.',
+      rbmk: 'Ayrı kanallarda üstten (1986 durumu: 24 kısa çubuk alttan; INSAG-7).',
+      candu: 'Moderatör içinde, kanallar arasından geçen düzenekler.',
+    },
   },
   {
     label: 'Tasarıma göre değişebilen özellikler',
-    pwr: 'Çevrim sayısı (2–4), güç, koruma yapısı tipi, buhar üreteci modeli.',
-    bwr: 'Koruma yapısı (Mark I/II/III), jet pompalı ya da iç pompalı (ABWR) devridaim, doğal dolaşımlı tasarımlar (ESBWR).',
-    vver: 'Model (VVER-440/213: 6 çevrim, VVER-1000: 4 çevrim ve sonrası), koruma yapısı, yakıt kanalı (kutulu/kutusuz).',
+    cells: {
+      pwr: 'Çevrim sayısı (2–4), güç, koruma yapısı tipi, buhar üreteci modeli.',
+      bwr: 'Koruma yapısı (Mark I/II/III), jet pompalı ya da iç pompalı (ABWR) devridaim, doğal dolaşımlı tasarımlar (ESBWR).',
+      vver: 'Model (VVER-440/213: 6 çevrim, VVER-1000: 4 çevrim ve sonrası), koruma yapısı, yakıt kanalı (kutulu/kutusuz).',
+      rbmk: 'Döneme göre değişiklikler (kazadan sonra çubuk tasarımı vb.); bu şema RBMK-1000’in genel düzenidir.',
+      candu: 'Modele göre halka/kanal sayısı ve yakıt; çizilen CANDU 6’dır.',
+    },
   },
 ];
 
@@ -258,18 +439,24 @@ function ReactorCard({ r, topic, onExplore, currentReactor }: { r: ReactorId; to
   return (
     <div className={`compare-card${topic ? ' has-topic' : ''}`}>
       <h3>
-        {NAME[r]} — {SUBTITLE[r]}
+        {NAME[r]} — {REACTOR_META[r].compareSubtitle}
       </h3>
       <Mini a={active} />
       {side && topic && (
         <div className="cmp-answer">
-          <p className={`cmp-scope ${side.scope}`}>{side.scope === 'family' ? 'Reaktör ailesi geneli' : 'Çizilen temsili tasarım'}</p>
+          {side.absent ? (
+            <p className="cmp-absent">Bu tasarımda bulunmaz</p>
+          ) : (
+            <p className={`cmp-scope ${side.scope}`}>{side.scope === 'family' ? 'Reaktör ailesi geneli' : 'Çizilen temsili tasarım'}</p>
+          )}
           <p>{side.text}</p>
           <Sources ids={side.sourceIds} />
-          <button type="button" onClick={() => onExplore(r, topic)}>
-            {NAME[r]} şemasında ayrıntılı incele
-            {r !== currentReactor && <small> (reaktör değişir; simülasyon başa döner)</small>}
-          </button>
+          {!side.absent && (
+            <button type="button" onClick={() => onExplore(r, topic)}>
+              {NAME[r]} şemasında ayrıntılı incele
+              {r !== currentReactor && <small> (reaktör değişir; simülasyon başa döner)</small>}
+            </button>
+          )}
         </div>
       )}
     </div>
@@ -281,13 +468,26 @@ export function CompareView({ topicId, onTopic, onExplore, currentReactor }: Pro
   const topic = getCompareTopic(topicId);
   // Dar ekranda tek reaktör gösterilir (şemalar okunabilir boyutta); seçili konu reaktör geçişinde korunur.
   const [one, setOne] = useState<ReactorId>(currentReactor);
-  const shown = narrow ? [one] : REACTORS;
+  // Geniş ekranda karşılaştırılacak reaktörler seçilebilir (varsayılan: beşi; en az biri açık kalır).
+  const [picked, setPicked] = useState<ReadonlySet<ReactorId>>(() => new Set(REACTORS));
+  const shown = narrow ? [one] : REACTORS.filter((r) => picked.has(r));
+  const toggle = (r: ReactorId) =>
+    setPicked((prev) => {
+      const next = new Set(prev);
+      if (next.has(r)) {
+        if (next.size > 1) next.delete(r);
+      } else next.add(r);
+      return next;
+    });
+  // Tablo dar ekranda kendi alanında yatay kayar; beş sütun da okunabilir kalır.
+  const columns = narrow ? REACTORS : shown;
   return (
     <div className="compare">
       <h2>Karşılaştırma</h2>
       <p>
-        VVER de PWR ailesindendir. Mini şemalar temsili ve ölçeksizdir. Bir konu seçin: üç reaktörde ilgili parçalar kalın çizgi ve kesikli çerçeveyle vurgulanır, diğerleri geri plana alınır.
-        Oklarda renk ve çizgi deseni birlikte kullanılır: düz = sıcak/soğuk su, kesikli = buhar, noktalı = besleme suyu.
+        VVER, PWR ailesindendir; RBMK ve CANDU basınç kanallı reaktörlerdir. Mini şemalar temsili ve ölçeksizdir. Bir konu seçin: ilgili parçalar kalın çizgi ve kesikli çerçeveyle vurgulanır,
+        diğerleri geri plana alınır; konu bir tasarımda yoksa “Bu tasarımda bulunmaz” yazar ve başka bir parça vurgulanmaz. Oklarda renk ve çizgi deseni birlikte kullanılır: düz = sıcak/soğuk su,
+        kesikli = buhar, noktalı = besleme suyu, kısa kesikli = su–buhar karışımı, kesik-nokta (mor) = CANDU moderatörü.
       </p>
       <div className="cmp-topics" role="group" aria-label="Karşılaştırma konusu">
         {COMPARE_TOPICS.map((t) => (
@@ -301,7 +501,7 @@ export function CompareView({ topicId, onTopic, onExplore, currentReactor }: Pro
           <strong>{topic.question}</strong> <span>“Reaktör ailesi geneli” ilkeyi, “Çizilen temsili tasarım” bu uygulamadaki şemaya özgü düzeni anlatır; gerçek tesisler arasında değişebilir.</span>
         </p>
       )}
-      {narrow && (
+      {narrow ? (
         <div className="seg cmp-one" role="group" aria-label="Gösterilen reaktör">
           {REACTORS.map((r) => (
             <button key={r} type="button" aria-pressed={one === r} className={one === r ? 'on' : ''} onClick={() => setOne(r)}>
@@ -309,8 +509,19 @@ export function CompareView({ topicId, onTopic, onExplore, currentReactor }: Pro
             </button>
           ))}
         </div>
+      ) : (
+        <fieldset className="cmp-reactor-filter">
+          <legend className="sr-only">Karşılaştırılacak reaktörler</legend>
+          <span aria-hidden="true">Göster:</span>
+          {REACTORS.map((r) => (
+            <label key={r}>
+              <input type="checkbox" checked={picked.has(r)} disabled={picked.has(r) && picked.size === 1} onChange={() => toggle(r)} />
+              {NAME[r]}
+            </label>
+          ))}
+        </fieldset>
       )}
-      <div className="compare-cards">
+      <div className={`compare-cards${shown.length === 5 ? ' five' : ''}`}>
         {shown.map((r) => (
           <ReactorCard key={r} r={r} topic={topic} onExplore={onExplore} currentReactor={currentReactor} />
         ))}
@@ -319,22 +530,24 @@ export function CompareView({ topicId, onTopic, onExplore, currentReactor }: Pro
         <summary>Tüm farklar tablosu</summary>
         <div className="table-wrap">
           <table className="compare-table">
-            <caption className="sr-only">PWR, BWR ve VVER karşılaştırma tablosu</caption>
+            <caption className="sr-only">{columns.map((r) => NAME[r]).join(', ')} karşılaştırma tablosu</caption>
             <thead>
               <tr>
                 <th scope="col">Başlık</th>
-                <th scope="col">PWR — temsili dikey buhar üreteçli tasarım</th>
-                <th scope="col">BWR</th>
-                <th scope="col">VVER (PWR ailesi)</th>
+                {columns.map((r) => (
+                  <th key={r} scope="col">
+                    {NAME[r]}
+                  </th>
+                ))}
               </tr>
             </thead>
             <tbody>
-              {ROWS.map((r) => (
-                <tr key={r.label}>
-                  <th scope="row">{r.label}</th>
-                  <td>{r.pwr}</td>
-                  <td>{r.bwr}</td>
-                  <td>{r.vver}</td>
+              {ROWS.map((row) => (
+                <tr key={row.label}>
+                  <th scope="row">{row.label}</th>
+                  {columns.map((r) => (
+                    <td key={r}>{row.cells[r]}</td>
+                  ))}
                 </tr>
               ))}
             </tbody>

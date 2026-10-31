@@ -1,6 +1,6 @@
 # Yerel rehber soru-cevap kataloğu
 
-205 hazır cevap; 1723 farklı soru ifadesi.
+468 hazır cevap; 3463 farklı soru ifadesi.
 
 Bu dosya `npm run guide:export` ile üretilir. Düzenleme yeri: `src/assistant/guideCatalog.ts` ve referans aldığı mevcut ders/ekipman verileri.
 
@@ -1068,6 +1068,102 @@ Kaynaklar: `nuce-ch2`, `nrc-unit3`
 
 </details>
 
+### PWR Nötronları ne yavaşlatır?
+
+Kimlik: `compare:moderator:pwr`
+
+Hafif su: soğutucu aynı zamanda moderatördür.
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `nrc-unit3`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- PWR moderatör nedir
+- PWR nötronları ne yavaşlatır
+- PWR moderatör ne
+
+</details>
+
+### PWR Isıyı yakıttan ne taşır?
+
+Kimlik: `compare:coolant:pwr`
+
+Basınç altında sıvı kalan hafif su.
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `nrc-unit3`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- PWR soğutucu nedir
+- PWR soğutucu ne
+- PWR ısıyı ne taşır
+
+</details>
+
+### PWR Yüksek basınçlı soğutucuyu ne tutar?
+
+Kimlik: `compare:boundary:pwr`
+
+Büyük, kalın duvarlı reaktör basınç kabı (ve birincil devre boruları).
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `nrc-unit3`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- PWR basınç sınırı nedir
+- PWR basınç kabı mı kanal mı
+- PWR yüksek basıncı ne tutar
+
+</details>
+
+### PWR Yakıt ayrı basınç kanallarında mı, kanallar hangi yönde?
+
+Kimlik: `compare:channel-dir:pwr`
+
+Bu tasarımda bulunmaz. Bu tasarımda ayrı basınç kanalları bulunmaz; yakıt demetleri tek basınç kabının içindedir.
+
+Kaynaklar: `nuce-ch2`, `nrc-unit3`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- PWR kanallar yatay mı dikey mi
+- PWR kanalların yönü
+- PWR basınç kanalı var mı
+
+</details>
+
+### PWR Buhar üreteci ile ayırıcı tambur arasındaki fark nedir?
+
+Kimlik: `compare:sg-vs-drum:pwr`
+
+Buhar üreteci var: iki ayrı devre arasında ısı aktarır ve buharı ikincil tarafta üretir. Üst bölümündeki ayırıcı/kurutucular yalnız nemi alır.
+
+Kaynaklar: `nuce-ch2`, `nrc-unit3`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- PWR ayırıcı tambur buhar üreteci mi
+- PWR buhar üreteci ile ayırıcı tambur farkı
+- PWR buhar üreteci var mı
+
+</details>
+
+### PWR Tipik yakıt nedir, yakıt nasıl değiştirilir?
+
+Kimlik: `compare:fuel:pwr`
+
+Az zenginleştirilmiş uranyum (IAEA: yaklaşık %3–5). Yakıt reaktör alt kritikken, kap kapağı kaldırılarak değiştirilir (işletme modu 6).
+
+Kaynaklar: `iaea-bptc-m4`, `tab-2-14`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- PWR hangi yakıt kullanılır
+- PWR yakıt nasıl değiştirilir
+- PWR yakıt değiştirme
+
+</details>
+
 ## BWR
 
 ### BWR Reaktör kabı ve koruma yapısı aynı şey mi?
@@ -2029,6 +2125,102 @@ Kaynaklar: `nuce-ch2`, `nrc-bwr`
 
 - BWR kontrol çubukları nereden girer
 - BWR kontrol çubukları alttan mı üstten mi
+
+</details>
+
+### BWR Nötronları ne yavaşlatır?
+
+Kimlik: `compare:moderator:bwr`
+
+Hafif su: kaynayan reaktör suyu hem soğutur hem nötronları yavaşlatır.
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `nrc-bwr`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- BWR moderatör nedir
+- BWR nötronları ne yavaşlatır
+- BWR moderatör ne
+
+</details>
+
+### BWR Isıyı yakıttan ne taşır?
+
+Kimlik: `compare:coolant:bwr`
+
+Hafif su; çekirdekte kaynar.
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `nrc-bwr`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- BWR soğutucu nedir
+- BWR soğutucu ne
+- BWR ısıyı ne taşır
+
+</details>
+
+### BWR Yüksek basınçlı soğutucuyu ne tutar?
+
+Kimlik: `compare:boundary:bwr`
+
+Reaktör basınç kabı; PWR’ye göre daha ince duvarlı ama daha büyük.
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `nrc-bwr`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- BWR basınç sınırı nedir
+- BWR basınç kabı mı kanal mı
+- BWR yüksek basıncı ne tutar
+
+</details>
+
+### BWR Yakıt ayrı basınç kanallarında mı, kanallar hangi yönde?
+
+Kimlik: `compare:channel-dir:bwr`
+
+Bu tasarımda bulunmaz. Bu tasarımda ayrı basınç kanalları bulunmaz. Demetlerin kanal kutuları akışı yönlendirir ama basınç sınırı değildir; hepsi kabın içindedir.
+
+Kaynaklar: `nuce-ch2`, `nrc-bwr`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- BWR kanallar yatay mı dikey mi
+- BWR kanalların yönü
+- BWR basınç kanalı var mı
+
+</details>
+
+### BWR Buhar üreteci ile ayırıcı tambur arasındaki fark nedir?
+
+Kimlik: `compare:sg-vs-drum:bwr`
+
+Buhar üreteci yok. Kabın içindeki ayırıcı ve kurutucular çekirdekte oluşan karışımı ayırır; ısı aktarmazlar.
+
+Kaynaklar: `nuce-ch2`, `nrc-bwr`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- BWR ayırıcı tambur buhar üreteci mi
+- BWR buhar üreteci ile ayırıcı tambur farkı
+- BWR buhar üreteci var mı
+
+</details>
+
+### BWR Tipik yakıt nedir, yakıt nasıl değiştirilir?
+
+Kimlik: `compare:fuel:bwr`
+
+Yakıt birçok bakımdan PWR yakıtına benzer (IAEA). Bu uygulama BWR yakıt değiştirme sürecini ayrıca ele almaz.
+
+Kaynaklar: `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- BWR hangi yakıt kullanılır
+- BWR yakıt nasıl değiştirilir
+- BWR yakıt değiştirme
 
 </details>
 
@@ -3104,6 +3296,2937 @@ Kaynaklar: `nuce-ch2`, `iaea-vver`
 
 </details>
 
+### VVER Nötronları ne yavaşlatır?
+
+Kimlik: `compare:moderator:vver`
+
+Hafif su (PWR ailesi): su hem soğutucu hem moderatördür.
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `iaea-vver`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- VVER moderatör nedir
+- VVER nötronları ne yavaşlatır
+- VVER moderatör ne
+
+</details>
+
+### VVER Isıyı yakıttan ne taşır?
+
+Kimlik: `compare:coolant:vver`
+
+Basınç altında sıvı kalan hafif su.
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `iaea-vver`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- VVER soğutucu nedir
+- VVER soğutucu ne
+- VVER ısıyı ne taşır
+
+</details>
+
+### VVER Yüksek basınçlı soğutucuyu ne tutar?
+
+Kimlik: `compare:boundary:vver`
+
+Reaktör basınç kabı (çizilen tasarımda dar ve uzun).
+
+Kaynaklar: `nuce-ch2`, `iaea-vver`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- VVER basınç sınırı nedir
+- VVER basınç kabı mı kanal mı
+- VVER yüksek basıncı ne tutar
+
+</details>
+
+### VVER Yakıt ayrı basınç kanallarında mı, kanallar hangi yönde?
+
+Kimlik: `compare:channel-dir:vver`
+
+Bu tasarımda bulunmaz. Bu tasarımda ayrı basınç kanalları bulunmaz; yakıt demetleri basınç kabının içindedir.
+
+Kaynaklar: `nuce-ch2`, `iaea-vver`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- VVER kanallar yatay mı dikey mi
+- VVER kanalların yönü
+- VVER basınç kanalı var mı
+
+</details>
+
+### VVER Buhar üreteci ile ayırıcı tambur arasındaki fark nedir?
+
+Kimlik: `compare:sg-vs-drum:vver`
+
+Yatay buhar üreteci var: ısıyı borulardan ikincil suya aktarır. Gövdenin üstündeki ayırıcılar nemi alır.
+
+Kaynaklar: `nuce-ch2`, `iaea-vver`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- VVER ayırıcı tambur buhar üreteci mi
+- VVER buhar üreteci ile ayırıcı tambur farkı
+- VVER buhar üreteci var mı
+
+</details>
+
+### VVER Tipik yakıt nedir, yakıt nasıl değiştirilir?
+
+Kimlik: `compare:fuel:vver`
+
+PWR ailesinden; yakıt üçgen adımlı altıgen demetlerdedir. Yakıt değiştirme ayrıntısı bu uygulamada ele alınmaz.
+
+Kaynaklar: `nuce-ch2`, `iaea-vver`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- VVER hangi yakıt kullanılır
+- VVER yakıt nasıl değiştirilir
+- VVER yakıt değiştirme
+
+</details>
+
+## RBMK
+
+### RBMK Türbin ve jeneratör arasındaki fark nedir?
+
+Kimlik: `concept:rbmk:turbine-generator`
+
+Türbin mekanik dönme hareketi sağlar; elektrik jeneratörde üretilir.
+
+Yüksek basınç (YB) türbini: Buhar enerjisinin bir kısmını mil işine çevirir.
+
+Jeneratör: Mil işini elektriğe dönüştürür.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK elektrik türbinde mi jeneratörde mi üretilir
+- RBMK elektrik nerede üretilir
+
+</details>
+
+### RBMK Pompa elektrik üretir mi?
+
+Kimlik: `concept:rbmk:pump-generator`
+
+Pompa elektrik üretmez; akışkanı dolaştırır. Elektrik jeneratörde üretilir.
+
+Ana sirkülasyon pompası: Suyu kanallara basar (zorlanmış dolaşım).
+
+Jeneratör: Mil işini elektriğe dönüştürür.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK pompa jeneratör aynı mı
+- RBMK pompa türbin gibi mi
+
+</details>
+
+### RBMK Kondenserden çıkan su nereye gider?
+
+Kimlik: `concept:rbmk:condenser-feed`
+
+Yoğuşan su, besleme suyu yolu üzerinden çevrime geri gönderilir.
+
+Kondenser: Türbin çıkış buharını yoğuşturur.
+
+Besleme suyu pompası: Yoğuşan suyu ayırıcı tambura geri basar.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK besleme suyu nereden gelir
+- RBMK yoğuşan su tekrar kullanılır mı
+
+</details>
+
+### RBMK Kontrol çubukları ile çekirdek arasındaki ilişki nedir?
+
+Kimlik: `concept:rbmk:rods-fuel`
+
+Kontrol çubukları yakıt değildir; nötron soğurarak zincirleme tepkimeyi etkiler.
+
+Kontrol / koruma kanalları ve çubuklar: Nötron soğurarak reaktiviteyi ve gücü ayarlar.
+
+Yakıt demeti: Fisyon ısısının üretildiği yer.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK kontrol çubukları yakıt mı
+- RBMK kontrol çubukları neyi soğurur
+
+</details>
+
+### RBMK nedir?
+
+Kimlik: `entry:rbmk`
+
+Nötronlar esas olarak büyük bir grafit yığınında yavaşlar; soğutucu hafif sudur. Su, grafitin içinden geçen dikey basınç kanallarında yakıtın çevresinde yukarı akarken kaynar. Buhar–su karışımı çekirdek dışındaki ayırıcı tamburlara gider; ayrılan buhar arada buhar üreteci olmadan türbine, ayrılan su pompalarla kanallara döner. Çekirdeği saran tek bir PWR tipi basınç kabı yoktur.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK RBMK-1000 — grafit moderatörlü, kaynayan hafif su soğutmalı kanal reaktörü (temsili) nedir?
+- RBMK RBMK-1000 — grafit moderatörlü, kaynayan hafif su soğutmalı kanal reaktörü (temsili) açıkla
+- RBMK RBMK-1000 — grafit moderatörlü, kaynayan hafif su soğutmalı kanal reaktörü (temsili) göster
+- RBMK rbmk nedir?
+- RBMK rbmk açıkla
+- RBMK rbmk göster
+- RBMK lwgr nedir?
+- RBMK lwgr açıkla
+- RBMK lwgr göster
+- RBMK grafit moderatörlü reaktör nedir?
+- RBMK grafit moderatörlü reaktör açıkla
+- RBMK grafit moderatörlü reaktör göster
+- RBMK kanal reaktörü nedir?
+- RBMK kanal reaktörü açıkla
+- RBMK kanal reaktörü göster
+
+</details>
+
+### RBMK Grafit moderatör yığını ne işe yarar?
+
+Kimlik: `entry:rbmk.graphite`
+
+Fisyon nötronlarını yavaşlatır (moderatör).
+
+Çekirdek, dikey delikli grafit bloklardan oluşan büyük bir yığındır (INSAG-7: yükseklik ~7 m, çap ~11,8 m). Kanallar bu deliklerden geçer. Grafit soğutucu değildir ve basınç sınırı değildir: bloklar arasında grafitin oksitlenmesini önleyen ve ısısını kanallara taşıyan azot–helyum karışımı dolaşır (NEA). Şemada grafit koyu gri + tuğla dokusuyla gösterilir.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK Grafit moderatör yığını nedir?
+- RBMK Grafit moderatör yığını açıkla
+- RBMK Grafit moderatör yığını göster
+- RBMK grafit nedir?
+- RBMK grafit açıkla
+- RBMK grafit göster
+- RBMK grafit blok nedir?
+- RBMK grafit blok açıkla
+- RBMK grafit blok göster
+- RBMK grafit yığını nedir?
+- RBMK grafit yığını açıkla
+- RBMK grafit yığını göster
+- RBMK grafit moderatör nedir?
+- RBMK grafit moderatör açıkla
+- RBMK grafit moderatör göster
+- RBMK Grafit moderatör yığını ne işe yarar?
+- RBMK Grafit moderatör yığını nasıl çalışır?
+- RBMK grafit ne işe yarar?
+- RBMK grafit nasıl çalışır?
+- RBMK grafit blok ne işe yarar?
+- RBMK grafit blok nasıl çalışır?
+- RBMK grafit yığını ne işe yarar?
+- RBMK grafit yığını nasıl çalışır?
+- RBMK grafit moderatör ne işe yarar?
+- RBMK grafit moderatör nasıl çalışır?
+
+</details>
+
+### RBMK Yakıt / basınç kanalları ne işe yarar?
+
+Kimlik: `entry:rbmk.channels`
+
+Yakıtı ve basınç altındaki kaynayan soğutucuyu taşır; basınç sınırıdır.
+
+Grafitten geçen dikey basınç tüpleri (zirkonyum alaşımı). Su kanalın altından girer, yakıtın çevresinde yukarı akarken ısınır ve bir noktadan sonra kaynar; üstten buhar–su karışımı çıkar (NEA, INSAG-7 §2.8). Şemada beş temsili kanal çizildi; her kanalın kendi alt su borusu ve üst buhar–su borusu vardır.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK Yakıt / basınç kanalları nedir?
+- RBMK Yakıt / basınç kanalları açıkla
+- RBMK Yakıt / basınç kanalları göster
+- RBMK kanal nedir?
+- RBMK kanal açıkla
+- RBMK kanal göster
+- RBMK yakıt kanalı nedir?
+- RBMK yakıt kanalı açıkla
+- RBMK yakıt kanalı göster
+- RBMK basınç kanalı nedir?
+- RBMK basınç kanalı açıkla
+- RBMK basınç kanalı göster
+- RBMK basınç tüpü nedir?
+- RBMK basınç tüpü açıkla
+- RBMK basınç tüpü göster
+- RBMK pressure tube nedir?
+- RBMK pressure tube açıkla
+- RBMK pressure tube göster
+- RBMK Yakıt / basınç kanalları ne işe yarar?
+- RBMK Yakıt / basınç kanalları nasıl çalışır?
+- RBMK kanal ne işe yarar?
+- RBMK kanal nasıl çalışır?
+- RBMK yakıt kanalı ne işe yarar?
+- RBMK yakıt kanalı nasıl çalışır?
+- RBMK basınç kanalı ne işe yarar?
+- RBMK basınç kanalı nasıl çalışır?
+- RBMK basınç tüpü ne işe yarar?
+- RBMK basınç tüpü nasıl çalışır?
+- RBMK pressure tube ne işe yarar?
+- RBMK pressure tube nasıl çalışır?
+
+</details>
+
+### RBMK Yakıt demeti ne işe yarar?
+
+Kimlik: `entry:rbmk.fuel`
+
+Fisyon ısısının üretildiği yer.
+
+Zirkonyum alaşımı kaplı uranyum dioksit yakıt çubukları; kaynaklara göre yaklaşık %2 zenginleştirilmiş (NEA, IAEA BPTC Modül IV). Yakıt kanalın içindedir ve doğrudan hafif suyla soğutulur. Yakıt işletme sırasında değiştirilebilir (NEA); bu uygulama yakıt değiştirme makinesini çizmez.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK Yakıt demeti nedir?
+- RBMK Yakıt demeti açıkla
+- RBMK Yakıt demeti göster
+- RBMK yakıt nedir?
+- RBMK yakıt açıkla
+- RBMK yakıt göster
+- RBMK yakıt demeti nedir?
+- RBMK yakıt demeti açıkla
+- RBMK yakıt demeti göster
+- RBMK yakıt demetleri nedir?
+- RBMK yakıt demetleri açıkla
+- RBMK yakıt demetleri göster
+- RBMK Yakıt demeti ne işe yarar?
+- RBMK Yakıt demeti nasıl çalışır?
+- RBMK yakıt ne işe yarar?
+- RBMK yakıt nasıl çalışır?
+- RBMK yakıt demeti ne işe yarar?
+- RBMK yakıt demeti nasıl çalışır?
+- RBMK yakıt demetleri ne işe yarar?
+- RBMK yakıt demetleri nasıl çalışır?
+
+</details>
+
+### RBMK Kontrol / koruma kanalları ve çubuklar ne işe yarar?
+
+Kimlik: `entry:rbmk.rods`
+
+Nötron soğurarak reaktiviteyi ve gücü ayarlar.
+
+Yakıt kanallarından ayrı kanallarda hareket eder (şemada kesikli çerçeveli, içinde yakıt olmayan borular). NEA: güç, 211 kontrol çubuğu indirilip kaldırılarak ayarlanır. INSAG-7 (1986 durumu): çubuklar üstten girer; güç dağılımını düzleştiren 24 kısaltılmış çubuk alttan girer. O dönemde çubukların ucunda grafit “yer değiştiriciler” vardı ve tasarım kazadan sonra değiştirildi (INSAG-7 Şekil 1). Çizim yalnız üstten giren temsili çubukları gösterir; çubuk konumu güçle birebir eşlenmez.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK Kontrol / koruma kanalları ve çubuklar nedir?
+- RBMK Kontrol / koruma kanalları ve çubuklar açıkla
+- RBMK Kontrol / koruma kanalları ve çubuklar göster
+- RBMK kontrol çubuğu nedir?
+- RBMK kontrol çubuğu açıkla
+- RBMK kontrol çubuğu göster
+- RBMK kontrol çubukları nedir?
+- RBMK kontrol çubukları açıkla
+- RBMK kontrol çubukları göster
+- RBMK çubuk nedir?
+- RBMK çubuk açıkla
+- RBMK çubuk göster
+- RBMK Kontrol / koruma kanalları ve çubuklar ne işe yarar?
+- RBMK Kontrol / koruma kanalları ve çubuklar nasıl çalışır?
+- RBMK kontrol çubuğu ne işe yarar?
+- RBMK kontrol çubuğu nasıl çalışır?
+- RBMK kontrol çubukları ne işe yarar?
+- RBMK kontrol çubukları nasıl çalışır?
+- RBMK çubuk ne işe yarar?
+- RBMK çubuk nasıl çalışır?
+
+</details>
+
+### RBMK Basma ve grup dağıtım kolektörleri ne işe yarar?
+
+Kimlik: `entry:rbmk.dgh`
+
+Pompa basmasını kanalların alt su borularına dağıtır.
+
+INSAG-7 §2.9: pompaların bastığı su ortak bir kolektöre, oradan çekirdek yarısı başına çok sayıda grup dağıtım kolektörüne gider; her kanalın kendi su borusu ve debi ayar vanası vardır. Şemada tek kolektör ve beş alt su borusu çizildi; ● işaretleri gerçek bağlantı noktalarıdır.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK Basma ve grup dağıtım kolektörleri nedir?
+- RBMK Basma ve grup dağıtım kolektörleri açıkla
+- RBMK Basma ve grup dağıtım kolektörleri göster
+- RBMK grup dağıtım kolektörü nedir?
+- RBMK grup dağıtım kolektörü açıkla
+- RBMK grup dağıtım kolektörü göster
+- RBMK dağıtım kolektörü nedir?
+- RBMK dağıtım kolektörü açıkla
+- RBMK dağıtım kolektörü göster
+- RBMK basma kolektörü nedir?
+- RBMK basma kolektörü açıkla
+- RBMK basma kolektörü göster
+- RBMK Basma ve grup dağıtım kolektörleri ne işe yarar?
+- RBMK Basma ve grup dağıtım kolektörleri nasıl çalışır?
+- RBMK grup dağıtım kolektörü ne işe yarar?
+- RBMK grup dağıtım kolektörü nasıl çalışır?
+- RBMK dağıtım kolektörü ne işe yarar?
+- RBMK dağıtım kolektörü nasıl çalışır?
+- RBMK basma kolektörü ne işe yarar?
+- RBMK basma kolektörü nasıl çalışır?
+
+</details>
+
+### RBMK Buhar–su boruları (kanal çıkışları) ne işe yarar?
+
+Kimlik: `entry:rbmk.risers`
+
+Her kanaldaki buhar–su karışımını ayırıcı tambura taşır.
+
+INSAG-7: kanallardan çıkan buhar–su karışımı ayrı borularla tamburlara gider. Bu yüzden çizimde borular birleştirilmedi ve birbirini kesmeyecek biçimde iç içe çizildi. Borulardaki karışım kesikli çizgi ve kabarcık işaretleriyle gösterilir.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK Buhar–su boruları (kanal çıkışları) nedir?
+- RBMK Buhar–su boruları (kanal çıkışları) açıkla
+- RBMK Buhar–su boruları (kanal çıkışları) göster
+- RBMK buhar su boruları nedir?
+- RBMK buhar su boruları açıkla
+- RBMK buhar su boruları göster
+- RBMK buhar-su boruları nedir?
+- RBMK buhar-su boruları açıkla
+- RBMK buhar-su boruları göster
+- RBMK kanal çıkış boruları nedir?
+- RBMK kanal çıkış boruları açıkla
+- RBMK kanal çıkış boruları göster
+- RBMK Buhar–su boruları (kanal çıkışları) ne işe yarar?
+- RBMK Buhar–su boruları (kanal çıkışları) nasıl çalışır?
+- RBMK buhar su boruları ne işe yarar?
+- RBMK buhar su boruları nasıl çalışır?
+- RBMK buhar-su boruları ne işe yarar?
+- RBMK buhar-su boruları nasıl çalışır?
+- RBMK kanal çıkış boruları ne işe yarar?
+- RBMK kanal çıkış boruları nasıl çalışır?
+
+</details>
+
+### RBMK Ayırıcı tambur (buhar ayırıcı) ne işe yarar?
+
+Kimlik: `entry:rbmk.drum`
+
+Buhar–su karışımını buhar ve suya ayırır.
+
+Yatay, büyük bir tambur. Kanallardan gelen karışım burada ayrılır: buhar üstten buhar hatlarına ve türbine, su alttan iniş borularına gider. Ayırıcı tambur ısı aktarmaz ve iki ayrı devreyi ayırmaz; dolayısıyla buhar üreteci değildir — buhar zaten kanallarda oluşmuştur. INSAG-7: her çevrimde iki paralel yatay tambur vardır; şemada biri çizildi.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK Ayırıcı tambur (buhar ayırıcı) nedir?
+- RBMK Ayırıcı tambur (buhar ayırıcı) açıkla
+- RBMK Ayırıcı tambur (buhar ayırıcı) göster
+- RBMK ayırıcı tambur nedir?
+- RBMK ayırıcı tambur açıkla
+- RBMK ayırıcı tambur göster
+- RBMK tambur nedir?
+- RBMK tambur açıkla
+- RBMK tambur göster
+- RBMK buhar ayırıcı nedir?
+- RBMK buhar ayırıcı açıkla
+- RBMK buhar ayırıcı göster
+- RBMK separatör tamburu nedir?
+- RBMK separatör tamburu açıkla
+- RBMK separatör tamburu göster
+- RBMK Ayırıcı tambur (buhar ayırıcı) ne işe yarar?
+- RBMK Ayırıcı tambur (buhar ayırıcı) nasıl çalışır?
+- RBMK ayırıcı tambur ne işe yarar?
+- RBMK ayırıcı tambur nasıl çalışır?
+- RBMK tambur ne işe yarar?
+- RBMK tambur nasıl çalışır?
+- RBMK buhar ayırıcı ne işe yarar?
+- RBMK buhar ayırıcı nasıl çalışır?
+- RBMK separatör tamburu ne işe yarar?
+- RBMK separatör tamburu nasıl çalışır?
+
+</details>
+
+### RBMK İniş boruları ne işe yarar?
+
+Kimlik: `entry:rbmk.downcomer`
+
+Tamburda ayrılan suyu pompa emişine indirir.
+
+Ayrılan su, türbinden dönen besleme suyuyla karışarak pompaların emişine gider (INSAG-7 §2.9). Böylece su çekirdek, tambur ve pompalar arasında zorlanmış dolaşımla döner.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK İniş boruları nedir?
+- RBMK İniş boruları açıkla
+- RBMK İniş boruları göster
+- RBMK iniş borusu nedir?
+- RBMK iniş borusu açıkla
+- RBMK iniş borusu göster
+- RBMK iniş boruları nedir?
+- RBMK iniş boruları açıkla
+- RBMK iniş boruları göster
+- RBMK İniş boruları ne işe yarar?
+- RBMK İniş boruları nasıl çalışır?
+- RBMK iniş borusu ne işe yarar?
+- RBMK iniş borusu nasıl çalışır?
+- RBMK iniş boruları ne işe yarar?
+- RBMK iniş boruları nasıl çalışır?
+
+</details>
+
+### RBMK Ana sirkülasyon pompası ne işe yarar?
+
+Kimlik: `entry:rbmk.mcp`
+
+Suyu kanallara basar (zorlanmış dolaşım).
+
+INSAG-7 §2.9: her çevrimde dört pompa vardır; normalde üçü çalışır, biri yedektir. Şemada tek pompa çizildi. Pompa elektrik üretmez; suyu dolaştırır. Debi temsili olarak sabit gösterilir.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK Ana sirkülasyon pompası nedir?
+- RBMK Ana sirkülasyon pompası açıkla
+- RBMK Ana sirkülasyon pompası göster
+- RBMK ana sirkülasyon pompası nedir?
+- RBMK ana sirkülasyon pompası açıkla
+- RBMK ana sirkülasyon pompası göster
+- RBMK birincil pompa nedir?
+- RBMK birincil pompa açıkla
+- RBMK birincil pompa göster
+- RBMK pompa nedir?
+- RBMK pompa açıkla
+- RBMK pompa göster
+- RBMK Ana sirkülasyon pompası ne işe yarar?
+- RBMK Ana sirkülasyon pompası nasıl çalışır?
+- RBMK ana sirkülasyon pompası ne işe yarar?
+- RBMK ana sirkülasyon pompası nasıl çalışır?
+- RBMK birincil pompa ne işe yarar?
+- RBMK birincil pompa nasıl çalışır?
+- RBMK pompa ne işe yarar?
+- RBMK pompa nasıl çalışır?
+
+</details>
+
+### RBMK Ana buhar hattı ne işe yarar?
+
+Kimlik: `entry:rbmk.steamline`
+
+Tamburda ayrılan buharı türbine götürür.
+
+Buhar tamburun üstünden çıkar ve doğrudan türbine gider; arada ısı değiştirici (buhar üreteci) yoktur (NEA). Bu nedenle türbine giden buhar çekirdekten geçen suyun buharıdır.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK Ana buhar hattı nedir?
+- RBMK Ana buhar hattı açıkla
+- RBMK Ana buhar hattı göster
+- RBMK ana buhar hattı nedir?
+- RBMK ana buhar hattı açıkla
+- RBMK ana buhar hattı göster
+- RBMK buhar hattı nedir?
+- RBMK buhar hattı açıkla
+- RBMK buhar hattı göster
+- RBMK Ana buhar hattı ne işe yarar?
+- RBMK Ana buhar hattı nasıl çalışır?
+- RBMK ana buhar hattı ne işe yarar?
+- RBMK ana buhar hattı nasıl çalışır?
+- RBMK buhar hattı ne işe yarar?
+- RBMK buhar hattı nasıl çalışır?
+
+</details>
+
+### RBMK Yüksek basınç (YB) türbini ne işe yarar?
+
+Kimlik: `entry:rbmk.hp`
+
+Buhar enerjisinin bir kısmını mil işine çevirir.
+
+NEA: RBMK-1000 buharı iki 500 MWe türbini besler; şemada tek türbin grubu çizildi. YB türbininde genişleyen buhar AB türbinine geçer.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK Yüksek basınç (YB) türbini nedir?
+- RBMK Yüksek basınç (YB) türbini açıkla
+- RBMK Yüksek basınç (YB) türbini göster
+- RBMK yüksek basınç türbini nedir?
+- RBMK yüksek basınç türbini açıkla
+- RBMK yüksek basınç türbini göster
+- RBMK yb türbini nedir?
+- RBMK yb türbini açıkla
+- RBMK yb türbini göster
+- RBMK türbin nedir?
+- RBMK türbin açıkla
+- RBMK türbin göster
+- RBMK Yüksek basınç (YB) türbini ne işe yarar?
+- RBMK Yüksek basınç (YB) türbini nasıl çalışır?
+- RBMK yüksek basınç türbini ne işe yarar?
+- RBMK yüksek basınç türbini nasıl çalışır?
+- RBMK yb türbini ne işe yarar?
+- RBMK yb türbini nasıl çalışır?
+- RBMK türbin ne işe yarar?
+- RBMK türbin nasıl çalışır?
+
+</details>
+
+### RBMK Alçak basınç (AB) türbini ne işe yarar?
+
+Kimlik: `entry:rbmk.lp`
+
+Buhar enerjisinin kalanını mekanik enerjiye çevirir.
+
+Çift akışlı türbinden çıkan buhar kondensere boşalır.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK Alçak basınç (AB) türbini nedir?
+- RBMK Alçak basınç (AB) türbini açıkla
+- RBMK Alçak basınç (AB) türbini göster
+- RBMK alçak basınç türbini nedir?
+- RBMK alçak basınç türbini açıkla
+- RBMK alçak basınç türbini göster
+- RBMK ab türbini nedir?
+- RBMK ab türbini açıkla
+- RBMK ab türbini göster
+- RBMK türbin nedir?
+- RBMK türbin açıkla
+- RBMK türbin göster
+- RBMK Alçak basınç (AB) türbini ne işe yarar?
+- RBMK Alçak basınç (AB) türbini nasıl çalışır?
+- RBMK alçak basınç türbini ne işe yarar?
+- RBMK alçak basınç türbini nasıl çalışır?
+- RBMK ab türbini ne işe yarar?
+- RBMK ab türbini nasıl çalışır?
+- RBMK türbin ne işe yarar?
+- RBMK türbin nasıl çalışır?
+
+</details>
+
+### RBMK Jeneratör ne işe yarar?
+
+Kimlik: `entry:rbmk.gen`
+
+Mil işini elektriğe dönüştürür.
+
+Türbinle aynı mil üzerindedir; şebekeye senkron bağlıdır.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK Jeneratör nedir?
+- RBMK Jeneratör açıkla
+- RBMK Jeneratör göster
+- RBMK jeneratör nedir?
+- RBMK jeneratör açıkla
+- RBMK jeneratör göster
+- RBMK generatör nedir?
+- RBMK generatör açıkla
+- RBMK generatör göster
+- RBMK elektrik üretimi nedir?
+- RBMK elektrik üretimi açıkla
+- RBMK elektrik üretimi göster
+- RBMK Jeneratör ne işe yarar?
+- RBMK Jeneratör nasıl çalışır?
+- RBMK jeneratör ne işe yarar?
+- RBMK jeneratör nasıl çalışır?
+- RBMK generatör ne işe yarar?
+- RBMK generatör nasıl çalışır?
+- RBMK elektrik üretimi ne işe yarar?
+- RBMK elektrik üretimi nasıl çalışır?
+
+</details>
+
+### RBMK Kondenser ne işe yarar?
+
+Kimlik: `entry:rbmk.condenser`
+
+Türbin çıkış buharını yoğuşturur.
+
+Buhar soğutma suyu borularının dışında yoğuşur; soğutma suyu ayrı çevrimdir ve karışmaz. Yoğuşan su besleme suyu olarak tambura döner.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK Kondenser nedir?
+- RBMK Kondenser açıkla
+- RBMK Kondenser göster
+- RBMK kondenser nedir?
+- RBMK kondenser açıkla
+- RBMK kondenser göster
+- RBMK yoğuşturucu nedir?
+- RBMK yoğuşturucu açıkla
+- RBMK yoğuşturucu göster
+- RBMK yoğuşma nedir?
+- RBMK yoğuşma açıkla
+- RBMK yoğuşma göster
+- RBMK Kondenser ne işe yarar?
+- RBMK Kondenser nasıl çalışır?
+- RBMK kondenser ne işe yarar?
+- RBMK kondenser nasıl çalışır?
+- RBMK yoğuşturucu ne işe yarar?
+- RBMK yoğuşturucu nasıl çalışır?
+- RBMK yoğuşma ne işe yarar?
+- RBMK yoğuşma nasıl çalışır?
+
+</details>
+
+### RBMK Besleme suyu pompası ne işe yarar?
+
+Kimlik: `entry:rbmk.feedpump`
+
+Yoğuşan suyu ayırıcı tambura geri basar.
+
+Besleme suyu tamburdaki ayrılmış suyla karışır ve pompa emişine giden dolaşıma katılır (INSAG-7 §2.9). Ön ısıtıcılar çizilmedi (sadeleştirme).
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK Besleme suyu pompası nedir?
+- RBMK Besleme suyu pompası açıkla
+- RBMK Besleme suyu pompası göster
+- RBMK besleme suyu pompası nedir?
+- RBMK besleme suyu pompası açıkla
+- RBMK besleme suyu pompası göster
+- RBMK besleme pompası nedir?
+- RBMK besleme pompası açıkla
+- RBMK besleme pompası göster
+- RBMK Besleme suyu pompası ne işe yarar?
+- RBMK Besleme suyu pompası nasıl çalışır?
+- RBMK besleme suyu pompası ne işe yarar?
+- RBMK besleme suyu pompası nasıl çalışır?
+- RBMK besleme pompası ne işe yarar?
+- RBMK besleme pompası nasıl çalışır?
+
+</details>
+
+### RBMK Soğutma suyu çevrimi ne işe yarar?
+
+Kimlik: `entry:rbmk.coolsource`
+
+Kondenser ısısını çevreye atar.
+
+Ayrı üçüncü çevrim; turkuaz ve kesik-noktalı çizgi.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK Soğutma suyu çevrimi nedir?
+- RBMK Soğutma suyu çevrimi açıkla
+- RBMK Soğutma suyu çevrimi göster
+- RBMK soğutma suyu nedir?
+- RBMK soğutma suyu açıkla
+- RBMK soğutma suyu göster
+- RBMK soğutma kulesi nedir?
+- RBMK soğutma kulesi açıkla
+- RBMK soğutma kulesi göster
+- RBMK Soğutma suyu çevrimi ne işe yarar?
+- RBMK Soğutma suyu çevrimi nasıl çalışır?
+- RBMK soğutma suyu ne işe yarar?
+- RBMK soğutma suyu nasıl çalışır?
+- RBMK soğutma kulesi ne işe yarar?
+- RBMK soğutma kulesi nasıl çalışır?
+
+</details>
+
+### RBMK Biyolojik zırh ve reaktör boşluğu ne işe yarar?
+
+Kimlik: `entry:rbmk.shield`
+
+Radyasyonu zayıflatır; çekirdeği taşıyan ve örten yapıdır.
+
+INSAG-7 §2.10: çekirdek, yan duvarları zırh görevi gören bir bölmede durur; altta çekirdeğin oturduğu ağır plaka, üstte büyük bir kapak plakası vardır ve kanal uzantıları bu plakalardan geçip kaynaklanır. Bu yapı bir basınç kabı değildir: basınç sınırı kanalların kendisidir. Grafit (moderatör), kanal (basınç sınırı), zırh ve bina dört ayrı şeydir.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK Biyolojik zırh ve reaktör boşluğu nedir?
+- RBMK Biyolojik zırh ve reaktör boşluğu açıkla
+- RBMK Biyolojik zırh ve reaktör boşluğu göster
+- RBMK biyolojik zırh nedir?
+- RBMK biyolojik zırh açıkla
+- RBMK biyolojik zırh göster
+- RBMK zırh nedir?
+- RBMK zırh açıkla
+- RBMK zırh göster
+- RBMK üst plaka nedir?
+- RBMK üst plaka açıkla
+- RBMK üst plaka göster
+- RBMK alt plaka nedir?
+- RBMK alt plaka açıkla
+- RBMK alt plaka göster
+- RBMK Biyolojik zırh ve reaktör boşluğu ne işe yarar?
+- RBMK Biyolojik zırh ve reaktör boşluğu nasıl çalışır?
+- RBMK biyolojik zırh ne işe yarar?
+- RBMK biyolojik zırh nasıl çalışır?
+- RBMK zırh ne işe yarar?
+- RBMK zırh nasıl çalışır?
+- RBMK üst plaka ne işe yarar?
+- RBMK üst plaka nasıl çalışır?
+- RBMK alt plaka ne işe yarar?
+- RBMK alt plaka nasıl çalışır?
+
+</details>
+
+### RBMK Reaktör binası ve yerel koruma hacimleri ne işe yarar?
+
+Kimlik: `entry:rbmk.building`
+
+Reaktörü ve devreyi çevreleyen yapılar.
+
+INSAG-7 §2.10: RBMK’lerde “yerelleştirilmiş” koruma vardır; reaktör ve soğutma devresinin bölümleri ayrı kapalı hacimlerde bulunur. Çernobil 4’te bütün sistemi saran bir koruma kabuğu yoktu (INSAG-7). Çizimde bina yalnız kesikli dış hatla, yapısı ayrıntılandırılmadan gösterildi; kazadan sonraki değişiklikler tesise göre farklıdır.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK Reaktör binası ve yerel koruma hacimleri nedir?
+- RBMK Reaktör binası ve yerel koruma hacimleri açıkla
+- RBMK Reaktör binası ve yerel koruma hacimleri göster
+- RBMK reaktör binası nedir?
+- RBMK reaktör binası açıkla
+- RBMK reaktör binası göster
+- RBMK bina nedir?
+- RBMK bina açıkla
+- RBMK bina göster
+- RBMK yerel koruma nedir?
+- RBMK yerel koruma açıkla
+- RBMK yerel koruma göster
+- RBMK Reaktör binası ve yerel koruma hacimleri ne işe yarar?
+- RBMK Reaktör binası ve yerel koruma hacimleri nasıl çalışır?
+- RBMK reaktör binası ne işe yarar?
+- RBMK reaktör binası nasıl çalışır?
+- RBMK bina ne işe yarar?
+- RBMK bina nasıl çalışır?
+- RBMK yerel koruma ne işe yarar?
+- RBMK yerel koruma nasıl çalışır?
+
+</details>
+
+### RBMK Grafit ne yapar? açıkla
+
+Kimlik: `entry:rbmk.focus.graphite-role`
+
+Grafit moderatördür: nötronları yavaşlatır. Soğutucu değildir, basınç altında da değildir. Isıyı taşıyan, kanallardaki hafif sudur.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK Grafit ne yapar? nedir?
+- RBMK Grafit ne yapar? açıkla
+- RBMK Grafit ne yapar? göster
+
+</details>
+
+### RBMK Buhar nerede oluşur? açıkla
+
+Kimlik: `entry:rbmk.focus.steam-where`
+
+Yakıt kanallarının içinde: su alttan girer, yukarı akarken kaynar. Tambur buharı üretmez, yalnız ayırır.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK Buhar nerede oluşur? nedir?
+- RBMK Buhar nerede oluşur? açıkla
+- RBMK Buhar nerede oluşur? göster
+
+</details>
+
+### RBMK Ayırıcı tambur neyi ayırır? açıkla
+
+Kimlik: `entry:rbmk.focus.drum-role`
+
+Kanallardan gelen buhar–su karışımını: buhar üstten türbine, su alttan iniş borularıyla pompalara. Isı aktarmadığı için buhar üreteci değildir.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK Ayırıcı tambur neyi ayırır? nedir?
+- RBMK Ayırıcı tambur neyi ayırır? açıkla
+- RBMK Ayırıcı tambur neyi ayırır? göster
+
+</details>
+
+### RBMK BWR’den temel farkı nedir? açıkla
+
+Kimlik: `entry:rbmk.focus.vs-bwr`
+
+İkisinde de su kaynar ve buhar doğrudan türbine gider. Ancak BWR’de moderatör de sudur ve kaynama büyük bir basınç kabının içinde olur; RBMK’de moderatör grafittir, kaynama çok sayıda ayrı basınç kanalında olur ve buhar kap dışındaki tamburlarda ayrılır.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK BWR’den temel farkı nedir? nedir?
+- RBMK BWR’den temel farkı nedir? açıkla
+- RBMK BWR’den temel farkı nedir? göster
+
+</details>
+
+### RBMK Grafit, kanal, zırh, bina açıkla
+
+Kimlik: `entry:rbmk.focus.boundaries`
+
+Dört ayrı şey: grafit moderatördür; kanal borusu basınç sınırıdır; çevredeki yapı biyolojik zırhtır; bina ve yerel koruma hacimleri en dıştadır.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK Grafit, kanal, zırh, bina nedir?
+- RBMK Grafit, kanal, zırh, bina açıkla
+- RBMK Grafit, kanal, zırh, bina göster
+
+</details>
+
+### RBMK RBMK anlatımı · 1. Grafit ve kanallar açıkla
+
+Kimlik: `entry:rbmk.tour.graphite`
+
+Çekirdek büyük bir grafit yığınıdır. Grafit nötronları yavaşlatır (moderatör). Yakıt, grafitin deliklerinden geçen dikey basınç kanallarının içindedir. Grafit soğutucu ya da basınç sınırı değildir.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK RBMK anlatımı · 1. Grafit ve kanallar nedir?
+- RBMK RBMK anlatımı · 1. Grafit ve kanallar açıkla
+- RBMK RBMK anlatımı · 1. Grafit ve kanallar göster
+- RBMK Grafit ve kanallar nedir?
+- RBMK Grafit ve kanallar açıkla
+- RBMK Grafit ve kanallar göster
+
+</details>
+
+### RBMK RBMK anlatımı · 2. Kanalda kaynama açıkla
+
+Kimlik: `entry:rbmk.tour.boiling`
+
+Hafif su her kanala alttan girer, yakıtın çevresinde yukarı akarken ısınır ve kaynamaya başlar. Kanalın üstünden buhar–su karışımı çıkar. Buhar burada, kanallarda oluşur.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK RBMK anlatımı · 2. Kanalda kaynama nedir?
+- RBMK RBMK anlatımı · 2. Kanalda kaynama açıkla
+- RBMK RBMK anlatımı · 2. Kanalda kaynama göster
+- RBMK Kanalda kaynama nedir?
+- RBMK Kanalda kaynama açıkla
+- RBMK Kanalda kaynama göster
+
+</details>
+
+### RBMK RBMK anlatımı · 3. Buhar–su boruları ve tambur açıkla
+
+Kimlik: `entry:rbmk.tour.risers`
+
+Her kanalın karışımı kendi borusuyla çekirdek dışındaki ayırıcı tambura gider. Tambur karışımı ayırır: buhar üstte, su altta toplanır. Tambur ısı aktarmaz; bu yüzden buhar üreteci değildir.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK RBMK anlatımı · 3. Buhar–su boruları ve tambur nedir?
+- RBMK RBMK anlatımı · 3. Buhar–su boruları ve tambur açıkla
+- RBMK RBMK anlatımı · 3. Buhar–su boruları ve tambur göster
+- RBMK Buhar–su boruları ve tambur nedir?
+- RBMK Buhar–su boruları ve tambur açıkla
+- RBMK Buhar–su boruları ve tambur göster
+
+</details>
+
+### RBMK RBMK anlatımı · 4. Doğrudan türbine açıkla
+
+Kimlik: `entry:rbmk.tour.turbine`
+
+Ayrılan buhar ana buhar hattıyla doğrudan türbine gider; arada ikinci bir devre yoktur. Türbin jeneratörü döndürür; çıkış buharı kondenserde ayrı soğutma suyu çevrimiyle yoğuşur.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK RBMK anlatımı · 4. Doğrudan türbine nedir?
+- RBMK RBMK anlatımı · 4. Doğrudan türbine açıkla
+- RBMK RBMK anlatımı · 4. Doğrudan türbine göster
+- RBMK Doğrudan türbine nedir?
+- RBMK Doğrudan türbine açıkla
+- RBMK Doğrudan türbine göster
+
+</details>
+
+### RBMK RBMK anlatımı · 5. Besleme ve dolaşım açıkla
+
+Kimlik: `entry:rbmk.tour.return`
+
+Yoğuşan su besleme pompasıyla tambura döner ve ayrılmış suyla karışır. Bu su iniş borularından ana sirkülasyon pompasına, oradan kolektörler ve alt su borularıyla yeniden kanallara gider.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK RBMK anlatımı · 5. Besleme ve dolaşım nedir?
+- RBMK RBMK anlatımı · 5. Besleme ve dolaşım açıkla
+- RBMK RBMK anlatımı · 5. Besleme ve dolaşım göster
+- RBMK Besleme ve dolaşım nedir?
+- RBMK Besleme ve dolaşım açıkla
+- RBMK Besleme ve dolaşım göster
+
+</details>
+
+### RBMK RBMK anlatımı · 6. Kontrol / koruma kanalları açıkla
+
+Kimlik: `entry:rbmk.tour.rods`
+
+Çubuklar yakıt kanallarından ayrı kanallarda hareket eder. Çizimde üstten giren temsili çubuklar var; çubukların tasarımı döneme göre değişmiştir (kazadan sonra değiştirildi). Çubuk konumu göreli güçle birebir eşlenmez.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK RBMK anlatımı · 6. Kontrol / koruma kanalları nedir?
+- RBMK RBMK anlatımı · 6. Kontrol / koruma kanalları açıkla
+- RBMK RBMK anlatımı · 6. Kontrol / koruma kanalları göster
+- RBMK Kontrol / koruma kanalları nedir?
+- RBMK Kontrol / koruma kanalları açıkla
+- RBMK Kontrol / koruma kanalları göster
+
+</details>
+
+### RBMK RBMK anlatımı · 7. Sınırları ayırt et açıkla
+
+Kimlik: `entry:rbmk.tour.boundaries`
+
+Grafit (moderatör), kanal borusu (basınç sınırı), biyolojik zırh ve bina aynı şey değildir. Çekirdeği saran tek bir PWR tipi basınç kabı yoktur; basınç, çok sayıda ayrı kanalın içinde tutulur.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK RBMK anlatımı · 7. Sınırları ayırt et nedir?
+- RBMK RBMK anlatımı · 7. Sınırları ayırt et açıkla
+- RBMK RBMK anlatımı · 7. Sınırları ayırt et göster
+- RBMK Sınırları ayırt et nedir?
+- RBMK Sınırları ayırt et açıkla
+- RBMK Sınırları ayırt et göster
+
+</details>
+
+### RBMK RBMK anlatımı · 8. BWR ile karşılaştır açıkla
+
+Kimlik: `entry:rbmk.tour.vs-bwr`
+
+BWR ile ortak nokta: su kaynar ve buhar doğrudan türbine gider. Fark: BWR’de moderatör sudur ve kaynama tek büyük kapta olur; RBMK’de moderatör grafittir, kaynama ayrı kanallarda olur ve ayırma kap dışındaki tamburlarda yapılır.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK RBMK anlatımı · 8. BWR ile karşılaştır nedir?
+- RBMK RBMK anlatımı · 8. BWR ile karşılaştır açıkla
+- RBMK RBMK anlatımı · 8. BWR ile karşılaştır göster
+- RBMK BWR ile karşılaştır nedir?
+- RBMK BWR ile karşılaştır açıkla
+- RBMK BWR ile karşılaştır göster
+
+</details>
+
+### RBMK RBMK’de buhar nerede oluşur? açıkla
+
+Kimlik: `entry:rbmk.topic.steam-where`
+
+Buhar yakıt kanallarının içinde oluşur: hafif su kanala alttan girer, yakıtın çevresinde yukarı akarken kaynar. Buhar–su karışımı her kanalın kendi borusuyla çekirdek dışındaki ayırıcı tamburlara gider; ayrılan buhar arada buhar üreteci olmadan türbine gider.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK RBMK’de buhar nerede oluşur? nedir?
+- RBMK RBMK’de buhar nerede oluşur? açıkla
+- RBMK RBMK’de buhar nerede oluşur? göster
+- RBMK buhar nerede oluşuyor nedir?
+- RBMK buhar nerede oluşuyor açıkla
+- RBMK buhar nerede oluşuyor göster
+- RBMK buhar oluşumu nedir?
+- RBMK buhar oluşumu açıkla
+- RBMK buhar oluşumu göster
+- RBMK kaynama nerede nedir?
+- RBMK kaynama nerede açıkla
+- RBMK kaynama nerede göster
+- RBMK buhar nerede nedir?
+- RBMK buhar nerede açıkla
+- RBMK buhar nerede göster
+
+</details>
+
+### RBMK RBMK ile BWR neden aynı reaktör değildir? açıkla
+
+Kimlik: `entry:rbmk.topic.vs-bwr`
+
+İkisinde de su kaynar ve buhar doğrudan türbine gider. Ancak BWR’de moderatör de sudur, kaynama büyük bir basınç kabının içinde olur ve buhar kabın içindeki ayırıcılarda ayrılır. RBMK’de moderatör grafittir, kaynama çok sayıda ayrı dikey basınç kanalında olur ve karışım çekirdek dışındaki ayırıcı tamburlarda ayrılır; çekirdeği saran tek bir basınç kabı yoktur.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`, `nrc-bwr`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK RBMK ile BWR neden aynı reaktör değildir? nedir?
+- RBMK RBMK ile BWR neden aynı reaktör değildir? açıkla
+- RBMK RBMK ile BWR neden aynı reaktör değildir? göster
+- RBMK rbmk bwr farkı nedir?
+- RBMK rbmk bwr farkı açıkla
+- RBMK rbmk bwr farkı göster
+- RBMK rbmk bir bwr mi nedir?
+- RBMK rbmk bir bwr mi açıkla
+- RBMK rbmk bir bwr mi göster
+- RBMK rbmk kaynar su reaktörü mü nedir?
+- RBMK rbmk kaynar su reaktörü mü açıkla
+- RBMK rbmk kaynar su reaktörü mü göster
+
+</details>
+
+### RBMK RBMK’de grafit ve suyun görevleri açıkla
+
+Kimlik: `entry:rbmk.topic.graphite-water`
+
+Grafit moderatördür: nötronları yavaşlatır; soğutucu ya da basınç sınırı değildir. Hafif su soğutucudur: kanallarda yakıtın ısısını alır, kaynar ve buhar olarak türbine gider. Bloklar arasında dolaşan azot–helyum karışımı grafitin oksitlenmesini önler ve ısısını kanallara taşır (NEA).
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK RBMK’de grafit ve suyun görevleri nedir?
+- RBMK RBMK’de grafit ve suyun görevleri açıkla
+- RBMK RBMK’de grafit ve suyun görevleri göster
+- RBMK grafit ve su nedir?
+- RBMK grafit ve su açıkla
+- RBMK grafit ve su göster
+- RBMK grafit soğutucu mu nedir?
+- RBMK grafit soğutucu mu açıkla
+- RBMK grafit soğutucu mu göster
+- RBMK su moderatör mü nedir?
+- RBMK su moderatör mü açıkla
+- RBMK su moderatör mü göster
+- RBMK grafitin görevi nedir?
+- RBMK grafitin görevi açıkla
+- RBMK grafitin görevi göster
+- RBMK suyun görevi nedir?
+- RBMK suyun görevi açıkla
+- RBMK suyun görevi göster
+
+</details>
+
+### RBMK RBMK kanal yapısı açıkla
+
+Kimlik: `entry:rbmk.topic.channels`
+
+RBMK’de kanallar dikeydir ve grafit yığınından geçer. Basınç sınırı kanal borusudur; içinde yakıt ve kaynayan hafif su bulunur. Su alttan girer, buhar–su karışımı üstten kendi borusuyla tambura gider.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK RBMK kanal yapısı nedir?
+- RBMK RBMK kanal yapısı açıkla
+- RBMK RBMK kanal yapısı göster
+- RBMK rbmk kanalları nedir?
+- RBMK rbmk kanalları açıkla
+- RBMK rbmk kanalları göster
+- RBMK dikey kanallar nedir?
+- RBMK dikey kanallar açıkla
+- RBMK dikey kanallar göster
+
+</details>
+
+### RBMK Türbine giden buhar nerede oluşur?
+
+Kimlik: `compare:steam-where:rbmk`
+
+Yakıt kanallarının içinde: hafif su kanalda yukarı akarken kaynar. Buhar–su karışımı çekirdek dışındaki ayırıcı tamburlarda ayrılır ve buhar doğrudan türbine gider.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK buhar nerede oluşur
+- RBMK buhar nerede oluşuyor
+- RBMK su nerede kaynar
+
+</details>
+
+### RBMK Çekirdekte üretilen ısı türbine nasıl ulaşır?
+
+Kimlik: `compare:heat-path:rbmk`
+
+Yakıt → kanalda kaynayan hafif su → her kanalın buhar–su borusu → ayırıcı tambur → buhar doğrudan türbine. Arada ısı değiştirici yok.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK ısı türbine nasıl ulaşır
+- RBMK enerji türbine nasıl aktarılır
+
+</details>
+
+### RBMK Reaktör suyu ile türbin suyu aynı akışkan mı?
+
+Kimlik: `compare:loops:rbmk`
+
+Evet. Tek (doğrudan) çevrim: kanallardan geçen hafif suyun buharı türbine gider; yoğuşan su tambura ve oradan kanallara döner.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK reaktör suyu türbine gider mi
+- RBMK birincil ve ikincil su karışır mı
+- RBMK iki devre neden ayrı
+- RBMK kaç devre var
+- RBMK reaktör suyu türbin suyu aynı mı
+
+</details>
+
+### RBMK Basınçlandırıcı var mı, ne işe yarar?
+
+Kimlik: `compare:pressurizer:rbmk`
+
+Bu tasarımda bulunmaz. Çizilen RBMK-1000 devresinde su ve buhar ayırıcı tamburlarda birlikte bulunur; INSAG-7’nin devre tanımında basınçlandırıcı yoktur.
+
+Bu açıklama çizilen temsili tasarıma aittir; gerçek tesislerin ayrıntıları değişebilir.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK basınçlandırıcı var mı
+- RBMK basınç nasıl kontrol edilir
+
+</details>
+
+### RBMK Buhar üreteci nasıl yerleşmiştir?
+
+Kimlik: `compare:sg-layout:rbmk`
+
+Bu tasarımda bulunmaz. Ayırıcı tambur buhar üreteci değildir: ısı aktarmaz, kanallarda oluşmuş buhar–su karışımını ayırır.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK buhar üreteci yatay mı dikey mi
+
+</details>
+
+### RBMK Çizilen tasarımda kontrol çubukları nereden girer?
+
+Kimlik: `compare:rods:rbmk`
+
+Yakıt kanallarından ayrı kontrol/koruma kanallarında. INSAG-7 (1986 durumu): çoğu üstten, güç dağılımı için 24 kısaltılmış çubuk alttan; çubuk tasarımı kazadan sonra değiştirildi. Çizimde üstten giren temsili çubuklar var.
+
+Bu açıklama çizilen temsili tasarıma aittir; gerçek tesislerin ayrıntıları değişebilir.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK kontrol çubukları nereden girer
+- RBMK kontrol çubukları alttan mı üstten mi
+
+</details>
+
+### RBMK Nötronları ne yavaşlatır?
+
+Kimlik: `compare:moderator:rbmk`
+
+Grafit: büyük, katı bir blok yığını. Soğutucu değildir; ısıyı kanallardaki hafif su taşır.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK moderatör nedir
+- RBMK nötronları ne yavaşlatır
+- RBMK moderatör ne
+
+</details>
+
+### RBMK Isıyı yakıttan ne taşır?
+
+Kimlik: `compare:coolant:rbmk`
+
+Hafif su; kanallarda kaynar. Grafit soğutucu değildir.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK soğutucu nedir
+- RBMK soğutucu ne
+- RBMK ısıyı ne taşır
+
+</details>
+
+### RBMK Yüksek basınçlı soğutucuyu ne tutar?
+
+Kimlik: `compare:boundary:rbmk`
+
+Çok sayıda ayrı basınç kanalı. Çekirdeği saran tek bir PWR tipi basınç kabı yoktur; grafit, biyolojik zırh ve bina basınç sınırı değildir.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK basınç sınırı nedir
+- RBMK basınç kabı mı kanal mı
+- RBMK yüksek basıncı ne tutar
+
+</details>
+
+### RBMK Yakıt ayrı basınç kanallarında mı, kanallar hangi yönde?
+
+Kimlik: `compare:channel-dir:rbmk`
+
+Dikey: su kanalın altından girer, üstten buhar–su karışımı çıkar; her kanalın kendi alt ve üst borusu vardır.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK kanallar yatay mı dikey mi
+- RBMK kanalların yönü
+- RBMK basınç kanalı var mı
+
+</details>
+
+### RBMK Buhar üreteci ile ayırıcı tambur arasındaki fark nedir?
+
+Kimlik: `compare:sg-vs-drum:rbmk`
+
+Buhar üreteci yok. Kap dışındaki ayırıcı tambur, kanallarda oluşan buhar–su karışımını ayırır; ısı aktarmaz, iki devreyi ayırmaz.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK ayırıcı tambur buhar üreteci mi
+- RBMK buhar üreteci ile ayırıcı tambur farkı
+- RBMK buhar üreteci var mı
+
+</details>
+
+### RBMK Tipik yakıt nedir, yakıt nasıl değiştirilir?
+
+Kimlik: `compare:fuel:rbmk`
+
+Yaklaşık %2 zenginleştirilmiş UO₂, zirkonyum alaşımı kaplı. Yakıt reaktör çalışırken değiştirilebilir (NEA; IAEA).
+
+Kaynaklar: `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK hangi yakıt kullanılır
+- RBMK yakıt nasıl değiştirilir
+- RBMK yakıt değiştirme
+
+</details>
+
+### RBMK’de grafit ve suyun görevleri nedir?
+
+Kimlik: `confusion:rbmk-graphite-water`
+
+Grafit nötronları yavaşlatır (moderatör); hafif su yakıtı soğutur, kanallarda kaynar ve buhar olarak türbine gider.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK grafit ve su ne işe yarar
+- RBMK grafit soğutucu mu
+- RBMK su moderatör mü
+- RBMK grafitin görevi nedir
+- RBMK suyun görevi nedir
+
+</details>
+
+### RBMK’de ayırıcı tambur buhar üreteci midir?
+
+Kimlik: `confusion:rbmk-drum`
+
+Hayır. Ayırıcı tambur ısı aktarmaz; kanallarda zaten oluşmuş buhar–su karışımını buhar ve suya ayırır. RBMK’de ayrı bir buhar üreteci yoktur.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK buhar üreteci var mı
+- RBMK tambur buhar üretir mi
+- ayırıcı tambur buhar üreteci mi
+- RBMK ayırıcı tambur ne işe yarar
+
+</details>
+
+## CANDU
+
+### CANDU Türbin ve jeneratör arasındaki fark nedir?
+
+Kimlik: `concept:candu:turbine-generator`
+
+Türbin mekanik dönme hareketi sağlar; elektrik jeneratörde üretilir.
+
+Yüksek basınç (YB) türbini: Buhar enerjisinin bir kısmını mil işine çevirir.
+
+Jeneratör: Mil işini elektriğe dönüştürür.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU elektrik türbinde mi jeneratörde mi üretilir
+- CANDU elektrik nerede üretilir
+
+</details>
+
+### CANDU Pompa elektrik üretir mi?
+
+Kimlik: `concept:candu:pump-generator`
+
+Pompa elektrik üretmez; akışkanı dolaştırır. Elektrik jeneratörde üretilir.
+
+Ana ısı taşıma pompası P-1: Ağır su soğutucuyu kanallara basar.
+
+Jeneratör: Mil işini elektriğe dönüştürür.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU pompa jeneratör aynı mı
+- CANDU pompa türbin gibi mi
+
+</details>
+
+### CANDU Kondenserden çıkan su nereye gider?
+
+Kimlik: `concept:candu:condenser-feed`
+
+Yoğuşan su, besleme suyu yolu üzerinden çevrime geri gönderilir.
+
+Kondenser: Türbin çıkış buharını yoğuşturur.
+
+Besleme suyu pompası: Yoğuşan hafif suyu buhar üreteçlerine geri basar.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU besleme suyu nereden gelir
+- CANDU yoğuşan su tekrar kullanılır mı
+
+</details>
+
+### CANDU Kontrol çubukları ile çekirdek arasındaki ilişki nedir?
+
+Kimlik: `concept:candu:rods-fuel`
+
+Kontrol çubukları yakıt değildir; nötron soğurarak zincirleme tepkimeyi etkiler.
+
+Reaktivite kontrol düzenekleri: Nötron soğurarak reaktiviteyi ayarlar.
+
+Yakıt demetleri: Fisyon ısısının üretildiği yer.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU kontrol çubukları yakıt mı
+- CANDU kontrol çubukları neyi soğurur
+
+</details>
+
+### CANDU Buhar üreteci ile kondenser arasındaki fark nedir?
+
+Kimlik: `concept:candu:sg-condenser`
+
+Buhar üreteci ikincil suya ısı aktararak buhar üretir; kondenser ise türbin çıkışındaki buharı soğutarak yoğuşturur.
+
+Buhar üreteci BÜ-1 (sol): Birincil ağır sudan ikincil hafif suya ısı aktarır; buhar ikincil tarafta oluşur.
+
+Kondenser: Türbin çıkış buharını yoğuşturur.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU kondenser buhar üreteci aynı mı
+- CANDU buhar üreteci yoğuşturucu farkı
+
+</details>
+
+### CANDU nedir?
+
+Kimlik: `entry:candu`
+
+Yakıt, yatay bir calandria tankından geçen yüzlerce basınç tüpünün içindedir. Tüplerdeki basınçlı ağır su soğutucu ısıyı buhar üreteçlerine taşır; türbine giden buhar, buhar üretecinin ikincil tarafındaki hafif sudan oluşur. Calandria’daki ağır su moderatör ise düşük basınçlı, daha soğuk ve soğutucudan tamamen ayrı bir sistemdir. Yakıt işletme sırasında değiştirilir.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU CANDU 6 — basınçlı ağır su reaktörü (PHWR), yatay basınç tüplü (temsili) nedir?
+- CANDU CANDU 6 — basınçlı ağır su reaktörü (PHWR), yatay basınç tüplü (temsili) açıkla
+- CANDU CANDU 6 — basınçlı ağır su reaktörü (PHWR), yatay basınç tüplü (temsili) göster
+- CANDU candu nedir?
+- CANDU candu açıkla
+- CANDU candu göster
+- CANDU phwr nedir?
+- CANDU phwr açıkla
+- CANDU phwr göster
+- CANDU basınçlı ağır su reaktörü nedir?
+- CANDU basınçlı ağır su reaktörü açıkla
+- CANDU basınçlı ağır su reaktörü göster
+- CANDU ağır su reaktörü nedir?
+- CANDU ağır su reaktörü açıkla
+- CANDU ağır su reaktörü göster
+
+</details>
+
+### CANDU Calandria ne işe yarar?
+
+Kimlik: `entry:candu.calandria`
+
+Ağır su moderatörünü tutan, kanalların içinden geçtiği yatay silindirik tank.
+
+CANDU 6’da 380 yakıt kanalı yatay silindirik calandria içinde, kare kafeste yer alır (Qinshan III CANDU 6, AECL). Uçları calandria boru plakalarıyla kapalıdır; kanallar uçtan uca geçer. Calandria bir basınç kabı değildir: moderatör kaynamayacak şekilde soğutulur ve aşırı basınca karşı patlama diskleri vardır (CANDU Fundamentals, Bölüm 11). Yüksek basınç kanalların içindedir.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU Calandria nedir?
+- CANDU Calandria açıkla
+- CANDU Calandria göster
+- CANDU calandria nedir?
+- CANDU calandria açıkla
+- CANDU calandria göster
+- CANDU kalandriya nedir?
+- CANDU kalandriya açıkla
+- CANDU kalandriya göster
+- CANDU kalandria nedir?
+- CANDU kalandria açıkla
+- CANDU kalandria göster
+- CANDU Calandria ne işe yarar?
+- CANDU Calandria nasıl çalışır?
+- CANDU calandria ne işe yarar?
+- CANDU calandria nasıl çalışır?
+- CANDU kalandriya ne işe yarar?
+- CANDU kalandriya nasıl çalışır?
+- CANDU kalandria ne işe yarar?
+- CANDU kalandria nasıl çalışır?
+
+</details>
+
+### CANDU Ağır su moderatörü ne işe yarar?
+
+Kimlik: `entry:candu.moderator`
+
+Nötronları yavaşlatır.
+
+Calandria’daki yüksek saflıkta ağır su; düşük basınçlı, düşük sıcaklıklı ve ısı taşıma sisteminin basınçlı ağır su soğutucusundan tamamen bağımsızdır (Qinshan III CANDU 6). Şemada mor tonlu, noktalı desen ve “D₂O · moderatör” etiketiyle gösterilir. Soğutucuyla aynı madde olsa da ayrı bir sistemdir; karışmaz.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU Ağır su moderatörü nedir?
+- CANDU Ağır su moderatörü açıkla
+- CANDU Ağır su moderatörü göster
+- CANDU moderatör nedir?
+- CANDU moderatör açıkla
+- CANDU moderatör göster
+- CANDU ağır su moderatörü nedir?
+- CANDU ağır su moderatörü açıkla
+- CANDU ağır su moderatörü göster
+- CANDU Ağır su moderatörü ne işe yarar?
+- CANDU Ağır su moderatörü nasıl çalışır?
+- CANDU moderatör ne işe yarar?
+- CANDU moderatör nasıl çalışır?
+- CANDU ağır su moderatörü ne işe yarar?
+- CANDU ağır su moderatörü nasıl çalışır?
+
+</details>
+
+### CANDU Yakıt kanalları (basınç tüpü + calandria tüpü) ne işe yarar?
+
+Kimlik: `entry:candu.channels`
+
+Yakıtı ve basınçlı ağır su soğutucuyu taşır; basınç sınırı basınç tüpüdür.
+
+Her kanalda 1 basınç tüpü, 1 calandria tüpü, uç bağlantıları ve aralayıcılar vardır (CNSC). Basınç tüpü yakıtı ve soğutucuyu içerir; dıştaki calandria tüpü moderatörle temas eder. Aradaki gaz dolu halka sıcak tüpü soğuk moderatörden yalıtır ve sızıntıyı algılamaya yarar (CANTEACH). Komşu kanallarda soğutucu ters yönde akar; şemada iki kanal soldan sağa, ikisi sağdan sola akar.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU Yakıt kanalları (basınç tüpü + calandria tüpü) nedir?
+- CANDU Yakıt kanalları (basınç tüpü + calandria tüpü) açıkla
+- CANDU Yakıt kanalları (basınç tüpü + calandria tüpü) göster
+- CANDU kanal nedir?
+- CANDU kanal açıkla
+- CANDU kanal göster
+- CANDU yakıt kanalı nedir?
+- CANDU yakıt kanalı açıkla
+- CANDU yakıt kanalı göster
+- CANDU basınç kanalı nedir?
+- CANDU basınç kanalı açıkla
+- CANDU basınç kanalı göster
+- CANDU basınç tüpü nedir?
+- CANDU basınç tüpü açıkla
+- CANDU basınç tüpü göster
+- CANDU pressure tube nedir?
+- CANDU pressure tube açıkla
+- CANDU pressure tube göster
+- CANDU Yakıt kanalları (basınç tüpü + calandria tüpü) ne işe yarar?
+- CANDU Yakıt kanalları (basınç tüpü + calandria tüpü) nasıl çalışır?
+- CANDU kanal ne işe yarar?
+- CANDU kanal nasıl çalışır?
+- CANDU yakıt kanalı ne işe yarar?
+- CANDU yakıt kanalı nasıl çalışır?
+- CANDU basınç kanalı ne işe yarar?
+- CANDU basınç kanalı nasıl çalışır?
+- CANDU basınç tüpü ne işe yarar?
+- CANDU basınç tüpü nasıl çalışır?
+- CANDU pressure tube ne işe yarar?
+- CANDU pressure tube nasıl çalışır?
+
+</details>
+
+### CANDU Yakıt demetleri ne işe yarar?
+
+Kimlik: `entry:candu.fuel`
+
+Fisyon ısısının üretildiği yer.
+
+CANDU 6’da her kanalda 12 demet vardır; demet 37 elemanlıdır ve doğal uranyum dioksit kullanır (Qinshan III CANDU 6). Bu, CANDU 6 için tipik yakıttır; aynı kaynak işletmede yakıt değiştirme sayesinde geri kazanılmış uranyum, az zenginleştirilmiş uranyum ve toryum gibi başka yakıtların da kullanılabileceğini belirtir. Demetler yatay kanalda uç uca dizilidir.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU Yakıt demetleri nedir?
+- CANDU Yakıt demetleri açıkla
+- CANDU Yakıt demetleri göster
+- CANDU yakıt nedir?
+- CANDU yakıt açıkla
+- CANDU yakıt göster
+- CANDU yakıt demeti nedir?
+- CANDU yakıt demeti açıkla
+- CANDU yakıt demeti göster
+- CANDU yakıt demetleri nedir?
+- CANDU yakıt demetleri açıkla
+- CANDU yakıt demetleri göster
+- CANDU Yakıt demetleri ne işe yarar?
+- CANDU Yakıt demetleri nasıl çalışır?
+- CANDU yakıt ne işe yarar?
+- CANDU yakıt nasıl çalışır?
+- CANDU yakıt demeti ne işe yarar?
+- CANDU yakıt demeti nasıl çalışır?
+- CANDU yakıt demetleri ne işe yarar?
+- CANDU yakıt demetleri nasıl çalışır?
+
+</details>
+
+### CANDU Uç kalkanları ve uç bağlantıları ne işe yarar?
+
+Kimlik: `entry:candu.endshields`
+
+Kanalları uçlarından taşır; kapatma sırasında zırh sağlar.
+
+Calandria’nın iki ucundaki uç kalkanları kanalları taşır (CANDU Fundamentals, Bölüm 11). Basınç tüpünün iki ucundaki uç bağlantıları besleyicilere bağlanır ve yakıt değiştirme makinesinin sızdırmaz biçimde kenetlendiği yerdir (CNSC; CANTEACH).
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU Uç kalkanları ve uç bağlantıları nedir?
+- CANDU Uç kalkanları ve uç bağlantıları açıkla
+- CANDU Uç kalkanları ve uç bağlantıları göster
+- CANDU uç kalkanı nedir?
+- CANDU uç kalkanı açıkla
+- CANDU uç kalkanı göster
+- CANDU uç bağlantısı nedir?
+- CANDU uç bağlantısı açıkla
+- CANDU uç bağlantısı göster
+- CANDU end fitting nedir?
+- CANDU end fitting açıkla
+- CANDU end fitting göster
+- CANDU Uç kalkanları ve uç bağlantıları ne işe yarar?
+- CANDU Uç kalkanları ve uç bağlantıları nasıl çalışır?
+- CANDU uç kalkanı ne işe yarar?
+- CANDU uç kalkanı nasıl çalışır?
+- CANDU uç bağlantısı ne işe yarar?
+- CANDU uç bağlantısı nasıl çalışır?
+- CANDU end fitting ne işe yarar?
+- CANDU end fitting nasıl çalışır?
+
+</details>
+
+### CANDU Sol yüz besleyicileri ne işe yarar?
+
+Kimlik: `entry:candu.feeders-l`
+
+Kanal uçlarını sol yüzdeki kolektörlere bağlar.
+
+Besleyiciler her kanalın giriş ucunu giriş kolektörüne, çıkış ucunu çıkış kolektörüne bağlar (Qinshan III CANDU 6). Sol yüzde A kanallarının girişleri ve B kanallarının çıkışları vardır. Yan görünüşte bir besleyicinin ötekinin üzerinden geçtiği yer köprüyle (boşluk) çizildi; orada birleşme yoktur.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU Sol yüz besleyicileri nedir?
+- CANDU Sol yüz besleyicileri açıkla
+- CANDU Sol yüz besleyicileri göster
+- CANDU besleyici nedir?
+- CANDU besleyici açıkla
+- CANDU besleyici göster
+- CANDU besleyiciler nedir?
+- CANDU besleyiciler açıkla
+- CANDU besleyiciler göster
+- CANDU feeder nedir?
+- CANDU feeder açıkla
+- CANDU feeder göster
+- CANDU Sol yüz besleyicileri ne işe yarar?
+- CANDU Sol yüz besleyicileri nasıl çalışır?
+- CANDU besleyici ne işe yarar?
+- CANDU besleyici nasıl çalışır?
+- CANDU besleyiciler ne işe yarar?
+- CANDU besleyiciler nasıl çalışır?
+- CANDU feeder ne işe yarar?
+- CANDU feeder nasıl çalışır?
+
+</details>
+
+### CANDU Sağ yüz besleyicileri ne işe yarar?
+
+Kimlik: `entry:candu.feeders-r`
+
+Kanal uçlarını sağ yüzdeki kolektörlere bağlar.
+
+Sağ yüzde A kanallarının çıkışları ve B kanallarının girişleri vardır. Böylece giriş ve çıkışlar reaktörün iki yüzüne dağılır; CANTEACH’e göre bu iki yönlü akış iki yüzün sıcaklığını benzer tutar.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU Sağ yüz besleyicileri nedir?
+- CANDU Sağ yüz besleyicileri açıkla
+- CANDU Sağ yüz besleyicileri göster
+- CANDU besleyici nedir?
+- CANDU besleyici açıkla
+- CANDU besleyici göster
+- CANDU besleyiciler nedir?
+- CANDU besleyiciler açıkla
+- CANDU besleyiciler göster
+- CANDU feeder nedir?
+- CANDU feeder açıkla
+- CANDU feeder göster
+- CANDU Sağ yüz besleyicileri ne işe yarar?
+- CANDU Sağ yüz besleyicileri nasıl çalışır?
+- CANDU besleyici ne işe yarar?
+- CANDU besleyici nasıl çalışır?
+- CANDU besleyiciler ne işe yarar?
+- CANDU besleyiciler nasıl çalışır?
+- CANDU feeder ne işe yarar?
+- CANDU feeder nasıl çalışır?
+
+</details>
+
+### CANDU Sol kolektörler (giriş + çıkış) ne işe yarar?
+
+Kimlik: `entry:candu.headers-l`
+
+Pompadan gelen soğutucuyu kanallara dağıtır; kanallardan çıkan soğutucuyu toplar.
+
+Kolektörler reaktör yüzeyine dik uzanan kalın borulardır; yan görünüşte daire olarak çizildi. Sol giriş kolektörü pompa P-1’den gelen daha soğuk ağır suyu A kanallarına dağıtır; sol çıkış kolektörü B kanallarından gelen sıcak ağır suyu toplayıp buhar üreteci BÜ-1’e gönderir. Kolektörler ve buhar üreteçleri çekirdekten yüksektedir (CANDU Fundamentals, Bölüm 14).
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU Sol kolektörler (giriş + çıkış) nedir?
+- CANDU Sol kolektörler (giriş + çıkış) açıkla
+- CANDU Sol kolektörler (giriş + çıkış) göster
+- CANDU kolektör nedir?
+- CANDU kolektör açıkla
+- CANDU kolektör göster
+- CANDU giriş kolektörü nedir?
+- CANDU giriş kolektörü açıkla
+- CANDU giriş kolektörü göster
+- CANDU çıkış kolektörü nedir?
+- CANDU çıkış kolektörü açıkla
+- CANDU çıkış kolektörü göster
+- CANDU header nedir?
+- CANDU header açıkla
+- CANDU header göster
+- CANDU Sol kolektörler (giriş + çıkış) ne işe yarar?
+- CANDU Sol kolektörler (giriş + çıkış) nasıl çalışır?
+- CANDU kolektör ne işe yarar?
+- CANDU kolektör nasıl çalışır?
+- CANDU giriş kolektörü ne işe yarar?
+- CANDU giriş kolektörü nasıl çalışır?
+- CANDU çıkış kolektörü ne işe yarar?
+- CANDU çıkış kolektörü nasıl çalışır?
+- CANDU header ne işe yarar?
+- CANDU header nasıl çalışır?
+
+</details>
+
+### CANDU Sağ kolektörler (giriş + çıkış) ne işe yarar?
+
+Kimlik: `entry:candu.headers-r`
+
+Sağ yüzde soğutucuyu dağıtır ve toplar.
+
+Sağ çıkış kolektörü A kanallarından gelen sıcak ağır suyu buhar üreteci BÜ-2’ye gönderir; sağ giriş kolektörü pompa P-2’den gelen suyu B kanallarına dağıtır. Basınçlandırıcının dalgalanma hattı bu çizimde sağ çıkış kolektörüne bağlanır (temsili).
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU Sağ kolektörler (giriş + çıkış) nedir?
+- CANDU Sağ kolektörler (giriş + çıkış) açıkla
+- CANDU Sağ kolektörler (giriş + çıkış) göster
+- CANDU kolektör nedir?
+- CANDU kolektör açıkla
+- CANDU kolektör göster
+- CANDU giriş kolektörü nedir?
+- CANDU giriş kolektörü açıkla
+- CANDU giriş kolektörü göster
+- CANDU çıkış kolektörü nedir?
+- CANDU çıkış kolektörü açıkla
+- CANDU çıkış kolektörü göster
+- CANDU header nedir?
+- CANDU header açıkla
+- CANDU header göster
+- CANDU Sağ kolektörler (giriş + çıkış) ne işe yarar?
+- CANDU Sağ kolektörler (giriş + çıkış) nasıl çalışır?
+- CANDU kolektör ne işe yarar?
+- CANDU kolektör nasıl çalışır?
+- CANDU giriş kolektörü ne işe yarar?
+- CANDU giriş kolektörü nasıl çalışır?
+- CANDU çıkış kolektörü ne işe yarar?
+- CANDU çıkış kolektörü nasıl çalışır?
+- CANDU header ne işe yarar?
+- CANDU header nasıl çalışır?
+
+</details>
+
+### CANDU Buhar üreteci BÜ-1 (sol) ne işe yarar?
+
+Kimlik: `entry:candu.sg1`
+
+Birincil ağır sudan ikincil hafif suya ısı aktarır; buhar ikincil tarafta oluşur.
+
+CANDU 6 buhar üreteci dikey U borulu, tümleşik buhar tamburlu ve ön ısıtıcılıdır (Qinshan III CANDU 6). Sıcak ağır su boruların içinden geçer; borunun dışındaki ikincil hafif su kaynar. İki akışkan karışmaz. Türbine giden buhar bu ikincil taraftan çıkar.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU Buhar üreteci BÜ-1 (sol) nedir?
+- CANDU Buhar üreteci BÜ-1 (sol) açıkla
+- CANDU Buhar üreteci BÜ-1 (sol) göster
+- CANDU buhar üreteci nedir?
+- CANDU buhar üreteci açıkla
+- CANDU buhar üreteci göster
+- CANDU buhar jeneratörü nedir?
+- CANDU buhar jeneratörü açıkla
+- CANDU buhar jeneratörü göster
+- CANDU steam generator nedir?
+- CANDU steam generator açıkla
+- CANDU steam generator göster
+- CANDU Buhar üreteci BÜ-1 (sol) ne işe yarar?
+- CANDU Buhar üreteci BÜ-1 (sol) nasıl çalışır?
+- CANDU buhar üreteci ne işe yarar?
+- CANDU buhar üreteci nasıl çalışır?
+- CANDU buhar jeneratörü ne işe yarar?
+- CANDU buhar jeneratörü nasıl çalışır?
+- CANDU steam generator ne işe yarar?
+- CANDU steam generator nasıl çalışır?
+
+</details>
+
+### CANDU Buhar üreteci BÜ-2 (sağ) ne işe yarar?
+
+Kimlik: `entry:candu.sg2`
+
+Aynı halkanın ikinci buhar üreteci.
+
+Sekiz biçimli halkada soğutucu iki buhar üretecinden sırayla geçer: sağ çıkış kolektörü → BÜ-2 → P-2 → sağ giriş kolektörü → B kanalları → sol çıkış kolektörü → BÜ-1 → P-1. Her halkada iki buhar üreteci ve iki pompa vardır (Qinshan III CANDU 6).
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU Buhar üreteci BÜ-2 (sağ) nedir?
+- CANDU Buhar üreteci BÜ-2 (sağ) açıkla
+- CANDU Buhar üreteci BÜ-2 (sağ) göster
+- CANDU buhar üreteci nedir?
+- CANDU buhar üreteci açıkla
+- CANDU buhar üreteci göster
+- CANDU buhar jeneratörü nedir?
+- CANDU buhar jeneratörü açıkla
+- CANDU buhar jeneratörü göster
+- CANDU steam generator nedir?
+- CANDU steam generator açıkla
+- CANDU steam generator göster
+- CANDU Buhar üreteci BÜ-2 (sağ) ne işe yarar?
+- CANDU Buhar üreteci BÜ-2 (sağ) nasıl çalışır?
+- CANDU buhar üreteci ne işe yarar?
+- CANDU buhar üreteci nasıl çalışır?
+- CANDU buhar jeneratörü ne işe yarar?
+- CANDU buhar jeneratörü nasıl çalışır?
+- CANDU steam generator ne işe yarar?
+- CANDU steam generator nasıl çalışır?
+
+</details>
+
+### CANDU Ana ısı taşıma pompası P-1 ne işe yarar?
+
+Kimlik: `entry:candu.htp1`
+
+Ağır su soğutucuyu kanallara basar.
+
+Pompa buhar üretecinin çıkışında, devrenin en soğuk noktasındadır; bu konum kavitasyona karşı en büyük payı verir (CANDU Fundamentals, Bölüm 14). Pompalar akış sağlar; yüksek basıncı pompa değil basınç kontrol sistemi sağlar. Elektrik üretmez.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU Ana ısı taşıma pompası P-1 nedir?
+- CANDU Ana ısı taşıma pompası P-1 açıkla
+- CANDU Ana ısı taşıma pompası P-1 göster
+- CANDU ısı taşıma pompası nedir?
+- CANDU ısı taşıma pompası açıkla
+- CANDU ısı taşıma pompası göster
+- CANDU birincil pompa nedir?
+- CANDU birincil pompa açıkla
+- CANDU birincil pompa göster
+- CANDU pompa nedir?
+- CANDU pompa açıkla
+- CANDU pompa göster
+- CANDU Ana ısı taşıma pompası P-1 ne işe yarar?
+- CANDU Ana ısı taşıma pompası P-1 nasıl çalışır?
+- CANDU ısı taşıma pompası ne işe yarar?
+- CANDU ısı taşıma pompası nasıl çalışır?
+- CANDU birincil pompa ne işe yarar?
+- CANDU birincil pompa nasıl çalışır?
+- CANDU pompa ne işe yarar?
+- CANDU pompa nasıl çalışır?
+
+</details>
+
+### CANDU Ana ısı taşıma pompası P-2 ne işe yarar?
+
+Kimlik: `entry:candu.htp2`
+
+Halkanın ikinci pompası; P-1 ile seri çalışır.
+
+Sekiz biçimli halkada iki pompa seridir (Qinshan III CANDU 6). Şemada debi temsili olarak sabit gösterilir.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU Ana ısı taşıma pompası P-2 nedir?
+- CANDU Ana ısı taşıma pompası P-2 açıkla
+- CANDU Ana ısı taşıma pompası P-2 göster
+- CANDU ısı taşıma pompası nedir?
+- CANDU ısı taşıma pompası açıkla
+- CANDU ısı taşıma pompası göster
+- CANDU birincil pompa nedir?
+- CANDU birincil pompa açıkla
+- CANDU birincil pompa göster
+- CANDU pompa nedir?
+- CANDU pompa açıkla
+- CANDU pompa göster
+- CANDU Ana ısı taşıma pompası P-2 ne işe yarar?
+- CANDU Ana ısı taşıma pompası P-2 nasıl çalışır?
+- CANDU ısı taşıma pompası ne işe yarar?
+- CANDU ısı taşıma pompası nasıl çalışır?
+- CANDU birincil pompa ne işe yarar?
+- CANDU birincil pompa nasıl çalışır?
+- CANDU pompa ne işe yarar?
+- CANDU pompa nasıl çalışır?
+
+</details>
+
+### CANDU Basınçlandırıcı ne işe yarar?
+
+Kimlik: `entry:candu.pressurizer`
+
+Birincil ağır su devresinin basıncını kontrol eder.
+
+Birincil ağır suyun kaynamaması için devre yüksek basınçta tutulur; pompalar bu basıncı üretmez (CANDU Fundamentals, Bölüm 14). IAEA BPTC Modül IV’ün CANDU şemasında basınçlandırıcı gösterilir. Bağlantı yeri burada temsilidir.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU Basınçlandırıcı nedir?
+- CANDU Basınçlandırıcı açıkla
+- CANDU Basınçlandırıcı göster
+- CANDU basınçlandırıcı nedir?
+- CANDU basınçlandırıcı açıkla
+- CANDU basınçlandırıcı göster
+- CANDU pressurizer nedir?
+- CANDU pressurizer açıkla
+- CANDU pressurizer göster
+- CANDU basınç kontrolü nedir?
+- CANDU basınç kontrolü açıkla
+- CANDU basınç kontrolü göster
+- CANDU Basınçlandırıcı ne işe yarar?
+- CANDU Basınçlandırıcı nasıl çalışır?
+- CANDU basınçlandırıcı ne işe yarar?
+- CANDU basınçlandırıcı nasıl çalışır?
+- CANDU pressurizer ne işe yarar?
+- CANDU pressurizer nasıl çalışır?
+- CANDU basınç kontrolü ne işe yarar?
+- CANDU basınç kontrolü nasıl çalışır?
+
+</details>
+
+### CANDU Reaktivite kontrol düzenekleri ne işe yarar?
+
+Kimlik: `entry:candu.rods`
+
+Nötron soğurarak reaktiviteyi ayarlar.
+
+Yatay ve dikey reaktivite kontrol düzenekleri calandria’da kanalların arasından, düşük basınçlı moderatörün içinden geçer (Qinshan III CANDU 6). Şemada iki dikey düzenek temsili olarak çizildi; yan görünüşte kanalların önünden geçiyormuş gibi görünürler ama aslında aralarındadır. Konumları güçle birebir eşlenmez.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU Reaktivite kontrol düzenekleri nedir?
+- CANDU Reaktivite kontrol düzenekleri açıkla
+- CANDU Reaktivite kontrol düzenekleri göster
+- CANDU kontrol çubuğu nedir?
+- CANDU kontrol çubuğu açıkla
+- CANDU kontrol çubuğu göster
+- CANDU kontrol çubukları nedir?
+- CANDU kontrol çubukları açıkla
+- CANDU kontrol çubukları göster
+- CANDU çubuk nedir?
+- CANDU çubuk açıkla
+- CANDU çubuk göster
+- CANDU Reaktivite kontrol düzenekleri ne işe yarar?
+- CANDU Reaktivite kontrol düzenekleri nasıl çalışır?
+- CANDU kontrol çubuğu ne işe yarar?
+- CANDU kontrol çubuğu nasıl çalışır?
+- CANDU kontrol çubukları ne işe yarar?
+- CANDU kontrol çubukları nasıl çalışır?
+- CANDU çubuk ne işe yarar?
+- CANDU çubuk nasıl çalışır?
+
+</details>
+
+### CANDU Moderatör soğutma sistemi ne işe yarar?
+
+Kimlik: `entry:candu.modsys`
+
+Moderatörde oluşan ısıyı uzaklaştırır.
+
+Moderatörde gama ışınımı ve nötronların yavaşlamasıyla ısı oluşur; kanallardan da az miktarda ısı geçer. Moderatör sistemi ağır suyu ısı değiştiricilerden dolaştırır ve ısıyı soğutma suyu sistemine atar (Qinshan III CANDU 6). Şemada tek pompa ve tek ısı değiştiriciyle sadeleştirildi; birincil devreyle bağlantısı yoktur.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU Moderatör soğutma sistemi nedir?
+- CANDU Moderatör soğutma sistemi açıkla
+- CANDU Moderatör soğutma sistemi göster
+- CANDU moderatör soğutma sistemi nedir?
+- CANDU moderatör soğutma sistemi açıkla
+- CANDU moderatör soğutma sistemi göster
+- CANDU moderatör sistemi nedir?
+- CANDU moderatör sistemi açıkla
+- CANDU moderatör sistemi göster
+- CANDU moderatör ısı değiştiricisi nedir?
+- CANDU moderatör ısı değiştiricisi açıkla
+- CANDU moderatör ısı değiştiricisi göster
+- CANDU Moderatör soğutma sistemi ne işe yarar?
+- CANDU Moderatör soğutma sistemi nasıl çalışır?
+- CANDU moderatör soğutma sistemi ne işe yarar?
+- CANDU moderatör soğutma sistemi nasıl çalışır?
+- CANDU moderatör sistemi ne işe yarar?
+- CANDU moderatör sistemi nasıl çalışır?
+- CANDU moderatör ısı değiştiricisi ne işe yarar?
+- CANDU moderatör ısı değiştiricisi nasıl çalışır?
+
+</details>
+
+### CANDU Ana buhar hattı ne işe yarar?
+
+Kimlik: `entry:candu.steamline`
+
+İkincil devre buharını türbine götürür.
+
+Buhar üreteçlerinin ikincil tarafında oluşan hafif su buharı ortak başlıkta toplanıp koruma binasının dışındaki türbine gider. Ağır su türbine gitmez.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU Ana buhar hattı nedir?
+- CANDU Ana buhar hattı açıkla
+- CANDU Ana buhar hattı göster
+- CANDU ana buhar hattı nedir?
+- CANDU ana buhar hattı açıkla
+- CANDU ana buhar hattı göster
+- CANDU buhar hattı nedir?
+- CANDU buhar hattı açıkla
+- CANDU buhar hattı göster
+- CANDU Ana buhar hattı ne işe yarar?
+- CANDU Ana buhar hattı nasıl çalışır?
+- CANDU ana buhar hattı ne işe yarar?
+- CANDU ana buhar hattı nasıl çalışır?
+- CANDU buhar hattı ne işe yarar?
+- CANDU buhar hattı nasıl çalışır?
+
+</details>
+
+### CANDU Yüksek basınç (YB) türbini ne işe yarar?
+
+Kimlik: `entry:candu.hp`
+
+Buhar enerjisinin bir kısmını mil işine çevirir.
+
+İkincil devre buharı YB türbininde genişler, geçiş borusuyla AB türbinine gider.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU Yüksek basınç (YB) türbini nedir?
+- CANDU Yüksek basınç (YB) türbini açıkla
+- CANDU Yüksek basınç (YB) türbini göster
+- CANDU yüksek basınç türbini nedir?
+- CANDU yüksek basınç türbini açıkla
+- CANDU yüksek basınç türbini göster
+- CANDU yb türbini nedir?
+- CANDU yb türbini açıkla
+- CANDU yb türbini göster
+- CANDU türbin nedir?
+- CANDU türbin açıkla
+- CANDU türbin göster
+- CANDU Yüksek basınç (YB) türbini ne işe yarar?
+- CANDU Yüksek basınç (YB) türbini nasıl çalışır?
+- CANDU yüksek basınç türbini ne işe yarar?
+- CANDU yüksek basınç türbini nasıl çalışır?
+- CANDU yb türbini ne işe yarar?
+- CANDU yb türbini nasıl çalışır?
+- CANDU türbin ne işe yarar?
+- CANDU türbin nasıl çalışır?
+
+</details>
+
+### CANDU Alçak basınç (AB) türbini ne işe yarar?
+
+Kimlik: `entry:candu.lp`
+
+Buhar enerjisinin kalanını mekanik enerjiye çevirir.
+
+Çift akışlı türbinden çıkan buhar kondensere boşalır.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU Alçak basınç (AB) türbini nedir?
+- CANDU Alçak basınç (AB) türbini açıkla
+- CANDU Alçak basınç (AB) türbini göster
+- CANDU alçak basınç türbini nedir?
+- CANDU alçak basınç türbini açıkla
+- CANDU alçak basınç türbini göster
+- CANDU ab türbini nedir?
+- CANDU ab türbini açıkla
+- CANDU ab türbini göster
+- CANDU türbin nedir?
+- CANDU türbin açıkla
+- CANDU türbin göster
+- CANDU Alçak basınç (AB) türbini ne işe yarar?
+- CANDU Alçak basınç (AB) türbini nasıl çalışır?
+- CANDU alçak basınç türbini ne işe yarar?
+- CANDU alçak basınç türbini nasıl çalışır?
+- CANDU ab türbini ne işe yarar?
+- CANDU ab türbini nasıl çalışır?
+- CANDU türbin ne işe yarar?
+- CANDU türbin nasıl çalışır?
+
+</details>
+
+### CANDU Jeneratör ne işe yarar?
+
+Kimlik: `entry:candu.gen`
+
+Mil işini elektriğe dönüştürür.
+
+Türbinle aynı mil üzerindedir; şebekeye senkron bağlıdır.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU Jeneratör nedir?
+- CANDU Jeneratör açıkla
+- CANDU Jeneratör göster
+- CANDU jeneratör nedir?
+- CANDU jeneratör açıkla
+- CANDU jeneratör göster
+- CANDU generatör nedir?
+- CANDU generatör açıkla
+- CANDU generatör göster
+- CANDU elektrik üretimi nedir?
+- CANDU elektrik üretimi açıkla
+- CANDU elektrik üretimi göster
+- CANDU Jeneratör ne işe yarar?
+- CANDU Jeneratör nasıl çalışır?
+- CANDU jeneratör ne işe yarar?
+- CANDU jeneratör nasıl çalışır?
+- CANDU generatör ne işe yarar?
+- CANDU generatör nasıl çalışır?
+- CANDU elektrik üretimi ne işe yarar?
+- CANDU elektrik üretimi nasıl çalışır?
+
+</details>
+
+### CANDU Kondenser ne işe yarar?
+
+Kimlik: `entry:candu.condenser`
+
+Türbin çıkış buharını yoğuşturur.
+
+Buhar soğutma suyu borularının dışında yoğuşur; soğutma suyu ayrı çevrimdir ve karışmaz.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU Kondenser nedir?
+- CANDU Kondenser açıkla
+- CANDU Kondenser göster
+- CANDU kondenser nedir?
+- CANDU kondenser açıkla
+- CANDU kondenser göster
+- CANDU yoğuşturucu nedir?
+- CANDU yoğuşturucu açıkla
+- CANDU yoğuşturucu göster
+- CANDU yoğuşma nedir?
+- CANDU yoğuşma açıkla
+- CANDU yoğuşma göster
+- CANDU Kondenser ne işe yarar?
+- CANDU Kondenser nasıl çalışır?
+- CANDU kondenser ne işe yarar?
+- CANDU kondenser nasıl çalışır?
+- CANDU yoğuşturucu ne işe yarar?
+- CANDU yoğuşturucu nasıl çalışır?
+- CANDU yoğuşma ne işe yarar?
+- CANDU yoğuşma nasıl çalışır?
+
+</details>
+
+### CANDU Besleme suyu pompası ne işe yarar?
+
+Kimlik: `entry:candu.feedpump`
+
+Yoğuşan hafif suyu buhar üreteçlerine geri basar.
+
+Besleme hattı iki buhar üretecine ayrılır; sol buhar üretecine giden kol çizimde reaktörün altından dolaşır. Ön ısıtıcılar çizilmedi (sadeleştirme).
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU Besleme suyu pompası nedir?
+- CANDU Besleme suyu pompası açıkla
+- CANDU Besleme suyu pompası göster
+- CANDU besleme suyu pompası nedir?
+- CANDU besleme suyu pompası açıkla
+- CANDU besleme suyu pompası göster
+- CANDU besleme pompası nedir?
+- CANDU besleme pompası açıkla
+- CANDU besleme pompası göster
+- CANDU Besleme suyu pompası ne işe yarar?
+- CANDU Besleme suyu pompası nasıl çalışır?
+- CANDU besleme suyu pompası ne işe yarar?
+- CANDU besleme suyu pompası nasıl çalışır?
+- CANDU besleme pompası ne işe yarar?
+- CANDU besleme pompası nasıl çalışır?
+
+</details>
+
+### CANDU Soğutma suyu çevrimi ne işe yarar?
+
+Kimlik: `entry:candu.coolsource`
+
+Kondenser ısısını çevreye atar.
+
+Ayrı üçüncü çevrim; turkuaz ve kesik-noktalı çizgi.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU Soğutma suyu çevrimi nedir?
+- CANDU Soğutma suyu çevrimi açıkla
+- CANDU Soğutma suyu çevrimi göster
+- CANDU soğutma suyu nedir?
+- CANDU soğutma suyu açıkla
+- CANDU soğutma suyu göster
+- CANDU soğutma kulesi nedir?
+- CANDU soğutma kulesi açıkla
+- CANDU soğutma kulesi göster
+- CANDU Soğutma suyu çevrimi ne işe yarar?
+- CANDU Soğutma suyu çevrimi nasıl çalışır?
+- CANDU soğutma suyu ne işe yarar?
+- CANDU soğutma suyu nasıl çalışır?
+- CANDU soğutma kulesi ne işe yarar?
+- CANDU soğutma kulesi nasıl çalışır?
+
+</details>
+
+### CANDU Koruma binası (containment) ne işe yarar?
+
+Kimlik: `entry:candu.containment`
+
+Reaktörü ve birincil devreyi çevreleyen yapı.
+
+CANDU 6’nın dört özel güvenlik sisteminden biri koruma sistemidir (reaktör binası ve yalıtma sistemi; Qinshan III CANDU 6). Calandria burada bir basınç kabı gibi değil, binanın içindeki düşük basınçlı tank olarak yer alır. Çizim sadeleştirilmiş dış hattır.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU Koruma binası (containment) nedir?
+- CANDU Koruma binası (containment) açıkla
+- CANDU Koruma binası (containment) göster
+- CANDU koruma yapısı nedir?
+- CANDU koruma yapısı açıkla
+- CANDU koruma yapısı göster
+- CANDU containment nedir?
+- CANDU containment açıkla
+- CANDU containment göster
+- CANDU koruma binası nedir?
+- CANDU koruma binası açıkla
+- CANDU koruma binası göster
+- CANDU Koruma binası (containment) ne işe yarar?
+- CANDU Koruma binası (containment) nasıl çalışır?
+- CANDU koruma yapısı ne işe yarar?
+- CANDU koruma yapısı nasıl çalışır?
+- CANDU containment ne işe yarar?
+- CANDU containment nasıl çalışır?
+- CANDU koruma binası ne işe yarar?
+- CANDU koruma binası nasıl çalışır?
+
+</details>
+
+### CANDU İki ağır su sistemi neden ayrıdır? açıkla
+
+Kimlik: `entry:candu.focus.two-d2o`
+
+Kanallardaki soğutucu sıcak ve yüksek basınçlıdır; calandria’daki moderatör düşük basınçlı ve daha soğuktur. Aralarında basınç tüpü, gaz halkası ve calandria tüpü vardır; iki sistem karışmaz. Bu ayrım büyük bir yüksek basınç kabı gerektirmeden ağır su moderatörü kullanmayı sağlar.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU İki ağır su sistemi neden ayrıdır? nedir?
+- CANDU İki ağır su sistemi neden ayrıdır? açıkla
+- CANDU İki ağır su sistemi neden ayrıdır? göster
+
+</details>
+
+### CANDU Calandria ile basınç tüpü arasındaki fark nedir? açıkla
+
+Kimlik: `entry:candu.focus.calandria-vs-tube`
+
+Calandria moderatörü tutan büyük, düşük basınçlı tanktır. Basınç tüpü ise her kanaldaki yakıtı ve yüksek basınçlı soğutucuyu taşıyan boru — basınç sınırıdır. Calandria tüpü ikisinin arasında, moderatör tarafındaki ayrı borudur.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU Calandria ile basınç tüpü arasındaki fark nedir? nedir?
+- CANDU Calandria ile basınç tüpü arasındaki fark nedir? açıkla
+- CANDU Calandria ile basınç tüpü arasındaki fark nedir? göster
+
+</details>
+
+### CANDU Türbine hangi devrenin buharı gider? açıkla
+
+Kimlik: `entry:candu.focus.turbine-steam`
+
+İkincil devrenin: buhar üretecinin gövde tarafındaki hafif su kaynar. Birincil ağır su boruların içinde kalır ve türbine gitmez.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU Türbine hangi devrenin buharı gider? nedir?
+- CANDU Türbine hangi devrenin buharı gider? açıkla
+- CANDU Türbine hangi devrenin buharı gider? göster
+
+</details>
+
+### CANDU Yatay kanallarda yakıt nasıl konumlanır? açıkla
+
+Kimlik: `entry:candu.focus.fuel-horizontal`
+
+Demetler yatay basınç tüpünde uç uca dizilir (CANDU 6’da kanal başına 12). İki uçtaki yakıt değiştirme makineleri kanala kenetlenip işletme sırasında yeni demet ekler ve kullanılmış demetleri alır (kavramsal gösterim).
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU Yatay kanallarda yakıt nasıl konumlanır? nedir?
+- CANDU Yatay kanallarda yakıt nasıl konumlanır? açıkla
+- CANDU Yatay kanallarda yakıt nasıl konumlanır? göster
+
+</details>
+
+### CANDU Sekiz biçimli halka açıkla
+
+Kimlik: `entry:candu.focus.figure-eight`
+
+Soğutucu bir halkada iki buhar üreteci ve iki pompadan sırayla geçer; komşu kanallarda ters yönde akar. Takip edin: sağ çıkış → BÜ-2 → P-2 → sağ giriş → B kanalları (←) → sol çıkış → BÜ-1 → P-1 → sol giriş → A kanalları (→).
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU Sekiz biçimli halka nedir?
+- CANDU Sekiz biçimli halka açıkla
+- CANDU Sekiz biçimli halka göster
+
+</details>
+
+### CANDU CANDU anlatımı · 1. Calandria ve moderatör açıkla
+
+Kimlik: `entry:candu.tour.calandria`
+
+Yatay silindirik calandria, ağır su moderatörünü tutar. Moderatör nötronları yavaşlatır; düşük basınçlı ve daha soğuktur. Calandria yüksek basınçlı bir reaktör kabı değildir.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU CANDU anlatımı · 1. Calandria ve moderatör nedir?
+- CANDU CANDU anlatımı · 1. Calandria ve moderatör açıkla
+- CANDU CANDU anlatımı · 1. Calandria ve moderatör göster
+- CANDU Calandria ve moderatör nedir?
+- CANDU Calandria ve moderatör açıkla
+- CANDU Calandria ve moderatör göster
+
+</details>
+
+### CANDU CANDU anlatımı · 2. Yatay yakıt kanalları açıkla
+
+Kimlik: `entry:candu.tour.channels`
+
+Calandria’dan uçtan uca yüzlerce yatay kanal geçer (CANDU 6’da 380; çizimde dört temsili kanal). Her kanalda basınç tüpü yakıt demetlerini ve basınçlı ağır su soğutucuyu taşır; dışındaki calandria tüpü moderatörle temas eder.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU CANDU anlatımı · 2. Yatay yakıt kanalları nedir?
+- CANDU CANDU anlatımı · 2. Yatay yakıt kanalları açıkla
+- CANDU CANDU anlatımı · 2. Yatay yakıt kanalları göster
+- CANDU Yatay yakıt kanalları nedir?
+- CANDU Yatay yakıt kanalları açıkla
+- CANDU Yatay yakıt kanalları göster
+
+</details>
+
+### CANDU CANDU anlatımı · 3. Komşu kanallarda ters akış açıkla
+
+Kimlik: `entry:candu.tour.bidirectional`
+
+Soğutucu bazı kanallarda soldan sağa, komşu kanallarda sağdan sola akar. Böylece giriş ve çıkış uçları reaktörün iki yüzüne dağılır. Akış kanal boyunca ısınır (soğuk uçtan sıcak uca).
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU CANDU anlatımı · 3. Komşu kanallarda ters akış nedir?
+- CANDU CANDU anlatımı · 3. Komşu kanallarda ters akış açıkla
+- CANDU CANDU anlatımı · 3. Komşu kanallarda ters akış göster
+- CANDU Komşu kanallarda ters akış nedir?
+- CANDU Komşu kanallarda ters akış açıkla
+- CANDU Komşu kanallarda ters akış göster
+
+</details>
+
+### CANDU CANDU anlatımı · 4. Kolektörler ve sekiz biçimli halka açıkla
+
+Kimlik: `entry:candu.tour.figure8`
+
+Besleyiciler kanalları kolektörlere bağlar. Soğutucu bir halkada iki buhar üreteci ve iki pompadan sırayla geçer: sağ çıkış → BÜ-2 → P-2 → sağ giriş → B kanalları → sol çıkış → BÜ-1 → P-1 → sol giriş → A kanalları.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU CANDU anlatımı · 4. Kolektörler ve sekiz biçimli halka nedir?
+- CANDU CANDU anlatımı · 4. Kolektörler ve sekiz biçimli halka açıkla
+- CANDU CANDU anlatımı · 4. Kolektörler ve sekiz biçimli halka göster
+- CANDU Kolektörler ve sekiz biçimli halka nedir?
+- CANDU Kolektörler ve sekiz biçimli halka açıkla
+- CANDU Kolektörler ve sekiz biçimli halka göster
+
+</details>
+
+### CANDU CANDU anlatımı · 5. Buhar üreteci: iki ayrı akışkan açıkla
+
+Kimlik: `entry:candu.tour.sg`
+
+Sıcak ağır su buhar üretecinin U borularının içinden geçer ve ısısını boru duvarından verir. Birincil ağır suda oluşabilen sınırlı buhar burada yoğuşur; animasyon bu iki fazlı davranışı modellemez. Borunun dışındaki ikincil hafif su kaynar. Türbine giden buhar bu ikincil taraftan çıkar; ağır su türbine gitmez.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU CANDU anlatımı · 5. Buhar üreteci: iki ayrı akışkan nedir?
+- CANDU CANDU anlatımı · 5. Buhar üreteci: iki ayrı akışkan açıkla
+- CANDU CANDU anlatımı · 5. Buhar üreteci: iki ayrı akışkan göster
+- CANDU Buhar üreteci: iki ayrı akışkan nedir?
+- CANDU Buhar üreteci: iki ayrı akışkan açıkla
+- CANDU Buhar üreteci: iki ayrı akışkan göster
+
+</details>
+
+### CANDU CANDU anlatımı · 6. Türbin, kondenser, besleme açıkla
+
+Kimlik: `entry:candu.tour.turbine`
+
+Buhar türbinde genişleyip jeneratörü döndürür, kondenserde ayrı soğutma suyu çevrimiyle yoğuşur. Besleme pompası yoğuşan hafif suyu iki buhar üretecine geri gönderir.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU CANDU anlatımı · 6. Türbin, kondenser, besleme nedir?
+- CANDU CANDU anlatımı · 6. Türbin, kondenser, besleme açıkla
+- CANDU CANDU anlatımı · 6. Türbin, kondenser, besleme göster
+- CANDU Türbin, kondenser, besleme nedir?
+- CANDU Türbin, kondenser, besleme açıkla
+- CANDU Türbin, kondenser, besleme göster
+
+</details>
+
+### CANDU CANDU anlatımı · 7. Moderatörün ayrı soğutması açıkla
+
+Kimlik: `entry:candu.tour.moderator`
+
+Moderatörde de ısı oluşur. Ayrı bir moderatör sistemi ağır suyu pompa ve ısı değiştiriciden dolaştırır. Bu sistemin birincil devreyle bağlantısı yoktur: iki ağır su sistemi karışmaz.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU CANDU anlatımı · 7. Moderatörün ayrı soğutması nedir?
+- CANDU CANDU anlatımı · 7. Moderatörün ayrı soğutması açıkla
+- CANDU CANDU anlatımı · 7. Moderatörün ayrı soğutması göster
+- CANDU Moderatörün ayrı soğutması nedir?
+- CANDU Moderatörün ayrı soğutması açıkla
+- CANDU Moderatörün ayrı soğutması göster
+
+</details>
+
+### CANDU CANDU anlatımı · 8. İşletme sırasında yakıt değiştirme açıkla
+
+Kimlik: `entry:candu.tour.fuelling`
+
+Yakıt değiştirme makineleri kanalın iki ucundaki uç bağlantılarına kenetlenir; reaktör çalışırken yeni demetler eklenir, kullanılmış demetler alınır. Yakın plan yalnız ilkeyi gösterir; gerçek işletme prosedürü değildir.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU CANDU anlatımı · 8. İşletme sırasında yakıt değiştirme nedir?
+- CANDU CANDU anlatımı · 8. İşletme sırasında yakıt değiştirme açıkla
+- CANDU CANDU anlatımı · 8. İşletme sırasında yakıt değiştirme göster
+- CANDU İşletme sırasında yakıt değiştirme nedir?
+- CANDU İşletme sırasında yakıt değiştirme açıkla
+- CANDU İşletme sırasında yakıt değiştirme göster
+
+</details>
+
+### CANDU CANDU’da buhar nerede oluşur? açıkla
+
+Kimlik: `entry:candu.topic.steam-where`
+
+Türbine giden buhar buhar üreteçlerinin ikincil tarafındaki hafif sudan oluşur. CANDU 6’da birincil ağır suda sınırlı kaynama olabilir; bu ağır su buharı türbine gitmez, buhar üretecinde yoğuşur. Şemadaki birincil akış animasyonu bu iki fazlı davranışı modellemez.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU CANDU’da buhar nerede oluşur? nedir?
+- CANDU CANDU’da buhar nerede oluşur? açıkla
+- CANDU CANDU’da buhar nerede oluşur? göster
+- CANDU buhar nerede oluşuyor nedir?
+- CANDU buhar nerede oluşuyor açıkla
+- CANDU buhar nerede oluşuyor göster
+- CANDU buhar oluşumu nedir?
+- CANDU buhar oluşumu açıkla
+- CANDU buhar oluşumu göster
+- CANDU kaynama nerede nedir?
+- CANDU kaynama nerede açıkla
+- CANDU kaynama nerede göster
+- CANDU buhar nerede nedir?
+- CANDU buhar nerede açıkla
+- CANDU buhar nerede göster
+
+</details>
+
+### CANDU CANDU kanal yapısı açıkla
+
+Kimlik: `entry:candu.topic.channels`
+
+CANDU’da kanallar yataydır ve calandria’dan uçtan uca geçer. Her kanalda basınç tüpü (yakıt + basınçlı ağır su), gaz halkası ve calandria tüpü vardır; dışarıda düşük basınçlı ağır su moderatörü bulunur. Komşu kanallarda akış ters yöndedir.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU CANDU kanal yapısı nedir?
+- CANDU CANDU kanal yapısı açıkla
+- CANDU CANDU kanal yapısı göster
+- CANDU candu kanalları nedir?
+- CANDU candu kanalları açıkla
+- CANDU candu kanalları göster
+- CANDU yatay kanallar nedir?
+- CANDU yatay kanallar açıkla
+- CANDU yatay kanallar göster
+
+</details>
+
+### CANDU CANDU’da iki ayrı ağır su sistemi açıkla
+
+Kimlik: `entry:candu.topic.two-d2o`
+
+Kanallardaki birincil ağır su sıcak ve yüksek basınçlıdır; ısıyı buhar üreteçlerine taşır. Calandria’daki moderatör ağır suyu düşük basınçlı ve daha soğuktur; nötronları yavaşlatır ve kendi ısı değiştiricileriyle soğutulur. Aralarında basınç tüpü, gaz halkası ve calandria tüpü vardır; sistemler birbirinden bağımsızdır ve karışmaz. Bu düzen, büyük bir yüksek basınç kabı gerekmeden ağır su moderatörü kullanmayı sağlar (CANTEACH).
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU CANDU’da iki ayrı ağır su sistemi nedir?
+- CANDU CANDU’da iki ayrı ağır su sistemi açıkla
+- CANDU CANDU’da iki ayrı ağır su sistemi göster
+- CANDU iki ağır su sistemi nedir?
+- CANDU iki ağır su sistemi açıkla
+- CANDU iki ağır su sistemi göster
+- CANDU moderatör ve soğutucu nedir?
+- CANDU moderatör ve soğutucu açıkla
+- CANDU moderatör ve soğutucu göster
+- CANDU ağır su sistemleri nedir?
+- CANDU ağır su sistemleri açıkla
+- CANDU ağır su sistemleri göster
+
+</details>
+
+### CANDU Calandria neden basınç kabı değildir? açıkla
+
+Kimlik: `entry:candu.topic.calandria`
+
+Calandria, moderatörü tutan düşük basınçlı bir tanktır; moderatör kaynamayacak şekilde soğutulur ve tank aşırı basınca karşı patlama diskleriyle korunur. Yüksek basınçlı soğutucu calandria’da değil, her kanaldaki basınç tüpünün içindedir. Bu yüzden calandria PWR tipi bir yüksek basınç kabı değildir.
+
+Kaynaklar: `canteach-constr`, `canteach-c6`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU Calandria neden basınç kabı değildir? nedir?
+- CANDU Calandria neden basınç kabı değildir? açıkla
+- CANDU Calandria neden basınç kabı değildir? göster
+- CANDU calandria basınç kabı mı nedir?
+- CANDU calandria basınç kabı mı açıkla
+- CANDU calandria basınç kabı mı göster
+- CANDU calandria reaktör kabı mı nedir?
+- CANDU calandria reaktör kabı mı açıkla
+- CANDU calandria reaktör kabı mı göster
+- CANDU basınç kabı var mı nedir?
+- CANDU basınç kabı var mı açıkla
+- CANDU basınç kabı var mı göster
+
+</details>
+
+### CANDU Türbine giden buhar nerede oluşur?
+
+Kimlik: `compare:steam-where:candu`
+
+Türbine giden buhar, buhar üreteçlerinin ikincil tarafındaki hafif sudan oluşur. CANDU 6’da birincil ağır suda sınırlı kaynama olabilir; bu ağır su buharı türbine gitmez, buhar üretecinde yoğuşur.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU buhar nerede oluşur
+- CANDU buhar nerede oluşuyor
+- CANDU su nerede kaynar
+
+</details>
+
+### CANDU Çekirdekte üretilen ısı türbine nasıl ulaşır?
+
+Kimlik: `compare:heat-path:candu`
+
+Yakıt → kanaldaki basınçlı ağır su → çıkış besleyicisi ve kolektörü → buhar üretecinin U boruları → ikincil hafif su buharı → türbin.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU ısı türbine nasıl ulaşır
+- CANDU enerji türbine nasıl aktarılır
+
+</details>
+
+### CANDU Reaktör suyu ile türbin suyu aynı akışkan mı?
+
+Kimlik: `compare:loops:candu`
+
+Hayır. Birincil ağır su ve ikincil hafif su ayrı devrelerdir; aralarında yalnız ısı geçer. Moderatör ağır suyu da üçüncü, ayrı bir sistemdir.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU reaktör suyu türbine gider mi
+- CANDU birincil ve ikincil su karışır mı
+- CANDU iki devre neden ayrı
+- CANDU kaç devre var
+- CANDU reaktör suyu türbin suyu aynı mı
+
+</details>
+
+### CANDU Basınçlandırıcı var mı, ne işe yarar?
+
+Kimlik: `compare:pressurizer:candu`
+
+Var. Birincil ağır suyun kaynamaması için devre yüksek basınçta tutulur; pompalar bu basıncı üretmez. Çizimde bağlantı yeri temsilidir.
+
+Kaynaklar: `canteach-hts`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU basınçlandırıcı var mı
+- CANDU basınç nasıl kontrol edilir
+
+</details>
+
+### CANDU Buhar üreteci nasıl yerleşmiştir?
+
+Kimlik: `compare:sg-layout:candu`
+
+CANDU 6: dikey U borulu, tümleşik buhar tamburlu ve ön ısıtıcılı; her halkada iki adet, kolektörlerin üstünde.
+
+Bu açıklama çizilen temsili tasarıma aittir; gerçek tesislerin ayrıntıları değişebilir.
+
+Kaynaklar: `canteach-c6`, `canteach-hts`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU buhar üreteci yatay mı dikey mi
+
+</details>
+
+### CANDU Çizilen tasarımda kontrol çubukları nereden girer?
+
+Kimlik: `compare:rods:candu`
+
+Calandria’da kanalların arasından, düşük basınçlı moderatörün içinden geçen yatay ve dikey düzenekler (CANDU 6). Çizimde iki dikey düzenek temsili.
+
+Bu açıklama çizilen temsili tasarıma aittir; gerçek tesislerin ayrıntıları değişebilir.
+
+Kaynaklar: `canteach-c6`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU kontrol çubukları nereden girer
+- CANDU kontrol çubukları alttan mı üstten mi
+
+</details>
+
+### CANDU Nötronları ne yavaşlatır?
+
+Kimlik: `compare:moderator:candu`
+
+Ağır su: calandria’da, birincil soğutucudan ayrı, düşük basınçlı ve daha soğuk bir sistem.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU moderatör nedir
+- CANDU nötronları ne yavaşlatır
+- CANDU moderatör ne
+
+</details>
+
+### CANDU Isıyı yakıttan ne taşır?
+
+Kimlik: `compare:coolant:candu`
+
+Basınçlı ağır su; basınç tüplerinde yakıtın üzerinden akar. CANDU 6’da sınırlı kaynama olabilir; şemada iki fazlı davranış modellenmez. Moderatörle aynı madde olsa da ayrı sistemdir.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU soğutucu nedir
+- CANDU soğutucu ne
+- CANDU ısıyı ne taşır
+
+</details>
+
+### CANDU Yüksek basınçlı soğutucuyu ne tutar?
+
+Kimlik: `compare:boundary:candu`
+
+Yüzlerce basınç tüpü. Calandria düşük basınçlı bir tanktır, basınç kabı değildir (patlama diskleriyle korunur).
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU basınç sınırı nedir
+- CANDU basınç kabı mı kanal mı
+- CANDU yüksek basıncı ne tutar
+
+</details>
+
+### CANDU Yakıt ayrı basınç kanallarında mı, kanallar hangi yönde?
+
+Kimlik: `compare:channel-dir:candu`
+
+Yatay: calandria’dan uçtan uca geçer. Komşu kanallarda soğutucu ters yönde akar (CANDU 6, sekiz biçimli halka).
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU kanallar yatay mı dikey mi
+- CANDU kanalların yönü
+- CANDU basınç kanalı var mı
+
+</details>
+
+### CANDU Buhar üreteci ile ayırıcı tambur arasındaki fark nedir?
+
+Kimlik: `compare:sg-vs-drum:candu`
+
+Buhar üreteci var (ısı aktarır). Ayrı bir ayırıcı tambur yoktur; CANDU 6 buhar üretecinin kendi tümleşik buhar tamburu vardır.
+
+Bu açıklama çizilen temsili tasarıma aittir; gerçek tesislerin ayrıntıları değişebilir.
+
+Kaynaklar: `canteach-c6`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU ayırıcı tambur buhar üreteci mi
+- CANDU buhar üreteci ile ayırıcı tambur farkı
+- CANDU buhar üreteci var mı
+
+</details>
+
+### CANDU Tipik yakıt nedir, yakıt nasıl değiştirilir?
+
+Kimlik: `compare:fuel:candu`
+
+CANDU 6’da tipik olarak doğal uranyum (37 elemanlı demet, kanal başına 12). İki uçtaki makinelerle işletme sırasında yakıt değiştirme. Aynı kaynak başka yakıtların (az zenginleştirilmiş, geri kazanılmış uranyum, toryum) da kullanılabileceğini belirtir.
+
+Bu açıklama çizilen temsili tasarıma aittir; gerçek tesislerin ayrıntıları değişebilir.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU hangi yakıt kullanılır
+- CANDU yakıt nasıl değiştirilir
+- CANDU yakıt değiştirme
+
+</details>
+
+### CANDU’da neden iki ayrı ağır su sistemi vardır?
+
+Kimlik: `confusion:candu-two-d2o`
+
+Soğutucu sıcak ve yüksek basınçlıdır, kanalların içinde kalır; moderatör düşük basınçlı ve daha soğuktur, calandria’dadır. Aralarında basınç tüpü, gaz halkası ve calandria tüpü vardır; karışmazlar.
+
+Kaynaklar: `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU iki ağır su sistemi neden ayrı
+- CANDU moderatör ve soğutucu karışır mı
+- CANDU moderatör soğutucu aynı mı
+- CANDU ağır su sistemleri neden ayrı
+
+</details>
+
+### Calandria neden basınç kabı değildir?
+
+Kimlik: `confusion:candu-calandria`
+
+Calandria düşük basınçlı moderatör tankıdır; yüksek basınç her kanalın basınç tüpündedir.
+
+Kaynaklar: `canteach-constr`, `canteach-c6`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- CANDU calandria basınç kabı mı
+- CANDU calandria reaktör kabı mı
+- CANDU basınç kabı var mı
+- CANDU calandria ile basınç tüpü farkı
+
+</details>
+
 ## Karşılaştırma
 
 ### PWR ve BWR: Türbine giden buhar nerede oluşur?
@@ -3142,6 +6265,42 @@ Kaynaklar: `nuce-ch2`, `nrc-unit3`, `iaea-vver`
 
 </details>
 
+### PWR ve RBMK: Türbine giden buhar nerede oluşur?
+
+Kimlik: `compare:steam-where:pwr-rbmk`
+
+PWR: Buhar üretecinin ikincil (gövde) tarafında. Birincil devrede normal çalışmada toplu kaynama olmaz.
+
+RBMK: Yakıt kanallarının içinde: hafif su kanalda yukarı akarken kaynar. Buhar–su karışımı çekirdek dışındaki ayırıcı tamburlarda ayrılır ve buhar doğrudan türbine gider.
+
+Kaynaklar: `nuce-ch2`, `nrc-unit3`, `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr rbmk buhar nerede oluşur karşılaştır
+- pwr rbmk buhar nerede oluşuyor karşılaştır
+- pwr rbmk su nerede kaynar karşılaştır
+
+</details>
+
+### PWR ve CANDU: Türbine giden buhar nerede oluşur?
+
+Kimlik: `compare:steam-where:pwr-candu`
+
+PWR: Buhar üretecinin ikincil (gövde) tarafında. Birincil devrede normal çalışmada toplu kaynama olmaz.
+
+CANDU: Türbine giden buhar, buhar üreteçlerinin ikincil tarafındaki hafif sudan oluşur. CANDU 6’da birincil ağır suda sınırlı kaynama olabilir; bu ağır su buharı türbine gitmez, buhar üretecinde yoğuşur.
+
+Kaynaklar: `nuce-ch2`, `nrc-unit3`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr candu buhar nerede oluşur karşılaştır
+- pwr candu buhar nerede oluşuyor karşılaştır
+- pwr candu su nerede kaynar karşılaştır
+
+</details>
+
 ### BWR ve VVER: Türbine giden buhar nerede oluşur?
 
 Kimlik: `compare:steam-where:bwr-vver`
@@ -3157,6 +6316,96 @@ Kaynaklar: `nuce-ch2`, `nrc-bwr`, `iaea-vver`
 - bwr vver buhar nerede oluşur karşılaştır
 - bwr vver buhar nerede oluşuyor karşılaştır
 - bwr vver su nerede kaynar karşılaştır
+
+</details>
+
+### BWR ve RBMK: Türbine giden buhar nerede oluşur?
+
+Kimlik: `compare:steam-where:bwr-rbmk`
+
+BWR: Doğrudan reaktör kabında: su çekirdekte kaynar, buhar kabın üstünde ayrılır ve kurutulur.
+
+RBMK: Yakıt kanallarının içinde: hafif su kanalda yukarı akarken kaynar. Buhar–su karışımı çekirdek dışındaki ayırıcı tamburlarda ayrılır ve buhar doğrudan türbine gider.
+
+Kaynaklar: `nuce-ch2`, `nrc-bwr`, `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- bwr rbmk buhar nerede oluşur karşılaştır
+- bwr rbmk buhar nerede oluşuyor karşılaştır
+- bwr rbmk su nerede kaynar karşılaştır
+
+</details>
+
+### BWR ve CANDU: Türbine giden buhar nerede oluşur?
+
+Kimlik: `compare:steam-where:bwr-candu`
+
+BWR: Doğrudan reaktör kabında: su çekirdekte kaynar, buhar kabın üstünde ayrılır ve kurutulur.
+
+CANDU: Türbine giden buhar, buhar üreteçlerinin ikincil tarafındaki hafif sudan oluşur. CANDU 6’da birincil ağır suda sınırlı kaynama olabilir; bu ağır su buharı türbine gitmez, buhar üretecinde yoğuşur.
+
+Kaynaklar: `nuce-ch2`, `nrc-bwr`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- bwr candu buhar nerede oluşur karşılaştır
+- bwr candu buhar nerede oluşuyor karşılaştır
+- bwr candu su nerede kaynar karşılaştır
+
+</details>
+
+### VVER ve RBMK: Türbine giden buhar nerede oluşur?
+
+Kimlik: `compare:steam-where:vver-rbmk`
+
+VVER: Yatay buhar üretecinin ikincil (gövde) tarafında. Birincil su basınç altında sıvı kalır.
+
+RBMK: Yakıt kanallarının içinde: hafif su kanalda yukarı akarken kaynar. Buhar–su karışımı çekirdek dışındaki ayırıcı tamburlarda ayrılır ve buhar doğrudan türbine gider.
+
+Kaynaklar: `nuce-ch2`, `iaea-vver`, `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- vver rbmk buhar nerede oluşur karşılaştır
+- vver rbmk buhar nerede oluşuyor karşılaştır
+- vver rbmk su nerede kaynar karşılaştır
+
+</details>
+
+### VVER ve CANDU: Türbine giden buhar nerede oluşur?
+
+Kimlik: `compare:steam-where:vver-candu`
+
+VVER: Yatay buhar üretecinin ikincil (gövde) tarafında. Birincil su basınç altında sıvı kalır.
+
+CANDU: Türbine giden buhar, buhar üreteçlerinin ikincil tarafındaki hafif sudan oluşur. CANDU 6’da birincil ağır suda sınırlı kaynama olabilir; bu ağır su buharı türbine gitmez, buhar üretecinde yoğuşur.
+
+Kaynaklar: `nuce-ch2`, `iaea-vver`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- vver candu buhar nerede oluşur karşılaştır
+- vver candu buhar nerede oluşuyor karşılaştır
+- vver candu su nerede kaynar karşılaştır
+
+</details>
+
+### RBMK ve CANDU: Türbine giden buhar nerede oluşur?
+
+Kimlik: `compare:steam-where:rbmk-candu`
+
+RBMK: Yakıt kanallarının içinde: hafif su kanalda yukarı akarken kaynar. Buhar–su karışımı çekirdek dışındaki ayırıcı tamburlarda ayrılır ve buhar doğrudan türbine gider.
+
+CANDU: Türbine giden buhar, buhar üreteçlerinin ikincil tarafındaki hafif sudan oluşur. CANDU 6’da birincil ağır suda sınırlı kaynama olabilir; bu ağır su buharı türbine gitmez, buhar üretecinde yoğuşur.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- rbmk candu buhar nerede oluşur karşılaştır
+- rbmk candu buhar nerede oluşuyor karşılaştır
+- rbmk candu su nerede kaynar karşılaştır
 
 </details>
 
@@ -3177,6 +6426,30 @@ Kaynaklar: `nuce-ch2`, `nrc-unit3`, `nrc-bwr`, `iaea-vver`
 - pwr bwr vver buhar nerede oluşur karşılaştır
 - pwr bwr vver buhar nerede oluşuyor karşılaştır
 - pwr bwr vver su nerede kaynar karşılaştır
+
+</details>
+
+### PWR ve BWR ve VVER ve RBMK ve CANDU: Türbine giden buhar nerede oluşur?
+
+Kimlik: `compare:steam-where:pwr-bwr-vver-rbmk-candu`
+
+PWR: Buhar üretecinin ikincil (gövde) tarafında. Birincil devrede normal çalışmada toplu kaynama olmaz.
+
+BWR: Doğrudan reaktör kabında: su çekirdekte kaynar, buhar kabın üstünde ayrılır ve kurutulur.
+
+VVER: Yatay buhar üretecinin ikincil (gövde) tarafında. Birincil su basınç altında sıvı kalır.
+
+RBMK: Yakıt kanallarının içinde: hafif su kanalda yukarı akarken kaynar. Buhar–su karışımı çekirdek dışındaki ayırıcı tamburlarda ayrılır ve buhar doğrudan türbine gider.
+
+CANDU: Türbine giden buhar, buhar üreteçlerinin ikincil tarafındaki hafif sudan oluşur. CANDU 6’da birincil ağır suda sınırlı kaynama olabilir; bu ağır su buharı türbine gitmez, buhar üretecinde yoğuşur.
+
+Kaynaklar: `nuce-ch2`, `nrc-unit3`, `nrc-bwr`, `iaea-vver`, `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr bwr vver rbmk candu buhar nerede oluşur karşılaştır
+- pwr bwr vver rbmk candu buhar nerede oluşuyor karşılaştır
+- pwr bwr vver rbmk candu su nerede kaynar karşılaştır
 
 </details>
 
@@ -3214,6 +6487,40 @@ Kaynaklar: `nuce-ch2`, `nrc-unit3`, `iaea-vver`
 
 </details>
 
+### PWR ve RBMK: Çekirdekte üretilen ısı türbine nasıl ulaşır?
+
+Kimlik: `compare:heat-path:pwr-rbmk`
+
+PWR: Çekirdek → sıcak kol → buhar üretecinin U boruları (ısı boru duvarından geçer) → ikincil buhar → türbin.
+
+RBMK: Yakıt → kanalda kaynayan hafif su → her kanalın buhar–su borusu → ayırıcı tambur → buhar doğrudan türbine. Arada ısı değiştirici yok.
+
+Kaynaklar: `nuce-ch2`, `nrc-unit3`, `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr rbmk ısı türbine nasıl ulaşır karşılaştır
+- pwr rbmk enerji türbine nasıl aktarılır karşılaştır
+
+</details>
+
+### PWR ve CANDU: Çekirdekte üretilen ısı türbine nasıl ulaşır?
+
+Kimlik: `compare:heat-path:pwr-candu`
+
+PWR: Çekirdek → sıcak kol → buhar üretecinin U boruları (ısı boru duvarından geçer) → ikincil buhar → türbin.
+
+CANDU: Yakıt → kanaldaki basınçlı ağır su → çıkış besleyicisi ve kolektörü → buhar üretecinin U boruları → ikincil hafif su buharı → türbin.
+
+Kaynaklar: `nuce-ch2`, `nrc-unit3`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr candu ısı türbine nasıl ulaşır karşılaştır
+- pwr candu enerji türbine nasıl aktarılır karşılaştır
+
+</details>
+
 ### BWR ve VVER: Çekirdekte üretilen ısı türbine nasıl ulaşır?
 
 Kimlik: `compare:heat-path:bwr-vver`
@@ -3228,6 +6535,91 @@ Kaynaklar: `nuce-ch2`, `nrc-bwr`, `iaea-vver`
 
 - bwr vver ısı türbine nasıl ulaşır karşılaştır
 - bwr vver enerji türbine nasıl aktarılır karşılaştır
+
+</details>
+
+### BWR ve RBMK: Çekirdekte üretilen ısı türbine nasıl ulaşır?
+
+Kimlik: `compare:heat-path:bwr-rbmk`
+
+BWR: Çekirdek → kaynayan reaktör suyu → ayırıcı/kurutucu → aynı akışkanın buharı doğrudan türbine. Arada ısı değiştirici yok.
+
+RBMK: Yakıt → kanalda kaynayan hafif su → her kanalın buhar–su borusu → ayırıcı tambur → buhar doğrudan türbine. Arada ısı değiştirici yok.
+
+Kaynaklar: `nuce-ch2`, `nrc-bwr`, `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- bwr rbmk ısı türbine nasıl ulaşır karşılaştır
+- bwr rbmk enerji türbine nasıl aktarılır karşılaştır
+
+</details>
+
+### BWR ve CANDU: Çekirdekte üretilen ısı türbine nasıl ulaşır?
+
+Kimlik: `compare:heat-path:bwr-candu`
+
+BWR: Çekirdek → kaynayan reaktör suyu → ayırıcı/kurutucu → aynı akışkanın buharı doğrudan türbine. Arada ısı değiştirici yok.
+
+CANDU: Yakıt → kanaldaki basınçlı ağır su → çıkış besleyicisi ve kolektörü → buhar üretecinin U boruları → ikincil hafif su buharı → türbin.
+
+Kaynaklar: `nuce-ch2`, `nrc-bwr`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- bwr candu ısı türbine nasıl ulaşır karşılaştır
+- bwr candu enerji türbine nasıl aktarılır karşılaştır
+
+</details>
+
+### VVER ve RBMK: Çekirdekte üretilen ısı türbine nasıl ulaşır?
+
+Kimlik: `compare:heat-path:vver-rbmk`
+
+VVER: Çekirdek → sıcak kol → sıcak kolektör → yatay U boruları → ikincil buhar → türbin.
+
+RBMK: Yakıt → kanalda kaynayan hafif su → her kanalın buhar–su borusu → ayırıcı tambur → buhar doğrudan türbine. Arada ısı değiştirici yok.
+
+Kaynaklar: `nuce-ch2`, `iaea-vver`, `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- vver rbmk ısı türbine nasıl ulaşır karşılaştır
+- vver rbmk enerji türbine nasıl aktarılır karşılaştır
+
+</details>
+
+### VVER ve CANDU: Çekirdekte üretilen ısı türbine nasıl ulaşır?
+
+Kimlik: `compare:heat-path:vver-candu`
+
+VVER: Çekirdek → sıcak kol → sıcak kolektör → yatay U boruları → ikincil buhar → türbin.
+
+CANDU: Yakıt → kanaldaki basınçlı ağır su → çıkış besleyicisi ve kolektörü → buhar üretecinin U boruları → ikincil hafif su buharı → türbin.
+
+Kaynaklar: `nuce-ch2`, `iaea-vver`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- vver candu ısı türbine nasıl ulaşır karşılaştır
+- vver candu enerji türbine nasıl aktarılır karşılaştır
+
+</details>
+
+### RBMK ve CANDU: Çekirdekte üretilen ısı türbine nasıl ulaşır?
+
+Kimlik: `compare:heat-path:rbmk-candu`
+
+RBMK: Yakıt → kanalda kaynayan hafif su → her kanalın buhar–su borusu → ayırıcı tambur → buhar doğrudan türbine. Arada ısı değiştirici yok.
+
+CANDU: Yakıt → kanaldaki basınçlı ağır su → çıkış besleyicisi ve kolektörü → buhar üretecinin U boruları → ikincil hafif su buharı → türbin.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- rbmk candu ısı türbine nasıl ulaşır karşılaştır
+- rbmk candu enerji türbine nasıl aktarılır karşılaştır
 
 </details>
 
@@ -3247,6 +6639,29 @@ Kaynaklar: `nuce-ch2`, `nrc-unit3`, `nrc-bwr`, `iaea-vver`
 
 - pwr bwr vver ısı türbine nasıl ulaşır karşılaştır
 - pwr bwr vver enerji türbine nasıl aktarılır karşılaştır
+
+</details>
+
+### PWR ve BWR ve VVER ve RBMK ve CANDU: Çekirdekte üretilen ısı türbine nasıl ulaşır?
+
+Kimlik: `compare:heat-path:pwr-bwr-vver-rbmk-candu`
+
+PWR: Çekirdek → sıcak kol → buhar üretecinin U boruları (ısı boru duvarından geçer) → ikincil buhar → türbin.
+
+BWR: Çekirdek → kaynayan reaktör suyu → ayırıcı/kurutucu → aynı akışkanın buharı doğrudan türbine. Arada ısı değiştirici yok.
+
+VVER: Çekirdek → sıcak kol → sıcak kolektör → yatay U boruları → ikincil buhar → türbin.
+
+RBMK: Yakıt → kanalda kaynayan hafif su → her kanalın buhar–su borusu → ayırıcı tambur → buhar doğrudan türbine. Arada ısı değiştirici yok.
+
+CANDU: Yakıt → kanaldaki basınçlı ağır su → çıkış besleyicisi ve kolektörü → buhar üretecinin U boruları → ikincil hafif su buharı → türbin.
+
+Kaynaklar: `nuce-ch2`, `nrc-unit3`, `nrc-bwr`, `iaea-vver`, `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr bwr vver rbmk candu ısı türbine nasıl ulaşır karşılaştır
+- pwr bwr vver rbmk candu enerji türbine nasıl aktarılır karşılaştır
 
 </details>
 
@@ -3290,6 +6705,46 @@ Kaynaklar: `nuce-ch2`, `nrc-unit3`, `iaea-vver`
 
 </details>
 
+### PWR ve RBMK: Reaktör suyu ile türbin suyu aynı akışkan mı?
+
+Kimlik: `compare:loops:pwr-rbmk`
+
+PWR: Hayır. İki ayrı çevrim; aralarında yalnız ısı geçer, akışkan karışmaz. Türbine ikincil buhar gider.
+
+RBMK: Evet. Tek (doğrudan) çevrim: kanallardan geçen hafif suyun buharı türbine gider; yoğuşan su tambura ve oradan kanallara döner.
+
+Kaynaklar: `nuce-ch2`, `nrc-unit3`, `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr rbmk reaktör suyu türbine gider mi karşılaştır
+- pwr rbmk birincil ve ikincil su karışır mı karşılaştır
+- pwr rbmk iki devre neden ayrı karşılaştır
+- pwr rbmk kaç devre var karşılaştır
+- pwr rbmk reaktör suyu türbin suyu aynı mı karşılaştır
+
+</details>
+
+### PWR ve CANDU: Reaktör suyu ile türbin suyu aynı akışkan mı?
+
+Kimlik: `compare:loops:pwr-candu`
+
+PWR: Hayır. İki ayrı çevrim; aralarında yalnız ısı geçer, akışkan karışmaz. Türbine ikincil buhar gider.
+
+CANDU: Hayır. Birincil ağır su ve ikincil hafif su ayrı devrelerdir; aralarında yalnız ısı geçer. Moderatör ağır suyu da üçüncü, ayrı bir sistemdir.
+
+Kaynaklar: `nuce-ch2`, `nrc-unit3`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr candu reaktör suyu türbine gider mi karşılaştır
+- pwr candu birincil ve ikincil su karışır mı karşılaştır
+- pwr candu iki devre neden ayrı karşılaştır
+- pwr candu kaç devre var karşılaştır
+- pwr candu reaktör suyu türbin suyu aynı mı karşılaştır
+
+</details>
+
 ### BWR ve VVER: Reaktör suyu ile türbin suyu aynı akışkan mı?
 
 Kimlik: `compare:loops:bwr-vver`
@@ -3307,6 +6762,106 @@ Kaynaklar: `nuce-ch2`, `nrc-bwr`, `iaea-vver`
 - bwr vver iki devre neden ayrı karşılaştır
 - bwr vver kaç devre var karşılaştır
 - bwr vver reaktör suyu türbin suyu aynı mı karşılaştır
+
+</details>
+
+### BWR ve RBMK: Reaktör suyu ile türbin suyu aynı akışkan mı?
+
+Kimlik: `compare:loops:bwr-rbmk`
+
+BWR: Evet. Tek (doğrudan) çevrim: reaktör suyunun buharı türbine gider; bu yüzden türbin tarafı da korumalı bölgedir.
+
+RBMK: Evet. Tek (doğrudan) çevrim: kanallardan geçen hafif suyun buharı türbine gider; yoğuşan su tambura ve oradan kanallara döner.
+
+Kaynaklar: `nuce-ch2`, `nrc-bwr`, `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- bwr rbmk reaktör suyu türbine gider mi karşılaştır
+- bwr rbmk birincil ve ikincil su karışır mı karşılaştır
+- bwr rbmk iki devre neden ayrı karşılaştır
+- bwr rbmk kaç devre var karşılaştır
+- bwr rbmk reaktör suyu türbin suyu aynı mı karşılaştır
+
+</details>
+
+### BWR ve CANDU: Reaktör suyu ile türbin suyu aynı akışkan mı?
+
+Kimlik: `compare:loops:bwr-candu`
+
+BWR: Evet. Tek (doğrudan) çevrim: reaktör suyunun buharı türbine gider; bu yüzden türbin tarafı da korumalı bölgedir.
+
+CANDU: Hayır. Birincil ağır su ve ikincil hafif su ayrı devrelerdir; aralarında yalnız ısı geçer. Moderatör ağır suyu da üçüncü, ayrı bir sistemdir.
+
+Kaynaklar: `nuce-ch2`, `nrc-bwr`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- bwr candu reaktör suyu türbine gider mi karşılaştır
+- bwr candu birincil ve ikincil su karışır mı karşılaştır
+- bwr candu iki devre neden ayrı karşılaştır
+- bwr candu kaç devre var karşılaştır
+- bwr candu reaktör suyu türbin suyu aynı mı karşılaştır
+
+</details>
+
+### VVER ve RBMK: Reaktör suyu ile türbin suyu aynı akışkan mı?
+
+Kimlik: `compare:loops:vver-rbmk`
+
+VVER: Hayır. İki ayrı çevrim; aralarında yalnız ısı geçer. Türbine ikincil buhar gider.
+
+RBMK: Evet. Tek (doğrudan) çevrim: kanallardan geçen hafif suyun buharı türbine gider; yoğuşan su tambura ve oradan kanallara döner.
+
+Kaynaklar: `nuce-ch2`, `iaea-vver`, `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- vver rbmk reaktör suyu türbine gider mi karşılaştır
+- vver rbmk birincil ve ikincil su karışır mı karşılaştır
+- vver rbmk iki devre neden ayrı karşılaştır
+- vver rbmk kaç devre var karşılaştır
+- vver rbmk reaktör suyu türbin suyu aynı mı karşılaştır
+
+</details>
+
+### VVER ve CANDU: Reaktör suyu ile türbin suyu aynı akışkan mı?
+
+Kimlik: `compare:loops:vver-candu`
+
+VVER: Hayır. İki ayrı çevrim; aralarında yalnız ısı geçer. Türbine ikincil buhar gider.
+
+CANDU: Hayır. Birincil ağır su ve ikincil hafif su ayrı devrelerdir; aralarında yalnız ısı geçer. Moderatör ağır suyu da üçüncü, ayrı bir sistemdir.
+
+Kaynaklar: `nuce-ch2`, `iaea-vver`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- vver candu reaktör suyu türbine gider mi karşılaştır
+- vver candu birincil ve ikincil su karışır mı karşılaştır
+- vver candu iki devre neden ayrı karşılaştır
+- vver candu kaç devre var karşılaştır
+- vver candu reaktör suyu türbin suyu aynı mı karşılaştır
+
+</details>
+
+### RBMK ve CANDU: Reaktör suyu ile türbin suyu aynı akışkan mı?
+
+Kimlik: `compare:loops:rbmk-candu`
+
+RBMK: Evet. Tek (doğrudan) çevrim: kanallardan geçen hafif suyun buharı türbine gider; yoğuşan su tambura ve oradan kanallara döner.
+
+CANDU: Hayır. Birincil ağır su ve ikincil hafif su ayrı devrelerdir; aralarında yalnız ısı geçer. Moderatör ağır suyu da üçüncü, ayrı bir sistemdir.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- rbmk candu reaktör suyu türbine gider mi karşılaştır
+- rbmk candu birincil ve ikincil su karışır mı karşılaştır
+- rbmk candu iki devre neden ayrı karşılaştır
+- rbmk candu kaç devre var karşılaştır
+- rbmk candu reaktör suyu türbin suyu aynı mı karşılaştır
 
 </details>
 
@@ -3329,6 +6884,32 @@ Kaynaklar: `nuce-ch2`, `nrc-unit3`, `nrc-bwr`, `iaea-vver`
 - pwr bwr vver iki devre neden ayrı karşılaştır
 - pwr bwr vver kaç devre var karşılaştır
 - pwr bwr vver reaktör suyu türbin suyu aynı mı karşılaştır
+
+</details>
+
+### PWR ve BWR ve VVER ve RBMK ve CANDU: Reaktör suyu ile türbin suyu aynı akışkan mı?
+
+Kimlik: `compare:loops:pwr-bwr-vver-rbmk-candu`
+
+PWR: Hayır. İki ayrı çevrim; aralarında yalnız ısı geçer, akışkan karışmaz. Türbine ikincil buhar gider.
+
+BWR: Evet. Tek (doğrudan) çevrim: reaktör suyunun buharı türbine gider; bu yüzden türbin tarafı da korumalı bölgedir.
+
+VVER: Hayır. İki ayrı çevrim; aralarında yalnız ısı geçer. Türbine ikincil buhar gider.
+
+RBMK: Evet. Tek (doğrudan) çevrim: kanallardan geçen hafif suyun buharı türbine gider; yoğuşan su tambura ve oradan kanallara döner.
+
+CANDU: Hayır. Birincil ağır su ve ikincil hafif su ayrı devrelerdir; aralarında yalnız ısı geçer. Moderatör ağır suyu da üçüncü, ayrı bir sistemdir.
+
+Kaynaklar: `nuce-ch2`, `nrc-unit3`, `nrc-bwr`, `iaea-vver`, `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr bwr vver rbmk candu reaktör suyu türbine gider mi karşılaştır
+- pwr bwr vver rbmk candu birincil ve ikincil su karışır mı karşılaştır
+- pwr bwr vver rbmk candu iki devre neden ayrı karşılaştır
+- pwr bwr vver rbmk candu kaç devre var karşılaştır
+- pwr bwr vver rbmk candu reaktör suyu türbin suyu aynı mı karşılaştır
 
 </details>
 
@@ -3366,6 +6947,40 @@ Kaynaklar: `nuce-ch2`, `nrc-unit3`, `iaea-vver`
 
 </details>
 
+### PWR ve RBMK: Basınçlandırıcı var mı, ne işe yarar?
+
+Kimlik: `compare:pressurizer:pwr-rbmk`
+
+PWR: Var. Birincil devrenin basıncını yüksek tutar (ders notları ~155 bar); ısıtıcılar basıncı artırır, püskürtme düşürür. Su/buhar ara yüzü yalnız burada bulunur.
+
+RBMK: Bu tasarımda bulunmaz. Çizilen RBMK-1000 devresinde su ve buhar ayırıcı tamburlarda birlikte bulunur; INSAG-7’nin devre tanımında basınçlandırıcı yoktur.
+
+Kaynaklar: `nuce-ch2`, `nrc-unit3`, `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr rbmk basınçlandırıcı var mı karşılaştır
+- pwr rbmk basınç nasıl kontrol edilir karşılaştır
+
+</details>
+
+### PWR ve CANDU: Basınçlandırıcı var mı, ne işe yarar?
+
+Kimlik: `compare:pressurizer:pwr-candu`
+
+PWR: Var. Birincil devrenin basıncını yüksek tutar (ders notları ~155 bar); ısıtıcılar basıncı artırır, püskürtme düşürür. Su/buhar ara yüzü yalnız burada bulunur.
+
+CANDU: Var. Birincil ağır suyun kaynamaması için devre yüksek basınçta tutulur; pompalar bu basıncı üretmez. Çizimde bağlantı yeri temsilidir.
+
+Kaynaklar: `nuce-ch2`, `nrc-unit3`, `canteach-hts`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr candu basınçlandırıcı var mı karşılaştır
+- pwr candu basınç nasıl kontrol edilir karşılaştır
+
+</details>
+
 ### BWR ve VVER: Basınçlandırıcı var mı, ne işe yarar?
 
 Kimlik: `compare:pressurizer:bwr-vver`
@@ -3380,6 +6995,93 @@ Kaynaklar: `nuce-ch2`, `nrc-bwr`, `iaea-vver`
 
 - bwr vver basınçlandırıcı var mı karşılaştır
 - bwr vver basınç nasıl kontrol edilir karşılaştır
+
+</details>
+
+### BWR ve RBMK: Basınçlandırıcı var mı, ne işe yarar?
+
+Kimlik: `compare:pressurizer:bwr-rbmk`
+
+BWR: Yok. Su ve buhar zaten reaktör kabında birlikte bulunur (kabın üst bölümü buhardır).
+
+RBMK: Bu tasarımda bulunmaz. Çizilen RBMK-1000 devresinde su ve buhar ayırıcı tamburlarda birlikte bulunur; INSAG-7’nin devre tanımında basınçlandırıcı yoktur.
+
+Kaynaklar: `nuce-ch2`, `nrc-bwr`, `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- bwr rbmk basınçlandırıcı var mı karşılaştır
+- bwr rbmk basınç nasıl kontrol edilir karşılaştır
+
+</details>
+
+### BWR ve CANDU: Basınçlandırıcı var mı, ne işe yarar?
+
+Kimlik: `compare:pressurizer:bwr-candu`
+
+BWR: Yok. Su ve buhar zaten reaktör kabında birlikte bulunur (kabın üst bölümü buhardır).
+
+CANDU: Var. Birincil ağır suyun kaynamaması için devre yüksek basınçta tutulur; pompalar bu basıncı üretmez. Çizimde bağlantı yeri temsilidir.
+
+Kaynaklar: `nuce-ch2`, `nrc-bwr`, `canteach-hts`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- bwr candu basınçlandırıcı var mı karşılaştır
+- bwr candu basınç nasıl kontrol edilir karşılaştır
+
+</details>
+
+### VVER ve RBMK: Basınçlandırıcı var mı, ne işe yarar?
+
+Kimlik: `compare:pressurizer:vver-rbmk`
+
+VVER: Var. PWR ailesinde olduğu gibi dalgalanma hattıyla sıcak kola bağlıdır ve birincil basıncı ayarlar.
+
+RBMK: Bu tasarımda bulunmaz. Çizilen RBMK-1000 devresinde su ve buhar ayırıcı tamburlarda birlikte bulunur; INSAG-7’nin devre tanımında basınçlandırıcı yoktur.
+
+Kaynaklar: `nuce-ch2`, `iaea-vver`, `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- vver rbmk basınçlandırıcı var mı karşılaştır
+- vver rbmk basınç nasıl kontrol edilir karşılaştır
+
+</details>
+
+### VVER ve CANDU: Basınçlandırıcı var mı, ne işe yarar?
+
+Kimlik: `compare:pressurizer:vver-candu`
+
+VVER: Var. PWR ailesinde olduğu gibi dalgalanma hattıyla sıcak kola bağlıdır ve birincil basıncı ayarlar.
+
+CANDU: Var. Birincil ağır suyun kaynamaması için devre yüksek basınçta tutulur; pompalar bu basıncı üretmez. Çizimde bağlantı yeri temsilidir.
+
+Kaynaklar: `nuce-ch2`, `iaea-vver`, `canteach-hts`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- vver candu basınçlandırıcı var mı karşılaştır
+- vver candu basınç nasıl kontrol edilir karşılaştır
+
+</details>
+
+### RBMK ve CANDU: Basınçlandırıcı var mı, ne işe yarar?
+
+Kimlik: `compare:pressurizer:rbmk-candu`
+
+RBMK: Bu tasarımda bulunmaz. Çizilen RBMK-1000 devresinde su ve buhar ayırıcı tamburlarda birlikte bulunur; INSAG-7’nin devre tanımında basınçlandırıcı yoktur.
+
+CANDU: Var. Birincil ağır suyun kaynamaması için devre yüksek basınçta tutulur; pompalar bu basıncı üretmez. Çizimde bağlantı yeri temsilidir.
+
+Çizilen temsili tasarımlar karşılaştırılıyor; bu ayrıntılar bütün tesislere genellenemez.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`, `canteach-hts`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- rbmk candu basınçlandırıcı var mı karşılaştır
+- rbmk candu basınç nasıl kontrol edilir karşılaştır
 
 </details>
 
@@ -3399,6 +7101,29 @@ Kaynaklar: `nuce-ch2`, `nrc-unit3`, `nrc-bwr`, `iaea-vver`
 
 - pwr bwr vver basınçlandırıcı var mı karşılaştır
 - pwr bwr vver basınç nasıl kontrol edilir karşılaştır
+
+</details>
+
+### PWR ve BWR ve VVER ve RBMK ve CANDU: Basınçlandırıcı var mı, ne işe yarar?
+
+Kimlik: `compare:pressurizer:pwr-bwr-vver-rbmk-candu`
+
+PWR: Var. Birincil devrenin basıncını yüksek tutar (ders notları ~155 bar); ısıtıcılar basıncı artırır, püskürtme düşürür. Su/buhar ara yüzü yalnız burada bulunur.
+
+BWR: Yok. Su ve buhar zaten reaktör kabında birlikte bulunur (kabın üst bölümü buhardır).
+
+VVER: Var. PWR ailesinde olduğu gibi dalgalanma hattıyla sıcak kola bağlıdır ve birincil basıncı ayarlar.
+
+RBMK: Bu tasarımda bulunmaz. Çizilen RBMK-1000 devresinde su ve buhar ayırıcı tamburlarda birlikte bulunur; INSAG-7’nin devre tanımında basınçlandırıcı yoktur.
+
+CANDU: Var. Birincil ağır suyun kaynamaması için devre yüksek basınçta tutulur; pompalar bu basıncı üretmez. Çizimde bağlantı yeri temsilidir.
+
+Kaynaklar: `nuce-ch2`, `nrc-unit3`, `nrc-bwr`, `iaea-vver`, `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`, `canteach-hts`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr bwr vver rbmk candu basınçlandırıcı var mı karşılaştır
+- pwr bwr vver rbmk candu basınç nasıl kontrol edilir karşılaştır
 
 </details>
 
@@ -3438,6 +7163,42 @@ Kaynaklar: `nuce-ch2`, `nrc-unit3`, `iaea-vver`
 
 </details>
 
+### PWR ve RBMK: Buhar üreteci nasıl yerleşmiştir?
+
+Kimlik: `compare:sg-layout:pwr-rbmk`
+
+PWR: Çizilen tasarımda dikey, U borulu buhar üreteci: yüksek ve dar; ayırıcı ve kurutucular üst bölümde.
+
+RBMK: Bu tasarımda bulunmaz. Ayırıcı tambur buhar üreteci değildir: ısı aktarmaz, kanallarda oluşmuş buhar–su karışımını ayırır.
+
+Çizilen temsili tasarımlar karşılaştırılıyor; bu ayrıntılar bütün tesislere genellenemez.
+
+Kaynaklar: `nuce-ch2`, `nrc-unit3`, `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr rbmk buhar üreteci yatay mı dikey mi karşılaştır
+
+</details>
+
+### PWR ve CANDU: Buhar üreteci nasıl yerleşmiştir?
+
+Kimlik: `compare:sg-layout:pwr-candu`
+
+PWR: Çizilen tasarımda dikey, U borulu buhar üreteci: yüksek ve dar; ayırıcı ve kurutucular üst bölümde.
+
+CANDU: CANDU 6: dikey U borulu, tümleşik buhar tamburlu ve ön ısıtıcılı; her halkada iki adet, kolektörlerin üstünde.
+
+Çizilen temsili tasarımlar karşılaştırılıyor; bu ayrıntılar bütün tesislere genellenemez.
+
+Kaynaklar: `nuce-ch2`, `nrc-unit3`, `canteach-c6`, `canteach-hts`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr candu buhar üreteci yatay mı dikey mi karşılaştır
+
+</details>
+
 ### BWR ve VVER: Buhar üreteci nasıl yerleşmiştir?
 
 Kimlik: `compare:sg-layout:bwr-vver`
@@ -3451,6 +7212,86 @@ Kaynaklar: `nuce-ch2`, `nrc-bwr`, `iaea-vver`
 <details><summary>Alternatif soru ifadeleri</summary>
 
 - bwr vver buhar üreteci yatay mı dikey mi karşılaştır
+
+</details>
+
+### BWR ve RBMK: Buhar üreteci nasıl yerleşmiştir?
+
+Kimlik: `compare:sg-layout:bwr-rbmk`
+
+BWR: Ayrı buhar üreteci yok. Ayırıcılar ve kurutucular reaktör kabının içindedir.
+
+RBMK: Bu tasarımda bulunmaz. Ayırıcı tambur buhar üreteci değildir: ısı aktarmaz, kanallarda oluşmuş buhar–su karışımını ayırır.
+
+Kaynaklar: `nuce-ch2`, `nrc-bwr`, `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- bwr rbmk buhar üreteci yatay mı dikey mi karşılaştır
+
+</details>
+
+### BWR ve CANDU: Buhar üreteci nasıl yerleşmiştir?
+
+Kimlik: `compare:sg-layout:bwr-candu`
+
+BWR: Ayrı buhar üreteci yok. Ayırıcılar ve kurutucular reaktör kabının içindedir.
+
+CANDU: CANDU 6: dikey U borulu, tümleşik buhar tamburlu ve ön ısıtıcılı; her halkada iki adet, kolektörlerin üstünde.
+
+Kaynaklar: `nuce-ch2`, `nrc-bwr`, `canteach-c6`, `canteach-hts`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- bwr candu buhar üreteci yatay mı dikey mi karşılaştır
+
+</details>
+
+### VVER ve RBMK: Buhar üreteci nasıl yerleşmiştir?
+
+Kimlik: `compare:sg-layout:vver-rbmk`
+
+VVER: Uzun yatay buhar üreteci: birincil su sıcak kolektörden yatay U borularına dağılır, soğuk kolektörde toplanır.
+
+RBMK: Bu tasarımda bulunmaz. Ayırıcı tambur buhar üreteci değildir: ısı aktarmaz, kanallarda oluşmuş buhar–su karışımını ayırır.
+
+Kaynaklar: `nuce-ch2`, `iaea-vver`, `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- vver rbmk buhar üreteci yatay mı dikey mi karşılaştır
+
+</details>
+
+### VVER ve CANDU: Buhar üreteci nasıl yerleşmiştir?
+
+Kimlik: `compare:sg-layout:vver-candu`
+
+VVER: Uzun yatay buhar üreteci: birincil su sıcak kolektörden yatay U borularına dağılır, soğuk kolektörde toplanır.
+
+CANDU: CANDU 6: dikey U borulu, tümleşik buhar tamburlu ve ön ısıtıcılı; her halkada iki adet, kolektörlerin üstünde.
+
+Kaynaklar: `nuce-ch2`, `iaea-vver`, `canteach-c6`, `canteach-hts`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- vver candu buhar üreteci yatay mı dikey mi karşılaştır
+
+</details>
+
+### RBMK ve CANDU: Buhar üreteci nasıl yerleşmiştir?
+
+Kimlik: `compare:sg-layout:rbmk-candu`
+
+RBMK: Bu tasarımda bulunmaz. Ayırıcı tambur buhar üreteci değildir: ısı aktarmaz, kanallarda oluşmuş buhar–su karışımını ayırır.
+
+CANDU: CANDU 6: dikey U borulu, tümleşik buhar tamburlu ve ön ısıtıcılı; her halkada iki adet, kolektörlerin üstünde.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`, `canteach-c6`, `canteach-hts`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- rbmk candu buhar üreteci yatay mı dikey mi karşılaştır
 
 </details>
 
@@ -3471,6 +7312,30 @@ Kaynaklar: `nuce-ch2`, `nrc-unit3`, `nrc-bwr`, `iaea-vver`
 <details><summary>Alternatif soru ifadeleri</summary>
 
 - pwr bwr vver buhar üreteci yatay mı dikey mi karşılaştır
+
+</details>
+
+### PWR ve BWR ve VVER ve RBMK ve CANDU: Buhar üreteci nasıl yerleşmiştir?
+
+Kimlik: `compare:sg-layout:pwr-bwr-vver-rbmk-candu`
+
+PWR: Çizilen tasarımda dikey, U borulu buhar üreteci: yüksek ve dar; ayırıcı ve kurutucular üst bölümde.
+
+BWR: Ayrı buhar üreteci yok. Ayırıcılar ve kurutucular reaktör kabının içindedir.
+
+VVER: Uzun yatay buhar üreteci: birincil su sıcak kolektörden yatay U borularına dağılır, soğuk kolektörde toplanır.
+
+RBMK: Bu tasarımda bulunmaz. Ayırıcı tambur buhar üreteci değildir: ısı aktarmaz, kanallarda oluşmuş buhar–su karışımını ayırır.
+
+CANDU: CANDU 6: dikey U borulu, tümleşik buhar tamburlu ve ön ısıtıcılı; her halkada iki adet, kolektörlerin üstünde.
+
+Çizilen temsili tasarımlar karşılaştırılıyor; bu ayrıntılar bütün tesislere genellenemez.
+
+Kaynaklar: `nuce-ch2`, `nrc-unit3`, `nrc-bwr`, `iaea-vver`, `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`, `canteach-c6`, `canteach-hts`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr bwr vver rbmk candu buhar üreteci yatay mı dikey mi karşılaştır
 
 </details>
 
@@ -3512,6 +7377,44 @@ Kaynaklar: `nuce-ch2`, `nrc-unit3`, `iaea-vver`
 
 </details>
 
+### PWR ve RBMK: Çizilen tasarımda kontrol çubukları nereden girer?
+
+Kimlik: `compare:rods:pwr-rbmk`
+
+PWR: Çizilen tasarımda kabın üst kapağındaki sürücülerden, üstten giren çubuk kümeleri.
+
+RBMK: Yakıt kanallarından ayrı kontrol/koruma kanallarında. INSAG-7 (1986 durumu): çoğu üstten, güç dağılımı için 24 kısaltılmış çubuk alttan; çubuk tasarımı kazadan sonra değiştirildi. Çizimde üstten giren temsili çubuklar var.
+
+Çizilen temsili tasarımlar karşılaştırılıyor; bu ayrıntılar bütün tesislere genellenemez.
+
+Kaynaklar: `nuce-ch2`, `nrc-unit3`, `iaea-insag7`, `nea-chernobyl`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr rbmk kontrol çubukları nereden girer karşılaştır
+- pwr rbmk kontrol çubukları alttan mı üstten mi karşılaştır
+
+</details>
+
+### PWR ve CANDU: Çizilen tasarımda kontrol çubukları nereden girer?
+
+Kimlik: `compare:rods:pwr-candu`
+
+PWR: Çizilen tasarımda kabın üst kapağındaki sürücülerden, üstten giren çubuk kümeleri.
+
+CANDU: Calandria’da kanalların arasından, düşük basınçlı moderatörün içinden geçen yatay ve dikey düzenekler (CANDU 6). Çizimde iki dikey düzenek temsili.
+
+Çizilen temsili tasarımlar karşılaştırılıyor; bu ayrıntılar bütün tesislere genellenemez.
+
+Kaynaklar: `nuce-ch2`, `nrc-unit3`, `canteach-c6`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr candu kontrol çubukları nereden girer karşılaştır
+- pwr candu kontrol çubukları alttan mı üstten mi karşılaştır
+
+</details>
+
 ### BWR ve VVER: Çizilen tasarımda kontrol çubukları nereden girer?
 
 Kimlik: `compare:rods:bwr-vver`
@@ -3528,6 +7431,101 @@ Kaynaklar: `nuce-ch2`, `nrc-bwr`, `iaea-vver`
 
 - bwr vver kontrol çubukları nereden girer karşılaştır
 - bwr vver kontrol çubukları alttan mı üstten mi karşılaştır
+
+</details>
+
+### BWR ve RBMK: Çizilen tasarımda kontrol çubukları nereden girer?
+
+Kimlik: `compare:rods:bwr-rbmk`
+
+BWR: Çizilen (geleneksel) tasarımda kabın altından giren haç kesitli çubuklar; ders notlarına göre alttan giren tek LWR tipi.
+
+RBMK: Yakıt kanallarından ayrı kontrol/koruma kanallarında. INSAG-7 (1986 durumu): çoğu üstten, güç dağılımı için 24 kısaltılmış çubuk alttan; çubuk tasarımı kazadan sonra değiştirildi. Çizimde üstten giren temsili çubuklar var.
+
+Çizilen temsili tasarımlar karşılaştırılıyor; bu ayrıntılar bütün tesislere genellenemez.
+
+Kaynaklar: `nuce-ch2`, `nrc-bwr`, `iaea-insag7`, `nea-chernobyl`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- bwr rbmk kontrol çubukları nereden girer karşılaştır
+- bwr rbmk kontrol çubukları alttan mı üstten mi karşılaştır
+
+</details>
+
+### BWR ve CANDU: Çizilen tasarımda kontrol çubukları nereden girer?
+
+Kimlik: `compare:rods:bwr-candu`
+
+BWR: Çizilen (geleneksel) tasarımda kabın altından giren haç kesitli çubuklar; ders notlarına göre alttan giren tek LWR tipi.
+
+CANDU: Calandria’da kanalların arasından, düşük basınçlı moderatörün içinden geçen yatay ve dikey düzenekler (CANDU 6). Çizimde iki dikey düzenek temsili.
+
+Çizilen temsili tasarımlar karşılaştırılıyor; bu ayrıntılar bütün tesislere genellenemez.
+
+Kaynaklar: `nuce-ch2`, `nrc-bwr`, `canteach-c6`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- bwr candu kontrol çubukları nereden girer karşılaştır
+- bwr candu kontrol çubukları alttan mı üstten mi karşılaştır
+
+</details>
+
+### VVER ve RBMK: Çizilen tasarımda kontrol çubukları nereden girer?
+
+Kimlik: `compare:rods:vver-rbmk`
+
+VVER: Çizilen tasarımda yüksek üst bloktaki sürücülerden, üstten giren çubuk kümeleri.
+
+RBMK: Yakıt kanallarından ayrı kontrol/koruma kanallarında. INSAG-7 (1986 durumu): çoğu üstten, güç dağılımı için 24 kısaltılmış çubuk alttan; çubuk tasarımı kazadan sonra değiştirildi. Çizimde üstten giren temsili çubuklar var.
+
+Çizilen temsili tasarımlar karşılaştırılıyor; bu ayrıntılar bütün tesislere genellenemez.
+
+Kaynaklar: `nuce-ch2`, `iaea-vver`, `iaea-insag7`, `nea-chernobyl`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- vver rbmk kontrol çubukları nereden girer karşılaştır
+- vver rbmk kontrol çubukları alttan mı üstten mi karşılaştır
+
+</details>
+
+### VVER ve CANDU: Çizilen tasarımda kontrol çubukları nereden girer?
+
+Kimlik: `compare:rods:vver-candu`
+
+VVER: Çizilen tasarımda yüksek üst bloktaki sürücülerden, üstten giren çubuk kümeleri.
+
+CANDU: Calandria’da kanalların arasından, düşük basınçlı moderatörün içinden geçen yatay ve dikey düzenekler (CANDU 6). Çizimde iki dikey düzenek temsili.
+
+Çizilen temsili tasarımlar karşılaştırılıyor; bu ayrıntılar bütün tesislere genellenemez.
+
+Kaynaklar: `nuce-ch2`, `iaea-vver`, `canteach-c6`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- vver candu kontrol çubukları nereden girer karşılaştır
+- vver candu kontrol çubukları alttan mı üstten mi karşılaştır
+
+</details>
+
+### RBMK ve CANDU: Çizilen tasarımda kontrol çubukları nereden girer?
+
+Kimlik: `compare:rods:rbmk-candu`
+
+RBMK: Yakıt kanallarından ayrı kontrol/koruma kanallarında. INSAG-7 (1986 durumu): çoğu üstten, güç dağılımı için 24 kısaltılmış çubuk alttan; çubuk tasarımı kazadan sonra değiştirildi. Çizimde üstten giren temsili çubuklar var.
+
+CANDU: Calandria’da kanalların arasından, düşük basınçlı moderatörün içinden geçen yatay ve dikey düzenekler (CANDU 6). Çizimde iki dikey düzenek temsili.
+
+Çizilen temsili tasarımlar karşılaştırılıyor; bu ayrıntılar bütün tesislere genellenemez.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `canteach-c6`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- rbmk candu kontrol çubukları nereden girer karşılaştır
+- rbmk candu kontrol çubukları alttan mı üstten mi karşılaştır
 
 </details>
 
@@ -3549,6 +7547,1375 @@ Kaynaklar: `nuce-ch2`, `nrc-unit3`, `nrc-bwr`, `iaea-vver`
 
 - pwr bwr vver kontrol çubukları nereden girer karşılaştır
 - pwr bwr vver kontrol çubukları alttan mı üstten mi karşılaştır
+
+</details>
+
+### PWR ve BWR ve VVER ve RBMK ve CANDU: Çizilen tasarımda kontrol çubukları nereden girer?
+
+Kimlik: `compare:rods:pwr-bwr-vver-rbmk-candu`
+
+PWR: Çizilen tasarımda kabın üst kapağındaki sürücülerden, üstten giren çubuk kümeleri.
+
+BWR: Çizilen (geleneksel) tasarımda kabın altından giren haç kesitli çubuklar; ders notlarına göre alttan giren tek LWR tipi.
+
+VVER: Çizilen tasarımda yüksek üst bloktaki sürücülerden, üstten giren çubuk kümeleri.
+
+RBMK: Yakıt kanallarından ayrı kontrol/koruma kanallarında. INSAG-7 (1986 durumu): çoğu üstten, güç dağılımı için 24 kısaltılmış çubuk alttan; çubuk tasarımı kazadan sonra değiştirildi. Çizimde üstten giren temsili çubuklar var.
+
+CANDU: Calandria’da kanalların arasından, düşük basınçlı moderatörün içinden geçen yatay ve dikey düzenekler (CANDU 6). Çizimde iki dikey düzenek temsili.
+
+Çizilen temsili tasarımlar karşılaştırılıyor; bu ayrıntılar bütün tesislere genellenemez.
+
+Kaynaklar: `nuce-ch2`, `nrc-unit3`, `nrc-bwr`, `iaea-vver`, `iaea-insag7`, `nea-chernobyl`, `canteach-c6`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr bwr vver rbmk candu kontrol çubukları nereden girer karşılaştır
+- pwr bwr vver rbmk candu kontrol çubukları alttan mı üstten mi karşılaştır
+
+</details>
+
+### PWR ve BWR: Nötronları ne yavaşlatır?
+
+Kimlik: `compare:moderator:pwr-bwr`
+
+PWR: Hafif su: soğutucu aynı zamanda moderatördür.
+
+BWR: Hafif su: kaynayan reaktör suyu hem soğutur hem nötronları yavaşlatır.
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `nrc-unit3`, `nrc-bwr`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr bwr moderatör nedir karşılaştır
+- pwr bwr nötronları ne yavaşlatır karşılaştır
+- pwr bwr moderatör ne karşılaştır
+
+</details>
+
+### PWR ve VVER: Nötronları ne yavaşlatır?
+
+Kimlik: `compare:moderator:pwr-vver`
+
+PWR: Hafif su: soğutucu aynı zamanda moderatördür.
+
+VVER: Hafif su (PWR ailesi): su hem soğutucu hem moderatördür.
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `nrc-unit3`, `iaea-vver`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr vver moderatör nedir karşılaştır
+- pwr vver nötronları ne yavaşlatır karşılaştır
+- pwr vver moderatör ne karşılaştır
+
+</details>
+
+### PWR ve RBMK: Nötronları ne yavaşlatır?
+
+Kimlik: `compare:moderator:pwr-rbmk`
+
+PWR: Hafif su: soğutucu aynı zamanda moderatördür.
+
+RBMK: Grafit: büyük, katı bir blok yığını. Soğutucu değildir; ısıyı kanallardaki hafif su taşır.
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `nrc-unit3`, `iaea-insag7`, `nea-chernobyl`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr rbmk moderatör nedir karşılaştır
+- pwr rbmk nötronları ne yavaşlatır karşılaştır
+- pwr rbmk moderatör ne karşılaştır
+
+</details>
+
+### PWR ve CANDU: Nötronları ne yavaşlatır?
+
+Kimlik: `compare:moderator:pwr-candu`
+
+PWR: Hafif su: soğutucu aynı zamanda moderatördür.
+
+CANDU: Ağır su: calandria’da, birincil soğutucudan ayrı, düşük basınçlı ve daha soğuk bir sistem.
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `nrc-unit3`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr candu moderatör nedir karşılaştır
+- pwr candu nötronları ne yavaşlatır karşılaştır
+- pwr candu moderatör ne karşılaştır
+
+</details>
+
+### BWR ve VVER: Nötronları ne yavaşlatır?
+
+Kimlik: `compare:moderator:bwr-vver`
+
+BWR: Hafif su: kaynayan reaktör suyu hem soğutur hem nötronları yavaşlatır.
+
+VVER: Hafif su (PWR ailesi): su hem soğutucu hem moderatördür.
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `nrc-bwr`, `iaea-vver`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- bwr vver moderatör nedir karşılaştır
+- bwr vver nötronları ne yavaşlatır karşılaştır
+- bwr vver moderatör ne karşılaştır
+
+</details>
+
+### BWR ve RBMK: Nötronları ne yavaşlatır?
+
+Kimlik: `compare:moderator:bwr-rbmk`
+
+BWR: Hafif su: kaynayan reaktör suyu hem soğutur hem nötronları yavaşlatır.
+
+RBMK: Grafit: büyük, katı bir blok yığını. Soğutucu değildir; ısıyı kanallardaki hafif su taşır.
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `nrc-bwr`, `iaea-insag7`, `nea-chernobyl`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- bwr rbmk moderatör nedir karşılaştır
+- bwr rbmk nötronları ne yavaşlatır karşılaştır
+- bwr rbmk moderatör ne karşılaştır
+
+</details>
+
+### BWR ve CANDU: Nötronları ne yavaşlatır?
+
+Kimlik: `compare:moderator:bwr-candu`
+
+BWR: Hafif su: kaynayan reaktör suyu hem soğutur hem nötronları yavaşlatır.
+
+CANDU: Ağır su: calandria’da, birincil soğutucudan ayrı, düşük basınçlı ve daha soğuk bir sistem.
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `nrc-bwr`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- bwr candu moderatör nedir karşılaştır
+- bwr candu nötronları ne yavaşlatır karşılaştır
+- bwr candu moderatör ne karşılaştır
+
+</details>
+
+### VVER ve RBMK: Nötronları ne yavaşlatır?
+
+Kimlik: `compare:moderator:vver-rbmk`
+
+VVER: Hafif su (PWR ailesi): su hem soğutucu hem moderatördür.
+
+RBMK: Grafit: büyük, katı bir blok yığını. Soğutucu değildir; ısıyı kanallardaki hafif su taşır.
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `iaea-vver`, `iaea-insag7`, `nea-chernobyl`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- vver rbmk moderatör nedir karşılaştır
+- vver rbmk nötronları ne yavaşlatır karşılaştır
+- vver rbmk moderatör ne karşılaştır
+
+</details>
+
+### VVER ve CANDU: Nötronları ne yavaşlatır?
+
+Kimlik: `compare:moderator:vver-candu`
+
+VVER: Hafif su (PWR ailesi): su hem soğutucu hem moderatördür.
+
+CANDU: Ağır su: calandria’da, birincil soğutucudan ayrı, düşük basınçlı ve daha soğuk bir sistem.
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `iaea-vver`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- vver candu moderatör nedir karşılaştır
+- vver candu nötronları ne yavaşlatır karşılaştır
+- vver candu moderatör ne karşılaştır
+
+</details>
+
+### RBMK ve CANDU: Nötronları ne yavaşlatır?
+
+Kimlik: `compare:moderator:rbmk-candu`
+
+RBMK: Grafit: büyük, katı bir blok yığını. Soğutucu değildir; ısıyı kanallardaki hafif su taşır.
+
+CANDU: Ağır su: calandria’da, birincil soğutucudan ayrı, düşük basınçlı ve daha soğuk bir sistem.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- rbmk candu moderatör nedir karşılaştır
+- rbmk candu nötronları ne yavaşlatır karşılaştır
+- rbmk candu moderatör ne karşılaştır
+
+</details>
+
+### PWR ve BWR ve VVER: Nötronları ne yavaşlatır?
+
+Kimlik: `compare:moderator:pwr-bwr-vver`
+
+PWR: Hafif su: soğutucu aynı zamanda moderatördür.
+
+BWR: Hafif su: kaynayan reaktör suyu hem soğutur hem nötronları yavaşlatır.
+
+VVER: Hafif su (PWR ailesi): su hem soğutucu hem moderatördür.
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `nrc-unit3`, `nrc-bwr`, `iaea-vver`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr bwr vver moderatör nedir karşılaştır
+- pwr bwr vver nötronları ne yavaşlatır karşılaştır
+- pwr bwr vver moderatör ne karşılaştır
+
+</details>
+
+### PWR ve BWR ve VVER ve RBMK ve CANDU: Nötronları ne yavaşlatır?
+
+Kimlik: `compare:moderator:pwr-bwr-vver-rbmk-candu`
+
+PWR: Hafif su: soğutucu aynı zamanda moderatördür.
+
+BWR: Hafif su: kaynayan reaktör suyu hem soğutur hem nötronları yavaşlatır.
+
+VVER: Hafif su (PWR ailesi): su hem soğutucu hem moderatördür.
+
+RBMK: Grafit: büyük, katı bir blok yığını. Soğutucu değildir; ısıyı kanallardaki hafif su taşır.
+
+CANDU: Ağır su: calandria’da, birincil soğutucudan ayrı, düşük basınçlı ve daha soğuk bir sistem.
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `nrc-unit3`, `nrc-bwr`, `iaea-vver`, `iaea-insag7`, `nea-chernobyl`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr bwr vver rbmk candu moderatör nedir karşılaştır
+- pwr bwr vver rbmk candu nötronları ne yavaşlatır karşılaştır
+- pwr bwr vver rbmk candu moderatör ne karşılaştır
+
+</details>
+
+### PWR ve BWR: Isıyı yakıttan ne taşır?
+
+Kimlik: `compare:coolant:pwr-bwr`
+
+PWR: Basınç altında sıvı kalan hafif su.
+
+BWR: Hafif su; çekirdekte kaynar.
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `nrc-unit3`, `nrc-bwr`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr bwr soğutucu nedir karşılaştır
+- pwr bwr soğutucu ne karşılaştır
+- pwr bwr ısıyı ne taşır karşılaştır
+
+</details>
+
+### PWR ve VVER: Isıyı yakıttan ne taşır?
+
+Kimlik: `compare:coolant:pwr-vver`
+
+PWR: Basınç altında sıvı kalan hafif su.
+
+VVER: Basınç altında sıvı kalan hafif su.
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `nrc-unit3`, `iaea-vver`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr vver soğutucu nedir karşılaştır
+- pwr vver soğutucu ne karşılaştır
+- pwr vver ısıyı ne taşır karşılaştır
+
+</details>
+
+### PWR ve RBMK: Isıyı yakıttan ne taşır?
+
+Kimlik: `compare:coolant:pwr-rbmk`
+
+PWR: Basınç altında sıvı kalan hafif su.
+
+RBMK: Hafif su; kanallarda kaynar. Grafit soğutucu değildir.
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `nrc-unit3`, `iaea-insag7`, `nea-chernobyl`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr rbmk soğutucu nedir karşılaştır
+- pwr rbmk soğutucu ne karşılaştır
+- pwr rbmk ısıyı ne taşır karşılaştır
+
+</details>
+
+### PWR ve CANDU: Isıyı yakıttan ne taşır?
+
+Kimlik: `compare:coolant:pwr-candu`
+
+PWR: Basınç altında sıvı kalan hafif su.
+
+CANDU: Basınçlı ağır su; basınç tüplerinde yakıtın üzerinden akar. CANDU 6’da sınırlı kaynama olabilir; şemada iki fazlı davranış modellenmez. Moderatörle aynı madde olsa da ayrı sistemdir.
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `nrc-unit3`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr candu soğutucu nedir karşılaştır
+- pwr candu soğutucu ne karşılaştır
+- pwr candu ısıyı ne taşır karşılaştır
+
+</details>
+
+### BWR ve VVER: Isıyı yakıttan ne taşır?
+
+Kimlik: `compare:coolant:bwr-vver`
+
+BWR: Hafif su; çekirdekte kaynar.
+
+VVER: Basınç altında sıvı kalan hafif su.
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `nrc-bwr`, `iaea-vver`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- bwr vver soğutucu nedir karşılaştır
+- bwr vver soğutucu ne karşılaştır
+- bwr vver ısıyı ne taşır karşılaştır
+
+</details>
+
+### BWR ve RBMK: Isıyı yakıttan ne taşır?
+
+Kimlik: `compare:coolant:bwr-rbmk`
+
+BWR: Hafif su; çekirdekte kaynar.
+
+RBMK: Hafif su; kanallarda kaynar. Grafit soğutucu değildir.
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `nrc-bwr`, `iaea-insag7`, `nea-chernobyl`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- bwr rbmk soğutucu nedir karşılaştır
+- bwr rbmk soğutucu ne karşılaştır
+- bwr rbmk ısıyı ne taşır karşılaştır
+
+</details>
+
+### BWR ve CANDU: Isıyı yakıttan ne taşır?
+
+Kimlik: `compare:coolant:bwr-candu`
+
+BWR: Hafif su; çekirdekte kaynar.
+
+CANDU: Basınçlı ağır su; basınç tüplerinde yakıtın üzerinden akar. CANDU 6’da sınırlı kaynama olabilir; şemada iki fazlı davranış modellenmez. Moderatörle aynı madde olsa da ayrı sistemdir.
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `nrc-bwr`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- bwr candu soğutucu nedir karşılaştır
+- bwr candu soğutucu ne karşılaştır
+- bwr candu ısıyı ne taşır karşılaştır
+
+</details>
+
+### VVER ve RBMK: Isıyı yakıttan ne taşır?
+
+Kimlik: `compare:coolant:vver-rbmk`
+
+VVER: Basınç altında sıvı kalan hafif su.
+
+RBMK: Hafif su; kanallarda kaynar. Grafit soğutucu değildir.
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `iaea-vver`, `iaea-insag7`, `nea-chernobyl`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- vver rbmk soğutucu nedir karşılaştır
+- vver rbmk soğutucu ne karşılaştır
+- vver rbmk ısıyı ne taşır karşılaştır
+
+</details>
+
+### VVER ve CANDU: Isıyı yakıttan ne taşır?
+
+Kimlik: `compare:coolant:vver-candu`
+
+VVER: Basınç altında sıvı kalan hafif su.
+
+CANDU: Basınçlı ağır su; basınç tüplerinde yakıtın üzerinden akar. CANDU 6’da sınırlı kaynama olabilir; şemada iki fazlı davranış modellenmez. Moderatörle aynı madde olsa da ayrı sistemdir.
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `iaea-vver`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- vver candu soğutucu nedir karşılaştır
+- vver candu soğutucu ne karşılaştır
+- vver candu ısıyı ne taşır karşılaştır
+
+</details>
+
+### RBMK ve CANDU: Isıyı yakıttan ne taşır?
+
+Kimlik: `compare:coolant:rbmk-candu`
+
+RBMK: Hafif su; kanallarda kaynar. Grafit soğutucu değildir.
+
+CANDU: Basınçlı ağır su; basınç tüplerinde yakıtın üzerinden akar. CANDU 6’da sınırlı kaynama olabilir; şemada iki fazlı davranış modellenmez. Moderatörle aynı madde olsa da ayrı sistemdir.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- rbmk candu soğutucu nedir karşılaştır
+- rbmk candu soğutucu ne karşılaştır
+- rbmk candu ısıyı ne taşır karşılaştır
+
+</details>
+
+### PWR ve BWR ve VVER: Isıyı yakıttan ne taşır?
+
+Kimlik: `compare:coolant:pwr-bwr-vver`
+
+PWR: Basınç altında sıvı kalan hafif su.
+
+BWR: Hafif su; çekirdekte kaynar.
+
+VVER: Basınç altında sıvı kalan hafif su.
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `nrc-unit3`, `nrc-bwr`, `iaea-vver`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr bwr vver soğutucu nedir karşılaştır
+- pwr bwr vver soğutucu ne karşılaştır
+- pwr bwr vver ısıyı ne taşır karşılaştır
+
+</details>
+
+### PWR ve BWR ve VVER ve RBMK ve CANDU: Isıyı yakıttan ne taşır?
+
+Kimlik: `compare:coolant:pwr-bwr-vver-rbmk-candu`
+
+PWR: Basınç altında sıvı kalan hafif su.
+
+BWR: Hafif su; çekirdekte kaynar.
+
+VVER: Basınç altında sıvı kalan hafif su.
+
+RBMK: Hafif su; kanallarda kaynar. Grafit soğutucu değildir.
+
+CANDU: Basınçlı ağır su; basınç tüplerinde yakıtın üzerinden akar. CANDU 6’da sınırlı kaynama olabilir; şemada iki fazlı davranış modellenmez. Moderatörle aynı madde olsa da ayrı sistemdir.
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `nrc-unit3`, `nrc-bwr`, `iaea-vver`, `iaea-insag7`, `nea-chernobyl`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr bwr vver rbmk candu soğutucu nedir karşılaştır
+- pwr bwr vver rbmk candu soğutucu ne karşılaştır
+- pwr bwr vver rbmk candu ısıyı ne taşır karşılaştır
+
+</details>
+
+### PWR ve BWR: Yüksek basınçlı soğutucuyu ne tutar?
+
+Kimlik: `compare:boundary:pwr-bwr`
+
+PWR: Büyük, kalın duvarlı reaktör basınç kabı (ve birincil devre boruları).
+
+BWR: Reaktör basınç kabı; PWR’ye göre daha ince duvarlı ama daha büyük.
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `nrc-unit3`, `nrc-bwr`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr bwr basınç sınırı nedir karşılaştır
+- pwr bwr basınç kabı mı kanal mı karşılaştır
+- pwr bwr yüksek basıncı ne tutar karşılaştır
+
+</details>
+
+### PWR ve VVER: Yüksek basınçlı soğutucuyu ne tutar?
+
+Kimlik: `compare:boundary:pwr-vver`
+
+PWR: Büyük, kalın duvarlı reaktör basınç kabı (ve birincil devre boruları).
+
+VVER: Reaktör basınç kabı (çizilen tasarımda dar ve uzun).
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `nrc-unit3`, `iaea-vver`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr vver basınç sınırı nedir karşılaştır
+- pwr vver basınç kabı mı kanal mı karşılaştır
+- pwr vver yüksek basıncı ne tutar karşılaştır
+
+</details>
+
+### PWR ve RBMK: Yüksek basınçlı soğutucuyu ne tutar?
+
+Kimlik: `compare:boundary:pwr-rbmk`
+
+PWR: Büyük, kalın duvarlı reaktör basınç kabı (ve birincil devre boruları).
+
+RBMK: Çok sayıda ayrı basınç kanalı. Çekirdeği saran tek bir PWR tipi basınç kabı yoktur; grafit, biyolojik zırh ve bina basınç sınırı değildir.
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `nrc-unit3`, `iaea-insag7`, `nea-chernobyl`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr rbmk basınç sınırı nedir karşılaştır
+- pwr rbmk basınç kabı mı kanal mı karşılaştır
+- pwr rbmk yüksek basıncı ne tutar karşılaştır
+
+</details>
+
+### PWR ve CANDU: Yüksek basınçlı soğutucuyu ne tutar?
+
+Kimlik: `compare:boundary:pwr-candu`
+
+PWR: Büyük, kalın duvarlı reaktör basınç kabı (ve birincil devre boruları).
+
+CANDU: Yüzlerce basınç tüpü. Calandria düşük basınçlı bir tanktır, basınç kabı değildir (patlama diskleriyle korunur).
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `nrc-unit3`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr candu basınç sınırı nedir karşılaştır
+- pwr candu basınç kabı mı kanal mı karşılaştır
+- pwr candu yüksek basıncı ne tutar karşılaştır
+
+</details>
+
+### BWR ve VVER: Yüksek basınçlı soğutucuyu ne tutar?
+
+Kimlik: `compare:boundary:bwr-vver`
+
+BWR: Reaktör basınç kabı; PWR’ye göre daha ince duvarlı ama daha büyük.
+
+VVER: Reaktör basınç kabı (çizilen tasarımda dar ve uzun).
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `nrc-bwr`, `iaea-vver`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- bwr vver basınç sınırı nedir karşılaştır
+- bwr vver basınç kabı mı kanal mı karşılaştır
+- bwr vver yüksek basıncı ne tutar karşılaştır
+
+</details>
+
+### BWR ve RBMK: Yüksek basınçlı soğutucuyu ne tutar?
+
+Kimlik: `compare:boundary:bwr-rbmk`
+
+BWR: Reaktör basınç kabı; PWR’ye göre daha ince duvarlı ama daha büyük.
+
+RBMK: Çok sayıda ayrı basınç kanalı. Çekirdeği saran tek bir PWR tipi basınç kabı yoktur; grafit, biyolojik zırh ve bina basınç sınırı değildir.
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `nrc-bwr`, `iaea-insag7`, `nea-chernobyl`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- bwr rbmk basınç sınırı nedir karşılaştır
+- bwr rbmk basınç kabı mı kanal mı karşılaştır
+- bwr rbmk yüksek basıncı ne tutar karşılaştır
+
+</details>
+
+### BWR ve CANDU: Yüksek basınçlı soğutucuyu ne tutar?
+
+Kimlik: `compare:boundary:bwr-candu`
+
+BWR: Reaktör basınç kabı; PWR’ye göre daha ince duvarlı ama daha büyük.
+
+CANDU: Yüzlerce basınç tüpü. Calandria düşük basınçlı bir tanktır, basınç kabı değildir (patlama diskleriyle korunur).
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `nrc-bwr`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- bwr candu basınç sınırı nedir karşılaştır
+- bwr candu basınç kabı mı kanal mı karşılaştır
+- bwr candu yüksek basıncı ne tutar karşılaştır
+
+</details>
+
+### VVER ve RBMK: Yüksek basınçlı soğutucuyu ne tutar?
+
+Kimlik: `compare:boundary:vver-rbmk`
+
+VVER: Reaktör basınç kabı (çizilen tasarımda dar ve uzun).
+
+RBMK: Çok sayıda ayrı basınç kanalı. Çekirdeği saran tek bir PWR tipi basınç kabı yoktur; grafit, biyolojik zırh ve bina basınç sınırı değildir.
+
+Kaynaklar: `nuce-ch2`, `iaea-vver`, `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- vver rbmk basınç sınırı nedir karşılaştır
+- vver rbmk basınç kabı mı kanal mı karşılaştır
+- vver rbmk yüksek basıncı ne tutar karşılaştır
+
+</details>
+
+### VVER ve CANDU: Yüksek basınçlı soğutucuyu ne tutar?
+
+Kimlik: `compare:boundary:vver-candu`
+
+VVER: Reaktör basınç kabı (çizilen tasarımda dar ve uzun).
+
+CANDU: Yüzlerce basınç tüpü. Calandria düşük basınçlı bir tanktır, basınç kabı değildir (patlama diskleriyle korunur).
+
+Kaynaklar: `nuce-ch2`, `iaea-vver`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- vver candu basınç sınırı nedir karşılaştır
+- vver candu basınç kabı mı kanal mı karşılaştır
+- vver candu yüksek basıncı ne tutar karşılaştır
+
+</details>
+
+### RBMK ve CANDU: Yüksek basınçlı soğutucuyu ne tutar?
+
+Kimlik: `compare:boundary:rbmk-candu`
+
+RBMK: Çok sayıda ayrı basınç kanalı. Çekirdeği saran tek bir PWR tipi basınç kabı yoktur; grafit, biyolojik zırh ve bina basınç sınırı değildir.
+
+CANDU: Yüzlerce basınç tüpü. Calandria düşük basınçlı bir tanktır, basınç kabı değildir (patlama diskleriyle korunur).
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- rbmk candu basınç sınırı nedir karşılaştır
+- rbmk candu basınç kabı mı kanal mı karşılaştır
+- rbmk candu yüksek basıncı ne tutar karşılaştır
+
+</details>
+
+### PWR ve BWR ve VVER: Yüksek basınçlı soğutucuyu ne tutar?
+
+Kimlik: `compare:boundary:pwr-bwr-vver`
+
+PWR: Büyük, kalın duvarlı reaktör basınç kabı (ve birincil devre boruları).
+
+BWR: Reaktör basınç kabı; PWR’ye göre daha ince duvarlı ama daha büyük.
+
+VVER: Reaktör basınç kabı (çizilen tasarımda dar ve uzun).
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `nrc-unit3`, `nrc-bwr`, `iaea-vver`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr bwr vver basınç sınırı nedir karşılaştır
+- pwr bwr vver basınç kabı mı kanal mı karşılaştır
+- pwr bwr vver yüksek basıncı ne tutar karşılaştır
+
+</details>
+
+### PWR ve BWR ve VVER ve RBMK ve CANDU: Yüksek basınçlı soğutucuyu ne tutar?
+
+Kimlik: `compare:boundary:pwr-bwr-vver-rbmk-candu`
+
+PWR: Büyük, kalın duvarlı reaktör basınç kabı (ve birincil devre boruları).
+
+BWR: Reaktör basınç kabı; PWR’ye göre daha ince duvarlı ama daha büyük.
+
+VVER: Reaktör basınç kabı (çizilen tasarımda dar ve uzun).
+
+RBMK: Çok sayıda ayrı basınç kanalı. Çekirdeği saran tek bir PWR tipi basınç kabı yoktur; grafit, biyolojik zırh ve bina basınç sınırı değildir.
+
+CANDU: Yüzlerce basınç tüpü. Calandria düşük basınçlı bir tanktır, basınç kabı değildir (patlama diskleriyle korunur).
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `nrc-unit3`, `nrc-bwr`, `iaea-vver`, `iaea-insag7`, `nea-chernobyl`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr bwr vver rbmk candu basınç sınırı nedir karşılaştır
+- pwr bwr vver rbmk candu basınç kabı mı kanal mı karşılaştır
+- pwr bwr vver rbmk candu yüksek basıncı ne tutar karşılaştır
+
+</details>
+
+### PWR ve BWR: Yakıt ayrı basınç kanallarında mı, kanallar hangi yönde?
+
+Kimlik: `compare:channel-dir:pwr-bwr`
+
+PWR: Bu tasarımda ayrı basınç kanalları bulunmaz; yakıt demetleri tek basınç kabının içindedir.
+
+BWR: Bu tasarımda ayrı basınç kanalları bulunmaz. Demetlerin kanal kutuları akışı yönlendirir ama basınç sınırı değildir; hepsi kabın içindedir.
+
+Kaynaklar: `nuce-ch2`, `nrc-unit3`, `nrc-bwr`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr bwr kanallar yatay mı dikey mi karşılaştır
+- pwr bwr kanalların yönü karşılaştır
+- pwr bwr basınç kanalı var mı karşılaştır
+
+</details>
+
+### PWR ve VVER: Yakıt ayrı basınç kanallarında mı, kanallar hangi yönde?
+
+Kimlik: `compare:channel-dir:pwr-vver`
+
+PWR: Bu tasarımda ayrı basınç kanalları bulunmaz; yakıt demetleri tek basınç kabının içindedir.
+
+VVER: Bu tasarımda ayrı basınç kanalları bulunmaz; yakıt demetleri basınç kabının içindedir.
+
+Kaynaklar: `nuce-ch2`, `nrc-unit3`, `iaea-vver`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr vver kanallar yatay mı dikey mi karşılaştır
+- pwr vver kanalların yönü karşılaştır
+- pwr vver basınç kanalı var mı karşılaştır
+
+</details>
+
+### PWR ve RBMK: Yakıt ayrı basınç kanallarında mı, kanallar hangi yönde?
+
+Kimlik: `compare:channel-dir:pwr-rbmk`
+
+PWR: Bu tasarımda ayrı basınç kanalları bulunmaz; yakıt demetleri tek basınç kabının içindedir.
+
+RBMK: Dikey: su kanalın altından girer, üstten buhar–su karışımı çıkar; her kanalın kendi alt ve üst borusu vardır.
+
+Kaynaklar: `nuce-ch2`, `nrc-unit3`, `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr rbmk kanallar yatay mı dikey mi karşılaştır
+- pwr rbmk kanalların yönü karşılaştır
+- pwr rbmk basınç kanalı var mı karşılaştır
+
+</details>
+
+### PWR ve CANDU: Yakıt ayrı basınç kanallarında mı, kanallar hangi yönde?
+
+Kimlik: `compare:channel-dir:pwr-candu`
+
+PWR: Bu tasarımda ayrı basınç kanalları bulunmaz; yakıt demetleri tek basınç kabının içindedir.
+
+CANDU: Yatay: calandria’dan uçtan uca geçer. Komşu kanallarda soğutucu ters yönde akar (CANDU 6, sekiz biçimli halka).
+
+Kaynaklar: `nuce-ch2`, `nrc-unit3`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr candu kanallar yatay mı dikey mi karşılaştır
+- pwr candu kanalların yönü karşılaştır
+- pwr candu basınç kanalı var mı karşılaştır
+
+</details>
+
+### BWR ve VVER: Yakıt ayrı basınç kanallarında mı, kanallar hangi yönde?
+
+Kimlik: `compare:channel-dir:bwr-vver`
+
+BWR: Bu tasarımda ayrı basınç kanalları bulunmaz. Demetlerin kanal kutuları akışı yönlendirir ama basınç sınırı değildir; hepsi kabın içindedir.
+
+VVER: Bu tasarımda ayrı basınç kanalları bulunmaz; yakıt demetleri basınç kabının içindedir.
+
+Kaynaklar: `nuce-ch2`, `nrc-bwr`, `iaea-vver`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- bwr vver kanallar yatay mı dikey mi karşılaştır
+- bwr vver kanalların yönü karşılaştır
+- bwr vver basınç kanalı var mı karşılaştır
+
+</details>
+
+### BWR ve RBMK: Yakıt ayrı basınç kanallarında mı, kanallar hangi yönde?
+
+Kimlik: `compare:channel-dir:bwr-rbmk`
+
+BWR: Bu tasarımda ayrı basınç kanalları bulunmaz. Demetlerin kanal kutuları akışı yönlendirir ama basınç sınırı değildir; hepsi kabın içindedir.
+
+RBMK: Dikey: su kanalın altından girer, üstten buhar–su karışımı çıkar; her kanalın kendi alt ve üst borusu vardır.
+
+Kaynaklar: `nuce-ch2`, `nrc-bwr`, `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- bwr rbmk kanallar yatay mı dikey mi karşılaştır
+- bwr rbmk kanalların yönü karşılaştır
+- bwr rbmk basınç kanalı var mı karşılaştır
+
+</details>
+
+### BWR ve CANDU: Yakıt ayrı basınç kanallarında mı, kanallar hangi yönde?
+
+Kimlik: `compare:channel-dir:bwr-candu`
+
+BWR: Bu tasarımda ayrı basınç kanalları bulunmaz. Demetlerin kanal kutuları akışı yönlendirir ama basınç sınırı değildir; hepsi kabın içindedir.
+
+CANDU: Yatay: calandria’dan uçtan uca geçer. Komşu kanallarda soğutucu ters yönde akar (CANDU 6, sekiz biçimli halka).
+
+Kaynaklar: `nuce-ch2`, `nrc-bwr`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- bwr candu kanallar yatay mı dikey mi karşılaştır
+- bwr candu kanalların yönü karşılaştır
+- bwr candu basınç kanalı var mı karşılaştır
+
+</details>
+
+### VVER ve RBMK: Yakıt ayrı basınç kanallarında mı, kanallar hangi yönde?
+
+Kimlik: `compare:channel-dir:vver-rbmk`
+
+VVER: Bu tasarımda ayrı basınç kanalları bulunmaz; yakıt demetleri basınç kabının içindedir.
+
+RBMK: Dikey: su kanalın altından girer, üstten buhar–su karışımı çıkar; her kanalın kendi alt ve üst borusu vardır.
+
+Kaynaklar: `nuce-ch2`, `iaea-vver`, `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- vver rbmk kanallar yatay mı dikey mi karşılaştır
+- vver rbmk kanalların yönü karşılaştır
+- vver rbmk basınç kanalı var mı karşılaştır
+
+</details>
+
+### VVER ve CANDU: Yakıt ayrı basınç kanallarında mı, kanallar hangi yönde?
+
+Kimlik: `compare:channel-dir:vver-candu`
+
+VVER: Bu tasarımda ayrı basınç kanalları bulunmaz; yakıt demetleri basınç kabının içindedir.
+
+CANDU: Yatay: calandria’dan uçtan uca geçer. Komşu kanallarda soğutucu ters yönde akar (CANDU 6, sekiz biçimli halka).
+
+Kaynaklar: `nuce-ch2`, `iaea-vver`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- vver candu kanallar yatay mı dikey mi karşılaştır
+- vver candu kanalların yönü karşılaştır
+- vver candu basınç kanalı var mı karşılaştır
+
+</details>
+
+### RBMK ve CANDU: Yakıt ayrı basınç kanallarında mı, kanallar hangi yönde?
+
+Kimlik: `compare:channel-dir:rbmk-candu`
+
+RBMK: Dikey: su kanalın altından girer, üstten buhar–su karışımı çıkar; her kanalın kendi alt ve üst borusu vardır.
+
+CANDU: Yatay: calandria’dan uçtan uca geçer. Komşu kanallarda soğutucu ters yönde akar (CANDU 6, sekiz biçimli halka).
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- rbmk candu kanallar yatay mı dikey mi karşılaştır
+- rbmk candu kanalların yönü karşılaştır
+- rbmk candu basınç kanalı var mı karşılaştır
+
+</details>
+
+### PWR ve BWR ve VVER: Yakıt ayrı basınç kanallarında mı, kanallar hangi yönde?
+
+Kimlik: `compare:channel-dir:pwr-bwr-vver`
+
+PWR: Bu tasarımda ayrı basınç kanalları bulunmaz; yakıt demetleri tek basınç kabının içindedir.
+
+BWR: Bu tasarımda ayrı basınç kanalları bulunmaz. Demetlerin kanal kutuları akışı yönlendirir ama basınç sınırı değildir; hepsi kabın içindedir.
+
+VVER: Bu tasarımda ayrı basınç kanalları bulunmaz; yakıt demetleri basınç kabının içindedir.
+
+Kaynaklar: `nuce-ch2`, `nrc-unit3`, `nrc-bwr`, `iaea-vver`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr bwr vver kanallar yatay mı dikey mi karşılaştır
+- pwr bwr vver kanalların yönü karşılaştır
+- pwr bwr vver basınç kanalı var mı karşılaştır
+
+</details>
+
+### PWR ve BWR ve VVER ve RBMK ve CANDU: Yakıt ayrı basınç kanallarında mı, kanallar hangi yönde?
+
+Kimlik: `compare:channel-dir:pwr-bwr-vver-rbmk-candu`
+
+PWR: Bu tasarımda ayrı basınç kanalları bulunmaz; yakıt demetleri tek basınç kabının içindedir.
+
+BWR: Bu tasarımda ayrı basınç kanalları bulunmaz. Demetlerin kanal kutuları akışı yönlendirir ama basınç sınırı değildir; hepsi kabın içindedir.
+
+VVER: Bu tasarımda ayrı basınç kanalları bulunmaz; yakıt demetleri basınç kabının içindedir.
+
+RBMK: Dikey: su kanalın altından girer, üstten buhar–su karışımı çıkar; her kanalın kendi alt ve üst borusu vardır.
+
+CANDU: Yatay: calandria’dan uçtan uca geçer. Komşu kanallarda soğutucu ters yönde akar (CANDU 6, sekiz biçimli halka).
+
+Kaynaklar: `nuce-ch2`, `nrc-unit3`, `nrc-bwr`, `iaea-vver`, `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr bwr vver rbmk candu kanallar yatay mı dikey mi karşılaştır
+- pwr bwr vver rbmk candu kanalların yönü karşılaştır
+- pwr bwr vver rbmk candu basınç kanalı var mı karşılaştır
+
+</details>
+
+### PWR ve BWR: Buhar üreteci ile ayırıcı tambur arasındaki fark nedir?
+
+Kimlik: `compare:sg-vs-drum:pwr-bwr`
+
+PWR: Buhar üreteci var: iki ayrı devre arasında ısı aktarır ve buharı ikincil tarafta üretir. Üst bölümündeki ayırıcı/kurutucular yalnız nemi alır.
+
+BWR: Buhar üreteci yok. Kabın içindeki ayırıcı ve kurutucular çekirdekte oluşan karışımı ayırır; ısı aktarmazlar.
+
+Kaynaklar: `nuce-ch2`, `nrc-unit3`, `nrc-bwr`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr bwr ayırıcı tambur buhar üreteci mi karşılaştır
+- pwr bwr buhar üreteci ile ayırıcı tambur farkı karşılaştır
+- pwr bwr buhar üreteci var mı karşılaştır
+
+</details>
+
+### PWR ve VVER: Buhar üreteci ile ayırıcı tambur arasındaki fark nedir?
+
+Kimlik: `compare:sg-vs-drum:pwr-vver`
+
+PWR: Buhar üreteci var: iki ayrı devre arasında ısı aktarır ve buharı ikincil tarafta üretir. Üst bölümündeki ayırıcı/kurutucular yalnız nemi alır.
+
+VVER: Yatay buhar üreteci var: ısıyı borulardan ikincil suya aktarır. Gövdenin üstündeki ayırıcılar nemi alır.
+
+Kaynaklar: `nuce-ch2`, `nrc-unit3`, `iaea-vver`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr vver ayırıcı tambur buhar üreteci mi karşılaştır
+- pwr vver buhar üreteci ile ayırıcı tambur farkı karşılaştır
+- pwr vver buhar üreteci var mı karşılaştır
+
+</details>
+
+### PWR ve RBMK: Buhar üreteci ile ayırıcı tambur arasındaki fark nedir?
+
+Kimlik: `compare:sg-vs-drum:pwr-rbmk`
+
+PWR: Buhar üreteci var: iki ayrı devre arasında ısı aktarır ve buharı ikincil tarafta üretir. Üst bölümündeki ayırıcı/kurutucular yalnız nemi alır.
+
+RBMK: Buhar üreteci yok. Kap dışındaki ayırıcı tambur, kanallarda oluşan buhar–su karışımını ayırır; ısı aktarmaz, iki devreyi ayırmaz.
+
+Kaynaklar: `nuce-ch2`, `nrc-unit3`, `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr rbmk ayırıcı tambur buhar üreteci mi karşılaştır
+- pwr rbmk buhar üreteci ile ayırıcı tambur farkı karşılaştır
+- pwr rbmk buhar üreteci var mı karşılaştır
+
+</details>
+
+### PWR ve CANDU: Buhar üreteci ile ayırıcı tambur arasındaki fark nedir?
+
+Kimlik: `compare:sg-vs-drum:pwr-candu`
+
+PWR: Buhar üreteci var: iki ayrı devre arasında ısı aktarır ve buharı ikincil tarafta üretir. Üst bölümündeki ayırıcı/kurutucular yalnız nemi alır.
+
+CANDU: Buhar üreteci var (ısı aktarır). Ayrı bir ayırıcı tambur yoktur; CANDU 6 buhar üretecinin kendi tümleşik buhar tamburu vardır.
+
+Kaynaklar: `nuce-ch2`, `nrc-unit3`, `canteach-c6`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr candu ayırıcı tambur buhar üreteci mi karşılaştır
+- pwr candu buhar üreteci ile ayırıcı tambur farkı karşılaştır
+- pwr candu buhar üreteci var mı karşılaştır
+
+</details>
+
+### BWR ve VVER: Buhar üreteci ile ayırıcı tambur arasındaki fark nedir?
+
+Kimlik: `compare:sg-vs-drum:bwr-vver`
+
+BWR: Buhar üreteci yok. Kabın içindeki ayırıcı ve kurutucular çekirdekte oluşan karışımı ayırır; ısı aktarmazlar.
+
+VVER: Yatay buhar üreteci var: ısıyı borulardan ikincil suya aktarır. Gövdenin üstündeki ayırıcılar nemi alır.
+
+Kaynaklar: `nuce-ch2`, `nrc-bwr`, `iaea-vver`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- bwr vver ayırıcı tambur buhar üreteci mi karşılaştır
+- bwr vver buhar üreteci ile ayırıcı tambur farkı karşılaştır
+- bwr vver buhar üreteci var mı karşılaştır
+
+</details>
+
+### BWR ve RBMK: Buhar üreteci ile ayırıcı tambur arasındaki fark nedir?
+
+Kimlik: `compare:sg-vs-drum:bwr-rbmk`
+
+BWR: Buhar üreteci yok. Kabın içindeki ayırıcı ve kurutucular çekirdekte oluşan karışımı ayırır; ısı aktarmazlar.
+
+RBMK: Buhar üreteci yok. Kap dışındaki ayırıcı tambur, kanallarda oluşan buhar–su karışımını ayırır; ısı aktarmaz, iki devreyi ayırmaz.
+
+Kaynaklar: `nuce-ch2`, `nrc-bwr`, `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- bwr rbmk ayırıcı tambur buhar üreteci mi karşılaştır
+- bwr rbmk buhar üreteci ile ayırıcı tambur farkı karşılaştır
+- bwr rbmk buhar üreteci var mı karşılaştır
+
+</details>
+
+### BWR ve CANDU: Buhar üreteci ile ayırıcı tambur arasındaki fark nedir?
+
+Kimlik: `compare:sg-vs-drum:bwr-candu`
+
+BWR: Buhar üreteci yok. Kabın içindeki ayırıcı ve kurutucular çekirdekte oluşan karışımı ayırır; ısı aktarmazlar.
+
+CANDU: Buhar üreteci var (ısı aktarır). Ayrı bir ayırıcı tambur yoktur; CANDU 6 buhar üretecinin kendi tümleşik buhar tamburu vardır.
+
+Kaynaklar: `nuce-ch2`, `nrc-bwr`, `canteach-c6`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- bwr candu ayırıcı tambur buhar üreteci mi karşılaştır
+- bwr candu buhar üreteci ile ayırıcı tambur farkı karşılaştır
+- bwr candu buhar üreteci var mı karşılaştır
+
+</details>
+
+### VVER ve RBMK: Buhar üreteci ile ayırıcı tambur arasındaki fark nedir?
+
+Kimlik: `compare:sg-vs-drum:vver-rbmk`
+
+VVER: Yatay buhar üreteci var: ısıyı borulardan ikincil suya aktarır. Gövdenin üstündeki ayırıcılar nemi alır.
+
+RBMK: Buhar üreteci yok. Kap dışındaki ayırıcı tambur, kanallarda oluşan buhar–su karışımını ayırır; ısı aktarmaz, iki devreyi ayırmaz.
+
+Kaynaklar: `nuce-ch2`, `iaea-vver`, `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- vver rbmk ayırıcı tambur buhar üreteci mi karşılaştır
+- vver rbmk buhar üreteci ile ayırıcı tambur farkı karşılaştır
+- vver rbmk buhar üreteci var mı karşılaştır
+
+</details>
+
+### VVER ve CANDU: Buhar üreteci ile ayırıcı tambur arasındaki fark nedir?
+
+Kimlik: `compare:sg-vs-drum:vver-candu`
+
+VVER: Yatay buhar üreteci var: ısıyı borulardan ikincil suya aktarır. Gövdenin üstündeki ayırıcılar nemi alır.
+
+CANDU: Buhar üreteci var (ısı aktarır). Ayrı bir ayırıcı tambur yoktur; CANDU 6 buhar üretecinin kendi tümleşik buhar tamburu vardır.
+
+Kaynaklar: `nuce-ch2`, `iaea-vver`, `canteach-c6`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- vver candu ayırıcı tambur buhar üreteci mi karşılaştır
+- vver candu buhar üreteci ile ayırıcı tambur farkı karşılaştır
+- vver candu buhar üreteci var mı karşılaştır
+
+</details>
+
+### RBMK ve CANDU: Buhar üreteci ile ayırıcı tambur arasındaki fark nedir?
+
+Kimlik: `compare:sg-vs-drum:rbmk-candu`
+
+RBMK: Buhar üreteci yok. Kap dışındaki ayırıcı tambur, kanallarda oluşan buhar–su karışımını ayırır; ısı aktarmaz, iki devreyi ayırmaz.
+
+CANDU: Buhar üreteci var (ısı aktarır). Ayrı bir ayırıcı tambur yoktur; CANDU 6 buhar üretecinin kendi tümleşik buhar tamburu vardır.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`, `canteach-c6`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- rbmk candu ayırıcı tambur buhar üreteci mi karşılaştır
+- rbmk candu buhar üreteci ile ayırıcı tambur farkı karşılaştır
+- rbmk candu buhar üreteci var mı karşılaştır
+
+</details>
+
+### PWR ve BWR ve VVER: Buhar üreteci ile ayırıcı tambur arasındaki fark nedir?
+
+Kimlik: `compare:sg-vs-drum:pwr-bwr-vver`
+
+PWR: Buhar üreteci var: iki ayrı devre arasında ısı aktarır ve buharı ikincil tarafta üretir. Üst bölümündeki ayırıcı/kurutucular yalnız nemi alır.
+
+BWR: Buhar üreteci yok. Kabın içindeki ayırıcı ve kurutucular çekirdekte oluşan karışımı ayırır; ısı aktarmazlar.
+
+VVER: Yatay buhar üreteci var: ısıyı borulardan ikincil suya aktarır. Gövdenin üstündeki ayırıcılar nemi alır.
+
+Kaynaklar: `nuce-ch2`, `nrc-unit3`, `nrc-bwr`, `iaea-vver`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr bwr vver ayırıcı tambur buhar üreteci mi karşılaştır
+- pwr bwr vver buhar üreteci ile ayırıcı tambur farkı karşılaştır
+- pwr bwr vver buhar üreteci var mı karşılaştır
+
+</details>
+
+### PWR ve BWR ve VVER ve RBMK ve CANDU: Buhar üreteci ile ayırıcı tambur arasındaki fark nedir?
+
+Kimlik: `compare:sg-vs-drum:pwr-bwr-vver-rbmk-candu`
+
+PWR: Buhar üreteci var: iki ayrı devre arasında ısı aktarır ve buharı ikincil tarafta üretir. Üst bölümündeki ayırıcı/kurutucular yalnız nemi alır.
+
+BWR: Buhar üreteci yok. Kabın içindeki ayırıcı ve kurutucular çekirdekte oluşan karışımı ayırır; ısı aktarmazlar.
+
+VVER: Yatay buhar üreteci var: ısıyı borulardan ikincil suya aktarır. Gövdenin üstündeki ayırıcılar nemi alır.
+
+RBMK: Buhar üreteci yok. Kap dışındaki ayırıcı tambur, kanallarda oluşan buhar–su karışımını ayırır; ısı aktarmaz, iki devreyi ayırmaz.
+
+CANDU: Buhar üreteci var (ısı aktarır). Ayrı bir ayırıcı tambur yoktur; CANDU 6 buhar üretecinin kendi tümleşik buhar tamburu vardır.
+
+Kaynaklar: `nuce-ch2`, `nrc-unit3`, `nrc-bwr`, `iaea-vver`, `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`, `canteach-c6`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr bwr vver rbmk candu ayırıcı tambur buhar üreteci mi karşılaştır
+- pwr bwr vver rbmk candu buhar üreteci ile ayırıcı tambur farkı karşılaştır
+- pwr bwr vver rbmk candu buhar üreteci var mı karşılaştır
+
+</details>
+
+### PWR ve BWR: Tipik yakıt nedir, yakıt nasıl değiştirilir?
+
+Kimlik: `compare:fuel:pwr-bwr`
+
+PWR: Az zenginleştirilmiş uranyum (IAEA: yaklaşık %3–5). Yakıt reaktör alt kritikken, kap kapağı kaldırılarak değiştirilir (işletme modu 6).
+
+BWR: Yakıt birçok bakımdan PWR yakıtına benzer (IAEA). Bu uygulama BWR yakıt değiştirme sürecini ayrıca ele almaz.
+
+Kaynaklar: `iaea-bptc-m4`, `tab-2-14`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr bwr hangi yakıt kullanılır karşılaştır
+- pwr bwr yakıt nasıl değiştirilir karşılaştır
+- pwr bwr yakıt değiştirme karşılaştır
+
+</details>
+
+### PWR ve VVER: Tipik yakıt nedir, yakıt nasıl değiştirilir?
+
+Kimlik: `compare:fuel:pwr-vver`
+
+PWR: Az zenginleştirilmiş uranyum (IAEA: yaklaşık %3–5). Yakıt reaktör alt kritikken, kap kapağı kaldırılarak değiştirilir (işletme modu 6).
+
+VVER: PWR ailesinden; yakıt üçgen adımlı altıgen demetlerdedir. Yakıt değiştirme ayrıntısı bu uygulamada ele alınmaz.
+
+Kaynaklar: `iaea-bptc-m4`, `tab-2-14`, `nuce-ch2`, `iaea-vver`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr vver hangi yakıt kullanılır karşılaştır
+- pwr vver yakıt nasıl değiştirilir karşılaştır
+- pwr vver yakıt değiştirme karşılaştır
+
+</details>
+
+### PWR ve RBMK: Tipik yakıt nedir, yakıt nasıl değiştirilir?
+
+Kimlik: `compare:fuel:pwr-rbmk`
+
+PWR: Az zenginleştirilmiş uranyum (IAEA: yaklaşık %3–5). Yakıt reaktör alt kritikken, kap kapağı kaldırılarak değiştirilir (işletme modu 6).
+
+RBMK: Yaklaşık %2 zenginleştirilmiş UO₂, zirkonyum alaşımı kaplı. Yakıt reaktör çalışırken değiştirilebilir (NEA; IAEA).
+
+Kaynaklar: `iaea-bptc-m4`, `tab-2-14`, `nea-chernobyl`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr rbmk hangi yakıt kullanılır karşılaştır
+- pwr rbmk yakıt nasıl değiştirilir karşılaştır
+- pwr rbmk yakıt değiştirme karşılaştır
+
+</details>
+
+### PWR ve CANDU: Tipik yakıt nedir, yakıt nasıl değiştirilir?
+
+Kimlik: `compare:fuel:pwr-candu`
+
+PWR: Az zenginleştirilmiş uranyum (IAEA: yaklaşık %3–5). Yakıt reaktör alt kritikken, kap kapağı kaldırılarak değiştirilir (işletme modu 6).
+
+CANDU: CANDU 6’da tipik olarak doğal uranyum (37 elemanlı demet, kanal başına 12). İki uçtaki makinelerle işletme sırasında yakıt değiştirme. Aynı kaynak başka yakıtların (az zenginleştirilmiş, geri kazanılmış uranyum, toryum) da kullanılabileceğini belirtir.
+
+Kaynaklar: `iaea-bptc-m4`, `tab-2-14`, `canteach-c6`, `canteach-constr`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr candu hangi yakıt kullanılır karşılaştır
+- pwr candu yakıt nasıl değiştirilir karşılaştır
+- pwr candu yakıt değiştirme karşılaştır
+
+</details>
+
+### BWR ve VVER: Tipik yakıt nedir, yakıt nasıl değiştirilir?
+
+Kimlik: `compare:fuel:bwr-vver`
+
+BWR: Yakıt birçok bakımdan PWR yakıtına benzer (IAEA). Bu uygulama BWR yakıt değiştirme sürecini ayrıca ele almaz.
+
+VVER: PWR ailesinden; yakıt üçgen adımlı altıgen demetlerdedir. Yakıt değiştirme ayrıntısı bu uygulamada ele alınmaz.
+
+Kaynaklar: `iaea-bptc-m4`, `nuce-ch2`, `iaea-vver`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- bwr vver hangi yakıt kullanılır karşılaştır
+- bwr vver yakıt nasıl değiştirilir karşılaştır
+- bwr vver yakıt değiştirme karşılaştır
+
+</details>
+
+### BWR ve RBMK: Tipik yakıt nedir, yakıt nasıl değiştirilir?
+
+Kimlik: `compare:fuel:bwr-rbmk`
+
+BWR: Yakıt birçok bakımdan PWR yakıtına benzer (IAEA). Bu uygulama BWR yakıt değiştirme sürecini ayrıca ele almaz.
+
+RBMK: Yaklaşık %2 zenginleştirilmiş UO₂, zirkonyum alaşımı kaplı. Yakıt reaktör çalışırken değiştirilebilir (NEA; IAEA).
+
+Kaynaklar: `iaea-bptc-m4`, `nea-chernobyl`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- bwr rbmk hangi yakıt kullanılır karşılaştır
+- bwr rbmk yakıt nasıl değiştirilir karşılaştır
+- bwr rbmk yakıt değiştirme karşılaştır
+
+</details>
+
+### BWR ve CANDU: Tipik yakıt nedir, yakıt nasıl değiştirilir?
+
+Kimlik: `compare:fuel:bwr-candu`
+
+BWR: Yakıt birçok bakımdan PWR yakıtına benzer (IAEA). Bu uygulama BWR yakıt değiştirme sürecini ayrıca ele almaz.
+
+CANDU: CANDU 6’da tipik olarak doğal uranyum (37 elemanlı demet, kanal başına 12). İki uçtaki makinelerle işletme sırasında yakıt değiştirme. Aynı kaynak başka yakıtların (az zenginleştirilmiş, geri kazanılmış uranyum, toryum) da kullanılabileceğini belirtir.
+
+Kaynaklar: `iaea-bptc-m4`, `canteach-c6`, `canteach-constr`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- bwr candu hangi yakıt kullanılır karşılaştır
+- bwr candu yakıt nasıl değiştirilir karşılaştır
+- bwr candu yakıt değiştirme karşılaştır
+
+</details>
+
+### VVER ve RBMK: Tipik yakıt nedir, yakıt nasıl değiştirilir?
+
+Kimlik: `compare:fuel:vver-rbmk`
+
+VVER: PWR ailesinden; yakıt üçgen adımlı altıgen demetlerdedir. Yakıt değiştirme ayrıntısı bu uygulamada ele alınmaz.
+
+RBMK: Yaklaşık %2 zenginleştirilmiş UO₂, zirkonyum alaşımı kaplı. Yakıt reaktör çalışırken değiştirilebilir (NEA; IAEA).
+
+Kaynaklar: `nuce-ch2`, `iaea-vver`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- vver rbmk hangi yakıt kullanılır karşılaştır
+- vver rbmk yakıt nasıl değiştirilir karşılaştır
+- vver rbmk yakıt değiştirme karşılaştır
+
+</details>
+
+### VVER ve CANDU: Tipik yakıt nedir, yakıt nasıl değiştirilir?
+
+Kimlik: `compare:fuel:vver-candu`
+
+VVER: PWR ailesinden; yakıt üçgen adımlı altıgen demetlerdedir. Yakıt değiştirme ayrıntısı bu uygulamada ele alınmaz.
+
+CANDU: CANDU 6’da tipik olarak doğal uranyum (37 elemanlı demet, kanal başına 12). İki uçtaki makinelerle işletme sırasında yakıt değiştirme. Aynı kaynak başka yakıtların (az zenginleştirilmiş, geri kazanılmış uranyum, toryum) da kullanılabileceğini belirtir.
+
+Kaynaklar: `nuce-ch2`, `iaea-vver`, `canteach-c6`, `canteach-constr`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- vver candu hangi yakıt kullanılır karşılaştır
+- vver candu yakıt nasıl değiştirilir karşılaştır
+- vver candu yakıt değiştirme karşılaştır
+
+</details>
+
+### RBMK ve CANDU: Tipik yakıt nedir, yakıt nasıl değiştirilir?
+
+Kimlik: `compare:fuel:rbmk-candu`
+
+RBMK: Yaklaşık %2 zenginleştirilmiş UO₂, zirkonyum alaşımı kaplı. Yakıt reaktör çalışırken değiştirilebilir (NEA; IAEA).
+
+CANDU: CANDU 6’da tipik olarak doğal uranyum (37 elemanlı demet, kanal başına 12). İki uçtaki makinelerle işletme sırasında yakıt değiştirme. Aynı kaynak başka yakıtların (az zenginleştirilmiş, geri kazanılmış uranyum, toryum) da kullanılabileceğini belirtir.
+
+Kaynaklar: `nea-chernobyl`, `iaea-bptc-m4`, `canteach-c6`, `canteach-constr`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- rbmk candu hangi yakıt kullanılır karşılaştır
+- rbmk candu yakıt nasıl değiştirilir karşılaştır
+- rbmk candu yakıt değiştirme karşılaştır
+
+</details>
+
+### PWR ve BWR ve VVER: Tipik yakıt nedir, yakıt nasıl değiştirilir?
+
+Kimlik: `compare:fuel:pwr-bwr-vver`
+
+PWR: Az zenginleştirilmiş uranyum (IAEA: yaklaşık %3–5). Yakıt reaktör alt kritikken, kap kapağı kaldırılarak değiştirilir (işletme modu 6).
+
+BWR: Yakıt birçok bakımdan PWR yakıtına benzer (IAEA). Bu uygulama BWR yakıt değiştirme sürecini ayrıca ele almaz.
+
+VVER: PWR ailesinden; yakıt üçgen adımlı altıgen demetlerdedir. Yakıt değiştirme ayrıntısı bu uygulamada ele alınmaz.
+
+Kaynaklar: `iaea-bptc-m4`, `tab-2-14`, `nuce-ch2`, `iaea-vver`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr bwr vver hangi yakıt kullanılır karşılaştır
+- pwr bwr vver yakıt nasıl değiştirilir karşılaştır
+- pwr bwr vver yakıt değiştirme karşılaştır
+
+</details>
+
+### PWR ve BWR ve VVER ve RBMK ve CANDU: Tipik yakıt nedir, yakıt nasıl değiştirilir?
+
+Kimlik: `compare:fuel:pwr-bwr-vver-rbmk-candu`
+
+PWR: Az zenginleştirilmiş uranyum (IAEA: yaklaşık %3–5). Yakıt reaktör alt kritikken, kap kapağı kaldırılarak değiştirilir (işletme modu 6).
+
+BWR: Yakıt birçok bakımdan PWR yakıtına benzer (IAEA). Bu uygulama BWR yakıt değiştirme sürecini ayrıca ele almaz.
+
+VVER: PWR ailesinden; yakıt üçgen adımlı altıgen demetlerdedir. Yakıt değiştirme ayrıntısı bu uygulamada ele alınmaz.
+
+RBMK: Yaklaşık %2 zenginleştirilmiş UO₂, zirkonyum alaşımı kaplı. Yakıt reaktör çalışırken değiştirilebilir (NEA; IAEA).
+
+CANDU: CANDU 6’da tipik olarak doğal uranyum (37 elemanlı demet, kanal başına 12). İki uçtaki makinelerle işletme sırasında yakıt değiştirme. Aynı kaynak başka yakıtların (az zenginleştirilmiş, geri kazanılmış uranyum, toryum) da kullanılabileceğini belirtir.
+
+Kaynaklar: `iaea-bptc-m4`, `tab-2-14`, `nuce-ch2`, `iaea-vver`, `nea-chernobyl`, `canteach-c6`, `canteach-constr`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr bwr vver rbmk candu hangi yakıt kullanılır karşılaştır
+- pwr bwr vver rbmk candu yakıt nasıl değiştirilir karşılaştır
+- pwr bwr vver rbmk candu yakıt değiştirme karşılaştır
 
 </details>
 
@@ -3588,6 +8955,42 @@ Kaynaklar: `nuce-ch2`, `nrc-unit3`, `iaea-vver`
 
 </details>
 
+### PWR VE RBMK arasındaki fark nedir?
+
+Kimlik: `families:pwr-rbmk`
+
+PWR: Birincil devredeki su yüksek basınç altında (ders notlarında ~155 bar) tutulduğu için çekirdekte toplu kaynama olmaz. Isı, dikey U borulu buhar üretecinde ayrı bir ikincil devreye aktarılır; türbine yalnız ikincil devrenin buharı gider.
+
+RBMK: Nötronlar esas olarak büyük bir grafit yığınında yavaşlar; soğutucu hafif sudur. Su, grafitin içinden geçen dikey basınç kanallarında yakıtın çevresinde yukarı akarken kaynar. Buhar–su karışımı çekirdek dışındaki ayırıcı tamburlara gider; ayrılan buhar arada buhar üreteci olmadan türbine, ayrılan su pompalarla kanallara döner. Çekirdeği saran tek bir PWR tipi basınç kabı yoktur.
+
+Kaynaklar: `nuce-ch2`, `nrc-unit3`, `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr rbmk karşılaştır
+- pwr rbmk farkları
+- pwr rbmk aynı mı
+
+</details>
+
+### PWR VE CANDU arasındaki fark nedir?
+
+Kimlik: `families:pwr-candu`
+
+PWR: Birincil devredeki su yüksek basınç altında (ders notlarında ~155 bar) tutulduğu için çekirdekte toplu kaynama olmaz. Isı, dikey U borulu buhar üretecinde ayrı bir ikincil devreye aktarılır; türbine yalnız ikincil devrenin buharı gider.
+
+CANDU: Yakıt, yatay bir calandria tankından geçen yüzlerce basınç tüpünün içindedir. Tüplerdeki basınçlı ağır su soğutucu ısıyı buhar üreteçlerine taşır; türbine giden buhar, buhar üretecinin ikincil tarafındaki hafif sudan oluşur. Calandria’daki ağır su moderatör ise düşük basınçlı, daha soğuk ve soğutucudan tamamen ayrı bir sistemdir. Yakıt işletme sırasında değiştirilir.
+
+Kaynaklar: `nuce-ch2`, `nrc-unit3`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr candu karşılaştır
+- pwr candu farkları
+- pwr candu aynı mı
+
+</details>
+
 ### BWR VE VVER arasındaki fark nedir?
 
 Kimlik: `families:bwr-vver`
@@ -3603,6 +9006,96 @@ Kaynaklar: `nuce-ch2`, `nrc-bwr`, `iaea-vver`
 - bwr vver karşılaştır
 - bwr vver farkları
 - bwr vver aynı mı
+
+</details>
+
+### BWR VE RBMK arasındaki fark nedir?
+
+Kimlik: `families:bwr-rbmk`
+
+BWR: Reaktör suyu daha düşük basınçta (ders notlarında ~70 bar) tutulur ve doğrudan çekirdekte kaynar. Buhar kabın üst bölümünde ayrılıp kurutulur ve ayrı bir buhar üreteci olmadan doğrudan türbine gider. Kontrol çubukları alttan girer.
+
+RBMK: Nötronlar esas olarak büyük bir grafit yığınında yavaşlar; soğutucu hafif sudur. Su, grafitin içinden geçen dikey basınç kanallarında yakıtın çevresinde yukarı akarken kaynar. Buhar–su karışımı çekirdek dışındaki ayırıcı tamburlara gider; ayrılan buhar arada buhar üreteci olmadan türbine, ayrılan su pompalarla kanallara döner. Çekirdeği saran tek bir PWR tipi basınç kabı yoktur.
+
+Kaynaklar: `nuce-ch2`, `nrc-bwr`, `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- bwr rbmk karşılaştır
+- bwr rbmk farkları
+- bwr rbmk aynı mı
+
+</details>
+
+### BWR VE CANDU arasındaki fark nedir?
+
+Kimlik: `families:bwr-candu`
+
+BWR: Reaktör suyu daha düşük basınçta (ders notlarında ~70 bar) tutulur ve doğrudan çekirdekte kaynar. Buhar kabın üst bölümünde ayrılıp kurutulur ve ayrı bir buhar üreteci olmadan doğrudan türbine gider. Kontrol çubukları alttan girer.
+
+CANDU: Yakıt, yatay bir calandria tankından geçen yüzlerce basınç tüpünün içindedir. Tüplerdeki basınçlı ağır su soğutucu ısıyı buhar üreteçlerine taşır; türbine giden buhar, buhar üretecinin ikincil tarafındaki hafif sudan oluşur. Calandria’daki ağır su moderatör ise düşük basınçlı, daha soğuk ve soğutucudan tamamen ayrı bir sistemdir. Yakıt işletme sırasında değiştirilir.
+
+Kaynaklar: `nuce-ch2`, `nrc-bwr`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- bwr candu karşılaştır
+- bwr candu farkları
+- bwr candu aynı mı
+
+</details>
+
+### VVER VE RBMK arasındaki fark nedir?
+
+Kimlik: `families:vver-rbmk`
+
+VVER: VVER bir basınçlı su reaktörüdür: birincil su basınç altında sıvı kalır, buhar ayrı bir ikincil devrede oluşur. Ayırt edici özellikleri yatay buhar üreteci, sıcak/soğuk kolların kaba farklı kotlarda bağlanması ve altıgen (üçgen adımlı) yakıt demetleridir.
+
+RBMK: Nötronlar esas olarak büyük bir grafit yığınında yavaşlar; soğutucu hafif sudur. Su, grafitin içinden geçen dikey basınç kanallarında yakıtın çevresinde yukarı akarken kaynar. Buhar–su karışımı çekirdek dışındaki ayırıcı tamburlara gider; ayrılan buhar arada buhar üreteci olmadan türbine, ayrılan su pompalarla kanallara döner. Çekirdeği saran tek bir PWR tipi basınç kabı yoktur.
+
+Kaynaklar: `nuce-ch2`, `iaea-vver`, `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- vver rbmk karşılaştır
+- vver rbmk farkları
+- vver rbmk aynı mı
+
+</details>
+
+### VVER VE CANDU arasındaki fark nedir?
+
+Kimlik: `families:vver-candu`
+
+VVER: VVER bir basınçlı su reaktörüdür: birincil su basınç altında sıvı kalır, buhar ayrı bir ikincil devrede oluşur. Ayırt edici özellikleri yatay buhar üreteci, sıcak/soğuk kolların kaba farklı kotlarda bağlanması ve altıgen (üçgen adımlı) yakıt demetleridir.
+
+CANDU: Yakıt, yatay bir calandria tankından geçen yüzlerce basınç tüpünün içindedir. Tüplerdeki basınçlı ağır su soğutucu ısıyı buhar üreteçlerine taşır; türbine giden buhar, buhar üretecinin ikincil tarafındaki hafif sudan oluşur. Calandria’daki ağır su moderatör ise düşük basınçlı, daha soğuk ve soğutucudan tamamen ayrı bir sistemdir. Yakıt işletme sırasında değiştirilir.
+
+Kaynaklar: `nuce-ch2`, `iaea-vver`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- vver candu karşılaştır
+- vver candu farkları
+- vver candu aynı mı
+
+</details>
+
+### RBMK VE CANDU arasındaki fark nedir?
+
+Kimlik: `families:rbmk-candu`
+
+RBMK: Nötronlar esas olarak büyük bir grafit yığınında yavaşlar; soğutucu hafif sudur. Su, grafitin içinden geçen dikey basınç kanallarında yakıtın çevresinde yukarı akarken kaynar. Buhar–su karışımı çekirdek dışındaki ayırıcı tamburlara gider; ayrılan buhar arada buhar üreteci olmadan türbine, ayrılan su pompalarla kanallara döner. Çekirdeği saran tek bir PWR tipi basınç kabı yoktur.
+
+CANDU: Yakıt, yatay bir calandria tankından geçen yüzlerce basınç tüpünün içindedir. Tüplerdeki basınçlı ağır su soğutucu ısıyı buhar üreteçlerine taşır; türbine giden buhar, buhar üretecinin ikincil tarafındaki hafif sudan oluşur. Calandria’daki ağır su moderatör ise düşük basınçlı, daha soğuk ve soğutucudan tamamen ayrı bir sistemdir. Yakıt işletme sırasında değiştirilir.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- rbmk candu karşılaştır
+- rbmk candu farkları
+- rbmk candu aynı mı
 
 </details>
 
@@ -3623,6 +9116,69 @@ Kaynaklar: `nuce-ch2`, `nrc-unit3`, `nrc-bwr`, `iaea-vver`
 - pwr bwr vver karşılaştır
 - pwr bwr vver farkları
 - pwr bwr vver aynı mı
+
+</details>
+
+### PWR VE BWR VE VVER VE RBMK VE CANDU arasındaki fark nedir?
+
+Kimlik: `families:pwr-bwr-vver-rbmk-candu`
+
+PWR: Birincil devredeki su yüksek basınç altında (ders notlarında ~155 bar) tutulduğu için çekirdekte toplu kaynama olmaz. Isı, dikey U borulu buhar üretecinde ayrı bir ikincil devreye aktarılır; türbine yalnız ikincil devrenin buharı gider.
+
+BWR: Reaktör suyu daha düşük basınçta (ders notlarında ~70 bar) tutulur ve doğrudan çekirdekte kaynar. Buhar kabın üst bölümünde ayrılıp kurutulur ve ayrı bir buhar üreteci olmadan doğrudan türbine gider. Kontrol çubukları alttan girer.
+
+VVER: VVER bir basınçlı su reaktörüdür: birincil su basınç altında sıvı kalır, buhar ayrı bir ikincil devrede oluşur. Ayırt edici özellikleri yatay buhar üreteci, sıcak/soğuk kolların kaba farklı kotlarda bağlanması ve altıgen (üçgen adımlı) yakıt demetleridir.
+
+RBMK: Nötronlar esas olarak büyük bir grafit yığınında yavaşlar; soğutucu hafif sudur. Su, grafitin içinden geçen dikey basınç kanallarında yakıtın çevresinde yukarı akarken kaynar. Buhar–su karışımı çekirdek dışındaki ayırıcı tamburlara gider; ayrılan buhar arada buhar üreteci olmadan türbine, ayrılan su pompalarla kanallara döner. Çekirdeği saran tek bir PWR tipi basınç kabı yoktur.
+
+CANDU: Yakıt, yatay bir calandria tankından geçen yüzlerce basınç tüpünün içindedir. Tüplerdeki basınçlı ağır su soğutucu ısıyı buhar üreteçlerine taşır; türbine giden buhar, buhar üretecinin ikincil tarafındaki hafif sudan oluşur. Calandria’daki ağır su moderatör ise düşük basınçlı, daha soğuk ve soğutucudan tamamen ayrı bir sistemdir. Yakıt işletme sırasında değiştirilir.
+
+Kaynaklar: `nuce-ch2`, `nrc-unit3`, `nrc-bwr`, `iaea-vver`, `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- pwr bwr vver rbmk candu karşılaştır
+- pwr bwr vver rbmk candu farkları
+- pwr bwr vver rbmk candu aynı mı
+
+</details>
+
+### RBMK ile BWR neden aynı reaktör değildir?
+
+Kimlik: `confusion:rbmk-vs-bwr`
+
+Su ikisinde de kaynar ve buhar doğrudan türbine gider; ama moderatör, kaynamanın olduğu yer ve basınç sınırı farklıdır.
+
+RBMK: grafit moderatör, ayrı dikey basınç kanalları, kap dışında ayırıcı tamburlar. BWR: su moderatör, tek büyük basınç kabı, kap içinde ayırıcı ve kurutucular.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`, `nrc-bwr`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK ve BWR aynı mı
+- RBMK bir BWR mi
+- RBMK kaynar su reaktörü mü
+- RBMK BWR farkı nedir
+- RBMK ile BWR farkı
+- RBMK’nin BWR’den temel farkı nedir
+- RBMK BWR temel fark
+
+</details>
+
+### RBMK ile CANDU’nun kanal yapıları nasıl farklıdır?
+
+Kimlik: `confusion:rbmk-candu-channels`
+
+İkisi de basınç kanallıdır: RBMK’de kanallar dikeydir, grafitten geçer ve içinde hafif su kaynar; CANDU’da kanallar yataydır, ağır su moderatörlü calandria’dan geçer ve kanal basınç tüpü + gaz halkası + calandria tüpünden oluşur. CANDU 6’da birincil ağır suda sınırlı kaynama olabilir; türbine giden buhar ise ayrı ikincil hafif su devresinden gelir.
+
+Kaynaklar: `iaea-insag7`, `nea-chernobyl`, `iaea-bptc-m4`, `canteach-c6`, `canteach-constr`, `canteach-hts`, `canteach-thermal`, `cnsc-pt`
+
+<details><summary>Alternatif soru ifadeleri</summary>
+
+- RBMK CANDU kanal farkı
+- RBMK ve CANDU kanalları
+- RBMK CANDU kanalları nasıl farklı
+- RBMK ve CANDU basınç kanalları
 
 </details>
 
@@ -4498,7 +10054,7 @@ Kaynaklar: `fig-2-42`, `fig-2-43`, `p-2-96`
 
 Kimlik: `site:help`
 
-PWR, BWR ve VVER ekipmanları, devreleri, karşılaştırmaları, PWR işletme konuları ve site kullanımı hakkında hazırlanmış cevaplar sunuyorum. Hazır sorular bölümünden konu seçebilir veya kendi sorunuzu yazabilirsiniz.
+PWR, BWR, VVER, RBMK ve CANDU ekipmanları, devreleri, karşılaştırmaları, PWR işletme konuları ve site kullanımı hakkında hazırlanmış cevaplar sunuyorum. Hazır sorular bölümünden konu seçebilir veya kendi sorunuzu yazabilirsiniz.
 
 Belirsiz soruda seçenek sunarım; hazırlanmış içerikte olmayan bir cevabı uydurmam. Genel sohbet modeli değilim.
 

@@ -6,8 +6,16 @@ import { MODES } from '../reactors/pwr/operations/data/modes';
 import { HEATUP } from '../reactors/pwr/operations/data/heatup';
 import { AXIAL_NOT_AUTO, CONTROL_RELATIONS } from '../reactors/pwr/operations/data/controls';
 import type { AssistantAction } from './actions';
+import { REACTOR_IDS } from '../reactors/meta';
 
-export const GUIDE_CATEGORIES = ['PWR', 'BWR', 'VVER', 'Karşılaştırma', 'İşletme', 'Site kullanımı'] as const;
+export const GUIDE_CATEGORIES = ['PWR', 'BWR', 'VVER', 'RBMK', 'CANDU', 'Karşılaştırma', 'İşletme', 'Site kullanımı'] as const;
+
+/** Karşılaştırma kartlarının reaktör grupları: bütün ikililer, üç basınç kabı tasarımı ve beşi birlikte. */
+const PAIRS: ReactorId[][] = REACTOR_IDS.flatMap((a, i) => REACTOR_IDS.slice(i + 1).map((b) => [a, b]));
+const COMBOS: ReactorId[][] = [...PAIRS, ['pwr', 'bwr', 'vver'], [...REACTOR_IDS]];
+const PUMP: Record<ReactorId, string> = { pwr: 'rcp', bwr: 'recirc', vver: 'mcp', rbmk: 'mcp', candu: 'htp1' };
+const CORE: Record<ReactorId, string> = { pwr: 'vessel', bwr: 'vessel', vver: 'vessel', rbmk: 'fuel', candu: 'fuel' };
+const SG: Partial<Record<ReactorId, string>> = { pwr: 'sg', vver: 'hsg', candu: 'sg1' };
 export type GuideCategory = typeof GUIDE_CATEGORIES[number];
 export interface GuideCard {
   id: string;
@@ -32,14 +40,14 @@ export function buildGuideCatalog(kb: KnowledgeSource): GuideCard[] {
   };
 
   // Sık karıştırılan parçalar: cevap metinleri ekipman tanımlarından birlikte okunur.
-  for (const r of ['pwr', 'bwr', 'vver'] as const) {
+  for (const r of REACTOR_IDS) {
     const prefix = r.toUpperCase();
     const pairs = [
       ['vessel-containment', 'vessel', 'containment', 'Reaktör kabı ve koruma yapısı aynı şey mi?', ['reaktör kabı koruma binası farkı', 'kap ve containment farkı']],
       ['turbine-generator', 'hp', 'gen', 'Türbin ve jeneratör arasındaki fark nedir?', ['elektrik türbinde mi jeneratörde mi üretilir', 'elektrik nerede üretilir']],
-      ['pump-generator', r === 'vver' ? 'mcp' : r === 'bwr' ? 'recirc' : 'rcp', 'gen', 'Pompa elektrik üretir mi?', ['pompa jeneratör aynı mı', 'pompa türbin gibi mi']],
+      ['pump-generator', PUMP[r], 'gen', 'Pompa elektrik üretir mi?', ['pompa jeneratör aynı mı', 'pompa türbin gibi mi']],
       ['condenser-feed', 'condenser', 'feedpump', 'Kondenserden çıkan su nereye gider?', ['besleme suyu nereden gelir', 'yoğuşan su tekrar kullanılır mı']],
-      ['rods-fuel', 'rods', 'vessel', 'Kontrol çubukları ile çekirdek arasındaki ilişki nedir?', ['kontrol çubukları yakıt mı', 'kontrol çubukları neyi soğurur']],
+      ['rods-fuel', 'rods', CORE[r], 'Kontrol çubukları ile çekirdek arasındaki ilişki nedir?', ['kontrol çubukları yakıt mı', 'kontrol çubukları neyi soğurur']],
     ] as const;
     for (const [key, first, second, q, variants] of pairs) {
       const a = kb.get(`${r}.${first}`), b = kb.get(`${r}.${second}`);
@@ -55,8 +63,8 @@ export function buildGuideCatalog(kb: KnowledgeSource): GuideCard[] {
         lead, [a.id, b.id],
         { category: prefix as GuideCategory, reactors: [r], detail: `${a.name}: ${a.summary}\n\n${b.name}: ${b.summary}` });
     }
-    if (r !== 'bwr') {
-      const sg = kb.get(`${r}.${r === 'vver' ? 'hsg' : 'sg'}`)!, cond = kb.get(`${r}.condenser`)!;
+    if (SG[r]) {
+      const sg = kb.get(`${r}.${SG[r]}`)!, cond = kb.get(`${r}.condenser`)!;
       add(`concept:${r}:sg-condenser`, `${prefix} Buhar üreteci ile kondenser arasındaki fark nedir?`,
         [`${prefix} kondenser buhar üreteci aynı mı`, `${prefix} buhar üreteci yoğuşturucu farkı`],
         'Buhar üreteci ikincil suya ısı aktararak buhar üretir; kondenser ise türbin çıkışındaki buharı soğutarak yoğuşturur.', [sg.id, cond.id],
@@ -85,31 +93,39 @@ export function buildGuideCatalog(kb: KnowledgeSource): GuideCard[] {
     pressurizer: ['basınçlandırıcı var mı', 'basınç nasıl kontrol edilir'],
     'sg-layout': ['buhar üreteci yatay mı dikey mi'],
     rods: ['kontrol çubukları nereden girer', 'kontrol çubukları alttan mı üstten mi'],
+    moderator: ['moderatör nedir', 'nötronları ne yavaşlatır', 'moderatör ne'],
+    coolant: ['soğutucu nedir', 'soğutucu ne', 'ısıyı ne taşır'],
+    boundary: ['basınç sınırı nedir', 'basınç kabı mı kanal mı', 'yüksek basıncı ne tutar'],
+    'channel-dir': ['kanallar yatay mı dikey mi', 'kanalların yönü', 'basınç kanalı var mı'],
+    'sg-vs-drum': ['ayırıcı tambur buhar üreteci mi', 'buhar üreteci ile ayırıcı tambur farkı', 'buhar üreteci var mı'],
+    fuel: ['hangi yakıt kullanılır', 'yakıt nasıl değiştirilir', 'yakıt değiştirme'],
   };
   for (const topic of COMPARE_TOPICS) {
-    for (const r of ['pwr', 'bwr', 'vver'] as const) {
+    for (const r of REACTOR_IDS) {
       const side = topic.sides[r];
       cards.push({ id: `compare:${topic.id}:${r}`, category: r.toUpperCase() as GuideCategory, reactors: [r],
         question: `${r.toUpperCase()} ${topic.question}`, variants: (compareAliases[topic.id] ?? [topic.label]).map((q) => `${r.toUpperCase()} ${q}`),
-        answer: side.text, detail: side.scope === 'drawn' ? 'Bu açıklama çizilen temsili tasarıma aittir; gerçek tesislerin ayrıntıları değişebilir.' : undefined,
-        sourceIds: side.sourceIds, entryIds: [topic.id === 'steam-where' ? (r === 'bwr' ? 'bwr.topic.no-sg' : `${r}.topic.steam-where`) : r], actions: [{ type: 'highlightFlow', reactor: r, ids: side.main, label: topic.label }] });
+        answer: (side.absent ? 'Bu tasarımda bulunmaz. ' : '') + side.text.replace(/^Bu tasarımda bulunmaz\.\s*/, ''), detail: side.scope === 'drawn' ? 'Bu açıklama çizilen temsili tasarıma aittir; gerçek tesislerin ayrıntıları değişebilir.' : undefined,
+        sourceIds: side.sourceIds, entryIds: [topic.id === 'steam-where' ? (r === 'bwr' ? 'bwr.topic.no-sg' : `${r}.topic.steam-where`) : r], actions: side.absent ? [] : [{ type: 'highlightFlow', reactor: r, ids: side.main, label: topic.label }] });
     }
-    for (const rs of [['pwr', 'bwr'], ['pwr', 'vver'], ['bwr', 'vver'], ['pwr', 'bwr', 'vver']] as ReactorId[][]) {
+    for (const rs of COMBOS) {
       cards.push({ id: `compare:${topic.id}:${rs.join('-')}`, category: 'Karşılaştırma', reactors: rs,
         question: `${rs.map((r) => r.toUpperCase()).join(' ve ')}: ${topic.question}`,
         variants: (compareAliases[topic.id] ?? [topic.label]).map((q) => `${rs.join(' ')} ${q} karşılaştır`),
         answer: rs.map((r) => `${r.toUpperCase()}: ${topic.sides[r].text}`).join('\n\n'),
         detail: topic.sides[rs[0]].scope === 'drawn' ? 'Çizilen temsili tasarımlar karşılaştırılıyor; bu ayrıntılar bütün tesislere genellenemez.' : undefined,
         sourceIds: [...new Set(rs.flatMap((r) => topic.sides[r].sourceIds))], entryIds: rs,
-        actions: rs.map((r) => ({ type: 'highlightFlow', reactor: r, ids: topic.sides[r].main, label: topic.label })) });
+        actions: rs.filter((r) => !topic.sides[r].absent).slice(0, 4).map((r) => ({ type: 'highlightFlow', reactor: r, ids: topic.sides[r].main, label: topic.label })) });
     }
   }
-  for (const rs of [['pwr', 'bwr'], ['pwr', 'vver'], ['bwr', 'vver'], ['pwr', 'bwr', 'vver']] as ReactorId[][]) {
+  for (const rs of COMBOS) {
     add(`families:${rs.join('-')}`, `${rs.join(' ve ').toUpperCase()} arasındaki fark nedir?`,
       [`${rs.join(' ')} karşılaştır`, `${rs.join(' ')} farkları`, `${rs.join(' ')} aynı mı`],
       rs.map((r) => `${r.toUpperCase()}: ${kb.get(r)!.summary}`).join('\n\n'), rs,
       { category: 'Karşılaştırma', reactors: rs });
   }
+
+  addChannelReactorCards(add);
 
   for (const mode of MODES) {
     add(`mode:${mode.mode}`, `PWR Mod ${mode.mode} ${mode.name} nedir?`,
@@ -142,7 +158,7 @@ export function buildGuideCatalog(kb: KnowledgeSource): GuideCard[] {
   const site = (id: string, q: string, variants: string[], answer: string, detail?: string) => add(`site:${id}`, q, variants, answer, [],
     { category: 'Site kullanımı', reactors: [], sourceIds: ['app-guide'], actions: [], detail });
   site('help', 'Bu rehbere ne sorabilirim?', ['yardım', 'neler biliyorsun', 'hangi soruları cevaplıyorsun', 'merhaba', 'selam'],
-    'PWR, BWR ve VVER ekipmanları, devreleri, karşılaştırmaları, PWR işletme konuları ve site kullanımı hakkında hazırlanmış cevaplar sunuyorum. Hazır sorular bölümünden konu seçebilir veya kendi sorunuzu yazabilirsiniz.',
+    'PWR, BWR, VVER, RBMK ve CANDU ekipmanları, devreleri, karşılaştırmaları, PWR işletme konuları ve site kullanımı hakkında hazırlanmış cevaplar sunuyorum. Hazır sorular bölümünden konu seçebilir veya kendi sorunuzu yazabilirsiniz.',
     'Belirsiz soruda seçenek sunarım; hazırlanmış içerikte olmayan bir cevabı uydurmam. Genel sohbet modeli değilim.');
   site('local', 'Asistan internet veya API kullanıyor mu?', ['yapay zeka mısın', 'token harcıyor musun', 'ücretli misin', 'internet gerekiyor mu', 'çevrimdışı çalışır mı'],
     'Rehber, bu sayfayla yüklenen hazır soru-cevapları cihazınızda eşleştirir. Sorular bir model sunucusuna gönderilmez; API anahtarı veya token ücreti yoktur.',
@@ -172,4 +188,34 @@ export function buildGuideCatalog(kb: KnowledgeSource): GuideCard[] {
   site('chat', 'Sohbetim kaydediliyor mu?', ['sorularım saklanıyor mu', 'sohbeti nasıl temizlerim'],
     'Sohbet yalnız açık sekmenin belleğinde tutulur. “Sohbeti temizle” ile silebilirsiniz; sayfa yenilendiğinde sohbet gider. Ders ilerlemesi bundan ayrı saklanır.');
   return cards;
+}
+
+type AddCard = (id: string, question: string, variants: string[], answer: string, entries: string[], extra?: Partial<GuideCard>) => void;
+
+/** RBMK ve CANDU’da sık karıştırılan ayrımlar: cevaplar bilgi tabanındaki kaynaklı konu metinlerinden okunur. */
+function addChannelReactorCards(add: AddCard) {
+  add('confusion:rbmk-vs-bwr', 'RBMK ile BWR neden aynı reaktör değildir?',
+    ['RBMK ve BWR aynı mı', 'RBMK bir BWR mi', 'RBMK kaynar su reaktörü mü', 'RBMK BWR farkı nedir', 'RBMK ile BWR farkı', 'RBMK’nin BWR’den temel farkı nedir', 'RBMK BWR temel fark'],
+    'Su ikisinde de kaynar ve buhar doğrudan türbine gider; ama moderatör, kaynamanın olduğu yer ve basınç sınırı farklıdır.',
+    ['rbmk.topic.vs-bwr'], { category: 'Karşılaştırma', reactors: ['bwr', 'rbmk'], detail: 'RBMK: grafit moderatör, ayrı dikey basınç kanalları, kap dışında ayırıcı tamburlar. BWR: su moderatör, tek büyük basınç kabı, kap içinde ayırıcı ve kurutucular.' });
+  add('confusion:rbmk-graphite-water', 'RBMK’de grafit ve suyun görevleri nedir?',
+    ['RBMK grafit ve su ne işe yarar', 'RBMK grafit soğutucu mu', 'RBMK su moderatör mü', 'RBMK grafitin görevi nedir', 'RBMK suyun görevi nedir'],
+    'Grafit nötronları yavaşlatır (moderatör); hafif su yakıtı soğutur, kanallarda kaynar ve buhar olarak türbine gider.',
+    ['rbmk.topic.graphite-water'], { category: 'RBMK', reactors: ['rbmk'] });
+  add('confusion:rbmk-drum', 'RBMK’de ayırıcı tambur buhar üreteci midir?',
+    ['RBMK buhar üreteci var mı', 'RBMK tambur buhar üretir mi', 'ayırıcı tambur buhar üreteci mi', 'RBMK ayırıcı tambur ne işe yarar'],
+    'Hayır. Ayırıcı tambur ısı aktarmaz; kanallarda zaten oluşmuş buhar–su karışımını buhar ve suya ayırır. RBMK’de ayrı bir buhar üreteci yoktur.',
+    ['rbmk.drum', 'rbmk.topic.steam-where'], { category: 'RBMK', reactors: ['rbmk'] });
+  add('confusion:candu-two-d2o', 'CANDU’da neden iki ayrı ağır su sistemi vardır?',
+    ['CANDU iki ağır su sistemi neden ayrı', 'CANDU moderatör ve soğutucu karışır mı', 'CANDU moderatör soğutucu aynı mı', 'CANDU ağır su sistemleri neden ayrı'],
+    'Soğutucu sıcak ve yüksek basınçlıdır, kanalların içinde kalır; moderatör düşük basınçlı ve daha soğuktur, calandria’dadır. Aralarında basınç tüpü, gaz halkası ve calandria tüpü vardır; karışmazlar.',
+    ['candu.topic.two-d2o'], { category: 'CANDU', reactors: ['candu'] });
+  add('confusion:candu-calandria', 'Calandria neden basınç kabı değildir?',
+    ['CANDU calandria basınç kabı mı', 'CANDU calandria reaktör kabı mı', 'CANDU basınç kabı var mı', 'CANDU calandria ile basınç tüpü farkı'],
+    'Calandria düşük basınçlı moderatör tankıdır; yüksek basınç her kanalın basınç tüpündedir.',
+    ['candu.topic.calandria'], { category: 'CANDU', reactors: ['candu'] });
+  add('confusion:rbmk-candu-channels', 'RBMK ile CANDU’nun kanal yapıları nasıl farklıdır?',
+    ['RBMK CANDU kanal farkı', 'RBMK ve CANDU kanalları', 'RBMK CANDU kanalları nasıl farklı', 'RBMK ve CANDU basınç kanalları'],
+    'İkisi de basınç kanallıdır: RBMK’de kanallar dikeydir, grafitten geçer ve içinde hafif su kaynar; CANDU’da kanallar yataydır, ağır su moderatörlü calandria’dan geçer ve kanal basınç tüpü + gaz halkası + calandria tüpünden oluşur. CANDU 6’da birincil ağır suda sınırlı kaynama olabilir; türbine giden buhar ise ayrı ikincil hafif su devresinden gelir.',
+    ['rbmk.topic.channels', 'candu.topic.channels'], { category: 'Karşılaştırma', reactors: ['rbmk', 'candu'] });
 }

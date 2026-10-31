@@ -1,6 +1,6 @@
-# Nükleer Santral Şemaları — PWR · BWR · VVER
+# Nükleer Santral Şemaları — PWR · BWR · VVER · RBMK · CANDU
 
-PWR, BWR ve VVER reaktörlerini **ayrı tasarlanmış**, animasyonlu teknik kesit şemalarıyla anlatan Türkçe eğitim uygulaması. React + TypeScript + SVG; backend ve çalışma zamanında internet gerektirmez.
+PWR, BWR, VVER, RBMK ve CANDU reaktörlerini **ayrı tasarlanmış**, animasyonlu teknik kesit şemalarıyla anlatan Türkçe eğitim uygulaması. React + TypeScript + SVG; backend ve çalışma zamanında internet gerektirmez.
 
 ## Kurulum ve komutlar
 
@@ -26,7 +26,7 @@ Ayrıntılı durum ve doğrulama kayıtları: [`docs/IMPLEMENTATION_STATUS.md`](
 - Soruyu proje bilgi tabanında (`src/knowledge/`) arar; kısa, **kaynaklı** açıklama verir ve ilgili bölümü açabilir (ekipman seçme, akış vurgulama, yakın plan, ders, işletme bölümü, grafik olayı).
 - Yalnız tiplenmiş ve doğrulanmış işlemler çalışır (`src/assistant/actions.ts`); bilinmeyen kimlik, serbest kod, DOM seçicisi veya URL çalıştırılmaz. Reaktör değiştiren işlemler (simülasyonu başa alır) yalnız kullanıcı tıklayınca çalışır. “Vurguyu temizle” ve “Önceki konuma dön” vardır.
 - **Yalnız yerel rehber:** hazırlanmış cevapları tarayıcıda eşleştirir; model eğitimi veya üretken yapay zekâ değildir. Sorular için ağ isteği yapmaz. Önceki `VITE_ASSISTANT_ENDPOINT` ayarı kullanılmaz.
-- **205 cevap, 1723 farklı soru ifadesi:** ekipmanlar, dersler, PWR işletme modları ve ısınma aşamaları, otomatik kontrol ilişkileri, ksenon/bor/eksenel güç, reaktör karşılaştırmaları, sık karıştırılan parçalar ve site kullanımı. Bunlar tüm olası soruları kapsama iddiası taşımaz.
+- **468 cevap, 3463 farklı soru ifadesi:** beş reaktörün ekipmanları, dersler, PWR işletme modları ve ısınma aşamaları, otomatik kontrol ilişkileri, ksenon/bor/eksenel güç, reaktör karşılaştırmaları, sık karıştırılan parçalar ve site kullanımı. Bunlar tüm olası soruları kapsama iddiası taşımaz.
 - Panelde **Hazır sorular** kitaplığı: konu ve metin filtresi; seçilen soru kaynaklı cevabı açar. Türkçe karakter yazılmadan yazılan sorular, bazı ekler, yaygın terim eş anlamları ve uzun kelimelerde tek harflik yazım hataları desteklenir. Belirsiz soruda seçenek sunulur; bilinmeyen soru için cevap üretilmez.
 - Kısa takipler: “Bunu göster”, “Daha ayrıntılı”; reaktöre özgü karşılaştırma cevabından sonra “Peki PWR’de?” gibi sorular. Bu sınırlı takip desteği genel sohbet belleği değildir.
 - Sohbetler kaydedilmez (yalnız açık sekmede, bellekte).
@@ -47,7 +47,7 @@ Olaylar türüne göre ayrı işaretlenir: ■ kaynakta tanımlı, ◆ şekilden
 
 ### Karşılaştırma konuları
 
-Konu seçince üç mini şemada ilgili parçalar kalın çizgi + kesikli çerçeveyle vurgulanır, diğerleri geri plana alınır; her reaktör için kısa açıklama, kapsam etiketi (“Reaktör ailesi geneli” / “Çizilen temsili tasarım”), kaynaklar ve “… şemasında ayrıntılı incele”. Dar ekranda tek reaktör ve reaktör geçişi; seçili konu korunur.
+On iki konu (buharın oluştuğu yer, ısı yolu, devre ilişkisi, basınçlandırıcı, buhar üreteci düzeni, kontrol çubukları, moderatör, soğutucu, basınç sınırı, kanal yönü, buhar üreteci/ayırıcı tambur, yakıt ve yakıt değiştirme). Konu seçince beş mini şemada ilgili parçalar kalın çizgi + kesikli çerçeveyle vurgulanır, diğerleri geri plana alınır; her reaktör için kısa açıklama, kapsam etiketi (“Reaktör ailesi geneli” / “Çizilen temsili tasarım”), kaynaklar ve “… şemasında ayrıntılı incele”. Konu bir tasarımda uygulanmıyorsa “Bu tasarımda bulunmaz” yazar; başka bir ekipman vurgulanmaz ve inceleme düğmesi gösterilmez. Geniş ekranda beş kart 3 + 2 düzende (orta ekranda 2 sütun) ve “Göster” seçimiyle istenen reaktörler karşılaştırılır; dar ekranda tek reaktör ve beş düğmeli reaktör geçişi; seçili konu korunur. Tablo seçili reaktörlerin sütunlarını gösterir ve kendi alanında yatay kayar.
 
 ### Etiket ayrıntısı
 
@@ -59,15 +59,17 @@ Tamamlanan dersler, son kalınan ders/adım, tahmin sonuçları (yalnız seçene
 
 ## Özellikler
 
-- **Üç ayrı sahne** (her biri kendi geometrisi, boru bağlantıları, akış yolları, etkileşim noktaları ve dersleriyle):
+- **Beş ayrı sahne** (her biri kendi geometrisi, boru bağlantıları, akış yolları, etkileşim noktaları ve dersleriyle):
   - **PWR** — koruma yapısı içinde kap, basınçlandırıcı, dikey U borulu buhar üreteci (ayırıcı/kurutucu, boru levhası, bölme plakası), sıcak/soğuk kol, birincil pompa; ayrı ikincil devre ve soğutma suyu çevrimi.
   - **BWR** — büyük kap odaklı tek çevrim: çekirdekte kaynama, standpipe + siklon ayırıcılar, şevron kurutucular, buhar kubbesi, downcomer, jet pompaları, dış devridaim döngüsü, alttan giren haç kesitli çubuklar, korumalı türbin binası. Buhar üreteci ve basınçlandırıcı yoktur.
   - **VVER** — PWR ailesinden; dar/uzun kap ve yüksek üst blok, farklı kotlarda sıcak/soğuk kol, sıcak/soğuk kolektörlü **yatay buhar üreteci**, ana sirkülasyon pompası; görünür “temsili şema / tek çevrim sadeleştirmesi” notu.
-- **Yakın planlar**: PWR buhar üreteci ve basınçlandırıcı; BWR ayırıcı-kurutucu ve kap içi bölgeler; VVER yatay buhar üreteci ve dikey/yatay üreteç karşılaştırması; her reaktöre ayrı çekirdek yakın planı (VVER’de altıgen, üçgen adımlı demetler; BWR’de kanal kutuları + haç kesitli çubuk) ve temsili nötronlar (fisyon / soğurulma).
+  - **RBMK** — temsili RBMK-1000: grafit yığını içinden geçen dikey basınç kanalları (5 temsili yakıt + 2 ayrı kontrol/koruma kanalı), kanalda alttan girip yukarı akarken kaynayan hafif su, her kanalın kendi buhar–su borusuyla gittiği kap dışındaki ayırıcı tambur, buharın doğrudan türbine gidişi, iniş borusu → ana sirkülasyon pompası → grup dağıtım kolektörü → alt su boruları dönüşü; biyolojik zırh/plakalar ve bina ayrı ekipman olarak. BWR sahnesinden türetilmedi.
+  - **CANDU** — temsili CANDU 6: yatay calandria ve ağır su moderatörü, dört temsili yatay kanal (basınç tüpü + gaz halkası + calandria tüpü, 12 demet), komşu kanallarda ters akış, uç görünüşte kolektörler ve besleyiciler, “sekiz” biçimli halkada iki buhar üreteci ve iki pompa, basınçlandırıcı, ayrı moderatör soğutma sistemi, ayrı ikincil hafif su devresi. PWR kabından türetilmedi.
+- **Yakın planlar**: PWR buhar üreteci ve basınçlandırıcı; BWR ayırıcı-kurutucu ve kap içi bölgeler; VVER yatay buhar üreteci ve dikey/yatay üreteç karşılaştırması; RBMK grafit–basınç kanalı–yakıt ilişkisi, kanalda kaynama ve ayırıcı tambur; CANDU yakıt kanalı katmanları (demet → basınç tüpü → gaz aralığı → calandria tüpü → moderatör), moderatör ile ana ısı taşıma sisteminin ayrılığı, buhar üretecinde birincil/ikincil ayrımı ve işletmede yakıt değiştirme ilkesi; her reaktöre ayrı çekirdek yakın planı (VVER’de altıgen, üçgen adımlı demetler; BWR’de kanal kutuları + haç kesitli çubuk; RBMK’de grafit kolon kafesi; CANDU’da kare kafes ve iki yönlü akış) ve temsili nötronlar (fisyon / soğurulma).
 - **Etkileşim**: ekipmana tıklama veya Tab + Enter ile seçim; görev, bu reaktörde çalışma biçimi, bağlantılı hatların vurgusu, yakın plan. Vurgu renge ek olarak kesikli çerçeve ve kalın çizgiyle gösterilir.
 - **Reaktöre özgü odaklar** (ör. “Buhar nerede oluşuyor?”, “İki devre neden ayrı?”, “Kolektör ve boru demeti”).
 - **Adım adım anlatım**: her reaktör için ayrı ders akışı, önceki/sonraki.
-- **Karşılaştırma görünümü**: üç farklı mini şema + karşılaştırma tablosu.
+- **Karşılaştırma görünümü**: beş farklı mini şema, 12 konu + karşılaştırma tablosu.
 - **Kontroller**: oynat/duraklat, sıfırla, 0.5×/1×/2× hız, %20–100 “Eğitim senaryosu: göreli güç”, etiketleri/akış işaretlerini göster-gizle, çekirdek yakın planı, yakınlaştırma/sığdırma/sürükleyerek kaydırma.
 - **Grafikler**: enerji dönüşümü (nükleer → ısı → buhar → mekanik → elektrik; buhar ayrıca kondenserde atılan ısıya ayrılır; güç değişirken ayrı, işaretli “depolama hızı” göstergesi) ve son 60 simülasyon saniyesinin zaman grafiği.
 - **Yakın plan penceresi**: yerel `<dialog>` + `showModal()`; arka plan fare ve klavyeye kapalı, Tab/Shift+Tab pencere içinde döner, Esc ve Kapat ile kapanır, odak açan kontrole döner, sayfa kaydırması konumu korunarak kilitlenir.
@@ -77,7 +79,7 @@ Tamamlanan dersler, son kalınan ders/adım, tahmin sonuçları (yalnız seçene
 
 ## PWR · İşletme ve Reaktör Davranışı modülü
 
-PWR seçiliyken başlığın altındaki **Santral şeması / İşletme ve davranış** düğmeleriyle açılır. BWR ve VVER’de görünmez; reaktör veya görünüm değişince santral şemasına döner. Ayrı bir JS parçası olarak yüklenir (`PwrOperations-*.js`); yeni rota veya yönlendirme yoktur, GitHub Pages yapılandırması aynıdır.
+PWR seçiliyken başlığın altındaki **Santral şeması / İşletme ve davranış** düğmeleriyle açılır. BWR, VVER, RBMK ve CANDU’da görünmez; reaktör veya görünüm değişince santral şemasına döner. Ayrı bir JS parçası olarak yüklenir (`PwrOperations-*.js`); yeni rota veya yönlendirme yoktur, GitHub Pages yapılandırması aynıdır.
 
 Ana kaynak: Nuc E 430 ders notları, Bölüm 2, **“2.5 PWR Reactor Operations”, s. 2-88 – 2-101** (BWR bölümü 2-102’de başlar ve dahil edilmedi). Bu aralıkta PDF sayfa sırası basılı numarayla aynıdır (PDF s. 88 = 2-88). PDF ve sayfa görüntüleri depoya ya da yayımlanan siteye eklenmedi; şekiller özgün SVG olarak yeniden çizildi.
 
@@ -136,6 +138,34 @@ Başlıktaki **Görünüm** seçicisi yalnız yerleşimi değiştirir; reaktör�
 - Santral şeması: “Görünümü sıfırla” düğmesi; alan dışında bırakılan veya iptal edilen sürükleme takılı kalmaz. Dar ekranda seçili ekipman şemanın hemen altında özetlenir (“Ayrıntılar ↓”).
 - Yakın plan penceresi: dar ekranda tam ekran, yükseklik `100dvh`; içerik kendi içinde kayar, çizim okunaklı boyutta yana kaydırılır. Odak tuzağı, Esc, odak dönüşü ve kaydırma kilidi korunur.
 
+## RBMK ve CANDU modülleri
+
+Çizilen tasarımlar arayüzde açıkça yazılır: **temsili RBMK-1000** ve **temsili CANDU 6**. Aile geneli ilkeler ile çizilen modele özgü bilgiler karşılaştırmada “Reaktör ailesi geneli” / “Çizilen temsili tasarım” etiketleriyle ayrılır. PWR’ye özgü İşletme ve Davranış modülü ile tahmin dersi bu reaktörlerde açılmaz.
+
+### Kaynaklar (uygulama sırasında okunup iddiayı desteklediği kontrol edildi)
+
+| Kaynak | Kullanıldığı iddialar |
+| --- | --- |
+| IAEA INSAG-7, *The Chernobyl Accident: Updating of INSAG-1* (1992), §2.2, 2.6, 2.8–2.10 | RBMK-1000: iki bağımsız çevrim (her biri çekirdeğin yarısı), çevrim başına 4 pompa (3 + 1 yedek), ortak kolektör → grup dağıtım kolektörleri → kanallar, kanal başına ayrı buhar–su boruları, çevrim başına 2 yatay ayırıcı tambur, besleme suyunun ayrılmış suyla karışıp pompa emişine gitmesi, alt-soğutulmuş girişten sonra kanalda kaynama, çekirdek ~7 m × ~11,8 m, 1986 durumunda çubukların çoğu üstten / 24 kısa çubuk alttan ve grafit yer değiştiriciler, “yerelleştirilmiş” koruma hacimleri, üst kapak ve alt plaka |
+| OECD NEA, *Chernobyl — Chapter I* | Grafit moderatörlü basınç tüplü tasarım, dikey basınç tüpleri, zirkonyum alaşımı kaplı ~%2 zenginleştirilmiş UO₂, alttan girip kaynayan su, ara ısı değiştiricisiz doğrudan türbin, 211 kontrol çubuğu, işletmede yakıt değiştirme, bloklar arasında N₂–He gazı |
+| IAEA BPTC Modül IV, s. 8–13 | PWR/BWR/VVER genel özellikleri (karşılaştırmadaki moderatör/soğutucu/basınç sınırı satırları), PHWR: basınç tüplerinde basınçlı ağır su, basınçsız moderatör tankı, ağır su → hafif su buhar üreteci, basınçlandırıcı şeması; LWGR/RBMK: basınç tüplerinde kaynama, büyük grafit yapı, buhar ayırıcılar |
+| Zhang & Shalaby (AECL), *Introduction to the Qinshan Phase III CANDU NPP* (CANTEACH) | CANDU 6: 380 yatay kanal, kare kafes, 12 demet/kanal, 37 elemanlı doğal UO₂ demeti, iki halka (her birinde 2 buhar üreteci, 2 pompa, 2 giriş + 2 çıkış kolektörü), komşu kanallarda ters akış ve “sekiz” biçimi, düşük basınçlı/düşük sıcaklıklı ve bağımsız moderatör, moderatör ısı değiştiricileri, dikey U borulu tümleşik buhar tamburlu ve ön ısıtıcılı buhar üreteci, iki uçta işletmede yakıt değiştirme ve başka yakıt seçenekleri, kanallar arasından geçen reaktivite düzenekleri |
+| CANDU Fundamentals Bölüm 11 ve 14 (CANTEACH) | Calandria’nın basınç kabı olmaması ve patlama diskleri, CO₂ gaz halkası ve aralayıcılar, uç bağlantıları ve yakıt değiştirme makinesinin kenetlenmesi; kolektör ve buhar üreteçlerinin çekirdekten yüksekte olması, pompanın buhar üreteci çıkışında olması, pompaların basınç değil akış sağlaması |
+| CNSC, *Pressure tubes* bilgi notu | Kanal başına 1 basınç tüpü + 1 calandria tüpü + uç bağlantıları + aralayıcılar; basınç tüpünde yakıt ve soğutucu |
+
+Kaynakta bulunmayan sıcaklık, basınç veya performans değeri kullanılmadı. RBMK’nin tarihsel güvenlik özellikleri (1986 çubuk tasarımı, yerelleştirilmiş koruma) yalnız dönem ve kaynak belirtilerek anlatılır; bütün RBMK’lere genellenmez. RBMK kaza üzerinden değil, tasarım ve çalışma prensibi üzerinden anlatılır.
+
+### Sadeleştirmeler
+
+- RBMK: iki çevrimden biri; çok sayıda kanal yerine 5 yakıt + 2 kontrol kanalı; iki tambur ve dört pompa yerine birer adet; tek grup kolektörü; yakıt değiştirme makinesi ve ön ısıtıcılar çizilmedi. Buhar–su boruları kanal başına ayrıdır ve birbirini kesmeyecek iç içe L biçiminde çizilir. Kontrol çubukları yalnız üstten giren temsili çubuklarla gösterilir.
+- CANDU: iki halkadan biri; 380 kanal yerine 4 kanal; kolektörler yan görünüşte daire (uç görünüş). Aynı yüzde farklı kolektörlere giden besleyiciler yan görünüşte bir noktada üst üste geçer; bu nokta köprüyle (boşluk) çizilir, gerçek birleşmeler ● ile işaretlidir. Basınçlandırıcının ve moderatör sisteminin bağlantı yerleri ile sol buhar üretecine giden besleme kolunun reaktörün altından dolaşması temsilidir.
+- Yakıt değiştirme yakın planı yalnız ilkeyi gösterir (iki uçta makine, yeni demet girer, kullanılmış demet çıkar); sıra, sayı ve yön gerçek prosedür değildir.
+- Animasyonlar ortak normalize eğitim modelini kullanır; RBMK/CANDU için doğrulanmış reaktör fiziği (ör. boşluk katsayısı) modellenmez. Göreli güç kaydırıcısı kontrol çubuğu konumu, boşluk oranı veya reaktiviteyle doğrusal eşlenmez. Nötronlar temsilidir.
+
+### Malzeme ve akışkan ayrımı
+
+Renge ek olarak: grafit koyu gri + tuğla dokusu ve “GRAFİT” etiketi; ağır su moderatörü açık mor noktalı desen, kesik-nokta (mor) akış çizgisi ve “D₂O · moderatör” etiketi; birincil ağır su “D₂O · birincil · basınçlı”, ikincil hafif su “H₂O” etiketleri; buhar kesikli çizgi ve içi boş işaret; su–buhar karışımı kısa kesikli çizgi ve kabarcıklar.
+
 ## Mimari
 
 ```
@@ -145,14 +175,18 @@ src/
                   controls (ControlBar), charts (EnergyFlow, TimeChart),
                   educational (LessonPanel, DetailDialog, CompareView)
   reactors/
-    pwr/ bwr/ vver/   <Tip>Scene.tsx, <Tip>CoreDetail.tsx, <Tip>Details.tsx, config, lessons
+    pwr/ bwr/ vver/ rbmk/ candu/
+                      <Tip>Scene.tsx, <Tip>CoreDetail.tsx, <Tip>Details.tsx, config, lessons,
+                      <tip>Layout.ts (adlandırılmış bağlantı noktaları ve boru rotaları)
+    meta.ts           beş reaktörün ortak sırası, kısa adı ve ipuçları; anlatım kimliği çözümleme
     shared/           types, SceneContext (Hotspot/Label/SceneNote),
                       flow (Flow parçacıkları + flowMath), equipment (türbin-jeneratör,
                       kondenser, pompa, kabarcık, ısı nabzı, çubuk hareketi, nötron katmanı)
     registry.ts       reaktör → bağımsız modül eşlemesi
+    shared/equipment/materials.tsx  grafit ve ağır su desenleri, akışkan etiketi, kesişme köprüsü
   simulation/     clock.ts (tek rAF döngüsü), educationalModel.ts
   hooks/          useSimulation.ts (useTick, useModelSnapshot, usePlayback)
-  styles/         global.css
+  styles/         global.css, lab.css, learning.css, channel-reactors.css (RBMK/CANDU çizim dili)
 ```
 
 - **Tek animasyon saati**: `SimClock` uygulama boyunca bir `requestAnimationFrame` döngüsü çalıştırır. Sahneler, grafikler ve çekirdek animasyonları `useTick` ile abone olur; bileşen kaldırılınca abonelik silinir. Duraklatıldığında model, parçacıklar, kabarcıklar, türbin, nötronlar ve grafik zamanı birlikte durur; devam edince ilk kare `dt = 0` ile başlar (zaman sıçraması yok). Kare başına süre 0,1 s ile sınırlıdır.
@@ -176,6 +210,12 @@ src/
 
 Kullanılan sayılar ve kaynakları: PWR ~155 bar ve BWR ~70 bar, basınçlandırıcıda ~%60 su / %40 buhar, LWR verimi ≈ %33, VVER-1000 dört / VVER-440/213 altı çevrim, VVER’de sıcak/soğuk kolların farklı kotlarda olması ve üçgen adımlı yakıt — Nuc E 430 Bölüm 2 ders notları. PWR/BWR temel farkları ve BWR akışı — U.S. NRC sayfaları. VVER tasarım özellikleri — IAEA (Trunov ve ark.). Referans görseldeki sayılar kullanılmadı.
 
+## Kod denetimi (2026-10-31)
+
+CANDU 6’da birincil ağır suda sınırlı kaynama olabilir; türbine giden buhar ayrı ikincil hafif su devresinde oluşur. Tek fazlı görünen birincil akış animasyonu bir sadeleştirmedir (CANTEACH, [Heat Transport System Thermalhydraulics, §3.3, s. 3-2–3-3](https://canteach.candu.org/Content%20Library/20043705.pdf)). Karşılaştırma ve yerel rehberdeki kesin “kaynamaz” ifadeleri düzeltildi. Grafit dokusunun CSS tarafından örtülmesi, CANDU U borusu akış uçları ve yakın planda akışın örtülmesi giderildi.
+
+Son kod denetiminde TypeScript kontrolü, 18 dosyada 736 test, üretim derlemesi ve iki içerik dışa aktarımı geçti. Görsel kontrol bu oturumda tamamlanamadı: in-app tarayıcı localhost bağlantısı zaman aşımına uğradı; Windows tarayıcı aracı URL doğrulaması yapılamadığı için durdu. Aşağıdaki tarayıcı kayıtları önceki uygulama çalışmasına aittir ve bu denetimde yeniden doğrulanmadı.
+
 ## Doğrulama sonuçları
 
 Bu sürümde yapılan kontroller:
@@ -197,6 +237,9 @@ Bu sürümde yapılan kontroller:
 | Ekipman seçimi (fare ve Tab + Enter), vurgulama/soluklaştırma, Esc ile yakın planı kapatma | Doğrulandı |
 | Üç sahne, tüm yakın planlar, ders akışı, karşılaştırma görünümü | Ekran görüntüleriyle incelendi |
 | Mobil (375 px): sayfada yatay taşma yok, yan panel altta | Doğrulandı |
+| RBMK ve CANDU (2026-10-31): `npm run typecheck`, `npm test` (18 dosya, 733 test), `npm run build`, `npm run guide:export` (468 cevap, 3463 soru ifadesi), `npm run kb:export` (184 girdi) | Geçti |
+| Yeni testler: beş reaktörün kaydı ve meta verisi; her ekipmanın sahnede seçilebilir olması; ders/odak/ekipman vurgularının sahnedeki gerçek kimliklere bağlı olması (beş reaktörde); her yakın planın çizilmesi; RBMK buhar–su borularının kanaldan tambura gitmesi ve kesişmemesi; CANDU’da komşu kanalların ters akışı, besleyici yönleri, sekiz biçimli halka uçları, besleyici kesişmelerinin yalnız köprülü noktalar olması, moderatör sisteminin ayrılığı; 12 karşılaştırma konusu ve “bulunmaz” kuralı; RBMK/CANDU soru tanıma, Türkçe ekler, yanlış eşleşme ve kapsam dışı sorular; eski ilerleme kayıtlarıyla uyumluluk, derin bağlantılar ve reaktör geçişleri | Geçti |
+| RBMK ve CANDU tarayıcı kontrolü: 1440×900’de iki sahne (Ayrıntılı etiketlerle), RBMK’nin 4 ve CANDU’nun 5 yakın planı, seçim/vurgu, odak soruları; karşılaştırmada 3 + 2 düzen, reaktör filtresi, “Bu tasarımda bulunmaz”; 768×1024’te CANDU dersi ve derin bağlantı, karşılaştırmada 2 sütun; 390×844’te iki sahne, seçim çubuğu, tam ekran yakın plan (odak Kapat’ta, Esc ile kapanır), tek reaktörlü karşılaştırma; sayfada yatay taşma yok; beş reaktör arasında geçişte konsol hatası yok; tek saatle duraklatma/devam | Doğrulandı |
 | Konsol hatası | Görülmedi |
 
 Doğrulanamayanlar: ilk sürümde tarayıcı paneli arka plana alındığı için duraklat/devam/hız davranışı tarayıcıda gerçek zamanlı ölçülemedi; bu davranış birim testinde sahte kare zamanlarıyla doğrulandı. Yakın plan açıkken açan kontrolün sayfadan kaldırılması durumu (yedek odak noktası) tarayıcıda denenmedi; arayüzde bu durumu oluşturan bir akış yok. Ekran okuyucu ile manuel test yapılmadı. PWR işletme modülünde tarayıcı paneli gizliyken kare hızı kısıldığından ksenon laboratuvarının gerçek zamanlı oynatma hızı ölçülemedi (oynatmanın ilerlediği ve duraklatmanın durdurduğu görüldü; hız birim testleriyle doğrulandı). Şekillerden okunan değerler gözle ve piksel ölçümüyle elde edildi; ±birkaç piksel belirsizlik içerir. Modelin fiziksel doğruluğu testlerle kanıtlanmış sayılmamalıdır; testler yalnız tutarlılık ve beklenen eğilimleri kontrol eder. Mobil/tablet davranışları yalnız masaüstü tarayıcıda viewport emülasyonuyla kontrol edildi; gerçek dokunmatik cihazda (dokunarak sürükleme, kıstırarak yakınlaştırma, ekran yönü döndürme, `pointer: coarse`) denenmedi. Depolama erişiminin tamamen engellendiği durum birim testinde doğrulandı, tarayıcıda denenmedi.

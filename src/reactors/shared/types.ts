@@ -1,6 +1,6 @@
 import type { ComponentType } from 'react';
 
-export type ReactorId = 'pwr' | 'bwr' | 'vver';
+export type ReactorId = 'pwr' | 'bwr' | 'vver' | 'rbmk' | 'candu';
 
 /** Bir sahnedeki tıklanabilir ekipman. */
 export interface ComponentInfo {
@@ -69,4 +69,5 @@ export interface ReactorModule {
   Details: ComponentType<DetailProps>;
 }
 
-export type FlowKind = 'hot' | 'cold' | 'steam' | 'feed' | 'cool' | 'mix' | 'grad';
+/** 'mod': CANDU moderatörü — düşük basınçlı, daha soğuk ağır su; birincil soğutucudan ayrı sistem. */
+export type FlowKind = 'hot' | 'cold' | 'steam' | 'feed' | 'cool' | 'mix' | 'grad' | 'mod';

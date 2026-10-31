@@ -28,7 +28,7 @@ export function EnergyFlow({ reactor }: { reactor: ReactorId }) {
   const cols = [
     { label: 'Nükleer', sub: 'fisyon', v: s.thermal, cls: 'ef-nuc' },
     { label: 'Isı', sub: 'yakıt → su', v: s.thermal, cls: 'ef-heat' },
-    { label: 'Buhar', sub: reactor === 'bwr' ? 'reaktörden' : 'ikincil devre', v: s.steam, cls: 'ef-steam' },
+    { label: 'Buhar', sub: reactor === 'bwr' || reactor === 'rbmk' ? 'reaktörden' : 'ikincil devre', v: s.steam, cls: 'ef-steam' },
     { label: 'Mekanik', sub: 'türbin mili', v: s.electric, cls: 'ef-mech' },
     { label: 'Elektrik', sub: 'şebekeye', v: s.electric, cls: 'ef-elec' },
     { label: 'Atılan ısı', sub: 'kondenser → su', v: s.rejected, cls: 'ef-reject' },

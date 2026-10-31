@@ -92,6 +92,54 @@
    "locator": null
   },
   {
+   "id": "iaea-bptc-m4",
+   "kind": "web",
+   "title": "IAEA BPTC — Module IV: Design of a nuclear reactor",
+   "locator": "Bölüm 1.3–1.7, s. 8–13 (PWR, BWR, PHWR/CANDU, LWGR/RBMK)"
+  },
+  {
+   "id": "iaea-insag7",
+   "kind": "web",
+   "title": "IAEA INSAG-7, The Chernobyl Accident: Updating of INSAG-1 (1992)",
+   "locator": "§2.2, 2.6, 2.8–2.10 (RBMK-1000 tasarım anlatımı, 1986 durumu)"
+  },
+  {
+   "id": "nea-chernobyl",
+   "kind": "web",
+   "title": "OECD NEA — Chernobyl, Chapter I: The site and accident sequence",
+   "locator": "RBMK-1000 reaktörünün tanımı"
+  },
+  {
+   "id": "cnsc-pt",
+   "kind": "web",
+   "title": "CNSC — Pressure tubes (bilgi notu)",
+   "locator": "Yakıt kanalı: basınç tüpü, calandria tüpü, uç bağlantıları, aralayıcılar"
+  },
+  {
+   "id": "canteach-c6",
+   "kind": "web",
+   "title": "Zhang Yanfa, B. A. Shalaby (AECL) — Introduction to the Qinshan Phase III CANDU Nuclear Power Plant (CANTEACH)",
+   "locator": "§3.2–3.7 ve CANDU 6 birim verileri"
+  },
+  {
+   "id": "canteach-constr",
+   "kind": "web",
+   "title": "CANDU Fundamentals, Bölüm 11: CANDU Reactor Construction (CANTEACH)",
+   "locator": "Calandria, kanal katmanları, gaz halkası, uç bağlantıları"
+  },
+  {
+   "id": "canteach-hts",
+   "kind": "web",
+   "title": "CANDU Fundamentals, Bölüm 14: Heat Transport System (CANTEACH)",
+   "locator": "Sekiz biçimli halka, iki yönlü akış, pompaların ve kolektörlerin konumu"
+  },
+  {
+   "id": "canteach-thermal",
+   "kind": "web",
+   "title": "CANTEACH — Heat Transport System Thermalhydraulics, Chapter 3",
+   "locator": "§3.3, s. 3-2–3-3 (birincil tarafta sınırlı buhar ve buhar üretecinde yoğuşma; tek faz yaklaşımı bir sadeleştirmedir)"
+  },
+  {
    "id": "model-plant",
    "kind": "model",
    "title": "Uygulamanın temsili santral modeli",
@@ -1921,6 +1969,1681 @@
    ]
   },
   {
+   "id": "rbmk",
+   "reactorId": "rbmk",
+   "kind": "reactor",
+   "name": "RBMK-1000 — grafit moderatörlü, kaynayan hafif su soğutmalı kanal reaktörü (temsili)",
+   "summary": "Nötronlar esas olarak büyük bir grafit yığınında yavaşlar; soğutucu hafif sudur. Su, grafitin içinden geçen dikey basınç kanallarında yakıtın çevresinde yukarı akarken kaynar. Buhar–su karışımı çekirdek dışındaki ayırıcı tamburlara gider; ayrılan buhar arada buhar üreteci olmadan türbine, ayrılan su pompalarla kanallara döner. Çekirdeği saran tek bir PWR tipi basınç kabı yoktur.",
+   "body": null,
+   "sourceIds": [
+    "iaea-insag7",
+    "nea-chernobyl",
+    "iaea-bptc-m4"
+   ],
+   "targets": [
+    {
+     "type": "openReactor",
+     "reactor": "rbmk"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.graphite",
+   "reactorId": "rbmk",
+   "kind": "equipment",
+   "name": "Grafit moderatör yığını",
+   "summary": "Fisyon nötronlarını yavaşlatır (moderatör).",
+   "body": "Çekirdek, dikey delikli grafit bloklardan oluşan büyük bir yığındır (INSAG-7: yükseklik ~7 m, çap ~11,8 m). Kanallar bu deliklerden geçer. Grafit soğutucu değildir ve basınç sınırı değildir: bloklar arasında grafitin oksitlenmesini önleyen ve ısısını kanallara taşıyan azot–helyum karışımı dolaşır (NEA). Şemada grafit koyu gri + tuğla dokusuyla gösterilir.",
+   "sourceIds": [
+    "iaea-insag7",
+    "nea-chernobyl",
+    "iaea-bptc-m4"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "rbmk",
+     "equipmentId": "graphite"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "rbmk",
+     "detail": "channel"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.channels",
+   "reactorId": "rbmk",
+   "kind": "equipment",
+   "name": "Yakıt / basınç kanalları",
+   "summary": "Yakıtı ve basınç altındaki kaynayan soğutucuyu taşır; basınç sınırıdır.",
+   "body": "Grafitten geçen dikey basınç tüpleri (zirkonyum alaşımı). Su kanalın altından girer, yakıtın çevresinde yukarı akarken ısınır ve bir noktadan sonra kaynar; üstten buhar–su karışımı çıkar (NEA, INSAG-7 §2.8). Şemada beş temsili kanal çizildi; her kanalın kendi alt su borusu ve üst buhar–su borusu vardır.",
+   "sourceIds": [
+    "iaea-insag7",
+    "nea-chernobyl",
+    "iaea-bptc-m4"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "rbmk",
+     "equipmentId": "channels"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "rbmk",
+     "detail": "boiling"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.fuel",
+   "reactorId": "rbmk",
+   "kind": "equipment",
+   "name": "Yakıt demeti",
+   "summary": "Fisyon ısısının üretildiği yer.",
+   "body": "Zirkonyum alaşımı kaplı uranyum dioksit yakıt çubukları; kaynaklara göre yaklaşık %2 zenginleştirilmiş (NEA, IAEA BPTC Modül IV). Yakıt kanalın içindedir ve doğrudan hafif suyla soğutulur. Yakıt işletme sırasında değiştirilebilir (NEA); bu uygulama yakıt değiştirme makinesini çizmez.",
+   "sourceIds": [
+    "iaea-insag7",
+    "nea-chernobyl",
+    "iaea-bptc-m4"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "rbmk",
+     "equipmentId": "fuel"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "rbmk",
+     "detail": "channel"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.rods",
+   "reactorId": "rbmk",
+   "kind": "equipment",
+   "name": "Kontrol / koruma kanalları ve çubuklar",
+   "summary": "Nötron soğurarak reaktiviteyi ve gücü ayarlar.",
+   "body": "Yakıt kanallarından ayrı kanallarda hareket eder (şemada kesikli çerçeveli, içinde yakıt olmayan borular). NEA: güç, 211 kontrol çubuğu indirilip kaldırılarak ayarlanır. INSAG-7 (1986 durumu): çubuklar üstten girer; güç dağılımını düzleştiren 24 kısaltılmış çubuk alttan girer. O dönemde çubukların ucunda grafit “yer değiştiriciler” vardı ve tasarım kazadan sonra değiştirildi (INSAG-7 Şekil 1). Çizim yalnız üstten giren temsili çubukları gösterir; çubuk konumu güçle birebir eşlenmez.",
+   "sourceIds": [
+    "iaea-insag7",
+    "nea-chernobyl",
+    "iaea-bptc-m4"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "rbmk",
+     "equipmentId": "rods"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "rbmk",
+     "detail": "core"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.dgh",
+   "reactorId": "rbmk",
+   "kind": "equipment",
+   "name": "Basma ve grup dağıtım kolektörleri",
+   "summary": "Pompa basmasını kanalların alt su borularına dağıtır.",
+   "body": "INSAG-7 §2.9: pompaların bastığı su ortak bir kolektöre, oradan çekirdek yarısı başına çok sayıda grup dağıtım kolektörüne gider; her kanalın kendi su borusu ve debi ayar vanası vardır. Şemada tek kolektör ve beş alt su borusu çizildi; ● işaretleri gerçek bağlantı noktalarıdır.",
+   "sourceIds": [
+    "iaea-insag7",
+    "nea-chernobyl",
+    "iaea-bptc-m4"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "rbmk",
+     "equipmentId": "dgh"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.risers",
+   "reactorId": "rbmk",
+   "kind": "equipment",
+   "name": "Buhar–su boruları (kanal çıkışları)",
+   "summary": "Her kanaldaki buhar–su karışımını ayırıcı tambura taşır.",
+   "body": "INSAG-7: kanallardan çıkan buhar–su karışımı ayrı borularla tamburlara gider. Bu yüzden çizimde borular birleştirilmedi ve birbirini kesmeyecek biçimde iç içe çizildi. Borulardaki karışım kesikli çizgi ve kabarcık işaretleriyle gösterilir.",
+   "sourceIds": [
+    "iaea-insag7",
+    "nea-chernobyl",
+    "iaea-bptc-m4"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "rbmk",
+     "equipmentId": "risers"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "rbmk",
+     "detail": "boiling"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.drum",
+   "reactorId": "rbmk",
+   "kind": "equipment",
+   "name": "Ayırıcı tambur (buhar ayırıcı)",
+   "summary": "Buhar–su karışımını buhar ve suya ayırır.",
+   "body": "Yatay, büyük bir tambur. Kanallardan gelen karışım burada ayrılır: buhar üstten buhar hatlarına ve türbine, su alttan iniş borularına gider. Ayırıcı tambur ısı aktarmaz ve iki ayrı devreyi ayırmaz; dolayısıyla buhar üreteci değildir — buhar zaten kanallarda oluşmuştur. INSAG-7: her çevrimde iki paralel yatay tambur vardır; şemada biri çizildi.",
+   "sourceIds": [
+    "iaea-insag7",
+    "nea-chernobyl",
+    "iaea-bptc-m4"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "rbmk",
+     "equipmentId": "drum"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "rbmk",
+     "detail": "drum"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.downcomer",
+   "reactorId": "rbmk",
+   "kind": "equipment",
+   "name": "İniş boruları",
+   "summary": "Tamburda ayrılan suyu pompa emişine indirir.",
+   "body": "Ayrılan su, türbinden dönen besleme suyuyla karışarak pompaların emişine gider (INSAG-7 §2.9). Böylece su çekirdek, tambur ve pompalar arasında zorlanmış dolaşımla döner.",
+   "sourceIds": [
+    "iaea-insag7",
+    "nea-chernobyl",
+    "iaea-bptc-m4"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "rbmk",
+     "equipmentId": "downcomer"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.mcp",
+   "reactorId": "rbmk",
+   "kind": "equipment",
+   "name": "Ana sirkülasyon pompası",
+   "summary": "Suyu kanallara basar (zorlanmış dolaşım).",
+   "body": "INSAG-7 §2.9: her çevrimde dört pompa vardır; normalde üçü çalışır, biri yedektir. Şemada tek pompa çizildi. Pompa elektrik üretmez; suyu dolaştırır. Debi temsili olarak sabit gösterilir.",
+   "sourceIds": [
+    "iaea-insag7",
+    "nea-chernobyl",
+    "iaea-bptc-m4"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "rbmk",
+     "equipmentId": "mcp"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.steamline",
+   "reactorId": "rbmk",
+   "kind": "equipment",
+   "name": "Ana buhar hattı",
+   "summary": "Tamburda ayrılan buharı türbine götürür.",
+   "body": "Buhar tamburun üstünden çıkar ve doğrudan türbine gider; arada ısı değiştirici (buhar üreteci) yoktur (NEA). Bu nedenle türbine giden buhar çekirdekten geçen suyun buharıdır.",
+   "sourceIds": [
+    "iaea-insag7",
+    "nea-chernobyl",
+    "iaea-bptc-m4"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "rbmk",
+     "equipmentId": "steamline"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.hp",
+   "reactorId": "rbmk",
+   "kind": "equipment",
+   "name": "Yüksek basınç (YB) türbini",
+   "summary": "Buhar enerjisinin bir kısmını mil işine çevirir.",
+   "body": "NEA: RBMK-1000 buharı iki 500 MWe türbini besler; şemada tek türbin grubu çizildi. YB türbininde genişleyen buhar AB türbinine geçer.",
+   "sourceIds": [
+    "iaea-insag7",
+    "nea-chernobyl",
+    "iaea-bptc-m4"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "rbmk",
+     "equipmentId": "hp"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.lp",
+   "reactorId": "rbmk",
+   "kind": "equipment",
+   "name": "Alçak basınç (AB) türbini",
+   "summary": "Buhar enerjisinin kalanını mekanik enerjiye çevirir.",
+   "body": "Çift akışlı türbinden çıkan buhar kondensere boşalır.",
+   "sourceIds": [
+    "iaea-insag7",
+    "nea-chernobyl",
+    "iaea-bptc-m4"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "rbmk",
+     "equipmentId": "lp"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.gen",
+   "reactorId": "rbmk",
+   "kind": "equipment",
+   "name": "Jeneratör",
+   "summary": "Mil işini elektriğe dönüştürür.",
+   "body": "Türbinle aynı mil üzerindedir; şebekeye senkron bağlıdır.",
+   "sourceIds": [
+    "iaea-insag7",
+    "nea-chernobyl",
+    "iaea-bptc-m4"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "rbmk",
+     "equipmentId": "gen"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.condenser",
+   "reactorId": "rbmk",
+   "kind": "equipment",
+   "name": "Kondenser",
+   "summary": "Türbin çıkış buharını yoğuşturur.",
+   "body": "Buhar soğutma suyu borularının dışında yoğuşur; soğutma suyu ayrı çevrimdir ve karışmaz. Yoğuşan su besleme suyu olarak tambura döner.",
+   "sourceIds": [
+    "iaea-insag7",
+    "nea-chernobyl",
+    "iaea-bptc-m4"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "rbmk",
+     "equipmentId": "condenser"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.feedpump",
+   "reactorId": "rbmk",
+   "kind": "equipment",
+   "name": "Besleme suyu pompası",
+   "summary": "Yoğuşan suyu ayırıcı tambura geri basar.",
+   "body": "Besleme suyu tamburdaki ayrılmış suyla karışır ve pompa emişine giden dolaşıma katılır (INSAG-7 §2.9). Ön ısıtıcılar çizilmedi (sadeleştirme).",
+   "sourceIds": [
+    "iaea-insag7",
+    "nea-chernobyl",
+    "iaea-bptc-m4"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "rbmk",
+     "equipmentId": "feedpump"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.coolsource",
+   "reactorId": "rbmk",
+   "kind": "equipment",
+   "name": "Soğutma suyu çevrimi",
+   "summary": "Kondenser ısısını çevreye atar.",
+   "body": "Ayrı üçüncü çevrim; turkuaz ve kesik-noktalı çizgi.",
+   "sourceIds": [
+    "iaea-insag7",
+    "nea-chernobyl",
+    "iaea-bptc-m4"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "rbmk",
+     "equipmentId": "coolsource"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.shield",
+   "reactorId": "rbmk",
+   "kind": "equipment",
+   "name": "Biyolojik zırh ve reaktör boşluğu",
+   "summary": "Radyasyonu zayıflatır; çekirdeği taşıyan ve örten yapıdır.",
+   "body": "INSAG-7 §2.10: çekirdek, yan duvarları zırh görevi gören bir bölmede durur; altta çekirdeğin oturduğu ağır plaka, üstte büyük bir kapak plakası vardır ve kanal uzantıları bu plakalardan geçip kaynaklanır. Bu yapı bir basınç kabı değildir: basınç sınırı kanalların kendisidir. Grafit (moderatör), kanal (basınç sınırı), zırh ve bina dört ayrı şeydir.",
+   "sourceIds": [
+    "iaea-insag7",
+    "nea-chernobyl",
+    "iaea-bptc-m4"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "rbmk",
+     "equipmentId": "shield"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.building",
+   "reactorId": "rbmk",
+   "kind": "equipment",
+   "name": "Reaktör binası ve yerel koruma hacimleri",
+   "summary": "Reaktörü ve devreyi çevreleyen yapılar.",
+   "body": "INSAG-7 §2.10: RBMK’lerde “yerelleştirilmiş” koruma vardır; reaktör ve soğutma devresinin bölümleri ayrı kapalı hacimlerde bulunur. Çernobil 4’te bütün sistemi saran bir koruma kabuğu yoktu (INSAG-7). Çizimde bina yalnız kesikli dış hatla, yapısı ayrıntılandırılmadan gösterildi; kazadan sonraki değişiklikler tesise göre farklıdır.",
+   "sourceIds": [
+    "iaea-insag7",
+    "nea-chernobyl",
+    "iaea-bptc-m4"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "rbmk",
+     "equipmentId": "building"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.focus.graphite-role",
+   "reactorId": "rbmk",
+   "kind": "focus",
+   "name": "Grafit ne yapar?",
+   "summary": "Grafit moderatördür: nötronları yavaşlatır. Soğutucu değildir, basınç altında da değildir. Isıyı taşıyan, kanallardaki hafif sudur.",
+   "body": null,
+   "sourceIds": [
+    "iaea-insag7",
+    "nea-chernobyl",
+    "iaea-bptc-m4"
+   ],
+   "targets": [
+    {
+     "type": "highlightFlow",
+     "reactor": "rbmk",
+     "ids": [
+      "graphite",
+      "channels",
+      "f-ch-1",
+      "f-ch-2",
+      "f-ch-3",
+      "f-ch-4",
+      "f-ch-5"
+     ],
+     "label": "Grafit ne yapar?"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "rbmk",
+     "detail": "channel"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.focus.steam-where",
+   "reactorId": "rbmk",
+   "kind": "focus",
+   "name": "Buhar nerede oluşur?",
+   "summary": "Yakıt kanallarının içinde: su alttan girer, yukarı akarken kaynar. Tambur buharı üretmez, yalnız ayırır.",
+   "body": null,
+   "sourceIds": [
+    "iaea-insag7",
+    "nea-chernobyl",
+    "iaea-bptc-m4"
+   ],
+   "targets": [
+    {
+     "type": "highlightFlow",
+     "reactor": "rbmk",
+     "ids": [
+      "channels",
+      "f-ch-1",
+      "f-ch-2",
+      "f-ch-3",
+      "f-ch-4",
+      "f-ch-5",
+      "f-riser-1",
+      "f-riser-2",
+      "f-riser-3",
+      "f-riser-4",
+      "f-riser-5"
+     ],
+     "label": "Buhar nerede oluşur?"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "rbmk",
+     "detail": "boiling"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.focus.drum-role",
+   "reactorId": "rbmk",
+   "kind": "focus",
+   "name": "Ayırıcı tambur neyi ayırır?",
+   "summary": "Kanallardan gelen buhar–su karışımını: buhar üstten türbine, su alttan iniş borularıyla pompalara. Isı aktarmadığı için buhar üreteci değildir.",
+   "body": null,
+   "sourceIds": [
+    "iaea-insag7",
+    "nea-chernobyl",
+    "iaea-bptc-m4"
+   ],
+   "targets": [
+    {
+     "type": "highlightFlow",
+     "reactor": "rbmk",
+     "ids": [
+      "drum",
+      "f-drum-steam",
+      "f-drum-water",
+      "f-steamline",
+      "f-downcomer"
+     ],
+     "label": "Ayırıcı tambur neyi ayırır?"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "rbmk",
+     "detail": "drum"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.focus.vs-bwr",
+   "reactorId": "rbmk",
+   "kind": "focus",
+   "name": "BWR’den temel farkı nedir?",
+   "summary": "İkisinde de su kaynar ve buhar doğrudan türbine gider. Ancak BWR’de moderatör de sudur ve kaynama büyük bir basınç kabının içinde olur; RBMK’de moderatör grafittir, kaynama çok sayıda ayrı basınç kanalında olur ve buhar kap dışındaki tamburlarda ayrılır.",
+   "body": null,
+   "sourceIds": [
+    "iaea-insag7",
+    "nea-chernobyl",
+    "iaea-bptc-m4"
+   ],
+   "targets": [
+    {
+     "type": "highlightFlow",
+     "reactor": "rbmk",
+     "ids": [
+      "graphite",
+      "channels",
+      "drum",
+      "f-ch-1",
+      "f-ch-2",
+      "f-ch-3",
+      "f-ch-4",
+      "f-ch-5",
+      "f-steamline"
+     ],
+     "label": "BWR’den temel farkı nedir?"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.focus.boundaries",
+   "reactorId": "rbmk",
+   "kind": "focus",
+   "name": "Grafit, kanal, zırh, bina",
+   "summary": "Dört ayrı şey: grafit moderatördür; kanal borusu basınç sınırıdır; çevredeki yapı biyolojik zırhtır; bina ve yerel koruma hacimleri en dıştadır.",
+   "body": null,
+   "sourceIds": [
+    "iaea-insag7",
+    "nea-chernobyl",
+    "iaea-bptc-m4"
+   ],
+   "targets": [
+    {
+     "type": "highlightFlow",
+     "reactor": "rbmk",
+     "ids": [
+      "graphite",
+      "channels",
+      "shield",
+      "building"
+     ],
+     "label": "Grafit, kanal, zırh, bina"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.tour.graphite",
+   "reactorId": "rbmk",
+   "kind": "lesson",
+   "name": "RBMK anlatımı · 1. Grafit ve kanallar",
+   "summary": "Çekirdek büyük bir grafit yığınıdır. Grafit nötronları yavaşlatır (moderatör). Yakıt, grafitin deliklerinden geçen dikey basınç kanallarının içindedir. Grafit soğutucu ya da basınç sınırı değildir.",
+   "body": null,
+   "sourceIds": [
+    "iaea-insag7",
+    "nea-chernobyl",
+    "iaea-bptc-m4"
+   ],
+   "targets": [
+    {
+     "type": "openLesson",
+     "lessonId": "rbmk.tour.graphite"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.tour.boiling",
+   "reactorId": "rbmk",
+   "kind": "lesson",
+   "name": "RBMK anlatımı · 2. Kanalda kaynama",
+   "summary": "Hafif su her kanala alttan girer, yakıtın çevresinde yukarı akarken ısınır ve kaynamaya başlar. Kanalın üstünden buhar–su karışımı çıkar. Buhar burada, kanallarda oluşur.",
+   "body": null,
+   "sourceIds": [
+    "iaea-insag7",
+    "nea-chernobyl",
+    "iaea-bptc-m4"
+   ],
+   "targets": [
+    {
+     "type": "openLesson",
+     "lessonId": "rbmk.tour.boiling"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.tour.risers",
+   "reactorId": "rbmk",
+   "kind": "lesson",
+   "name": "RBMK anlatımı · 3. Buhar–su boruları ve tambur",
+   "summary": "Her kanalın karışımı kendi borusuyla çekirdek dışındaki ayırıcı tambura gider. Tambur karışımı ayırır: buhar üstte, su altta toplanır. Tambur ısı aktarmaz; bu yüzden buhar üreteci değildir.",
+   "body": null,
+   "sourceIds": [
+    "iaea-insag7",
+    "nea-chernobyl",
+    "iaea-bptc-m4"
+   ],
+   "targets": [
+    {
+     "type": "openLesson",
+     "lessonId": "rbmk.tour.risers"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.tour.turbine",
+   "reactorId": "rbmk",
+   "kind": "lesson",
+   "name": "RBMK anlatımı · 4. Doğrudan türbine",
+   "summary": "Ayrılan buhar ana buhar hattıyla doğrudan türbine gider; arada ikinci bir devre yoktur. Türbin jeneratörü döndürür; çıkış buharı kondenserde ayrı soğutma suyu çevrimiyle yoğuşur.",
+   "body": null,
+   "sourceIds": [
+    "iaea-insag7",
+    "nea-chernobyl",
+    "iaea-bptc-m4"
+   ],
+   "targets": [
+    {
+     "type": "openLesson",
+     "lessonId": "rbmk.tour.turbine"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.tour.return",
+   "reactorId": "rbmk",
+   "kind": "lesson",
+   "name": "RBMK anlatımı · 5. Besleme ve dolaşım",
+   "summary": "Yoğuşan su besleme pompasıyla tambura döner ve ayrılmış suyla karışır. Bu su iniş borularından ana sirkülasyon pompasına, oradan kolektörler ve alt su borularıyla yeniden kanallara gider.",
+   "body": null,
+   "sourceIds": [
+    "iaea-insag7",
+    "nea-chernobyl",
+    "iaea-bptc-m4"
+   ],
+   "targets": [
+    {
+     "type": "openLesson",
+     "lessonId": "rbmk.tour.return"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.tour.rods",
+   "reactorId": "rbmk",
+   "kind": "lesson",
+   "name": "RBMK anlatımı · 6. Kontrol / koruma kanalları",
+   "summary": "Çubuklar yakıt kanallarından ayrı kanallarda hareket eder. Çizimde üstten giren temsili çubuklar var; çubukların tasarımı döneme göre değişmiştir (kazadan sonra değiştirildi). Çubuk konumu göreli güçle birebir eşlenmez.",
+   "body": null,
+   "sourceIds": [
+    "iaea-insag7",
+    "nea-chernobyl",
+    "iaea-bptc-m4"
+   ],
+   "targets": [
+    {
+     "type": "openLesson",
+     "lessonId": "rbmk.tour.rods"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.tour.boundaries",
+   "reactorId": "rbmk",
+   "kind": "lesson",
+   "name": "RBMK anlatımı · 7. Sınırları ayırt et",
+   "summary": "Grafit (moderatör), kanal borusu (basınç sınırı), biyolojik zırh ve bina aynı şey değildir. Çekirdeği saran tek bir PWR tipi basınç kabı yoktur; basınç, çok sayıda ayrı kanalın içinde tutulur.",
+   "body": null,
+   "sourceIds": [
+    "iaea-insag7",
+    "nea-chernobyl",
+    "iaea-bptc-m4"
+   ],
+   "targets": [
+    {
+     "type": "openLesson",
+     "lessonId": "rbmk.tour.boundaries"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.tour.vs-bwr",
+   "reactorId": "rbmk",
+   "kind": "lesson",
+   "name": "RBMK anlatımı · 8. BWR ile karşılaştır",
+   "summary": "BWR ile ortak nokta: su kaynar ve buhar doğrudan türbine gider. Fark: BWR’de moderatör sudur ve kaynama tek büyük kapta olur; RBMK’de moderatör grafittir, kaynama ayrı kanallarda olur ve ayırma kap dışındaki tamburlarda yapılır.",
+   "body": null,
+   "sourceIds": [
+    "iaea-insag7",
+    "nea-chernobyl",
+    "iaea-bptc-m4"
+   ],
+   "targets": [
+    {
+     "type": "openLesson",
+     "lessonId": "rbmk.tour.vs-bwr"
+    }
+   ]
+  },
+  {
+   "id": "candu",
+   "reactorId": "candu",
+   "kind": "reactor",
+   "name": "CANDU 6 — basınçlı ağır su reaktörü (PHWR), yatay basınç tüplü (temsili)",
+   "summary": "Yakıt, yatay bir calandria tankından geçen yüzlerce basınç tüpünün içindedir. Tüplerdeki basınçlı ağır su soğutucu ısıyı buhar üreteçlerine taşır; türbine giden buhar, buhar üretecinin ikincil tarafındaki hafif sudan oluşur. Calandria’daki ağır su moderatör ise düşük basınçlı, daha soğuk ve soğutucudan tamamen ayrı bir sistemdir. Yakıt işletme sırasında değiştirilir.",
+   "body": null,
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "openReactor",
+     "reactor": "candu"
+    }
+   ]
+  },
+  {
+   "id": "candu.calandria",
+   "reactorId": "candu",
+   "kind": "equipment",
+   "name": "Calandria",
+   "summary": "Ağır su moderatörünü tutan, kanalların içinden geçtiği yatay silindirik tank.",
+   "body": "CANDU 6’da 380 yakıt kanalı yatay silindirik calandria içinde, kare kafeste yer alır (Qinshan III CANDU 6, AECL). Uçları calandria boru plakalarıyla kapalıdır; kanallar uçtan uca geçer. Calandria bir basınç kabı değildir: moderatör kaynamayacak şekilde soğutulur ve aşırı basınca karşı patlama diskleri vardır (CANDU Fundamentals, Bölüm 11). Yüksek basınç kanalların içindedir.",
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "candu",
+     "equipmentId": "calandria"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "candu",
+     "detail": "separation"
+    }
+   ]
+  },
+  {
+   "id": "candu.moderator",
+   "reactorId": "candu",
+   "kind": "equipment",
+   "name": "Ağır su moderatörü",
+   "summary": "Nötronları yavaşlatır.",
+   "body": "Calandria’daki yüksek saflıkta ağır su; düşük basınçlı, düşük sıcaklıklı ve ısı taşıma sisteminin basınçlı ağır su soğutucusundan tamamen bağımsızdır (Qinshan III CANDU 6). Şemada mor tonlu, noktalı desen ve “D₂O · moderatör” etiketiyle gösterilir. Soğutucuyla aynı madde olsa da ayrı bir sistemdir; karışmaz.",
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "candu",
+     "equipmentId": "moderator"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "candu",
+     "detail": "separation"
+    }
+   ]
+  },
+  {
+   "id": "candu.channels",
+   "reactorId": "candu",
+   "kind": "equipment",
+   "name": "Yakıt kanalları (basınç tüpü + calandria tüpü)",
+   "summary": "Yakıtı ve basınçlı ağır su soğutucuyu taşır; basınç sınırı basınç tüpüdür.",
+   "body": "Her kanalda 1 basınç tüpü, 1 calandria tüpü, uç bağlantıları ve aralayıcılar vardır (CNSC). Basınç tüpü yakıtı ve soğutucuyu içerir; dıştaki calandria tüpü moderatörle temas eder. Aradaki gaz dolu halka sıcak tüpü soğuk moderatörden yalıtır ve sızıntıyı algılamaya yarar (CANTEACH). Komşu kanallarda soğutucu ters yönde akar; şemada iki kanal soldan sağa, ikisi sağdan sola akar.",
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "candu",
+     "equipmentId": "channels"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "candu",
+     "detail": "channel"
+    }
+   ]
+  },
+  {
+   "id": "candu.fuel",
+   "reactorId": "candu",
+   "kind": "equipment",
+   "name": "Yakıt demetleri",
+   "summary": "Fisyon ısısının üretildiği yer.",
+   "body": "CANDU 6’da her kanalda 12 demet vardır; demet 37 elemanlıdır ve doğal uranyum dioksit kullanır (Qinshan III CANDU 6). Bu, CANDU 6 için tipik yakıttır; aynı kaynak işletmede yakıt değiştirme sayesinde geri kazanılmış uranyum, az zenginleştirilmiş uranyum ve toryum gibi başka yakıtların da kullanılabileceğini belirtir. Demetler yatay kanalda uç uca dizilidir.",
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "candu",
+     "equipmentId": "fuel"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "candu",
+     "detail": "fuelling"
+    }
+   ]
+  },
+  {
+   "id": "candu.endshields",
+   "reactorId": "candu",
+   "kind": "equipment",
+   "name": "Uç kalkanları ve uç bağlantıları",
+   "summary": "Kanalları uçlarından taşır; kapatma sırasında zırh sağlar.",
+   "body": "Calandria’nın iki ucundaki uç kalkanları kanalları taşır (CANDU Fundamentals, Bölüm 11). Basınç tüpünün iki ucundaki uç bağlantıları besleyicilere bağlanır ve yakıt değiştirme makinesinin sızdırmaz biçimde kenetlendiği yerdir (CNSC; CANTEACH).",
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "candu",
+     "equipmentId": "endshields"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "candu",
+     "detail": "fuelling"
+    }
+   ]
+  },
+  {
+   "id": "candu.feeders-l",
+   "reactorId": "candu",
+   "kind": "equipment",
+   "name": "Sol yüz besleyicileri",
+   "summary": "Kanal uçlarını sol yüzdeki kolektörlere bağlar.",
+   "body": "Besleyiciler her kanalın giriş ucunu giriş kolektörüne, çıkış ucunu çıkış kolektörüne bağlar (Qinshan III CANDU 6). Sol yüzde A kanallarının girişleri ve B kanallarının çıkışları vardır. Yan görünüşte bir besleyicinin ötekinin üzerinden geçtiği yer köprüyle (boşluk) çizildi; orada birleşme yoktur.",
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "candu",
+     "equipmentId": "feeders-l"
+    }
+   ]
+  },
+  {
+   "id": "candu.feeders-r",
+   "reactorId": "candu",
+   "kind": "equipment",
+   "name": "Sağ yüz besleyicileri",
+   "summary": "Kanal uçlarını sağ yüzdeki kolektörlere bağlar.",
+   "body": "Sağ yüzde A kanallarının çıkışları ve B kanallarının girişleri vardır. Böylece giriş ve çıkışlar reaktörün iki yüzüne dağılır; CANTEACH’e göre bu iki yönlü akış iki yüzün sıcaklığını benzer tutar.",
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "candu",
+     "equipmentId": "feeders-r"
+    }
+   ]
+  },
+  {
+   "id": "candu.headers-l",
+   "reactorId": "candu",
+   "kind": "equipment",
+   "name": "Sol kolektörler (giriş + çıkış)",
+   "summary": "Pompadan gelen soğutucuyu kanallara dağıtır; kanallardan çıkan soğutucuyu toplar.",
+   "body": "Kolektörler reaktör yüzeyine dik uzanan kalın borulardır; yan görünüşte daire olarak çizildi. Sol giriş kolektörü pompa P-1’den gelen daha soğuk ağır suyu A kanallarına dağıtır; sol çıkış kolektörü B kanallarından gelen sıcak ağır suyu toplayıp buhar üreteci BÜ-1’e gönderir. Kolektörler ve buhar üreteçleri çekirdekten yüksektedir (CANDU Fundamentals, Bölüm 14).",
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "candu",
+     "equipmentId": "headers-l"
+    }
+   ]
+  },
+  {
+   "id": "candu.headers-r",
+   "reactorId": "candu",
+   "kind": "equipment",
+   "name": "Sağ kolektörler (giriş + çıkış)",
+   "summary": "Sağ yüzde soğutucuyu dağıtır ve toplar.",
+   "body": "Sağ çıkış kolektörü A kanallarından gelen sıcak ağır suyu buhar üreteci BÜ-2’ye gönderir; sağ giriş kolektörü pompa P-2’den gelen suyu B kanallarına dağıtır. Basınçlandırıcının dalgalanma hattı bu çizimde sağ çıkış kolektörüne bağlanır (temsili).",
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "candu",
+     "equipmentId": "headers-r"
+    }
+   ]
+  },
+  {
+   "id": "candu.sg1",
+   "reactorId": "candu",
+   "kind": "equipment",
+   "name": "Buhar üreteci BÜ-1 (sol)",
+   "summary": "Birincil ağır sudan ikincil hafif suya ısı aktarır; buhar ikincil tarafta oluşur.",
+   "body": "CANDU 6 buhar üreteci dikey U borulu, tümleşik buhar tamburlu ve ön ısıtıcılıdır (Qinshan III CANDU 6). Sıcak ağır su boruların içinden geçer; borunun dışındaki ikincil hafif su kaynar. İki akışkan karışmaz. Türbine giden buhar bu ikincil taraftan çıkar.",
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "candu",
+     "equipmentId": "sg1"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "candu",
+     "detail": "sg"
+    }
+   ]
+  },
+  {
+   "id": "candu.sg2",
+   "reactorId": "candu",
+   "kind": "equipment",
+   "name": "Buhar üreteci BÜ-2 (sağ)",
+   "summary": "Aynı halkanın ikinci buhar üreteci.",
+   "body": "Sekiz biçimli halkada soğutucu iki buhar üretecinden sırayla geçer: sağ çıkış kolektörü → BÜ-2 → P-2 → sağ giriş kolektörü → B kanalları → sol çıkış kolektörü → BÜ-1 → P-1. Her halkada iki buhar üreteci ve iki pompa vardır (Qinshan III CANDU 6).",
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "candu",
+     "equipmentId": "sg2"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "candu",
+     "detail": "sg"
+    }
+   ]
+  },
+  {
+   "id": "candu.htp1",
+   "reactorId": "candu",
+   "kind": "equipment",
+   "name": "Ana ısı taşıma pompası P-1",
+   "summary": "Ağır su soğutucuyu kanallara basar.",
+   "body": "Pompa buhar üretecinin çıkışında, devrenin en soğuk noktasındadır; bu konum kavitasyona karşı en büyük payı verir (CANDU Fundamentals, Bölüm 14). Pompalar akış sağlar; yüksek basıncı pompa değil basınç kontrol sistemi sağlar. Elektrik üretmez.",
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "candu",
+     "equipmentId": "htp1"
+    }
+   ]
+  },
+  {
+   "id": "candu.htp2",
+   "reactorId": "candu",
+   "kind": "equipment",
+   "name": "Ana ısı taşıma pompası P-2",
+   "summary": "Halkanın ikinci pompası; P-1 ile seri çalışır.",
+   "body": "Sekiz biçimli halkada iki pompa seridir (Qinshan III CANDU 6). Şemada debi temsili olarak sabit gösterilir.",
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "candu",
+     "equipmentId": "htp2"
+    }
+   ]
+  },
+  {
+   "id": "candu.pressurizer",
+   "reactorId": "candu",
+   "kind": "equipment",
+   "name": "Basınçlandırıcı",
+   "summary": "Birincil ağır su devresinin basıncını kontrol eder.",
+   "body": "Birincil ağır suyun kaynamaması için devre yüksek basınçta tutulur; pompalar bu basıncı üretmez (CANDU Fundamentals, Bölüm 14). IAEA BPTC Modül IV’ün CANDU şemasında basınçlandırıcı gösterilir. Bağlantı yeri burada temsilidir.",
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "candu",
+     "equipmentId": "pressurizer"
+    }
+   ]
+  },
+  {
+   "id": "candu.rods",
+   "reactorId": "candu",
+   "kind": "equipment",
+   "name": "Reaktivite kontrol düzenekleri",
+   "summary": "Nötron soğurarak reaktiviteyi ayarlar.",
+   "body": "Yatay ve dikey reaktivite kontrol düzenekleri calandria’da kanalların arasından, düşük basınçlı moderatörün içinden geçer (Qinshan III CANDU 6). Şemada iki dikey düzenek temsili olarak çizildi; yan görünüşte kanalların önünden geçiyormuş gibi görünürler ama aslında aralarındadır. Konumları güçle birebir eşlenmez.",
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "candu",
+     "equipmentId": "rods"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "candu",
+     "detail": "core"
+    }
+   ]
+  },
+  {
+   "id": "candu.modsys",
+   "reactorId": "candu",
+   "kind": "equipment",
+   "name": "Moderatör soğutma sistemi",
+   "summary": "Moderatörde oluşan ısıyı uzaklaştırır.",
+   "body": "Moderatörde gama ışınımı ve nötronların yavaşlamasıyla ısı oluşur; kanallardan da az miktarda ısı geçer. Moderatör sistemi ağır suyu ısı değiştiricilerden dolaştırır ve ısıyı soğutma suyu sistemine atar (Qinshan III CANDU 6). Şemada tek pompa ve tek ısı değiştiriciyle sadeleştirildi; birincil devreyle bağlantısı yoktur.",
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "candu",
+     "equipmentId": "modsys"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "candu",
+     "detail": "separation"
+    }
+   ]
+  },
+  {
+   "id": "candu.steamline",
+   "reactorId": "candu",
+   "kind": "equipment",
+   "name": "Ana buhar hattı",
+   "summary": "İkincil devre buharını türbine götürür.",
+   "body": "Buhar üreteçlerinin ikincil tarafında oluşan hafif su buharı ortak başlıkta toplanıp koruma binasının dışındaki türbine gider. Ağır su türbine gitmez.",
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "candu",
+     "equipmentId": "steamline"
+    }
+   ]
+  },
+  {
+   "id": "candu.hp",
+   "reactorId": "candu",
+   "kind": "equipment",
+   "name": "Yüksek basınç (YB) türbini",
+   "summary": "Buhar enerjisinin bir kısmını mil işine çevirir.",
+   "body": "İkincil devre buharı YB türbininde genişler, geçiş borusuyla AB türbinine gider.",
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "candu",
+     "equipmentId": "hp"
+    }
+   ]
+  },
+  {
+   "id": "candu.lp",
+   "reactorId": "candu",
+   "kind": "equipment",
+   "name": "Alçak basınç (AB) türbini",
+   "summary": "Buhar enerjisinin kalanını mekanik enerjiye çevirir.",
+   "body": "Çift akışlı türbinden çıkan buhar kondensere boşalır.",
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "candu",
+     "equipmentId": "lp"
+    }
+   ]
+  },
+  {
+   "id": "candu.gen",
+   "reactorId": "candu",
+   "kind": "equipment",
+   "name": "Jeneratör",
+   "summary": "Mil işini elektriğe dönüştürür.",
+   "body": "Türbinle aynı mil üzerindedir; şebekeye senkron bağlıdır.",
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "candu",
+     "equipmentId": "gen"
+    }
+   ]
+  },
+  {
+   "id": "candu.condenser",
+   "reactorId": "candu",
+   "kind": "equipment",
+   "name": "Kondenser",
+   "summary": "Türbin çıkış buharını yoğuşturur.",
+   "body": "Buhar soğutma suyu borularının dışında yoğuşur; soğutma suyu ayrı çevrimdir ve karışmaz.",
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "candu",
+     "equipmentId": "condenser"
+    }
+   ]
+  },
+  {
+   "id": "candu.feedpump",
+   "reactorId": "candu",
+   "kind": "equipment",
+   "name": "Besleme suyu pompası",
+   "summary": "Yoğuşan hafif suyu buhar üreteçlerine geri basar.",
+   "body": "Besleme hattı iki buhar üretecine ayrılır; sol buhar üretecine giden kol çizimde reaktörün altından dolaşır. Ön ısıtıcılar çizilmedi (sadeleştirme).",
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "candu",
+     "equipmentId": "feedpump"
+    }
+   ]
+  },
+  {
+   "id": "candu.coolsource",
+   "reactorId": "candu",
+   "kind": "equipment",
+   "name": "Soğutma suyu çevrimi",
+   "summary": "Kondenser ısısını çevreye atar.",
+   "body": "Ayrı üçüncü çevrim; turkuaz ve kesik-noktalı çizgi.",
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "candu",
+     "equipmentId": "coolsource"
+    }
+   ]
+  },
+  {
+   "id": "candu.containment",
+   "reactorId": "candu",
+   "kind": "equipment",
+   "name": "Koruma binası (containment)",
+   "summary": "Reaktörü ve birincil devreyi çevreleyen yapı.",
+   "body": "CANDU 6’nın dört özel güvenlik sisteminden biri koruma sistemidir (reaktör binası ve yalıtma sistemi; Qinshan III CANDU 6). Calandria burada bir basınç kabı gibi değil, binanın içindeki düşük basınçlı tank olarak yer alır. Çizim sadeleştirilmiş dış hattır.",
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "selectEquipment",
+     "reactor": "candu",
+     "equipmentId": "containment"
+    }
+   ]
+  },
+  {
+   "id": "candu.focus.two-d2o",
+   "reactorId": "candu",
+   "kind": "focus",
+   "name": "İki ağır su sistemi neden ayrıdır?",
+   "summary": "Kanallardaki soğutucu sıcak ve yüksek basınçlıdır; calandria’daki moderatör düşük basınçlı ve daha soğuktur. Aralarında basınç tüpü, gaz halkası ve calandria tüpü vardır; iki sistem karışmaz. Bu ayrım büyük bir yüksek basınç kabı gerektirmeden ağır su moderatörü kullanmayı sağlar.",
+   "body": null,
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "highlightFlow",
+     "reactor": "candu",
+     "ids": [
+      "moderator",
+      "modsys",
+      "channels",
+      "f-mod-out",
+      "f-mod-hx",
+      "f-mod-in",
+      "f-ch-1",
+      "f-ch-2",
+      "f-ch-3",
+      "f-ch-4"
+     ],
+     "label": "İki ağır su sistemi neden ayrıdır?"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "candu",
+     "detail": "separation"
+    }
+   ]
+  },
+  {
+   "id": "candu.focus.calandria-vs-tube",
+   "reactorId": "candu",
+   "kind": "focus",
+   "name": "Calandria ile basınç tüpü arasındaki fark nedir?",
+   "summary": "Calandria moderatörü tutan büyük, düşük basınçlı tanktır. Basınç tüpü ise her kanaldaki yakıtı ve yüksek basınçlı soğutucuyu taşıyan boru — basınç sınırıdır. Calandria tüpü ikisinin arasında, moderatör tarafındaki ayrı borudur.",
+   "body": null,
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "highlightFlow",
+     "reactor": "candu",
+     "ids": [
+      "calandria",
+      "channels",
+      "f-ch-1",
+      "f-ch-2",
+      "f-ch-3",
+      "f-ch-4"
+     ],
+     "label": "Calandria ile basınç tüpü arasındaki fark nedir?"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "candu",
+     "detail": "channel"
+    }
+   ]
+  },
+  {
+   "id": "candu.focus.turbine-steam",
+   "reactorId": "candu",
+   "kind": "focus",
+   "name": "Türbine hangi devrenin buharı gider?",
+   "summary": "İkincil devrenin: buhar üretecinin gövde tarafındaki hafif su kaynar. Birincil ağır su boruların içinde kalır ve türbine gitmez.",
+   "body": null,
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "highlightFlow",
+     "reactor": "candu",
+     "ids": [
+      "sg1",
+      "sg2",
+      "steamline",
+      "f-steamline",
+      "f-steam-2",
+      "hp"
+     ],
+     "label": "Türbine hangi devrenin buharı gider?"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "candu",
+     "detail": "sg"
+    }
+   ]
+  },
+  {
+   "id": "candu.focus.fuel-horizontal",
+   "reactorId": "candu",
+   "kind": "focus",
+   "name": "Yatay kanallarda yakıt nasıl konumlanır?",
+   "summary": "Demetler yatay basınç tüpünde uç uca dizilir (CANDU 6’da kanal başına 12). İki uçtaki yakıt değiştirme makineleri kanala kenetlenip işletme sırasında yeni demet ekler ve kullanılmış demetleri alır (kavramsal gösterim).",
+   "body": null,
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "highlightFlow",
+     "reactor": "candu",
+     "ids": [
+      "fuel",
+      "channels",
+      "endshields",
+      "f-ch-1",
+      "f-ch-2",
+      "f-ch-3",
+      "f-ch-4"
+     ],
+     "label": "Yatay kanallarda yakıt nasıl konumlanır?"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "candu",
+     "detail": "fuelling"
+    }
+   ]
+  },
+  {
+   "id": "candu.focus.figure-eight",
+   "reactorId": "candu",
+   "kind": "focus",
+   "name": "Sekiz biçimli halka",
+   "summary": "Soğutucu bir halkada iki buhar üreteci ve iki pompadan sırayla geçer; komşu kanallarda ters yönde akar. Takip edin: sağ çıkış → BÜ-2 → P-2 → sağ giriş → B kanalları (←) → sol çıkış → BÜ-1 → P-1 → sol giriş → A kanalları (→).",
+   "body": null,
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "highlightFlow",
+     "reactor": "candu",
+     "ids": [
+      "f-ch-1",
+      "f-ch-2",
+      "f-ch-3",
+      "f-ch-4",
+      "f-fd-l-1",
+      "f-fd-l-2",
+      "f-fd-l-3",
+      "f-fd-l-4",
+      "f-fd-r-1",
+      "f-fd-r-2",
+      "f-fd-r-3",
+      "f-fd-r-4",
+      "f-out2-sg1",
+      "f-sg1-tubes",
+      "f-sg1-p1",
+      "f-p1-in1",
+      "f-out1-sg2",
+      "f-sg2-tubes",
+      "f-sg2-p2",
+      "f-p2-in2",
+      "headers-l",
+      "headers-r"
+     ],
+     "label": "Sekiz biçimli halka"
+    }
+   ]
+  },
+  {
+   "id": "candu.tour.calandria",
+   "reactorId": "candu",
+   "kind": "lesson",
+   "name": "CANDU anlatımı · 1. Calandria ve moderatör",
+   "summary": "Yatay silindirik calandria, ağır su moderatörünü tutar. Moderatör nötronları yavaşlatır; düşük basınçlı ve daha soğuktur. Calandria yüksek basınçlı bir reaktör kabı değildir.",
+   "body": null,
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "openLesson",
+     "lessonId": "candu.tour.calandria"
+    }
+   ]
+  },
+  {
+   "id": "candu.tour.channels",
+   "reactorId": "candu",
+   "kind": "lesson",
+   "name": "CANDU anlatımı · 2. Yatay yakıt kanalları",
+   "summary": "Calandria’dan uçtan uca yüzlerce yatay kanal geçer (CANDU 6’da 380; çizimde dört temsili kanal). Her kanalda basınç tüpü yakıt demetlerini ve basınçlı ağır su soğutucuyu taşır; dışındaki calandria tüpü moderatörle temas eder.",
+   "body": null,
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "openLesson",
+     "lessonId": "candu.tour.channels"
+    }
+   ]
+  },
+  {
+   "id": "candu.tour.bidirectional",
+   "reactorId": "candu",
+   "kind": "lesson",
+   "name": "CANDU anlatımı · 3. Komşu kanallarda ters akış",
+   "summary": "Soğutucu bazı kanallarda soldan sağa, komşu kanallarda sağdan sola akar. Böylece giriş ve çıkış uçları reaktörün iki yüzüne dağılır. Akış kanal boyunca ısınır (soğuk uçtan sıcak uca).",
+   "body": null,
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "openLesson",
+     "lessonId": "candu.tour.bidirectional"
+    }
+   ]
+  },
+  {
+   "id": "candu.tour.figure8",
+   "reactorId": "candu",
+   "kind": "lesson",
+   "name": "CANDU anlatımı · 4. Kolektörler ve sekiz biçimli halka",
+   "summary": "Besleyiciler kanalları kolektörlere bağlar. Soğutucu bir halkada iki buhar üreteci ve iki pompadan sırayla geçer: sağ çıkış → BÜ-2 → P-2 → sağ giriş → B kanalları → sol çıkış → BÜ-1 → P-1 → sol giriş → A kanalları.",
+   "body": null,
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "openLesson",
+     "lessonId": "candu.tour.figure8"
+    }
+   ]
+  },
+  {
+   "id": "candu.tour.sg",
+   "reactorId": "candu",
+   "kind": "lesson",
+   "name": "CANDU anlatımı · 5. Buhar üreteci: iki ayrı akışkan",
+   "summary": "Sıcak ağır su buhar üretecinin U borularının içinden geçer ve ısısını boru duvarından verir. Birincil ağır suda oluşabilen sınırlı buhar burada yoğuşur; animasyon bu iki fazlı davranışı modellemez. Borunun dışındaki ikincil hafif su kaynar. Türbine giden buhar bu ikincil taraftan çıkar; ağır su türbine gitmez.",
+   "body": null,
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "openLesson",
+     "lessonId": "candu.tour.sg"
+    }
+   ]
+  },
+  {
+   "id": "candu.tour.turbine",
+   "reactorId": "candu",
+   "kind": "lesson",
+   "name": "CANDU anlatımı · 6. Türbin, kondenser, besleme",
+   "summary": "Buhar türbinde genişleyip jeneratörü döndürür, kondenserde ayrı soğutma suyu çevrimiyle yoğuşur. Besleme pompası yoğuşan hafif suyu iki buhar üretecine geri gönderir.",
+   "body": null,
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "openLesson",
+     "lessonId": "candu.tour.turbine"
+    }
+   ]
+  },
+  {
+   "id": "candu.tour.moderator",
+   "reactorId": "candu",
+   "kind": "lesson",
+   "name": "CANDU anlatımı · 7. Moderatörün ayrı soğutması",
+   "summary": "Moderatörde de ısı oluşur. Ayrı bir moderatör sistemi ağır suyu pompa ve ısı değiştiriciden dolaştırır. Bu sistemin birincil devreyle bağlantısı yoktur: iki ağır su sistemi karışmaz.",
+   "body": null,
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "openLesson",
+     "lessonId": "candu.tour.moderator"
+    }
+   ]
+  },
+  {
+   "id": "candu.tour.fuelling",
+   "reactorId": "candu",
+   "kind": "lesson",
+   "name": "CANDU anlatımı · 8. İşletme sırasında yakıt değiştirme",
+   "summary": "Yakıt değiştirme makineleri kanalın iki ucundaki uç bağlantılarına kenetlenir; reaktör çalışırken yeni demetler eklenir, kullanılmış demetler alınır. Yakın plan yalnız ilkeyi gösterir; gerçek işletme prosedürü değildir.",
+   "body": null,
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "openLesson",
+     "lessonId": "candu.tour.fuelling"
+    }
+   ]
+  },
+  {
    "id": "bwr.topic.no-sg",
    "reactorId": "bwr",
    "kind": "topic",
@@ -1986,6 +3709,279 @@
      "type": "selectEquipment",
      "reactor": "vver",
      "equipmentId": "hsg"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.topic.steam-where",
+   "reactorId": "rbmk",
+   "kind": "topic",
+   "name": "RBMK’de buhar nerede oluşur?",
+   "summary": "Buhar yakıt kanallarının içinde oluşur: hafif su kanala alttan girer, yakıtın çevresinde yukarı akarken kaynar. Buhar–su karışımı her kanalın kendi borusuyla çekirdek dışındaki ayırıcı tamburlara gider; ayrılan buhar arada buhar üreteci olmadan türbine gider.",
+   "body": null,
+   "sourceIds": [
+    "iaea-insag7",
+    "nea-chernobyl",
+    "iaea-bptc-m4"
+   ],
+   "targets": [
+    {
+     "type": "highlightFlow",
+     "reactor": "rbmk",
+     "ids": [
+      "channels",
+      "f-ch-1",
+      "f-ch-2",
+      "f-ch-3",
+      "f-ch-4",
+      "f-ch-5",
+      "f-riser-1",
+      "f-riser-2",
+      "f-riser-3",
+      "f-riser-4",
+      "f-riser-5"
+     ],
+     "label": "Kanallarda kaynama"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "rbmk",
+     "detail": "boiling"
+    }
+   ]
+  },
+  {
+   "id": "candu.topic.steam-where",
+   "reactorId": "candu",
+   "kind": "topic",
+   "name": "CANDU’da buhar nerede oluşur?",
+   "summary": "Türbine giden buhar buhar üreteçlerinin ikincil tarafındaki hafif sudan oluşur. CANDU 6’da birincil ağır suda sınırlı kaynama olabilir; bu ağır su buharı türbine gitmez, buhar üretecinde yoğuşur. Şemadaki birincil akış animasyonu bu iki fazlı davranışı modellemez.",
+   "body": null,
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt",
+    "iaea-bptc-m4"
+   ],
+   "targets": [
+    {
+     "type": "highlightFlow",
+     "reactor": "candu",
+     "ids": [
+      "sg1",
+      "sg2",
+      "f-steamline",
+      "f-steam-2"
+     ],
+     "label": "İkincil tarafta buhar"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "candu",
+     "detail": "sg"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.topic.vs-bwr",
+   "reactorId": "rbmk",
+   "kind": "topic",
+   "name": "RBMK ile BWR neden aynı reaktör değildir?",
+   "summary": "İkisinde de su kaynar ve buhar doğrudan türbine gider. Ancak BWR’de moderatör de sudur, kaynama büyük bir basınç kabının içinde olur ve buhar kabın içindeki ayırıcılarda ayrılır. RBMK’de moderatör grafittir, kaynama çok sayıda ayrı dikey basınç kanalında olur ve karışım çekirdek dışındaki ayırıcı tamburlarda ayrılır; çekirdeği saran tek bir basınç kabı yoktur.",
+   "body": null,
+   "sourceIds": [
+    "iaea-insag7",
+    "nea-chernobyl",
+    "iaea-bptc-m4",
+    "nrc-bwr"
+   ],
+   "targets": [
+    {
+     "type": "highlightFlow",
+     "reactor": "rbmk",
+     "ids": [
+      "graphite",
+      "channels",
+      "drum",
+      "f-ch-1",
+      "f-ch-2",
+      "f-ch-3",
+      "f-ch-4",
+      "f-ch-5",
+      "f-steamline"
+     ],
+     "label": "RBMK: grafit, kanallar, tambur"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.topic.graphite-water",
+   "reactorId": "rbmk",
+   "kind": "topic",
+   "name": "RBMK’de grafit ve suyun görevleri",
+   "summary": "Grafit moderatördür: nötronları yavaşlatır; soğutucu ya da basınç sınırı değildir. Hafif su soğutucudur: kanallarda yakıtın ısısını alır, kaynar ve buhar olarak türbine gider. Bloklar arasında dolaşan azot–helyum karışımı grafitin oksitlenmesini önler ve ısısını kanallara taşır (NEA).",
+   "body": null,
+   "sourceIds": [
+    "iaea-insag7",
+    "nea-chernobyl",
+    "iaea-bptc-m4"
+   ],
+   "targets": [
+    {
+     "type": "highlightFlow",
+     "reactor": "rbmk",
+     "ids": [
+      "graphite",
+      "channels",
+      "f-ch-1",
+      "f-ch-2",
+      "f-ch-3",
+      "f-ch-4",
+      "f-ch-5"
+     ],
+     "label": "Grafit ve kanallardaki su"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "rbmk",
+     "detail": "channel"
+    }
+   ]
+  },
+  {
+   "id": "rbmk.topic.channels",
+   "reactorId": "rbmk",
+   "kind": "topic",
+   "name": "RBMK kanal yapısı",
+   "summary": "RBMK’de kanallar dikeydir ve grafit yığınından geçer. Basınç sınırı kanal borusudur; içinde yakıt ve kaynayan hafif su bulunur. Su alttan girer, buhar–su karışımı üstten kendi borusuyla tambura gider.",
+   "body": null,
+   "sourceIds": [
+    "iaea-insag7",
+    "nea-chernobyl",
+    "iaea-bptc-m4"
+   ],
+   "targets": [
+    {
+     "type": "highlightFlow",
+     "reactor": "rbmk",
+     "ids": [
+      "channels",
+      "graphite",
+      "f-ch-1",
+      "f-ch-2",
+      "f-ch-3",
+      "f-ch-4",
+      "f-ch-5"
+     ],
+     "label": "Dikey kanallar"
+    }
+   ]
+  },
+  {
+   "id": "candu.topic.channels",
+   "reactorId": "candu",
+   "kind": "topic",
+   "name": "CANDU kanal yapısı",
+   "summary": "CANDU’da kanallar yataydır ve calandria’dan uçtan uca geçer. Her kanalda basınç tüpü (yakıt + basınçlı ağır su), gaz halkası ve calandria tüpü vardır; dışarıda düşük basınçlı ağır su moderatörü bulunur. Komşu kanallarda akış ters yöndedir.",
+   "body": null,
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "highlightFlow",
+     "reactor": "candu",
+     "ids": [
+      "channels",
+      "calandria",
+      "f-ch-1",
+      "f-ch-2",
+      "f-ch-3",
+      "f-ch-4"
+     ],
+     "label": "Yatay kanallar"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "candu",
+     "detail": "channel"
+    }
+   ]
+  },
+  {
+   "id": "candu.topic.two-d2o",
+   "reactorId": "candu",
+   "kind": "topic",
+   "name": "CANDU’da iki ayrı ağır su sistemi",
+   "summary": "Kanallardaki birincil ağır su sıcak ve yüksek basınçlıdır; ısıyı buhar üreteçlerine taşır. Calandria’daki moderatör ağır suyu düşük basınçlı ve daha soğuktur; nötronları yavaşlatır ve kendi ısı değiştiricileriyle soğutulur. Aralarında basınç tüpü, gaz halkası ve calandria tüpü vardır; sistemler birbirinden bağımsızdır ve karışmaz. Bu düzen, büyük bir yüksek basınç kabı gerekmeden ağır su moderatörü kullanmayı sağlar (CANTEACH).",
+   "body": null,
+   "sourceIds": [
+    "canteach-c6",
+    "canteach-constr",
+    "canteach-hts",
+    "canteach-thermal",
+    "cnsc-pt"
+   ],
+   "targets": [
+    {
+     "type": "highlightFlow",
+     "reactor": "candu",
+     "ids": [
+      "moderator",
+      "modsys",
+      "channels",
+      "f-mod-out",
+      "f-mod-hx",
+      "f-mod-in",
+      "f-ch-1",
+      "f-ch-2",
+      "f-ch-3",
+      "f-ch-4"
+     ],
+     "label": "İki ayrı ağır su sistemi"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "candu",
+     "detail": "separation"
+    }
+   ]
+  },
+  {
+   "id": "candu.topic.calandria",
+   "reactorId": "candu",
+   "kind": "topic",
+   "name": "Calandria neden basınç kabı değildir?",
+   "summary": "Calandria, moderatörü tutan düşük basınçlı bir tanktır; moderatör kaynamayacak şekilde soğutulur ve tank aşırı basınca karşı patlama diskleriyle korunur. Yüksek basınçlı soğutucu calandria’da değil, her kanaldaki basınç tüpünün içindedir. Bu yüzden calandria PWR tipi bir yüksek basınç kabı değildir.",
+   "body": null,
+   "sourceIds": [
+    "canteach-constr",
+    "canteach-c6"
+   ],
+   "targets": [
+    {
+     "type": "highlightFlow",
+     "reactor": "candu",
+     "ids": [
+      "calandria",
+      "channels",
+      "f-ch-1",
+      "f-ch-2",
+      "f-ch-3",
+      "f-ch-4"
+     ],
+     "label": "Calandria ve basınç tüpleri"
+    },
+    {
+     "type": "openDetail",
+     "reactor": "candu",
+     "detail": "channel"
     }
    ]
   },

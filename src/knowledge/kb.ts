@@ -10,6 +10,10 @@ import { vverConfig } from '../reactors/vver/vverConfig';
 import { pwrLessons } from '../reactors/pwr/pwrLessons';
 import { bwrLessons } from '../reactors/bwr/bwrLessons';
 import { vverLessons } from '../reactors/vver/vverLessons';
+import { rbmkConfig } from '../reactors/rbmk/rbmkConfig';
+import { rbmkLessons } from '../reactors/rbmk/rbmkLessons';
+import { canduConfig } from '../reactors/candu/canduConfig';
+import { canduLessons } from '../reactors/candu/canduLessons';
 import { OPS_SECTIONS } from '../reactors/pwr/operations/sections';
 import { buildScenario, findChartEvent } from '../reactors/pwr/operations/models/xenonScenarios';
 import { PREDICT_LESSONS } from '../lessons/predict/pwrXenonShutdown';
@@ -42,14 +46,16 @@ export interface KnowledgeSource {
   get(id: string): KnowledgeEntry | undefined;
 }
 
-const CONFIGS: Record<ReactorId, ReactorConfig> = { pwr: pwrConfig, bwr: bwrConfig, vver: vverConfig };
-const LESSONS: Record<ReactorId, LessonStep[]> = { pwr: pwrLessons, bwr: bwrLessons, vver: vverLessons };
+const CONFIGS: Record<ReactorId, ReactorConfig> = { pwr: pwrConfig, bwr: bwrConfig, vver: vverConfig, rbmk: rbmkConfig, candu: canduConfig };
+const LESSONS: Record<ReactorId, LessonStep[]> = { pwr: pwrLessons, bwr: bwrLessons, vver: vverLessons, rbmk: rbmkLessons, candu: canduLessons };
 
 /** Reaktöre göre dayanak kaynaklar (ekipman metinleri README’de bu kaynaklara dayandırılmıştır). */
 const BASE_SOURCES: Record<ReactorId, string[]> = {
   pwr: ['nuce-ch2', 'nrc-unit3'],
   bwr: ['nuce-ch2', 'nrc-bwr'],
   vver: ['nuce-ch2', 'iaea-vver'],
+  rbmk: ['iaea-insag7', 'nea-chernobyl', 'iaea-bptc-m4'],
+  candu: ['canteach-c6', 'canteach-constr', 'canteach-hts', 'canteach-thermal', 'cnsc-pt'],
 };
 
 /** Ekipman kimliklerine göre Türkçe/İngilizce alternatif terimler. */
@@ -81,12 +87,37 @@ const EQUIPMENT_ALIASES: Record<string, string[]> = {
   turbinebldg: ['türbin binası'],
   'collector-hot': ['sıcak kolektör', 'kolektör'],
   'collector-cold': ['soğuk kolektör', 'kolektör'],
+  // RBMK
+  graphite: ['grafit', 'grafit blok', 'grafit yığını', 'grafit moderatör'],
+  channels: ['kanal', 'yakıt kanalı', 'basınç kanalı', 'basınç tüpü', 'pressure tube'],
+  fuel: ['yakıt', 'yakıt demeti', 'yakıt demetleri'],
+  dgh: ['grup dağıtım kolektörü', 'dağıtım kolektörü', 'basma kolektörü'],
+  risers: ['buhar su boruları', 'buhar-su boruları', 'kanal çıkış boruları'],
+  drum: ['ayırıcı tambur', 'tambur', 'buhar ayırıcı', 'separatör tamburu'],
+  downcomer: ['iniş borusu', 'iniş boruları'],
+  shield: ['biyolojik zırh', 'zırh', 'üst plaka', 'alt plaka'],
+  building: ['reaktör binası', 'bina', 'yerel koruma'],
+  // CANDU
+  calandria: ['calandria', 'kalandriya', 'kalandria'],
+  moderator: ['moderatör', 'ağır su moderatörü'],
+  endshields: ['uç kalkanı', 'uç bağlantısı', 'end fitting'],
+  'feeders-l': ['besleyici', 'besleyiciler', 'feeder'],
+  'feeders-r': ['besleyici', 'besleyiciler', 'feeder'],
+  'headers-l': ['kolektör', 'giriş kolektörü', 'çıkış kolektörü', 'header'],
+  'headers-r': ['kolektör', 'giriş kolektörü', 'çıkış kolektörü', 'header'],
+  sg1: ['buhar üreteci', 'buhar jeneratörü', 'steam generator'],
+  sg2: ['buhar üreteci', 'buhar jeneratörü', 'steam generator'],
+  htp1: ['ısı taşıma pompası', 'birincil pompa', 'pompa'],
+  htp2: ['ısı taşıma pompası', 'birincil pompa', 'pompa'],
+  modsys: ['moderatör soğutma sistemi', 'moderatör sistemi', 'moderatör ısı değiştiricisi'],
 };
 
 const REACTOR_ALIASES: Record<ReactorId, string[]> = {
   pwr: ['pwr', 'basınçlı su reaktörü'],
   bwr: ['bwr', 'kaynar su reaktörü', 'kaynayan su reaktörü'],
   vver: ['vver', 'wwer', 'rus tasarımı'],
+  rbmk: ['rbmk', 'lwgr', 'grafit moderatörlü reaktör', 'kanal reaktörü'],
+  candu: ['candu', 'phwr', 'basınçlı ağır su reaktörü', 'ağır su reaktörü'],
 };
 
 function build(): KnowledgeEntry[] {
@@ -179,6 +210,8 @@ function build(): KnowledgeEntry[] {
       targets: [{ type: 'selectEquipment', reactor: r, equipmentId: sg }],
     });
   }
+
+  out.push(...channelReactorTopics());
 
   for (const s of OPS_SECTIONS) {
     out.push({
@@ -287,4 +320,129 @@ export function knowledgeProblems(reg: ActionRegistry, validate: (a: unknown) =>
   }
   void reg;
   return problems;
+}
+
+/** RBMK ve CANDU için kaynaklı ek konular (karşılaştırma ve sık karıştırılan ayrımlar). */
+function channelReactorTopics(): KnowledgeEntry[] {
+  const RB = BASE_SOURCES.rbmk;
+  const CA = BASE_SOURCES.candu;
+  const rbCh = ['f-ch-1', 'f-ch-2', 'f-ch-3', 'f-ch-4', 'f-ch-5'];
+  const rbRise = ['f-riser-1', 'f-riser-2', 'f-riser-3', 'f-riser-4', 'f-riser-5'];
+  const caCh = ['f-ch-1', 'f-ch-2', 'f-ch-3', 'f-ch-4'];
+  return [
+    {
+      id: 'rbmk.topic.steam-where',
+      reactorId: 'rbmk',
+      kind: 'topic',
+      name: 'RBMK’de buhar nerede oluşur?',
+      aliases: ['buhar nerede oluşuyor', 'buhar oluşumu', 'kaynama nerede', 'buhar nerede'],
+      summary:
+        'Buhar yakıt kanallarının içinde oluşur: hafif su kanala alttan girer, yakıtın çevresinde yukarı akarken kaynar. Buhar–su karışımı her kanalın kendi borusuyla çekirdek dışındaki ayırıcı tamburlara gider; ayrılan buhar arada buhar üreteci olmadan türbine gider.',
+      sourceIds: RB,
+      related: ['rbmk.channels', 'rbmk.drum'],
+      targets: [
+        { type: 'highlightFlow', reactor: 'rbmk', ids: ['channels', ...rbCh, ...rbRise], label: 'Kanallarda kaynama' },
+        { type: 'openDetail', reactor: 'rbmk', detail: 'boiling' },
+      ],
+    },
+    {
+      id: 'candu.topic.steam-where',
+      reactorId: 'candu',
+      kind: 'topic',
+      name: 'CANDU’da buhar nerede oluşur?',
+      aliases: ['buhar nerede oluşuyor', 'buhar oluşumu', 'kaynama nerede', 'buhar nerede'],
+      summary:
+        'Türbine giden buhar buhar üreteçlerinin ikincil tarafındaki hafif sudan oluşur. CANDU 6’da birincil ağır suda sınırlı kaynama olabilir; bu ağır su buharı türbine gitmez, buhar üretecinde yoğuşur. Şemadaki birincil akış animasyonu bu iki fazlı davranışı modellemez.',
+      sourceIds: [...CA, 'iaea-bptc-m4'],
+      related: ['candu.sg1', 'candu.sg2'],
+      targets: [
+        { type: 'highlightFlow', reactor: 'candu', ids: ['sg1', 'sg2', 'f-steamline', 'f-steam-2'], label: 'İkincil tarafta buhar' },
+        { type: 'openDetail', reactor: 'candu', detail: 'sg' },
+      ],
+    },
+    {
+      id: 'rbmk.topic.vs-bwr',
+      reactorId: 'rbmk',
+      kind: 'topic',
+      name: 'RBMK ile BWR neden aynı reaktör değildir?',
+      aliases: ['rbmk bwr farkı', 'rbmk bir bwr mi', 'rbmk kaynar su reaktörü mü'],
+      summary:
+        'İkisinde de su kaynar ve buhar doğrudan türbine gider. Ancak BWR’de moderatör de sudur, kaynama büyük bir basınç kabının içinde olur ve buhar kabın içindeki ayırıcılarda ayrılır. RBMK’de moderatör grafittir, kaynama çok sayıda ayrı dikey basınç kanalında olur ve karışım çekirdek dışındaki ayırıcı tamburlarda ayrılır; çekirdeği saran tek bir basınç kabı yoktur.',
+      sourceIds: [...RB, 'nrc-bwr'],
+      related: ['rbmk.graphite', 'rbmk.channels', 'rbmk.drum', 'bwr.vessel'],
+      targets: [{ type: 'highlightFlow', reactor: 'rbmk', ids: ['graphite', 'channels', 'drum', ...rbCh, 'f-steamline'], label: 'RBMK: grafit, kanallar, tambur' }],
+    },
+    {
+      id: 'rbmk.topic.graphite-water',
+      reactorId: 'rbmk',
+      kind: 'topic',
+      name: 'RBMK’de grafit ve suyun görevleri',
+      aliases: ['grafit ve su', 'grafit soğutucu mu', 'su moderatör mü', 'grafitin görevi', 'suyun görevi'],
+      summary:
+        'Grafit moderatördür: nötronları yavaşlatır; soğutucu ya da basınç sınırı değildir. Hafif su soğutucudur: kanallarda yakıtın ısısını alır, kaynar ve buhar olarak türbine gider. Bloklar arasında dolaşan azot–helyum karışımı grafitin oksitlenmesini önler ve ısısını kanallara taşır (NEA).',
+      sourceIds: RB,
+      related: ['rbmk.graphite', 'rbmk.channels'],
+      targets: [
+        { type: 'highlightFlow', reactor: 'rbmk', ids: ['graphite', 'channels', ...rbCh], label: 'Grafit ve kanallardaki su' },
+        { type: 'openDetail', reactor: 'rbmk', detail: 'channel' },
+      ],
+    },
+    {
+      id: 'rbmk.topic.channels',
+      reactorId: 'rbmk',
+      kind: 'topic',
+      name: 'RBMK kanal yapısı',
+      aliases: ['rbmk kanalları', 'dikey kanallar'],
+      summary:
+        'RBMK’de kanallar dikeydir ve grafit yığınından geçer. Basınç sınırı kanal borusudur; içinde yakıt ve kaynayan hafif su bulunur. Su alttan girer, buhar–su karışımı üstten kendi borusuyla tambura gider.',
+      sourceIds: RB,
+      related: ['rbmk.channels'],
+      targets: [{ type: 'highlightFlow', reactor: 'rbmk', ids: ['channels', 'graphite', ...rbCh], label: 'Dikey kanallar' }],
+    },
+    {
+      id: 'candu.topic.channels',
+      reactorId: 'candu',
+      kind: 'topic',
+      name: 'CANDU kanal yapısı',
+      aliases: ['candu kanalları', 'yatay kanallar'],
+      summary:
+        'CANDU’da kanallar yataydır ve calandria’dan uçtan uca geçer. Her kanalda basınç tüpü (yakıt + basınçlı ağır su), gaz halkası ve calandria tüpü vardır; dışarıda düşük basınçlı ağır su moderatörü bulunur. Komşu kanallarda akış ters yöndedir.',
+      sourceIds: CA,
+      related: ['candu.channels'],
+      targets: [
+        { type: 'highlightFlow', reactor: 'candu', ids: ['channels', 'calandria', ...caCh], label: 'Yatay kanallar' },
+        { type: 'openDetail', reactor: 'candu', detail: 'channel' },
+      ],
+    },
+    {
+      id: 'candu.topic.two-d2o',
+      reactorId: 'candu',
+      kind: 'topic',
+      name: 'CANDU’da iki ayrı ağır su sistemi',
+      aliases: ['iki ağır su sistemi', 'moderatör ve soğutucu', 'ağır su sistemleri'],
+      summary:
+        'Kanallardaki birincil ağır su sıcak ve yüksek basınçlıdır; ısıyı buhar üreteçlerine taşır. Calandria’daki moderatör ağır suyu düşük basınçlı ve daha soğuktur; nötronları yavaşlatır ve kendi ısı değiştiricileriyle soğutulur. Aralarında basınç tüpü, gaz halkası ve calandria tüpü vardır; sistemler birbirinden bağımsızdır ve karışmaz. Bu düzen, büyük bir yüksek basınç kabı gerekmeden ağır su moderatörü kullanmayı sağlar (CANTEACH).',
+      sourceIds: CA,
+      related: ['candu.moderator', 'candu.channels', 'candu.modsys'],
+      targets: [
+        { type: 'highlightFlow', reactor: 'candu', ids: ['moderator', 'modsys', 'channels', 'f-mod-out', 'f-mod-hx', 'f-mod-in', ...caCh], label: 'İki ayrı ağır su sistemi' },
+        { type: 'openDetail', reactor: 'candu', detail: 'separation' },
+      ],
+    },
+    {
+      id: 'candu.topic.calandria',
+      reactorId: 'candu',
+      kind: 'topic',
+      name: 'Calandria neden basınç kabı değildir?',
+      aliases: ['calandria basınç kabı mı', 'calandria reaktör kabı mı', 'basınç kabı var mı'],
+      summary:
+        'Calandria, moderatörü tutan düşük basınçlı bir tanktır; moderatör kaynamayacak şekilde soğutulur ve tank aşırı basınca karşı patlama diskleriyle korunur. Yüksek basınçlı soğutucu calandria’da değil, her kanaldaki basınç tüpünün içindedir. Bu yüzden calandria PWR tipi bir yüksek basınç kabı değildir.',
+      sourceIds: ['canteach-constr', 'canteach-c6'],
+      related: ['candu.calandria', 'candu.channels'],
+      targets: [
+        { type: 'highlightFlow', reactor: 'candu', ids: ['calandria', 'channels', ...caCh], label: 'Calandria ve basınç tüpleri' },
+        { type: 'openDetail', reactor: 'candu', detail: 'channel' },
+      ],
+    },
+  ];
 }
