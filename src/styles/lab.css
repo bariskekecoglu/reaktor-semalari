@@ -5,26 +5,28 @@
 
 :root {
   /* Yüzey ve Zemin Renkleri */
-  --bg: #ecf1f4;
-  --paper: #ffffff;
-  --surface-subtle: #f5f8fa;
-  --surface-muted: #e5edf2;
-  --surface-accent: #e1f2f2;
-  --surface-accent-strong: #d0ebeb;
+  --bg: #f0ede7;
+  --paper: #fffdf9;
+  --surface-subtle: #f7f3ed;
+  --surface-muted: #eae4da;
+  --surface-accent: #f5e8dc;
+  --surface-accent-strong: #ecd3bd;
+  --navy: #17283d;
+  --copper: #9a512f;
 
   /* Tipografi ve Metin Kontrastı (normal metinde >= 4.5:1) */
-  --ink: #122636;
-  --ink-soft: #3d5263;
-  --ink-muted: #4f6577;
+  --ink: #1d2c3c;
+  --ink-soft: #525b64;
+  --ink-muted: #666a6d;
 
   /* Çizgi, Kenarlık ve Vurgu Renkleri */
-  --rule: #d2dee6;
-  --rule-strong: #b2c5d2;
-  --accent: #0f6268;
-  --accent-hover: #0b4f54;
-  --accent-text: #0b4b50;
-  --accent-border: #559ea1;
-  --focus: #0b5ed7;
+  --rule: #ded8ce;
+  --rule-strong: #bdb3a5;
+  --accent: #9a512f;
+  --accent-hover: #7c3e22;
+  --accent-text: #793c22;
+  --accent-border: #b57d5b;
+  --focus: #225da3;
 
   /* Boşluk, Köşe ve Gölge Değişkenleri */
   --space-1: 4px;
@@ -33,13 +35,13 @@
   --space-4: 16px;
   --space-5: 20px;
   --space-6: 24px;
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 14px;
-  --shadow-xs: 0 1px 2px rgba(18, 38, 54, 0.05);
-  --shadow-sm: 0 2px 10px rgba(18, 38, 54, 0.06);
-  --shadow-md: 0 6px 20px rgba(18, 38, 54, 0.09);
-  --shadow-lg: 0 14px 36px rgba(18, 38, 54, 0.16);
+  --radius-sm: 5px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --shadow-xs: 0 1px 2px rgba(33, 29, 24, 0.03);
+  --shadow-sm: 0 3px 12px rgba(33, 29, 24, 0.035);
+  --shadow-md: 0 8px 24px rgba(23, 40, 61, 0.08);
+  --shadow-lg: 0 18px 48px rgba(23, 40, 61, 0.18);
 }
 
 body {
@@ -50,7 +52,7 @@ body {
 
 .app {
   max-width: 1640px;
-  padding: 14px 24px 36px;
+  padding: 22px 28px 40px;
 }
 
 /* ---------- Ortak Kontroller ve Düğmeler ---------- */
@@ -93,9 +95,9 @@ button.on:hover:not(:disabled) {
 }
 
 button.primary {
-  background: var(--ink);
+  background: var(--navy);
   color: #ffffff;
-  border-color: var(--ink);
+  border-color: var(--navy);
   font-weight: 600;
 }
 
@@ -130,12 +132,27 @@ textarea:focus-visible {
 
 /* ---------- Üst Başlık ve Gezinme ---------- */
 .header {
-  background: var(--paper);
+  /* Yalnız başlık koyudur; şemalar bu renk kapsamının dışında kalır. */
+  --paper: #20334a;
+  --surface-subtle: #20334a;
+  --surface-muted: #132236;
+  --surface-accent: #2c3e53;
+  --ink: #faf5ed;
+  --ink-soft: #c7cdd4;
+  --rule: #3b4b5e;
+  --rule-strong: #647183;
+  --accent: #e0aa7f;
+  --accent-hover: #f0c5a3;
+  --accent-text: #f0c5a3;
+  --accent-border: #bc8c67;
+  --focus: #f0c5a3;
+  color: var(--ink);
+  background: var(--navy);
   border: 1px solid var(--rule);
   border-radius: var(--radius-lg);
-  padding: 14px 18px;
-  margin-bottom: 12px;
-  box-shadow: var(--shadow-xs);
+  padding: 24px 26px 18px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow-md);
 }
 
 .title-row {
@@ -144,7 +161,7 @@ textarea:focus-visible {
   align-items: center;
   gap: 14px 20px;
   flex-wrap: wrap;
-  padding-bottom: 12px;
+  padding-bottom: 20px;
   border-bottom: 1px solid var(--rule);
 }
 
@@ -179,8 +196,8 @@ textarea:focus-visible {
 
 .header h1 {
   font-family: var(--font-ui);
-  font-size: clamp(1.38rem, 2.1vw, 1.9rem);
-  font-weight: 750;
+  font-size: clamp(1.45rem, 2.5vw, 2.2rem);
+  font-weight: 650;
   letter-spacing: -0.035em;
   line-height: 1.15;
   margin: 0;
@@ -188,7 +205,7 @@ textarea:focus-visible {
 }
 
 .subtitle {
-  margin: 3px 0 0;
+  margin: 8px 0 0;
   font-size: 0.85rem;
   color: var(--ink-soft);
 }
@@ -198,12 +215,9 @@ textarea:focus-visible {
   flex-wrap: wrap;
   align-items: center;
   gap: 4px 7px;
-  font-size: 0.8rem;
+  font-size: 0.76rem;
   color: var(--ink-soft);
-  background: var(--surface-subtle);
-  border: 1px solid var(--rule);
-  border-radius: 999px;
-  padding: 2px 10px;
+  margin-top: 12px;
 }
 
 .author-name {
@@ -246,6 +260,36 @@ textarea:focus-visible {
   gap: 8px;
 }
 
+/* Koyu başlık üzerinde açık metin ve belirgin etkin durum. */
+.header .assistant-toggle,
+.header #safety-toggle {
+  color: #faf5ed;
+  background: #20334a;
+  border-color: #647183;
+  border-radius: var(--radius-sm);
+}
+
+.header .assistant-toggle:hover:not(:disabled),
+.header #safety-toggle:hover:not(:disabled) {
+  color: #faf5ed;
+  background: #2c3e53;
+  border-color: #e0aa7f;
+}
+
+.header .assistant-toggle[aria-expanded='true'],
+.header #safety-toggle[aria-expanded='true'] {
+  background: #e0aa7f;
+  border-color: #e0aa7f;
+  color: #17283d;
+}
+
+.header .content-seg button.on:hover:not(:disabled),
+.header .reactor-seg button.on:hover:not(:disabled) {
+  color: #17283d;
+  background: #f0e4d7;
+  border-color: #e0aa7f;
+}
+
 .seg {
   border-color: var(--rule-strong);
   border-radius: var(--radius-md);
@@ -271,13 +315,13 @@ textarea:focus-visible {
 
 .content-seg button:hover:not(:disabled) {
   color: var(--ink);
-  background: rgba(255, 255, 255, 0.55);
+  background: #2c3e53;
 }
 
 .content-seg button.on {
-  background: var(--paper);
-  color: var(--ink);
-  border-color: var(--rule);
+  background: #faf5ed;
+  color: var(--navy);
+  border-color: #faf5ed;
   box-shadow: var(--shadow-xs);
   font-weight: 700;
 }
@@ -365,10 +409,10 @@ textarea:focus-visible {
 }
 
 .reactor-seg button.on {
-  background: var(--surface-accent);
-  color: var(--accent-text);
+  background: #faf5ed;
+  color: var(--navy);
   border-color: var(--accent);
-  box-shadow: inset 0 3.5px 0 var(--accent), var(--shadow-xs);
+  box-shadow: inset 0 -3px 0 #bc8258;
 }
 
 .reactor-seg strong {
@@ -379,7 +423,7 @@ textarea:focus-visible {
 }
 
 .reactor-seg button.on strong {
-  color: var(--accent-text);
+  color: var(--navy);
 }
 
 .reactor-seg span {
@@ -390,16 +434,16 @@ textarea:focus-visible {
 }
 
 .reactor-seg button.on span {
-  color: var(--accent-text);
+  color: #4e5862;
   font-weight: 500;
 }
 
 .reactor-summary {
-  background: var(--surface-subtle);
-  border: 1px solid var(--rule);
-  border-left: 4px solid var(--accent);
-  border-radius: var(--radius-sm);
-  padding: 8px 12px;
+  background: transparent;
+  border: none;
+  border-left: 2px solid var(--accent);
+  border-radius: 0;
+  padding: 4px 14px;
 }
 
 .reactor-summary-head {
@@ -506,9 +550,9 @@ textarea:focus-visible {
   font-size: 0.82rem;
   font-weight: 600;
   color: var(--ink-soft);
-  background: var(--paper);
-  border: 1px solid var(--rule);
-  border-radius: 999px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
   padding: 4px 12px;
   max-width: 100%;
   overflow-wrap: anywhere;
@@ -622,9 +666,9 @@ textarea:focus-visible {
 }
 
 .scene-scroll {
-  background-color: #ffffff;
-  background-image: radial-gradient(#cbd9e2 0.7px, transparent 0.7px);
-  background-size: 16px 16px;
+  background-color: #fffdf9;
+  background-image: radial-gradient(#d9d2c7 0.65px, transparent 0.65px);
+  background-size: 24px 24px;
 }
 
 .scene-notes {
@@ -679,14 +723,18 @@ textarea:focus-visible {
 }
 
 .side-panel .info-card.is-active {
-  background: #f2f9f9;
+  background: var(--surface-accent);
   border-color: var(--accent-border);
   border-left: 4px solid var(--accent);
   box-shadow: var(--shadow-xs);
 }
 
 .side-panel .info-card.is-empty {
-  border-style: dashed;
+  background: transparent;
+  border-color: transparent;
+  border-bottom-color: var(--rule);
+  border-radius: 0;
+  padding-inline: 0;
 }
 
 .side-panel p {
@@ -713,8 +761,8 @@ textarea:focus-visible {
   margin: 12px 0 6px;
   font-size: 0.76rem;
   font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  text-transform: none;
   color: var(--ink-soft);
 }
 
@@ -768,7 +816,7 @@ ul.chips button {
   border-color: var(--rule);
   font-size: 0.82rem;
   padding: 5px 10px;
-  border-radius: 999px;
+  border-radius: var(--radius-sm);
 }
 
 ul.chips button:hover:not(:disabled) {
@@ -787,7 +835,7 @@ ul.chips button[aria-pressed='true'] {
 .controls {
   margin-top: 14px;
   padding: 14px 18px;
-  border-top: 3px solid var(--accent);
+  border-top: 2px solid var(--accent);
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -851,9 +899,10 @@ ul.chips button[aria-pressed='true'] {
 .readouts div {
   min-width: 76px;
   background: var(--surface-subtle);
-  border: 1px solid var(--rule);
-  border-radius: var(--radius-sm);
-  padding: 4px 9px;
+  border: none;
+  border-left: 1px solid var(--rule);
+  border-radius: 0;
+  padding: 6px 12px;
 }
 
 .readouts dt {
@@ -870,6 +919,7 @@ ul.chips button[aria-pressed='true'] {
   font-weight: 700;
   color: var(--ink);
   white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 
 .ctrl-note {
@@ -989,7 +1039,7 @@ table.compare-table {
 }
 
 .compare-table tbody tr:hover td {
-  background: #f8fbfd;
+  background: var(--surface-subtle);
 }
 
 /* ---------- Yakın Plan Penceresi (Modal) ---------- */
@@ -1157,7 +1207,7 @@ table.compare-table {
 
 :root[data-layout='narrow'] .author {
   font-size: 0.73rem;
-  padding: 1px 8px;
+  margin-top: 8px;
 }
 
 :root[data-layout='narrow'] .header-controls {

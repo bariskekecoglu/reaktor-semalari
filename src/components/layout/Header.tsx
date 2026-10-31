@@ -35,18 +35,18 @@ export function Header({ reactor, config, view, onReactor, onView, assistantOpen
         <div className="brand">
           <div className="brand-top">
             <p className="brand-kicker"><span aria-hidden="true">◈</span> ETKİLEŞİMLİ ÖĞRENME LABORATUVARI</p>
-            <div className="author">
-              <span className="author-name">Barış Kekeçoğlu</span>
-              <span className="author-sep" aria-hidden="true">·</span>
-              <span className="author-field">Nükleer Mühendislik</span>
-              <span className="author-sep" aria-hidden="true">·</span>
-              <a className="author-link" href="https://www.linkedin.com/in/bariskekecoglu" target="_blank" rel="noopener noreferrer">
-                linkedin.com/in/bariskekecoglu
-              </a>
-            </div>
           </div>
           <h1>Nükleer Santral Şemaları</h1>
           <p className="subtitle">PWR · BWR · VVER · RBMK · CANDU — normal çalışma prensipleri, temsili ve ölçeksiz</p>
+          <div className="author">
+            <span className="author-name">Barış Kekeçoğlu</span>
+            <span className="author-sep" aria-hidden="true">·</span>
+            <span className="author-field">Nükleer Mühendislik</span>
+            <span className="author-sep" aria-hidden="true">·</span>
+            <a className="author-link" href="https://www.linkedin.com/in/bariskekecoglu" target="_blank" rel="noopener noreferrer">
+              LinkedIn ↗
+            </a>
+          </div>
         </div>
         <div className="header-controls">
           <div className="header-nav-row">

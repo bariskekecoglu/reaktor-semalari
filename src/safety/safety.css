@@ -1,4 +1,4 @@
-.safety-panel { margin: 16px 0; padding: clamp(16px, 3vw, 28px); background: var(--paper); border: 1px solid var(--accent-border); border-radius: 16px; color: var(--ink); }
+.safety-panel { margin: 16px 0; padding: clamp(16px, 3vw, 28px); background: var(--paper); border: 1px solid var(--rule); border-top: 3px solid var(--accent); border-radius: var(--radius-lg); color: var(--ink); }
 .safety-heading { display: flex; justify-content: space-between; align-items: start; gap: 16px; }
 .safety-heading h2 { margin: 4px 0; font-size: clamp(1.15rem, 2vw, 1.5rem); }
 .safety-heading button { flex-shrink: 0; }

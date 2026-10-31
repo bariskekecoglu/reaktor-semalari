@@ -85,6 +85,22 @@
   font-size: 0.78rem;
   color: var(--ink-soft);
 }
+
+.assistant-head {
+  background: var(--navy);
+  padding: 14px;
+  border-radius: var(--radius-md);
+  border-bottom: 2px solid var(--accent-border);
+}
+.assistant-head h2 { color: #faf5ed; }
+.assistant-head .assistant-mode { color: #c7cdd4; }
+.assistant-head .assistant-close {
+  color: #faf5ed;
+  background: #20334a;
+  border-color: #647183;
+}
+.assistant-head .assistant-close:hover:not(:disabled) { background: #2c3e53; border-color: #e0aa7f; }
+.assistant-head .assistant-close:focus-visible { outline-color: #f0c5a3; }
 .assistant-close {
   min-width: 36px;
   min-height: 36px;
