@@ -34,6 +34,13 @@ export function Header({ reactor, config, view, onReactor, onView, assistantOpen
           <p className="brand-kicker"><span aria-hidden="true">◈</span> ETKİLEŞİMLİ ÖĞRENME LABORATUVARI</p>
           <h1>Nükleer Santral Şemaları</h1>
           <p className="subtitle">PWR · BWR · VVER · RBMK · CANDU — normal çalışma prensipleri, temsili ve ölçeksiz</p>
+          <div className="author">
+            <p className="author-name">Barış Kekeçoğlu</p>
+            <p className="author-field">Nükleer Mühendislik</p>
+            <a className="author-link" href="https://www.linkedin.com/in/bariskekecoglu" target="_blank" rel="noopener noreferrer">
+              www.linkedin.com/in/bariskekecoglu
+            </a>
+          </div>
         </div>
         <div className="header-controls">
           <nav className="seg content-seg" aria-label="İçerik">

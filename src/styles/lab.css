@@ -20,6 +20,12 @@ button:focus-visible, select:focus-visible { outline-offset: 3px; }
 .brand-kicker span { font-size: 1.15rem; vertical-align: middle; margin-right: 6px; }
 .header h1 { font-family: var(--font-ui); font-size: clamp(1.5rem, 2.5vw, 2.25rem); font-weight: 750; letter-spacing: -.045em; line-height: 1.18; }
 .subtitle { margin-top: 5px; font-size: .84rem; }
+.author { margin-top: 10px; display: flex; flex-direction: column; gap: 2px; }
+.author p { margin: 0; }
+.author-name { font-size: .95rem; font-weight: 700; color: var(--ink); }
+.author-field { font-size: .82rem; color: var(--ink-soft); }
+.author-link { align-self: flex-start; font-size: .82rem; color: var(--accent); overflow-wrap: anywhere; }
+.author-link:hover, .author-link:focus-visible { text-decoration: underline; }
 .header-controls { flex-direction: column; align-items: flex-end; gap: 6px; }
 .seg { border-color: var(--rule); border-radius: 10px; }
 .content-seg { padding: 4px; gap: 4px; background: #e1e9ed; border: 0; }
