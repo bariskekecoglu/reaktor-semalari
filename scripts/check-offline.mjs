@@ -49,6 +49,12 @@ for (const file of [...cached, 'a-deep-link']) {
   handlers.get('fetch')({ request: { url: scope + file, method: 'GET', mode: file === 'a-deep-link' ? 'navigate' : 'cors' }, respondWith(promise) { response = promise; } });
   assert.ok((await response)?.ok, `Offline response missing: ${file}`);
 }
+// The intro video page and its media stay network pages; the app shell must not replace them.
+for (const [file, mode] of [['tanitim/', 'navigate'], ['tanitim/index.html', 'navigate'], ['tanitim/tanitim.mp4', 'no-cors']]) {
+  handlers.get('fetch')({ request: { url: scope + file, method: 'GET', mode }, respondWith() { assert.fail(`Standalone page was intercepted: ${file}`); } });
+}
+assert.ok(!cached.some(file => file.startsWith('tanitim/')), 'Intro video must not be precached');
+assert.ok(existsSync(new URL('../dist/tanitim/index.html', import.meta.url)) && existsSync(new URL('../dist/tanitim/tanitim.mp4', import.meta.url)), 'Intro video page missing from build');
 for (const url of ['https://external.invalid/source.pdf', 'https://example.invalid/api/private']) {
   handlers.get('fetch')({ request: { url, method: 'GET', mode: 'cors' }, respondWith() { assert.fail('Unrelated request was intercepted'); } });
 }

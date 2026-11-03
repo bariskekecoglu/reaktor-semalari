@@ -1,0 +1,5 @@
+node_modules/
+# Büyük medya çıktıları git dışında (yeniden üretim: RENDER.md). Web sürümü: public/tanitim/
+final/
+audio/
+samples/

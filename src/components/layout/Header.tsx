@@ -48,6 +48,8 @@ export function Header({ reactor, config, view, onReactor, onView, assistantOpen
             <span className="author-field">{t("Nükleer Mühendislik")}</span>
             <span className="author-sep" aria-hidden="true">·</span>
             <a className="author-link" href="https://www.linkedin.com/in/bariskekecoglu" target="_blank" rel="noopener noreferrer">{t("LinkedIn ↗")}</a>
+            <span className="author-sep" aria-hidden="true">·</span>
+            <a className="author-link" href="./tanitim/">{t("▶ Tanıtım videosu")}</a>
           </div>
         </div>
         <div className="header-controls">

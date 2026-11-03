@@ -1612,3 +1612,44 @@ table.compare-table {
   stroke-width: 1.6;
   pointer-events: none;
 }
+
+/* ---------- Tanıtım videosu kartı (sayfa altı) ---------- */
+.intro-video {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 14px 18px;
+  flex-wrap: wrap;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+.intro-video-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  color: var(--ink);
+  text-decoration: none;
+  flex: 1 1 260px;
+}
+.intro-video-link strong { display: block; font-size: 0.95rem; }
+.intro-video-link:hover strong,
+.intro-video-link:focus-visible strong { text-decoration: underline; }
+.intro-video-play {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #9a512f;
+  color: #fff;
+  font-size: 0.9rem;
+  flex: 0 0 auto;
+}
+.intro-video-meta { display: block; font-size: 0.8rem; color: var(--ink-soft); }
+.intro-video-qr { width: 88px; height: 88px; image-rendering: pixelated; background: #fff; border-radius: 4px; }
+.intro-video-hint { margin: 0; max-width: 150px; font-size: 0.78rem; line-height: 1.35; color: var(--ink-soft); }
+:root[data-layout='narrow'] .intro-video-qr,
+:root[data-layout='narrow'] .intro-video-hint { display: none; }

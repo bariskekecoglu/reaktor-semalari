@@ -1,0 +1,7 @@
+# Yalnız seslendirme girdisi için okunuş (yazılış<TAB>okunuş). Ekran metni ve altyazıda doğru yazım korunur.
+# PWR, BWR, RBMK ve calandria yazıldığı gibi okutuldu (deneme okumasında konuşma tanıma doğru çözdü).
+VVER	Ve Ve E Er
+CANDU	Kandu
+SVG	es ve ge
+PNG	pe en ge
+1986	bin dokuz yüz seksen altı

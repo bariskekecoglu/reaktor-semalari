@@ -53,6 +53,7 @@ import { SceneViewport } from '../components/layout/SceneViewport';
 import { SidePanel } from '../components/layout/SidePanel';
 import { Legend } from '../components/layout/Legend';
 import { SourcesSection } from '../components/layout/SourcesSection';
+import { IntroVideoCard } from '../components/layout/IntroVideoCard';
 import { ControlBar } from '../components/controls/ControlBar';
 import { EnergyFlow } from '../components/charts/EnergyFlow';
 import { TimeChart } from '../components/charts/TimeChart';
@@ -561,6 +562,7 @@ export function App() {
         )}
 
         <SourcesSection />
+        <IntroVideoCard />
         <div id="assistant-panel">
           <AssistantPanel
             open={assistantOpen}

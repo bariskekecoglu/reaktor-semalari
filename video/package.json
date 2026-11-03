@@ -1,0 +1,9 @@
+{
+  "name": "reaktor-semalari-video",
+  "private": true,
+  "type": "module",
+  "description": "Tanıtım videosu üretim araçları (uygulamadan ayrı).",
+  "devDependencies": {
+    "playwright": "1.48.2"
+  }
+}

@@ -35,6 +35,12 @@ Hızlı elle kontrol: üretim önizlemesinde BWR dersinde bir tahmin yapın, EN 
 
 Otomatik doğrulama: 824 birim testi ve üretilmiş service worker üzerinde çevrimdışı kontrol testi geçti. Bu geliştirme oturumunda tarayıcı bağlantı/URL doğrulama kısıtı nedeniyle gerçek PWA kurulumu ve SVG/PNG çıktılarının görsel doğrulaması tamamlanamadı.
 
+## Tanıtım videosu
+
+Sitenin `tanitim/` sayfası (`public/tanitim/`) 5 dk 54 sn'lik Türkçe tanıtım videosunu oynatır: başlıktaki **▶ Tanıtım videosu** bağlantısı ve sayfa altındaki kart (masaüstünde karekodla) bu sayfayı açar. Karekod `https://bariskekecoglu.github.io/reaktor-semalari/tanitim/` adresine gider; baskı için `public/tanitim/qr.png`. Video web için ~43 MB'a sıkıştırılmıştır, Türkçe altyazı oynatıcıdan açılır (`tanitim.tr.vtt`). Seslendirme VoxCPM2 ile üretilmiş sentetik sestir; sayfada belirtilir.
+
+Video uygulama önbelleğine alınmaz (çevrimdışı paket büyümez) ve service worker `tanitim/` gezintisini uygulama kabuğuyla değiştirmez (`scripts/pwa.ts`, `STANDALONE_PAGES`; `npm run test:offline` kontrol eder). Videonun üretim kaynakları, anlatım metni, storyboard, kaynaklar ve kalite raporu `video/` klasöründedir (`video/RENDER.md`); ham ses/video çıktıları git dışında tutulur.
+
 ## Asistan, tahmin dersi ve öğrenme ilerlemesi
 
 Ayrıntılı durum ve doğrulama kayıtları: [`docs/IMPLEMENTATION_STATUS.md`](docs/IMPLEMENTATION_STATUS.md).

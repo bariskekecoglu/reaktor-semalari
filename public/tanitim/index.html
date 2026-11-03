@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tanıtım videosu — Nükleer Santral Şemaları</title>
+  <meta name="description" content="PWR, BWR, VVER, RBMK ve CANDU reaktörlerini hareketli şemalarla anlatan eğitim uygulamasının Türkçe tanıtım videosu (5:54)." />
+  <meta name="theme-color" content="#17283d" />
+  <link rel="icon" href="../icon-192.png" />
+  <style>
+    :root {
+      --navy: #17283d; --navy-2: #20334a; --copper: #9a512f; --copper-l: #e0aa7f;
+      --cream: #faf5ed; --bg: #f6f3ec; --ink: #26262a; --ink-soft: #55555c; --rule: #d9d4c7;
+      --font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); }
+    body { min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 24px 16px 40px; }
+    .wrap { width: 100%; max-width: 1120px; }
+    header { background: var(--navy); color: var(--cream); border-radius: 14px; padding: 18px 22px 20px; }
+    .kicker { margin: 0; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; color: var(--copper-l); text-transform: uppercase; }
+    h1 { margin: 6px 0 4px; font-size: clamp(1.4rem, 3.4vw, 2rem); line-height: 1.15; }
+    header p { margin: 0; font-size: 0.92rem; color: #e9e2d4; }
+    .player { margin-top: 16px; background: #000; border-radius: 12px; overflow: hidden; aspect-ratio: 16 / 9; }
+    video { display: block; width: 100%; height: 100%; background: #000; }
+    .below { display: flex; flex-wrap: wrap; gap: 16px 24px; align-items: flex-start; justify-content: space-between; margin-top: 14px; }
+    .meta { flex: 1 1 420px; font-size: 0.9rem; line-height: 1.5; color: var(--ink-soft); }
+    .meta p { margin: 0 0 8px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+    .btn { display: inline-flex; align-items: center; min-height: 44px; padding: 10px 16px; border-radius: 8px; font-weight: 600; font-size: 0.92rem; text-decoration: none; }
+    .btn.primary { background: var(--copper); color: #fff; }
+    .btn.ghost { border: 1px solid var(--rule); color: var(--navy); background: #fffdf9; }
+    .btn:focus-visible { outline: 3px solid var(--copper-l); outline-offset: 2px; }
+    .qr { flex: 0 0 auto; display: flex; gap: 12px; align-items: center; background: #fffdf9; border: 1px solid var(--rule); border-radius: 12px; padding: 12px 14px; }
+    .qr img { width: 112px; height: 112px; display: block; image-rendering: pixelated; }
+    .qr p { margin: 0; max-width: 170px; font-size: 0.82rem; line-height: 1.4; color: var(--ink-soft); }
+    .qr strong { display: block; color: var(--ink); font-size: 0.9rem; margin-bottom: 2px; }
+    .note { margin-top: 14px; font-size: 0.78rem; color: var(--ink-soft); }
+    @media (max-width: 720px) { .qr { display: none; } body { padding-top: 16px; } }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <p class="kicker">◈ Etkileşimli öğrenme laboratuvarı</p>
+      <h1>Nükleer Santral Şemaları — tanıtım videosu</h1>
+      <p>PWR · BWR · VVER · RBMK · CANDU · 5 dk 54 sn · Türkçe</p>
+    </header>
+
+    <div class="player">
+      <video controls playsinline preload="metadata" poster="poster.jpg">
+        <source src="tanitim.mp4" type="video/mp4" />
+        <track kind="subtitles" src="tanitim.tr.vtt" srclang="tr" label="Türkçe" />
+        Tarayıcınız video oynatmayı desteklemiyor. <a href="tanitim.mp4">Videoyu indirin</a>.
+      </video>
+    </div>
+
+    <div class="below">
+      <div class="meta">
+        <p>Isının elektriğe giden yolu beş farklı reaktörde nasıl değişir? Video; hareketli şemaları, ekipman seçimini, karşılaştırmayı, tahmin derslerini ve kaynaklı yerel rehberi uygulamanın kendisinden gösterir.</p>
+        <p>Altyazıyı oynatıcının altyazı (CC) düğmesinden açabilirsiniz.</p>
+        <div class="actions">
+          <a class="btn primary" href="../">Uygulamayı aç</a>
+          <a class="btn ghost" href="tanitim.mp4" download>Videoyu indir (43 MB)</a>
+        </div>
+      </div>
+      <div class="qr">
+        <img src="qr.svg" alt="Bu sayfanın karekodu" width="112" height="112" />
+        <p><strong>Telefonda izle</strong>Kamerayla karekodu okutun; bu sayfa telefonunuzda açılır.</p>
+      </div>
+    </div>
+
+    <p class="note">Türkçe seslendirme yapay zekâ ile üretilmiştir. Şemalar temsilidir ve ölçeksizdir.</p>
+  </main>
+</body>
+</html>

@@ -1,0 +1,326 @@
+{
+  "_not": "Tek doğru kaynak: anlatım metni. 'text' ekranda/altyazıda görünen doğru yazımdır. TTS girdisi tools/build_tts.py ile tools/phonetic.tsv uygulanarak üretilir. 'pause' cümleden sonraki VoxCPM2 durağıdır (bagli 0,25 sn · normal 0,5 sn · paragraf 1 sn).",
+  "voice": "hazir/belgesel_hanim",
+  "scenes": [
+    {
+      "id": "s01",
+      "title": "Açılış",
+      "lines": [
+        [
+          "Nükleer santralde ısı elektriğe nasıl dönüşür?",
+          "normal"
+        ],
+        [
+          "Farklı reaktörler neden bu kadar farklı görünür?",
+          "paragraf"
+        ],
+        [
+          "Çekirdekte açığa çıkan ısı suyu ısıtır, buhar türbini döndürür, jeneratör elektrik üretir.",
+          "normal"
+        ],
+        [
+          "Ama ısının türbine ulaştığı yol, her tasarımda başka bir biçim alır.",
+          "normal"
+        ],
+        [
+          "Bu videoda beş reaktör tasarımını, bu soruları yanıtlayan etkileşimli bir uygulama üzerinden izleyeceğiz.",
+          "normal"
+        ]
+      ]
+    },
+    {
+      "id": "s02",
+      "title": "Projenin amacı",
+      "lines": [
+        [
+          "Statik bir şemada devreleri ve ekipmanlar arasındaki ilişkiyi izlemek zordur.",
+          "normal"
+        ],
+        [
+          "Nükleer Santral Şemaları, bu ilişkileri hareketli akışlarla görünür hale getiren bir eğitim uygulamasıdır.",
+          "normal"
+        ],
+        [
+          "Her reaktörün kendi kesiti, kendi boru bağlantıları ve kendi akış yolları vardır.",
+          "normal"
+        ],
+        [
+          "Sıcak su, soğuk su, buhar ve besleme suyu ayrı renk ve çizgilerle akar.",
+          "normal"
+        ],
+        [
+          "Şemalar temsilidir ve ölçeksizdir; amaç çalışma ilkesini anlaşılır kılmaktır.",
+          "normal"
+        ]
+      ]
+    },
+    {
+      "id": "s03",
+      "title": "PWR",
+      "lines": [
+        [
+          "İlk durak, basınçlı su reaktörü PWR.",
+          "normal"
+        ],
+        [
+          "Birincil devredeki su yüksek basınç altında tutulur; çekirdekte toplu kaynama olmaz.",
+          "normal"
+        ],
+        [
+          "Sıcak su buhar üretecine gider ve ısısını U borularının duvarından ikincil devreye aktarır.",
+          "normal"
+        ],
+        [
+          "Basınçlandırıcı, birincil devrenin basıncını denetler.",
+          "normal"
+        ],
+        [
+          "Türbine yalnızca ikincil devrede oluşan buhar gider.",
+          "normal"
+        ]
+      ]
+    },
+    {
+      "id": "s04",
+      "title": "BWR",
+      "lines": [
+        [
+          "Kaynar su reaktörü BWR tasarımında ayrı bir buhar üreteci yoktur.",
+          "normal"
+        ],
+        [
+          "Su, doğrudan çekirdekte kaynar.",
+          "normal"
+        ],
+        [
+          "Buhar, kabın üst bölümündeki ayırıcılar ve kurutucular üzerinden doğrudan türbine gider.",
+          "normal"
+        ],
+        [
+          "Kontrol çubukları da bu tasarımda alttan girer.",
+          "normal"
+        ]
+      ]
+    },
+    {
+      "id": "s05",
+      "title": "VVER",
+      "lines": [
+        [
+          "VVER, basınçlı su reaktörü ailesindendir; ama yerleşimi farklıdır.",
+          "normal"
+        ],
+        [
+          "Buhar üreteci dikey değil, yataydır.",
+          "normal"
+        ],
+        [
+          "Sıcak su sıcak kolektöre girer, yatay boru demetinden geçer ve soğuk kolektörde toplanır.",
+          "normal"
+        ],
+        [
+          "Sıcak ve soğuk kollar da farklı kotlarda bağlanır.",
+          "normal"
+        ],
+        [
+          "Yakıt demetleri de altıgen kesitlidir.",
+          "normal"
+        ]
+      ]
+    },
+    {
+      "id": "s06",
+      "title": "RBMK",
+      "lines": [
+        [
+          "RBMK tasarımında nötronları yavaşlatan madde, büyük bir grafit yığınıdır.",
+          "normal"
+        ],
+        [
+          "Soğutucu su, grafitin içinden geçen dikey basınç kanallarında yukarı akarken kaynar.",
+          "normal"
+        ],
+        [
+          "Buhar ve su karışımı ayırıcı tambura gider; ayrılan buhar türbine yönelir.",
+          "normal"
+        ],
+        [
+          "Çekirdeği saran tek bir basınç kabı yoktur.",
+          "normal"
+        ]
+      ]
+    },
+    {
+      "id": "s07",
+      "title": "CANDU",
+      "lines": [
+        [
+          "CANDU tasarımında yakıt, yatay bir calandria tankından geçen basınç tüplerinin içindedir.",
+          "normal"
+        ],
+        [
+          "Tüplerdeki basınçlı ağır su, ısıyı buhar üreteçlerine taşır.",
+          "normal"
+        ],
+        [
+          "Calandria içindeki ağır su moderatör ise düşük basınçlı, ayrı bir sistemdir.",
+          "normal"
+        ],
+        [
+          "Türbine giden buhar, buhar üretecinin ikincil tarafındaki hafif sudan oluşur.",
+          "normal"
+        ],
+        [
+          "Yakıt, reaktör çalışırken değiştirilebilir.",
+          "normal"
+        ]
+      ]
+    },
+    {
+      "id": "s08",
+      "title": "Etkileşimli keşif",
+      "lines": [
+        [
+          "Şimdi tek bir soruyu izleyelim: Buhar nerede oluşuyor?",
+          "normal"
+        ],
+        [
+          "Bu odak, kaynar su reaktöründe kaynamanın başladığı çekirdeği ve buharın yolunu vurgular.",
+          "normal"
+        ],
+        [
+          "Bir ekipmana tıklayınca görevi ve bağlantılı hatları yan panelde açılır.",
+          "normal"
+        ],
+        [
+          "Yakın plan, ayırıcı ve kurutucuların içini ayrıntılı gösterir.",
+          "normal"
+        ],
+        [
+          "Animasyonu durdurup bir anı inceleyebilir, hızı yarıya indirebilir ya da iki katına çıkarabilirsiniz.",
+          "normal"
+        ],
+        [
+          "Karşılaştırma görünümü ise aynı soruyu beş reaktörde yan yana yanıtlar.",
+          "normal"
+        ],
+        [
+          "Buharın kabın içinde mi, basınç kanallarında mı, yoksa ayrı bir buhar üretecinde mi oluştuğu tek bakışta görülür.",
+          "normal"
+        ]
+      ]
+    },
+    {
+      "id": "s09",
+      "title": "Tahmin ederek öğrenme",
+      "lines": [
+        [
+          "Uygulama yalnızca göstermez; önce tahmin etmenizi ister.",
+          "bagli"
+        ],
+        [
+          "Tahmin et, dene, açıkla.",
+          "normal"
+        ],
+        [
+          "Basınçlı su reaktörü dersinin sorusu şu: Reaktör kapatıldıktan sonra ksenon ne yapar?",
+          "normal"
+        ],
+        [
+          "Tahmin seçilmeden deney adımı açılmaz.",
+          "normal"
+        ],
+        [
+          "Deneyde fisyon gücü yüzde yüzden sıfıra iner; ksenonun önce arttığı, saatler sonra azaldığı izlenir.",
+          "normal"
+        ],
+        [
+          "Ardından ders notlarındaki şekle dayanan, kaynaklı açıklama gelir.",
+          "normal"
+        ],
+        [
+          "Kaynar su reaktörü dersinde ise devridaim debisi artırılır; boşluklar azalır, moderasyon artar ve güç yükselir.",
+          "normal"
+        ],
+        [
+          "Bu canlandırmalar sayısal tahmin değil, neden ve sonucu gösteren temsili modellerdir.",
+          "normal"
+        ]
+      ]
+    },
+    {
+      "id": "s10",
+      "title": "İleri inceleme",
+      "lines": [
+        [
+          "Basınçlı su reaktörü için ayrıca bir işletme ve davranış modülü vardır.",
+          "normal"
+        ],
+        [
+          "İşletme modları, bor, yük takibi, ksenon ve eksenel güç dağılımı ayrı bölümlerde incelenir.",
+          "normal"
+        ],
+        [
+          "Grafikteki olaylar; kaynakta tanımlı, şekilden okunan ve modelden hesaplanan diye ayrı işaretlenir.",
+          "normal"
+        ],
+        [
+          "RBMK bölümündeki Çernobil 1986 analizi ise tarihsel zaman çizelgesini beş aşamada izler.",
+          "normal"
+        ],
+        [
+          "Saatler ve güç noktaları kaynaklara bağlıdır; bilinmeyen değerler bilinmiyor olarak gösterilir.",
+          "normal"
+        ],
+        [
+          "Bu canlandırma kesin bir fiziksel yeniden kurulum değil, kaynaklı bir öğretim anlatımıdır.",
+          "normal"
+        ]
+      ]
+    },
+    {
+      "id": "s11",
+      "title": "Yerel rehber ve kullanım",
+      "lines": [
+        [
+          "Takıldığınızda yerel rehbere soru sorabilirsiniz.",
+          "normal"
+        ],
+        [
+          "Rehber, hazırlanmış kaynaklı cevapları tarayıcıda eşleştirir; üretken yapay zekâ değildir.",
+          "normal"
+        ],
+        [
+          "Cevap, ilgili ekipmanı ya da dersi şemada açabilir.",
+          "normal"
+        ],
+        [
+          "Kapsam dışındaki sorularda cevap uydurulmaz; rehber bunu açıkça söyler.",
+          "normal"
+        ],
+        [
+          "Öğrenme ilerlemesi bu cihazda saklanır; kaldığınız yerden devam edebilirsiniz.",
+          "normal"
+        ],
+        [
+          "Şemayı SVG ya da PNG olarak indirebilirsiniz; uygulama bir kez açıldıktan sonra çevrimdışı da çalışır.",
+          "normal"
+        ]
+      ]
+    },
+    {
+      "id": "s12",
+      "title": "Kapanış",
+      "lines": [
+        [
+          "Beş reaktör, beş ayrı tasarım.",
+          "normal"
+        ],
+        [
+          "Akışı izleyin, parçaları keşfedin, tahmin edin ve karşılaştırın.",
+          "normal"
+        ]
+      ]
+    }
+  ]
+}
